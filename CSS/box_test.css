@@ -1,0 +1,75 @@
+/* 清除默认内外边距 */
+*{
+    margin: 0;
+    padding: 0;
+}
+/* 版心居中 */
+div{
+    width: 1000px;
+    height: 300px;
+    background-color: pink;
+    margin:0 auto;
+
+}
+/* 内减模式 */
+.iner_minus{
+    box-sizing: border-box;
+}
+/* 导航盒子 */
+div.navi{
+    /* height: 40px; */
+    height:auto;
+    padding: 0;
+    border-top: 3px solid #85ff00;
+    border-bottom: 1px solid #edeef0;
+    /* background-color: pink; */
+}
+/* 超链接按钮 */
+a.botton{
+    /* width: 80px; */
+    height: 40px;
+    padding: 0 16px;
+    display: inline-block;
+    text-align: center;/*水平居中*/
+    line-height: 40px;/*竖直居中line-height=height*/
+    font-size: 12px;
+    color: #4c4c4c;
+    background-color: skyblue;
+    text-decoration: none;
+}
+/* 超链接按钮 鼠标悬停 */
+a.botton:hover{
+    background-color: #edeef0;
+    color: #ff8500;
+}
+/* 新闻盒子 */
+div.news{
+    width: 500px;
+    height: auto;
+    border: 1px solid #ccc;
+    margin: 50px auto;
+    padding: 42px 30px 10px;
+    background-color: #fff;
+}
+/* 新闻框的标题 */
+.news h2{
+    border-bottom: 1px solid #000;
+    font-size: 30px;
+    line-height: 1;
+    padding-bottom: 10px;
+}
+/* 去除ul小点点 */
+.news ul{
+    list-style:none;
+}
+.news li{
+    height: 50px;
+    border-bottom: 1px solid #000;
+    padding-left: 28px;
+    line-height: 50px;
+}
+.news a{
+    text-decoration: none;
+    color: #666;
+    font-size: 18px;
+}
