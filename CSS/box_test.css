@@ -11,7 +11,7 @@ div{
     background-color: #e0e0e0;
 }
 /* 内减模式 */
-.iner_minus{
+.inner_minus{
     box-sizing: border-box;
 }
 /* 清除元素（法1额外标签） */

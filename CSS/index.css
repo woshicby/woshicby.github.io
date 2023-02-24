@@ -1,0 +1,120 @@
+/* 清除默认内外边距 */
+*{
+    margin: 0;
+    padding: 0;
+}
+/* 内减模式 */
+.inner_minus{
+    box-sizing: border-box;
+}
+/* 清除浮动（法3双伪元素） */
+    /* 1.解决外边距塌陷问题 */
+    .clearfix::before,
+    .clearfix::after{
+        content: "";
+        display: table;
+    }
+        /* 2.清除浮动 */
+    .clearfix::after{
+        clear: both;
+    }
+/* 清除ul小点 */
+ul{
+    list-style:none;
+
+}
+/* body背景图 */
+body{
+        background:url(../images/body_backgrond.jpg) no-repeat scroll 50% 0;
+        background-size:cover;
+}
+/* 版心居中 */
+.wrapper{
+    margin: 0 auto;
+}
+
+
+
+/* 头部 */
+div.header{
+    margin: 10px auto;
+    width: 1200px;
+    height: 100px;
+}
+h1{
+    margin-right: 50px;
+    float: left;
+    font-size: 70px;
+    line-height: 100px;
+}
+div.nav{
+    float: left;
+}
+.nav li{
+    float:left;
+    height: 100px;
+    line-height:100px;
+    margin-right:10px;    
+}
+.nav li a{
+    display: inline-block;
+    padding: 0 10px;
+    border-radius: 4px;/*圆角4px*/
+    background-color: rgba(255,255,255,0.7);/* 白色半透明背景 */
+    -webkit-transition-duration: 0.5s; /* hover变化时间(Safari) */
+    transition-duration: 0.5s; /* hover变化时间 */
+    height: 48px;
+    line-height:48px;    
+    border-bottom:2px solid #00a4ff;
+}
+.nav li a:hover{
+    background: rgba(167,170,215,0.3);/* 浅紫色半透明背景 */
+}
+
+
+
+/* 主盒子 */
+div.mainbox{
+    width: 1200px;
+    background-color: rgba(255,255,255,0.7);/* 白色半透明背景 */
+    box-shadow: 0px 0px 20px rgba(35,35,35,0.9);
+}
+/* 装按钮的盒子 */
+div.botton_box{
+    float: left;
+    margin:10px;
+    border-radius: 8px;/*圆角8px*/
+    background: rgba(167,170,215,0.3);/* 浅紫色半透明背景 */
+    box-shadow: 3px 3px 3px rgba(100,100,100,0.7);
+}
+/* 清除超链接下划线 */
+a{
+    text-decoration: none;
+}
+/* 超链接按钮设置 */
+a.botton{
+    float:left;
+    margin: 5px;
+    /* border: 1px solid #000; */
+    padding: 0 16px;
+    border-radius: 4px;/*圆角4px*/
+    -webkit-transition-duration: 0.5s; /* hover变化时间(Safari) */
+    transition-duration: 0.5s; /* hover变化时间 */
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 2px 2px 2px rgba(50,50,50,0.5);
+    color:black;
+    text-align: center;/*水平居中*/
+    line-height: 1.5;
+    font-size: 18px;
+}
+a.botton:hover{
+    background-color: rgba(165, 100, 190, 0.3);
+    color: white;
+}
+/* foot盒子 */
+div.foot{
+    width: 1200px;
+}
+.foot span{
+    display: block;
+}
