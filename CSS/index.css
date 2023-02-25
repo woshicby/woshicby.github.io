@@ -23,10 +23,9 @@ ul{
     list-style:none;
 
 }
-/* body背景图 */
-body{
-        background:url(../images/body_backgrond.jpg) no-repeat scroll 50% 0;
-        background-size:cover;
+/* 清除超链接下划线 */
+a{
+    text-decoration: none;
 }
 /* 版心居中 */
 .wrapper{
@@ -35,26 +34,59 @@ body{
 
 
 
+/* body背景图 */
+body{
+    background:url(../images/body_backgrond.jpg) no-repeat scroll 50% 0;
+    background-size:cover;
+}
+
+
+
+
+/* 盒子标题格式 */
+div.box_title{
+    margin-bottom: 10px;
+    border-bottom: 1px solid #a6a6a6;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+
+}
+.h2_EarlyTestLink{
+    background-color: transparent;
+    background-image: url(https://patchwiki.biligame.com/images/djlw/b/b4/r4fby7nlpd2los63i19iyowybxzinwy.png);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: left top;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-size: 50px auto;
+    height: 50px;
+    line-height:50px;/* 文字竖直居中 */
+    clear: both;
+}
+
+
 /* 头部 */
 div.header{
     margin: 10px auto;
     width: 1200px;
-    height: 100px;
+    height: 50px;
 }
 h1{
     margin-right: 50px;
     float: left;
-    font-size: 70px;
-    line-height: 100px;
+    font-size: 50px;
+    line-height: 50px;
 }
 div.nav{
     float: left;
 }
 .nav li{
     float:left;
-    height: 100px;
-    line-height:100px;
-    margin-right:10px;    
+    height: 50px;
+    line-height:50px;
+    /* margin-right:10px; */
 }
 .nav li a{
     display: inline-block;
@@ -63,6 +95,9 @@ div.nav{
     background-color: rgba(255,255,255,0.7);/* 白色半透明背景 */
     -webkit-transition-duration: 0.5s; /* hover变化时间(Safari) */
     transition-duration: 0.5s; /* hover变化时间 */
+    background-color: rgba(255,255,255,0.7);
+    color:black;
+    text-align: center;/*水平居中*/
     height: 48px;
     line-height:48px;    
     border-bottom:2px solid #00a4ff;
@@ -84,13 +119,15 @@ div.botton_box{
     float: left;
     margin:10px;
     border-radius: 8px;/*圆角8px*/
+    padding:10px;
+    width: auto;
     background: rgba(167,170,215,0.3);/* 浅紫色半透明背景 */
     box-shadow: 3px 3px 3px rgba(100,100,100,0.7);
 }
-/* 清除超链接下划线 */
-a{
-    text-decoration: none;
+.botton_box li{
+    float:left;
 }
+
 /* 超链接按钮设置 */
 a.botton{
     float:left;
