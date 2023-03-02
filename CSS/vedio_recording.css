@@ -154,7 +154,7 @@ div.normal_box{
 /* 超链接按钮设置 */
 a.botton{
     margin: 5px;
-    /* border: 1px solid #000; */
+    border: 1px solid #000;
     padding: 0 16px;
     border-radius: 4px;/*圆角4px*/
     -webkit-transition-duration: 0.5s; /* hover变化时间(Safari) */
