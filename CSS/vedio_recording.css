@@ -153,7 +153,6 @@ div.normal_box{
 
 /* 超链接按钮设置 */
 a.botton{
-    float:left;
     margin: 5px;
     /* border: 1px solid #000; */
     padding: 0 16px;
