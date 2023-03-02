@@ -116,7 +116,8 @@ div.nav{
     border:2px solid #00a4ff;
 }
 .nav li a:hover{
-    background: rgba(167,170,215,0.3);/* 浅紫色半透明背景 */
+    background-color: rgba(165, 100, 190, 0.3);/* 浅紫色半透明背景 */
+    color: white;
 }
 
 
@@ -167,7 +168,7 @@ a.botton{
     font-size: 18px;
 }
 a.botton:hover{
-    background-color: rgba(165, 100, 190, 0.3);
+    background-color: rgba(165, 100, 190, 0.3);/* 浅紫色半透明背景 */
     color: white;
 }
 
