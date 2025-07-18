@@ -262,6 +262,50 @@
     color: #8e2323;
 }
 
+/* 数据管理按钮 */
+.data-controls {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.data-controls button {
+    padding: 8px 16px;
+    background: #f0f0f0;
+    border: 1px solid #d9c8a9;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    color: #5a4a3a;
+}
+
+.data-controls button:hover {
+    background: #e0e0e0;
+}
+
+/* 统计信息展示 */
+.stats-container {
+    background-color: #fff;
+    border: 1px solid #d9c8a9;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stats-container span {
+    font-size: 16px;
+    color: #5a4a3a;
+}
+
+.stats-container span span {
+    font-weight: bold;
+    color: #8e2323;
+}
+
 /* 工具按钮 */
 .tools-container {
     display: flex;

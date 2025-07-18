@@ -35,6 +35,13 @@
          ========================================== -->
     <div class="mainbox clearfix wrapper">
         
+        <!-- B站用户信息展示区域 -->
+        <section class="bilibili-user-info">
+            <div id="bilibili-user-card" class="user-card">
+                <div class="loading">加载用户信息中...</div>
+            </div>
+        </section>
+
         <!-- B站最新视频展示区域 -->
         <section>
             <h2>最新作品展示</h2>
@@ -66,11 +73,6 @@
     
     <!-- 脚本区域 -->
     <script src="../JS/bilibili-api.js"></script>
-    <script>
-        document.querySelector('.nav-toggle').addEventListener('click', function() {
-            document.querySelector('.nav').classList.toggle('active');
-        });
-    </script>
     <!-- 脚本区域结束 -->
 </body>
 </html>
