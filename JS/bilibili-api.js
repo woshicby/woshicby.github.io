@@ -10,11 +10,12 @@ const BILIBILI_CONFIG = {
     container: '#bilibili-videos', // 视频容器选择器
     videos: [
         // 这里添加你想要展示的B站视频BV号
-        'BV1GJ411x7h7',
-        'BV1Lp4y1e7ik',
-        'BV1Yh411o7Sz',
-        'BV1Yx411V7nx',
-        'BV1Yz4y1X7A1'
+        'BV1YPuLzMEpB',
+        'BV1zKT3zYEL8',
+        'BV1VA72zUEmA',
+        'BV1jG7nz2E1M',
+        'BV1b3jBz7EvQ',
+        'BV18EZzYjEBT'
     ]
 };
 
