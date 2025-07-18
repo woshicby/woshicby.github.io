@@ -1,164 +1,120 @@
-/* 清除默认内外边距 */
-*{
-    margin: 0;
-    padding: 0;
-}
-/* 内减模式 */
-.inner_minus{
-    box-sizing: border-box;
-}
-/* 清除浮动（法3双伪元素） */
-    /* 1.解决外边距塌陷问题 */
-    .clearfix::before,
-    .clearfix::after{
-        content: "";
-        display: table;
-    }
-        /* 2.清除浮动 */
-    .clearfix::after{
-        clear: both;
-    }
-/* 清除ul小点 */
-ul{
-    list-style:none;
-
-}
-/* 清除超链接下划线 */
-a{
-    text-decoration: none;
-}
-/* 版心居中 */
-.wrapper{
-    margin: 0 auto;
-}
-
-
-
-/* body背景图 */
-body{
-    background:url(../images/body_backgrond.jpg) no-repeat scroll 50% 0;
-    background-size:cover;
-}
+/* 基础样式重置与全局设置 */
+/* CSS变量已在common.css中定义 */
 
 
 
 
-/* 盒子标题格式 */
-div.box_title{
-    margin-bottom: 10px;
-    border-bottom: 1px solid #a6a6a6;
-    padding: 0 70px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-
-}
-.h2_EarlyTestLink{
-    background-color: transparent;
-    background-image: url(https://patchwiki.biligame.com/images/djlw/b/b4/r4fby7nlpd2los63i19iyowybxzinwy.png);
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: left top;
-    background-clip: border-box;
-    background-origin: padding-box;
-    background-size: 50px auto;
-    height: 50px;
-    line-height:50px;/* 文字竖直居中 */
-    clear: both;
-}
-
-
-/* 头部 */
-div.header{
-    margin: 10px auto;
-    width: 1200px;
-    height: 50px;
-}
-h1{
-    margin-right: 50px;
-    float: left;
-    font-size: 50px;
-    line-height: 50px;
-}
-div.nav{
-    float: left;
-}
-.nav li{
-    float:left;
-    margin-right: 5px;
-    height: 50px;
-    line-height:50px;
-}
-.nav li a{
-    display: inline-block;
-    padding: 0 10px;
-    border-radius: 4px;/*圆角4px*/
-    background-color: rgba(255,255,255,0.7);/* 白色半透明背景 */
-    -webkit-transition-duration: 0.5s; /* hover变化时间(Safari) */
-    transition-duration: 0.5s; /* hover变化时间 */
-    background-color: rgba(255,255,255,0.7);
-    color:black;
-    text-align: center;/*水平居中*/
-    height: 46px;
-    line-height:46px;    
-    border:2px solid #00a4ff;
-}
-.nav li a:hover{
-    background: rgba(167,170,215,0.3);/* 浅紫色半透明背景 */
-    color: white;
-}
 
 
 
-/* 主盒子 */
+
+/* 个人简介样式 */
+.profile-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00a4ff;
+}
+.profile-content {
+    flex: 1;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* 主盒子 - 使用common.css中的通用样式 */
 div.mainbox{
-    width: 1200px;
-    background-color: rgba(255,255,255,0.7);/* 白色半透明背景 */
-    box-shadow: 0px 0px 20px rgba(35,35,35,0.9);
+    width: 100%;
+    max-width: 1200px;
+    background-color: var(--background-light);
+    box-shadow: var(--shadow-heavy);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
 }
-/* 装按钮的盒子 */
+/* 装按钮的盒子 - 使用通用卡片容器样式 */
 div.botton_box{
     float: left;
-    margin:10px;
-    border-radius: 8px;/*圆角8px*/
-    padding:10px;
+    margin: var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-md);
     width: auto;
-    background: rgba(167,170,215,0.3);/* 浅紫色半透明背景 */
-    box-shadow: 3px 3px 3px rgba(100,100,100,0.7);
+    background: var(--light-accent);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+}
+div.botton_box:hover{
+    box-shadow: var(--shadow-medium);
 }
 
 
-/* 超链接按钮设置 */
-a.botton{
-    float:left;
-    margin: 5px;
-    /* border: 1px solid #000; */
-    padding: 0 16px;
-    border-radius: 4px;/*圆角4px*/
-    -webkit-transition-duration: 0.5s; /* hover变化时间(Safari) */
-    transition-duration: 0.5s; /* hover变化时间 */
-    background-color: rgba(255,255,255,0.7);
-    box-shadow: 2px 2px 2px rgba(50,50,50,0.5);
-    color:black;
-    text-align: center;/*水平居中*/
-    line-height: 1.5;
-    font-size: 18px;
-}
-a.botton:hover{
-    background-color: rgba(165, 100, 190, 0.3);/* 浅紫色半透明背景 */
-    color: white;
+/* 使用common.css中定义的通用按钮样式 */
+/* a.botton已替换为.btn类 */
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .botton_box {
+        float: none;
+        margin: 10px auto;
+        width: 90%;
+    }
+    a.botton {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    .mainbox {
+        padding: 10px;
+    }
+    .foot {
+        padding: 15px 0;
+        margin-top: 30px;
+    }
 }
 
 
-
-/* foot盒子 */
-div.foot{
-    margin-top: 100px;
-    width: 1200px;
+/* 个人纪录表格样式 */
+.records-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
 }
-.foot span{
-    display: block;
-    text-align: center;
-    color: #7d7d7d;
-    font-size: 14px;
+
+.records-table th,
+.records-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.records-table th {
+    background-color: var(--light-accent);
+    font-weight: bold;
+}
+
+.records-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 运动记录区块样式 */
+.strava-connect {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: var(--border-radius-lg);
+    margin-top: 20px;
+}
+
+.strava-connect p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.strava-connect a {
+    color: var(--primary-color);
+    text-decoration: underline;
 }
