@@ -7,7 +7,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>游戏工具 - 我的个人网站</title>
+        <title>锻刀模拟器</title>
         <link rel="stylesheet" href="../CSS/common.css">
         <link rel="stylesheet" href="../CSS/touken-forge.css">
         <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
@@ -32,7 +32,7 @@
                     <li><a href="about.html">个人简介</a></li>
                     <li><a href="vedio_recording.html">录影业务</a></li>
                     <li><a href="study.html">学习记录</a></li>
-                    <li><a href="game.html" style="background-color: #6effd4;">游戏工具</a></li>
+                    <li><a href="game.html" class="active">游戏工具</a></li>
                     <li><a href="sports.html">体育相关</a></li>                    
                 </ul>
             </div>
@@ -48,9 +48,6 @@
         <div class="mainbox clearfix wrapper">
             <!-- 游戏工具部分 -->
             <section id="game">
-                <h2>游戏工具</h2>
-                <p>这里展示我开发的游戏相关工具和小程序。</p>
-                
                 <!-- 刀剑乱舞锻刀模拟器 -->
                 <div class="touken-forge-container">
                     <div class="touken-forge-title">刀剑乱舞锻刀模拟器</div>
@@ -62,29 +59,31 @@
                     <div class="resources-container">
                         <div class="resource-item">
                             <div class="resource-name">木炭</div>
-                            <div class="resource-value" id="charcoalValue">100</div>
+                            <div class="resource-value" id="charcoalValue">500000</div>
                             <input type="number" id="charcoalInput" class="resource-input" placeholder="0" min="0">
                         </div>
                         <div class="resource-item">
                             <div class="resource-name">玄铁</div>
-                            <div class="resource-value" id="steelValue">100</div>
+                            <div class="resource-value" id="steelValue">500000</div>
                             <input type="number" id="steelInput" class="resource-input" placeholder="0" min="0">
                         </div>
                         <div class="resource-item">
                             <div class="resource-name">冷却材料</div>
-                            <div class="resource-value" id="coolantValue">100</div>
+                            <div class="resource-value" id="coolantValue">500000</div>
                             <input type="number" id="coolantInput" class="resource-input" placeholder="0" min="0">
                         </div>
                         <div class="resource-item">
                             <div class="resource-name">砥石</div>
-                            <div class="resource-value" id="whetstoneValue">100</div>
+                            <div class="resource-value" id="whetstoneValue">500000</div>
                             <input type="number" id="whetstoneInput" class="resource-input" placeholder="0" min="0">
                         </div>
                     </div>
-                    
+
+
                     <!-- 锻造区域 -->
                     <div class="forge-container">
                         <button id="forgeButton" class="forge-button">开始锻造</button>
+                        <button id="speedUpButton" class="forge-button" style="display:none;">使用加速符</button>
                         <div id="forgeStatus" class="forge-status">准备就绪</div>
                         <div id="forgeTimer" class="forge-timer" style="display: none;">00:00</div>
                     </div>
@@ -96,20 +95,23 @@
                         <div id="resultRarity" class="rarity common">普通</div>
                     </div>
                     
-                    <!-- 收藏区域 -->
+                    <!-- 已有刀剑区域 -->
                     <div class="collection-container">
                         <div class="collection-header">
-                            <div class="collection-title">我的收藏</div>
+                            <div class="collection-title">我的刀剑</div>
                             <div class="collection-count" id="collectionCount">0</div>
                         </div>
                         <div id="collectionList" class="collection-list">
-                            <!-- 收藏的刀剑会动态添加到这里 -->
+                            <!-- 已有的刀剑会动态添加到这里 -->
                         </div>
                     </div>
                     
-                    <!-- 工具按钮 -->
-                    <div class="tools-container">
-                        <button id="resourcesButton" class="resources-button">添加资源</button>
+                    <!-- 日志区域 -->
+                    <div class="log-container">
+                        <div class="log-header">
+                            <div class="log-title">锻刀日志</div>
+                        </div>
+                        <div id="logArea" class="log-area"></div>
                     </div>
                 </div>
                 
