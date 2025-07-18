@@ -142,7 +142,6 @@ body {
    ========================================== */
 .wrapper {
     width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -210,19 +209,18 @@ body {
 }
 
 /* ==========================================
-   页面组件 - 主内容区域
+   页面组件 - 主内容盒子
    ==========================================
-   网站主要内容展示容器
-   设置最小高度确保页脚位置正确
-   包含背景、边框和阴影样式
+   视频展示页面主容器样式
+   设置最大宽度、背景色和阴影效果
    ========================================== */
-.mainbox {
-    padding: 2rem 0;
-    min-height: calc(100vh - 180px);
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    margin: 20px 0;
+div.mainbox{
+    width: 100%;
+    max-width: 1200px;
+    background-color: var(--background-light);
+    box-shadow: var(--shadow-heavy);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
 }
 
 /* ==========================================
