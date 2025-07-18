@@ -1,54 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN"> <!-- 将语言设置为中文 -->
+    <!-- ==========================================
+         页面头部 - 元数据和样式引入
+         ==========================================
+         包含页面编码、视口设置、标题和CSS样式表引入
+         ========================================== -->
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>页面测试中……</title>
+        <title>首页</title> <!-- 修改标题 -->
+        <link rel="stylesheet" href="./CSS/common.css">
         <link rel="stylesheet" href="./CSS/index.css">
+        <!-- 添加 favicon -->
+        <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
     </head>
     <body>
         <!-- 头部外套开始 -->
+        <!-- ==========================================
+             页面头部 - 网站标题和导航
+             ==========================================
+             包含网站标志和主导航菜单
+             ========================================== -->
         <div class="header clearfix wrapper">
             <!-- logo/大标题区域开始 -->
-            <h1>
-                网页建设中……
-            </h1>
+            <h1>首页</h1>
             <!-- logo/大标题区域结束 -->
             <!-- 导航栏开始 -->
             <div class="nav">
+                <!-- 导航链接列表 - 网站主要栏目入口 -->
                 <ul class="clearfix">
-                    <li><a href="#">个人简介（还没弄）</a></li>
-                    <li><a href="./HTML/vedio_recording.html" style="background-color: #6effd4;">录影业务</a></li>
-                    <li><a href="#">学习记录（还没弄）</a></li>
-                    <li><a href="#">游戏工具（还没弄）</a></li>
-                    <li><a href="#">音乐工具（还没弄）</a></li>                    
+                    <li><a href="./index.html" class="active">首页</a></li>
+                    <li><a href="./HTML/video.html">视频展示</a></li>
+                    <li><a href="./HTML/study.html">学习记录</a></li>
+                    <li><a href="./HTML/touken-forge.html">锻刀模拟器</a></li>
+                    <li><a href="./HTML/sports.html">体育运动</a></li>
                 </ul>
             </div>
             <!-- 导航栏结束 -->
         </div>
         <!-- 头部外套结束 -->
         <!-- 主体外套开始 -->
+        <!-- ==========================================
+             主体内容区域
+             ==========================================
+             网站主要内容展示区域
+             ========================================== -->
         <div class="mainbox clearfix wrapper">
-            <div class="botton_box clearfix">
-                <div class="box_title h2_EarlyTestLink">早期测试链接</div>
-                <ul class="clearfix">
-                    <li class="clearfix"><a class="botton inner_minus" href="https://wiki.biligame.com/djlw/%E9%A6%96%E9%A1%B5" target="_blank">点击前往刀剑乱舞bwiki</a></li>
-                    <li class="clearfix"><a class="botton inner_minus" href="./HTML/text_test.html" target="_blank">文字标签和字符实体测试页面</a></li>
-                    <li class="clearfix"><a class="botton inner_minus" href="./HTML/media_test.html" target="_blank">媒体标签测试页面</a></li>
-                    <li class="clearfix"><a class="botton inner_minus" href="./HTML/list_table_test.html" target="_blank">列表表格标签测试页面</a></li>
-                    <li class="clearfix"><a class="botton inner_minus" href="./HTML/console_test.html" target="_blank">控件标签测试页面</a></li>
-                    <li class="clearfix"><a class="botton inner_minus" href="./HTML/CSS_test.html" target="_blank">CSS测试页面</a></li>
-                    <li class="clearfix"><a class="botton inner_minus" href="./HTML/layout_test.html" target="_blank">无语义标签测试页面</a></li>
-                    <li class="clearfix"><a class="botton inner_minus" href="./HTML/box_test.html" target="_blank">盒子模型测试页面</a></li>
-                </ul>
-            </div>
+            <!-- 首页简介 -->
+            <!-- 首页简介部分 - 欢迎信息 -->
+            <section id="home-intro">
+                <div class="profile-container">
+                    <p>欢迎来到我的个人网站</p>
+                    <p>这里是我分享技术学习、兴趣爱好和创作作品的空间。</p>
+                    <p>请通过上方导航栏浏览各个板块内容。</p>
+                </div>
+            </section>
+        
+                <!-- 主体内容区域 -->
+            <section id="about">
+                <div class="profile-container">
+                    <img src="./images/test_image.jpg" alt="个人照片" class="profile-photo">
+                    <div class="profile-content">
+                        <p>你好！我是woshicby，一名热爱编程和技术的开发者。</p>
+                        <p>我擅长前端开发，熟悉HTML、CSS和JavaScript，同时也对后端技术有一定了解。</p>
+                        <p>除了编程，我还喜欢摄影、音乐和游戏开发。这个网站是我学习和分享技术的平台。</p>
+                        <p>欢迎通过下方的社交链接与我联系！</p>
+                    </div>
+                    <!-- 添加社交链接 -->
+                    <!-- 社交链接区域 - 外部平台链接 -->
+                    <div class="social-links">
+                        <a href="https://github.com/woshicby" target="_blank" class="social-icon github" title="GitHub"><img src="./images/github-icon.svg" alt="GitHub"></a>
+                        <a href="https://weibo.com/woshicby" target="_blank" class="social-icon weibo" title="微博"><img src="./images/weibo-icon.svg" alt="微博"></a>
+                        <a href="https://space.bilibili.com/woshicby" target="_blank" class="social-icon bilibili" title="B站"><img src="./images/bilibili-icon.svg" alt="B站"></a>
+                    </div>
+                </div>
+            </section>
         </div>
         <!-- 主体外套结束 -->
         <!-- 脚注外套开始 -->
+        <!-- ==========================================
+             页脚区域
+             ==========================================
+             包含版权信息和社交链接
+             ========================================== -->
         <div class="foot wrapper">
             <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
         </div>
         <!-- 脚注外套结束 -->
+    <!-- 脚本区域 -->
+    <script src="./JS/bilibili-api.js"></script>
+    <script>
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav').classList.toggle('active');
+        });
+    </script>
+    <!-- 脚本区域结束 -->
     </body>
-</html> 
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- ==========================================
+         锻刀模拟器页面 - 展示开发的锻刀模拟器
+         ========================================== -->
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>锻刀模拟器</title>
+        <link rel="stylesheet" href="../CSS/common.css">
+        <link rel="stylesheet" href="../CSS/touken-forge.css">
+        <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+    </head>
+    <!-- ==========================================
+         页面头部 - 网站标题和导航
+         ==========================================
+         包含网站标志和主导航菜单，当前高亮"锻刀模拟器"选项
+         ========================================== -->
+    <body>
+        <!-- 头部外套开始 -->
+        <div class="header clearfix wrapper">
+            <!-- logo/大标题区域开始 -->
+            <h1>锻刀模拟器（建设中）</h1>
+            <!-- logo/大标题区域结束 -->
+            <!-- 导航栏开始 -->
+            <div class="nav">
+                <ul class="clearfix">
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="video.html">视频展示</a></li>
+                    <li><a href="study.html">学习记录</a></li>
+                    <li><a href="touken-forge.html" class="active">锻刀模拟器</a></li>
+                    <li><a href="sports.html">体育运动</a></li>                    
+                </ul>
+            </div>
+            <!-- 导航栏结束 -->
+        </div>
+        <!-- 头部外套结束 -->
+        <!-- 主体外套开始 -->
+        <!-- ==========================================
+             主体内容区域
+             ==========================================
+             展示锻刀模拟器列表和下载链接
+             ========================================== -->
+        <div class="mainbox clearfix wrapper">
+            <!-- 锻刀模拟器部分 -->
+            <section id="game">
+                <!-- 刀剑乱舞锻刀模拟器 -->
+                <div class="touken-forge-container">
+                    <div class="touken-forge-title">刀剑乱舞锻刀模拟器</div>
+                    <div class="touken-forge-description">
+                        模拟《刀剑乱舞online》中的锻刀功能，通过不同的资源配比来锻造各种稀有度的刀剑。
+                    </div>
+                    
+                    <!-- 统计信息区域 -->
+                    <div class="stats-container">
+                        <span>锻刀次数: <span id="forgeCount">0</span></span>
+                        <span>刀解刀剑: <span id="deleteCount">0</span></span>
+                    </div>
+                    
+                    <!-- 资源区域 -->
+                    <div class="resources-container">
+                        <div class="resource-item">
+                            <div class="resource-name">木炭</div>
+                            <div class="resource-value" id="charcoalValue">500000</div>
+                            <input type="number" id="charcoalInput" class="resource-input" placeholder="0" min="0">
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-name">玉刚</div>
+                            <div class="resource-value" id="steelValue">500000</div>
+                            <input type="number" id="steelInput" class="resource-input" placeholder="0" min="0">
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-name">冷却材</div>
+                            <div class="resource-value" id="coolantValue">500000</div>
+                            <input type="number" id="coolantInput" class="resource-input" placeholder="0" min="0">
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-name">砥石</div>
+                            <div class="resource-value" id="whetstoneValue">500000</div>
+                            <input type="number" id="whetstoneInput" class="resource-input" placeholder="0" min="0">
+                        </div>
+                    </div>
+
+
+                    <!-- 锻造区域 -->
+                    <div class="forge-container">
+                        <button id="forgeButton" class="forge-button">开始锻造</button>
+                        <button id="speedUpButton" class="forge-button" style="display:none;">使用加速符</button>
+                        <div id="forgeStatus" class="forge-status">准备就绪</div>
+                        <div id="forgeTimer" class="forge-timer" style="display: none;">00:00</div>
+                    </div>
+                    
+                    <!-- 结果区域 -->
+                    <div id="resultContainer" class="result-container">
+                        <img id="resultImage" class="result-image" src="../images/touken/default_sword.jpg" alt="刀剑">
+                        <div id="resultName" class="result-name">未知刀剑</div>
+                        <div id="resultRarity" class="rarity common">普通</div>
+                    </div>
+                    
+                    <!-- 已有刀剑区域 -->
+                    <div class="collection-container">
+                        <div class="collection-header">
+                            <div class="collection-title">我的刀剑</div>
+                            <div class="collection-count" id="collectionCount">0</div>
+                        </div>
+                        <div id="collectionList" class="collection-list">
+                            <!-- 已有的刀剑会动态添加到这里 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 日志区域 -->
+                    <div class="log-container">
+                        <div class="log-header">
+                            <div class="log-title">锻刀日志</div>
+                        </div>
+                        <div id="logArea" class="log-area"></div>
+                    </div>
+                    
+                    <!-- 数据管理按钮 -->
+                    <div class="data-controls">
+                        <button id="resetBtn">重置数据</button>
+                        <button id="exportBtn">导出数据</button>
+                        <button id="importBtn">导入数据</button>
+                        <input type="file" id="importFile" accept=".json" style="display:none">
+                    </div>
+                </div>
+                
+                <!-- 其他锻刀模拟器可以在这里添加 -->
+            </section>
+        </div>
+        <!-- 主体外套结束 -->
+        <!-- 脚注外套开始 -->
+        <!-- ==========================================
+             页脚区域
+             ==========================================
+             包含版权信息和社交链接
+             ========================================== -->
+        <div class="foot wrapper">
+            <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+        </div>
+        <!-- 脚注外套结束 -->
+        <!-- 引入锻刀模拟器的JavaScript -->
+        <script src="../JS/touken-forge.js"></script>
+        
+        <style>
+        .data-controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .data-controls button {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .data-controls button:hover {
+            background: #e0e0e0;
+        }
+        
+        .stats-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stats-container span {
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .stats-container span span {
+            font-weight: bold;
+            color: #0066cc;
+        }
+        </style>
+        
+        <script>
+        // 数据管理功能
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            if(confirm('确定要重置所有本地数据吗？此操作不可恢复！')) {
+                localStorage.clear();
+                location.reload();
+            }
+        });
+        
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            const data = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                data[key] = localStorage.getItem(key);
+            }
+            
+            const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `touken-forge-data_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            
+            URL.revokeObjectURL(url);
+        });
+        
+        document.getElementById('importBtn').addEventListener('click', () => {
+            document.getElementById('importFile').click();
+        });
+        
+        document.getElementById('importFile').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const data = JSON.parse(event.target.result);
+                    if(!confirm('确定要导入数据吗？当前数据将被覆盖！')) return;
+                    
+                    localStorage.clear();
+                    for (const key in data) {
+                        localStorage.setItem(key, data[key]);
+                    }
+                    alert('数据导入成功！');
+                    location.reload();
+                } catch (err) {
+                    alert('导入失败：文件格式不正确');
+                    console.error(err);
+                }
+            };
+            reader.readAsText(file);
+        });
+        </script>
+    </body>
+</html>

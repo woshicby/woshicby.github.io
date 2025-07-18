@@ -1,0 +1,231 @@
+/* ==========================================
+   体育运动页面样式
+   ==========================================
+   包含体育运动页面特定的样式
+   ========================================== */
+
+/* 通用部分样式 */
+section {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+section:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #6effd4, #3f9efc);
+    border-radius: 3px;
+}
+
+/* 个人运动记录表格样式 */
+#personal-records table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+#personal-records th,
+#personal-records td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border: none;
+}
+
+#personal-records th {
+    background-color: #6effd4;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+#personal-records tr {
+    border-bottom: 1px solid #f2f2f2;
+    transition: background-color 0.3s ease;
+}
+
+#personal-records tr:last-child {
+    border-bottom: none;
+}
+
+#personal-records tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+#personal-records td:first-child {
+    font-weight: 500;
+    color: #3f9efc;
+}
+
+/* Strava活动模块样式 */
+.strava-section {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid #fc4c02; /* Strava橙色边框 */
+}
+
+.strava-section h2 {
+    color: #fc4c02; /* Strava橙色 */
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+}
+
+.strava-section h2::after {
+    background: #fc4c02; /* 覆盖默认渐变，使用Strava橙色 */
+    width: 80px;
+}
+
+.strava-section p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.strava-embed-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 1.5rem 0;
+    justify-content: space-between;
+}
+
+.strava-embed-container iframe {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: white;
+    flex-grow: 1;
+    min-width: 300px;
+}
+
+.strava-embed-container iframe:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.strava-note {
+    text-align: right;
+    color: #666;
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+.strava-note a {
+    color: #fc4c02;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.strava-note a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #fc4c02;
+    transition: width 0.3s ease;
+}
+
+.strava-note a:hover::after {
+    width: 100%;
+}
+
+/* 响应式调整 */
+@media (max-width: 992px) {
+    section {
+        padding: 1.5rem;
+    }
+    
+    .strava-embed-container {
+        flex-direction: column;
+    }
+    
+    .strava-embed-container iframe {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    section {
+        padding: 1.2rem;
+        margin: 1.5rem 0;
+    }
+    
+    section h2 {
+        font-size: 1.5rem;
+    }
+    
+    #personal-records th,
+    #personal-records td {
+        padding: 0.8rem 1rem;
+    }
+    
+    .strava-embed-container iframe[height='160'] {
+        height: 140px;
+    }
+    
+    .strava-embed-container iframe[height='454'] {
+        height: 380px;
+    }
+}
+
+@media (max-width: 480px) {
+    section {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    section h2 {
+        font-size: 1.3rem;
+    }
+    
+    #personal-records table {
+        font-size: 0.9rem;
+    }
+    
+    #personal-records th,
+    #personal-records td {
+        padding: 0.6rem 0.8rem;
+    }
+    
+    .strava-embed-container iframe[height='160'] {
+        height: 120px;
+    }
+    
+    .strava-embed-container iframe[height='454'] {
+        height: 320px;
+    }
+}
