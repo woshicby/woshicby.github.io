@@ -76,6 +76,14 @@
     margin-bottom: 20px;
 }
 
+.forge-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
 .forge-button {
     padding: 12px 30px;
     background-color: #8e2323;
@@ -95,6 +103,23 @@
 .forge-button:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
+}
+
+.skip-button {
+    padding: 12px 30px;
+    background-color: #FF9800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.skip-button:hover {
+    background-color: #F57C00;
 }
 
 .forge-status {
@@ -143,6 +168,9 @@
     border-radius: 15px;
     font-size: 14px;
     font-weight: bold;
+    width: 150px;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .rarity.common {
@@ -269,5 +297,40 @@
     
     .collection-list {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    .result-image {
+        width: 120px;
+        height: 160px;
+    }
+    
+    .collection-item-image {
+        width: 70px;
+        height: 90px;
+    }
+    
+    .touken-forge-title {
+        font-size: 20px;
+    }
+}
+
+/* 针对更小屏幕的额外调整 */
+@media (max-width: 400px) {
+    .result-image {
+        width: 100px;
+        height: 140px;
+    }
+    
+    .collection-item-image {
+        width: 60px;
+        height: 80px;
+    }
+    
+    .touken-forge-title {
+        font-size: 18px;
+    }
+    
+    .collection-list {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
 }

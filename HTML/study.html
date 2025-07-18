@@ -25,16 +25,22 @@
             <!-- logo/大标题区域结束 -->
             <!-- 导航栏开始 -->
             <div class="nav">
+                <button class="nav-toggle" aria-label="Toggle navigation"></button>
                 <ul class="clearfix">
                     <li><a href="../index.html">首页</a></li>
                     <li><a href="about.html">个人简介</a></li>
                     <li><a href="vedio_recording.html">录影业务</a></li>
-                    <li><a href="study.html" style="background-color: #6effd4;">学习记录</a></li>
+                    <li><a href="study.html" class="active">学习记录</a></li>
                     <li><a href="game.html">游戏工具</a></li>
                     <li><a href="sports.html">体育相关</a></li>                    
                 </ul>
             </div>
             <!-- 导航栏结束 -->
+            <script>
+                document.querySelector('.nav-toggle').addEventListener('click', function() {
+                    document.querySelector('.nav').classList.toggle('active');
+                });
+            </script>
         </div>
         <!-- ==========================================
              主体内容区域

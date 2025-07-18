@@ -1,5 +1,24 @@
 /* CSS变量已在common.css中定义 */
 
+/* 首页特有背景样式 */
+body {
+    background-color: #f9f9f9;
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-attachment: fixed;
+}
+
+/* 首页特有标题装饰 */
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #00a4ff, #0078d4);
+    border-radius: 2px;
+}
 
 
 
@@ -12,20 +31,68 @@
 .profile-container {
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 20px;
+    gap: 30px;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,249,255,0.9));
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.profile-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
 .profile-photo {
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #00a4ff;
+    border: 5px solid #00a4ff;
+    box-shadow: 0 5px 15px rgba(0, 164, 255, 0.3);
+    transition: transform 0.5s ease, border-color 0.3s ease;
 }
+
+.profile-photo:hover {
+    transform: scale(1.05) rotate(3deg);
+    border-color: #0078d4;
+}
+
 .profile-content {
     flex: 1;
-    line-height: 1.6;
-    font-size: 16px;
+    line-height: 1.8;
+    font-size: 17px;
+    color: #2c3e50;
+}
+
+.profile-content h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #00a4ff;
+    position: relative;
+    display: inline-block;
+}
+
+.profile-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #00a4ff, #0078d4);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.profile-content h2:hover::after {
+    width: 100%;
+}
+
+.profile-content p {
+    margin-bottom: 15px;
 }
 
 /* ==========================================
@@ -37,12 +104,39 @@
 div.mainbox{
     width: 100%;
     max-width: 1200px;
-    background-color: var(--background-light);
-    box-shadow: var(--shadow-heavy);
-    border-radius: var(--border-radius-lg);
-    padding: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(245,250,255,0.95));
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    padding: calc(var(--spacing-lg) + 10px);
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+div.mainbox:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+div.mainbox::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #00a4ff, #0078d4, #00a4ff);
+    background-size: 200% 100%;
+    animation: gradientMove 3s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 /* ==========================================
    页面组件 - 按钮容器
    ==========================================
@@ -52,15 +146,19 @@ div.mainbox{
 div.botton_box{
     float: left;
     margin: var(--spacing-md);
-    border-radius: var(--border-radius-lg);
-    padding: var(--spacing-md);
+    border-radius: 15px;
+    padding: calc(var(--spacing-md) + 5px);
     width: auto;
-    background: var(--light-accent);
-    box-shadow: var(--shadow-light);
-    transition: var(--transition-default);
+    background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(240,249,255,0.8));
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-left: 3px solid #00a4ff;
 }
+
 div.botton_box:hover{
-    box-shadow: var(--shadow-medium);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px) translateX(3px);
+    border-left-color: #0078d4;
 }
 
 
@@ -98,32 +196,15 @@ div.botton_box:hover{
 }
 
 
-/* ==========================================
-   数据展示 - 纪录表格
-   ==========================================
-   个人运动纪录表格的样式定义
-   包含表头和单元格样式
-   ========================================== */
-.records-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
-
-.records-table th,
-.records-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
+/* 首页特有表格样式 - 覆盖common.css中的默认样式 */
 .records-table th {
-    background-color: var(--light-accent);
-    font-weight: bold;
+    background: linear-gradient(135deg, #00a4ff, #0078d4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .records-table tr:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
 }
 
 /* ==========================================
@@ -133,18 +214,56 @@ div.botton_box:hover{
    包含链接和文本排版
    ========================================== */
 .strava-connect {
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: var(--border-radius-lg);
-    margin-top: 20px;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,249,255,0.9));
+    border-radius: 15px;
+    margin-top: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #FC4C02; /* Strava橙色 */
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.strava-connect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.strava-connect::before {
+    content: '🚴';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    opacity: 0.2;
+}
+
+.strava-connect h3 {
+    color: #FC4C02;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .strava-connect p {
-    margin-bottom: 10px;
-    line-height: 1.6;
+    margin-bottom: 15px;
+    line-height: 1.8;
+    color: #2c3e50;
 }
 
 .strava-connect a {
-    color: var(--primary-color);
-    text-decoration: underline;
+    display: inline-block;
+    color: white;
+    background-color: #FC4C02;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(252, 76, 2, 0.3);
+    text-decoration: none;
+}
+
+.strava-connect a:hover {
+    background-color: #E34902;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(252, 76, 2, 0.4);
 }

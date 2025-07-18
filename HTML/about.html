@@ -12,44 +12,25 @@
         <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     </head>
     <body>
-        <!-- ==========================================
-             页面头部 - 网站标题和导航
-             ==========================================
-             包含网站标志和主导航菜单，当前高亮"个人简介"选项
-             ========================================== -->
-        <!-- 头部外套开始 -->
+        <!-- 页面头部区域 -->
         <div class="header clearfix wrapper">
-            <!-- logo/大标题区域开始 -->
-            <h1>
-                欢迎来到我的个人网站
-            </h1>
-            <!-- logo/大标题区域结束 -->
-            <!-- 导航栏开始 -->
+            <h1>欢迎来到我的个人网站</h1>
             <div class="nav">
+                <button class="nav-toggle" aria-label="Toggle navigation"></button>
                 <ul class="clearfix">
                     <li><a href="../index.html">首页</a></li>
-                    <li><a href="about.html" style="background-color: #6effd4;">个人简介</a></li>
-                    <li><a href="vedio_recording.html">录影业务</a></li>
+                    <li><a href="about.html" class="active">个人简介</a></li>
+                    <li><a href="video_recording.html">录影业务</a></li>
                     <li><a href="study.html">学习记录</a></li>
                     <li><a href="game.html">游戏工具</a></li>
                     <li><a href="sports.html">体育相关</a></li>                    
                 </ul>
             </div>
-            <!-- 导航栏结束 -->
         </div>
-        <!-- 头部外套结束 -->
-        <!-- 主体外套开始 -->
-        <!-- ==========================================
-             主体内容区域
-             ==========================================
-             展示个人详细信息和照片
-             ========================================== -->
+        <!-- 主体内容区域 -->
         <div class="mainbox clearfix wrapper">
-            <!-- 个人简介部分 -->
-            <!-- 个人简介部分 - 包含照片和详细介绍 -->
             <section id="about">
                 <h2>个人简介</h2>
-                <!-- 个人资料容器 - 照片和文字信息的布局容器 -->
                 <div class="profile-container">
                     <img src="../images/test_image.jpg" alt="个人照片" class="profile-photo">
                     <div class="profile-content">
@@ -61,22 +42,23 @@
                 </div>
             </section>
         </div>
-        <!-- 主体外套结束 -->
-        <!-- 脚注外套开始 -->
-        <!-- ==========================================
-             页脚区域
-             ==========================================
-             包含版权信息和社交链接
-             ========================================== -->
+
+        <!-- 页脚区域 -->
         <div class="foot wrapper">
             <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
-            <!-- 添加社交链接 -->
             <div class="social-links">
                 <a href="https://github.com/woshicby" target="_blank" class="social-icon github" title="GitHub"><img src="../images/github-icon.svg" alt="GitHub"></a>
                 <a href="https://weibo.com/woshicby" target="_blank" class="social-icon weibo" title="微博"><img src="../images/weibo-icon.svg" alt="微博"></a>
                 <a href="https://space.bilibili.com/woshicby" target="_blank" class="social-icon bilibili" title="B站"><img src="../images/bilibili-icon.svg" alt="B站"></a>
             </div>
         </div>
-        <!-- 脚注外套结束 -->
+    <!-- 脚本区域 -->
+    <script src="../JS/bilibili-api.js"></script>
+    <script>
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav').classList.toggle('active');
+        });
+    </script>
+    <!-- 脚本区域结束 -->
     </body>
 </html>

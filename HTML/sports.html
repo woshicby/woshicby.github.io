@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>体育运动 - 我的个人网站</title>
         <link rel="stylesheet" href="../CSS/common.css">
+        <link rel="stylesheet" href="../CSS/sports.css">
         <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     </head>
     <!-- ==========================================
@@ -26,16 +27,22 @@
             <!-- logo/大标题区域结束 -->
             <!-- 导航栏开始 -->
             <div class="nav">
+                <button class="nav-toggle" aria-label="Toggle navigation"></button>
                 <ul class="clearfix">
                     <li><a href="../index.html">首页</a></li>
                     <li><a href="about.html">个人简介</a></li>
                     <li><a href="vedio_recording.html">录影业务</a></li>
                     <li><a href="study.html">学习记录</a></li>
                     <li><a href="game.html">游戏工具</a></li>
-                    <li><a href="sports.html" style="background-color: #6effd4;">体育运动</a></li>                    
+                    <li><a href="sports.html" class="active">体育运动</a></li>                    
                 </ul>
             </div>
             <!-- 导航栏结束 -->
+            <script>
+                document.querySelector('.nav-toggle').addEventListener('click', function() {
+                    document.querySelector('.nav').classList.toggle('active');
+                });
+            </script>
         </div>
         <!-- 头部外套结束 -->
         <!-- 主体外套开始 -->
@@ -49,7 +56,7 @@
             <!-- 个人纪录部分 - 运动成绩表格 -->
             <section id="personal-records">
                 <h2>个人运动记录</h2>
-                <table border="1" width="100%">
+                <table>
                     <thead>
                         <tr>
                             <th>运动项目</th>
@@ -59,17 +66,41 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>跑步</td>
-                            <td>5公里/25分钟</td>
-                            <td>2023-05-15</td>
+                            <td>3000米</td>
+                            <td>12:41</td>
+                            <td>2023-05-18</td>
                         </tr>
                         <tr>
-                            <td>游泳</td>
-                            <td>1公里/30分钟</td>
-                            <td>2023-07-20</td>
+                            <td>5k</td>
+                            <td>22:23</td>
+                            <td>2024-05-01</td>
+                        </tr>
+                        <tr>
+                            <td>10k</td>
+                            <td>47:23</td>
+                            <td>2024-10-07</td>
+                        </tr>
+                        <tr>
+                            <td>半程马拉松</td>
+                            <td>1:40:53</td>
+                            <td>2024-12-15</td>
                         </tr>
                     </tbody>
                 </table>
+            </section>
+            
+            <!-- Strava最近活动模块 -->
+            <section id="strava-activities" class="strava-section">
+                <h2>我的最近活动</h2>
+                <p>以下是我在Strava上记录的最近运动活动，包括跑步、骑行和其他户外运动的数据统计和轨迹记录：</p>
+                <div class="strava-embed-container">
+                    <!-- Strava活动iframe -->
+                    <iframe height='200' width='48%' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/136063170/activity-summary/91c522e2bd1fc757476b5585858c75a0201905ac'></iframe>
+                    <iframe height='500' width='48%' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/136063170/latest-rides/91c522e2bd1fc757476b5585858c75a0201905ac'></iframe>
+                </div>
+                <p class="strava-note">
+                    <small>查看更多活动，请访问我的 <a href="https://www.strava.com/athletes/136063170" target="_blank">Strava个人主页</a></small>
+                </p>
             </section>
         </div>
         <!-- 主体外套结束 -->
