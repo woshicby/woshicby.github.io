@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+    <!-- ==========================================
+         体育相关页面 - 展示运动记录和个人成绩
+         ========================================== -->
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +11,11 @@
         <link rel="stylesheet" href="../CSS/common.css">
         <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     </head>
+    <!-- ==========================================
+         页面头部 - 网站标题和导航
+         ==========================================
+         包含网站标志和主导航菜单，当前高亮"体育相关"选项
+         ========================================== -->
     <body>
         <!-- 头部外套开始 -->
         <div class="header clearfix wrapper">
@@ -31,33 +39,46 @@
         </div>
         <!-- 头部外套结束 -->
         <!-- 主体外套开始 -->
+        <!-- ==========================================
+             主体内容区域
+             ==========================================
+             展示个人运动记录和成绩
+             ========================================== -->
         <div class="mainbox clearfix wrapper">
             <!-- 个人纪录部分 -->
+            <!-- 个人纪录部分 - 运动成绩表格 -->
             <section id="personal-records">
-                <h2>个人纪录</h2>
-                <table class="records-table">
-                    <tr><th>项目</th><th>成绩</th><th>日期</th></tr>
-                    <tr><td>400米</td><td>1:05.32</td><td>2023-05-15</td></tr>
-                    <tr><td>800米</td><td>2:28.15</td><td>2023-06-20</td></tr>
-                    <tr><td>10公里</td><td>45:30</td><td>2023-09-10</td></tr>
-                    <tr><td>半程马拉松</td><td>1:42:45</td><td>2023-11-05</td></tr>
-                    <tr><td>全程马拉松</td><td>3:58:22</td><td>2024-03-17</td></tr>
+                <h2>个人运动记录</h2>
+                <table border="1" width="100%">
+                    <thead>
+                        <tr>
+                            <th>运动项目</th>
+                            <th>最佳成绩</th>
+                            <th>达成日期</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>跑步</td>
+                            <td>5公里/25分钟</td>
+                            <td>2023-05-15</td>
+                        </tr>
+                        <tr>
+                            <td>游泳</td>
+                            <td>1公里/30分钟</td>
+                            <td>2023-07-20</td>
+                        </tr>
+                    </tbody>
                 </table>
-            </section>
-            
-            <!-- 运动记录部分 -->
-            <section id="sports-records">
-                <h2>运动记录</h2>
-                <div class="strava-connect">
-                    <p>Strava账号: <a href="https://www.strava.com/athletes/woshicby" target="_blank">woshicby</a></p>
-                    <p>最近活动: 2024-05-20 完成10公里跑步</p>
-                    <p>本年度累计跑量: 328公里</p>
-                    <p>最长单次跑步: 25.5公里</p>
-                </div>
             </section>
         </div>
         <!-- 主体外套结束 -->
         <!-- 脚注外套开始 -->
+        <!-- ==========================================
+             页脚区域
+             ==========================================
+             包含版权信息和社交链接
+             ========================================== -->
         <div class="foot wrapper">
             <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
             <!-- 添加社交链接 -->

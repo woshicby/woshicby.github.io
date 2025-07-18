@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+    <!-- ==========================================
+         游戏工具页面 - 展示开发的游戏工具
+         ========================================== -->
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>游戏工具 - 我的个人网站</title>
         <link rel="stylesheet" href="../CSS/common.css">
+        <link rel="stylesheet" href="../CSS/touken-forge.css">
         <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     </head>
+    <!-- ==========================================
+         页面头部 - 网站标题和导航
+         ==========================================
+         包含网站标志和主导航菜单，当前高亮"游戏工具"选项
+         ========================================== -->
     <body>
         <!-- 头部外套开始 -->
         <div class="header clearfix wrapper">
@@ -24,23 +33,96 @@
                     <li><a href="vedio_recording.html">录影业务</a></li>
                     <li><a href="study.html">学习记录</a></li>
                     <li><a href="game.html" style="background-color: #6effd4;">游戏工具</a></li>
-                    <li><a href="music.html">音乐工具</a></li>                    
+                    <li><a href="sports.html">体育相关</a></li>                    
                 </ul>
             </div>
             <!-- 导航栏结束 -->
         </div>
         <!-- 头部外套结束 -->
         <!-- 主体外套开始 -->
+        <!-- ==========================================
+             主体内容区域
+             ==========================================
+             展示游戏工具列表和下载链接
+             ========================================== -->
         <div class="mainbox clearfix wrapper">
             <!-- 游戏工具部分 -->
             <section id="game">
                 <h2>游戏工具</h2>
-                <p>分享我开发或使用的一些游戏工具。</p>
-                <a href="#">游戏工具 1 下载链接</a>
+                <p>这里展示我开发的游戏相关工具和小程序。</p>
+                
+                <!-- 刀剑乱舞锻刀模拟器 -->
+                <div class="touken-forge-container">
+                    <div class="touken-forge-title">刀剑乱舞锻刀模拟器</div>
+                    <div class="touken-forge-description">
+                        模拟《刀剑乱舞online》中的锻刀功能，通过不同的资源配比来锻造各种稀有度的刀剑。
+                    </div>
+                    
+                    <!-- 资源区域 -->
+                    <div class="resources-container">
+                        <div class="resource-item">
+                            <div class="resource-name">木炭</div>
+                            <div class="resource-value" id="charcoalValue">100</div>
+                            <input type="number" id="charcoalInput" class="resource-input" placeholder="0" min="0">
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-name">玄铁</div>
+                            <div class="resource-value" id="steelValue">100</div>
+                            <input type="number" id="steelInput" class="resource-input" placeholder="0" min="0">
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-name">冷却材料</div>
+                            <div class="resource-value" id="coolantValue">100</div>
+                            <input type="number" id="coolantInput" class="resource-input" placeholder="0" min="0">
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-name">砥石</div>
+                            <div class="resource-value" id="whetstoneValue">100</div>
+                            <input type="number" id="whetstoneInput" class="resource-input" placeholder="0" min="0">
+                        </div>
+                    </div>
+                    
+                    <!-- 锻造区域 -->
+                    <div class="forge-container">
+                        <button id="forgeButton" class="forge-button">开始锻造</button>
+                        <div id="forgeStatus" class="forge-status">准备就绪</div>
+                        <div id="forgeTimer" class="forge-timer" style="display: none;">00:00</div>
+                    </div>
+                    
+                    <!-- 结果区域 -->
+                    <div id="resultContainer" class="result-container">
+                        <img id="resultImage" class="result-image" src="../images/touken/default_sword.jpg" alt="刀剑">
+                        <div id="resultName" class="result-name">未知刀剑</div>
+                        <div id="resultRarity" class="rarity common">普通</div>
+                    </div>
+                    
+                    <!-- 收藏区域 -->
+                    <div class="collection-container">
+                        <div class="collection-header">
+                            <div class="collection-title">我的收藏</div>
+                            <div class="collection-count" id="collectionCount">0</div>
+                        </div>
+                        <div id="collectionList" class="collection-list">
+                            <!-- 收藏的刀剑会动态添加到这里 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 工具按钮 -->
+                    <div class="tools-container">
+                        <button id="resourcesButton" class="resources-button">添加资源</button>
+                    </div>
+                </div>
+                
+                <!-- 其他游戏工具可以在这里添加 -->
             </section>
         </div>
         <!-- 主体外套结束 -->
         <!-- 脚注外套开始 -->
+        <!-- ==========================================
+             页脚区域
+             ==========================================
+             包含版权信息和社交链接
+             ========================================== -->
         <div class="foot wrapper">
             <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
             <!-- 添加社交链接 -->
@@ -51,5 +133,8 @@
             </div>
         </div>
         <!-- 脚注外套结束 -->
+        
+        <!-- 引入锻刀模拟器的JavaScript -->
+        <script src="../JS/touken-forge.js"></script>
     </body>
 </html>

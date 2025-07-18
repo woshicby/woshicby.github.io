@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+<!-- ==========================================
+     录影业务页面 - 主要展示录影服务内容和案例
+     ========================================== -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +11,11 @@
     <link rel="stylesheet" href="../CSS/vedio_recording.css">
 </head>
 <body>
+    <!-- ==========================================
+         页面头部 - 网站标题和导航
+         ==========================================
+         包含网站标志和主导航菜单，当前高亮"录影业务"选项
+         ========================================== -->
     <div class="header clearfix wrapper">
         <h1>录影业务详情</h1>
         <div class="nav">
@@ -17,15 +25,22 @@
                     <li><a href="vedio_recording.html" style="background-color: #6effd4;">录影业务</a></li>
                     <li><a href="study.html">学习记录</a></li>
                     <li><a href="game.html">游戏工具</a></li>
-                    <li><a href="music.html">音乐工具</a></li>                    
+                    <li><a href="sports.html">体育相关</a></li>
                 </ul>
             </div>
     </div>
+    <!-- ==========================================
+         主体内容区域
+         ==========================================
+         展示录影服务的主要内容和案例
+         ========================================== -->
     <div class="mainbox clearfix wrapper">
+        <!-- 服务内容介绍 - 描述提供的录影服务类型 -->
         <section>
             <h2>服务内容</h2>
             <p>我们提供专业的录影服务，包括活动录影、产品宣传视频录制等。</p>
         </section>
+        <!-- 案例展示 - 视频播放器展示样例作品 -->
         <section>
             <h2>案例展示</h2>
             <video width="640" height="360" controls>
@@ -33,9 +48,27 @@
                 您的浏览器不支持视频标签。
             </video>
         </section>
+        
+        <!-- B站最新视频展示区域 -->
+        <section>
+            <h2>最新作品展示</h2>
+            <p>以下是我最新发布的视频作品</p>
+            <div id="bilibili-videos" class="video-container">
+                <!-- 视频内容将通过JavaScript动态加载 -->
+                <div class="loading">加载中...</div>
+            </div>
+        </section>
     </div>
+    <!-- ==========================================
+         页脚区域
+         ==========================================
+         包含版权信息
+         ========================================== -->
     <div class="foot wrapper">
         <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
     </div>
+    
+    <!-- 引入B站视频API脚本 -->
+    <script src="../JS/bilibili-api.js"></script>
 </body>
 </html>

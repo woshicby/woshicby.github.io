@@ -1,0 +1,273 @@
+/* 刀剑乱舞锻刀模拟器样式 */
+
+.touken-forge-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f4e6;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+}
+
+.touken-forge-title {
+    text-align: center;
+    color: #8e2323;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 2px solid #d9c8a9;
+    padding-bottom: 10px;
+}
+
+.touken-forge-description {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #5a4a3a;
+    line-height: 1.6;
+}
+
+/* 资源区域 */
+.resources-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background-color: #f0e6d2;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #d9c8a9;
+}
+
+.resource-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 22%;
+    margin-bottom: 10px;
+}
+
+.resource-name {
+    font-weight: bold;
+    color: #5a4a3a;
+    margin-bottom: 5px;
+}
+
+.resource-value {
+    color: #8e2323;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.resource-input {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid #d9c8a9;
+    border-radius: 4px;
+    text-align: center;
+    background-color: #fff;
+}
+
+/* 锻造区域 */
+.forge-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.forge-button {
+    padding: 12px 30px;
+    background-color: #8e2323;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.forge-button:hover {
+    background-color: #a52a2a;
+}
+
+.forge-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.forge-status {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #5a4a3a;
+}
+
+.forge-timer {
+    margin-top: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #8e2323;
+}
+
+/* 结果区域 */
+.result-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f0e6d2;
+    border-radius: 8px;
+    border: 1px solid #d9c8a9;
+}
+
+.result-image {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    border: 3px solid #d9c8a9;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.result-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #5a4a3a;
+    margin-bottom: 5px;
+}
+
+.rarity {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.rarity.common {
+    background-color: #e0e0e0;
+    color: #5a5a5a;
+}
+
+.rarity.rare {
+    background-color: #a8d8ea;
+    color: #2a6b8a;
+}
+
+.rarity.veryRare {
+    background-color: #c3aed6;
+    color: #5d3b8c;
+}
+
+.rarity.legendary {
+    background-color: #ffd700;
+    color: #8b4513;
+}
+
+/* 收藏区域 */
+.collection-container {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #f0e6d2;
+    border-radius: 8px;
+    border: 1px solid #d9c8a9;
+}
+
+.collection-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.collection-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #5a4a3a;
+}
+
+.collection-count {
+    background-color: #8e2323;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.collection-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.collection-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #d9c8a9;
+}
+
+.collection-item-image {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid #d9c8a9;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+.collection-item-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #5a4a3a;
+    text-align: center;
+    margin-bottom: 3px;
+}
+
+.collection-item-count {
+    font-size: 12px;
+    color: #8e2323;
+}
+
+/* 工具按钮 */
+.tools-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.resources-button {
+    padding: 8px 15px;
+    background-color: #5a4a3a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.resources-button:hover {
+    background-color: #6d5c4d;
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+    .resources-container {
+        flex-direction: column;
+    }
+    
+    .resource-item {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .collection-list {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+}
