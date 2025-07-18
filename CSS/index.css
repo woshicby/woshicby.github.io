@@ -95,6 +95,9 @@ h1::after {
 
 .profile-content p {
     margin-bottom: 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 
@@ -153,6 +156,24 @@ div.botton_box:hover{
     .foot {
         padding: 15px 0;
         margin-top: 30px;
+    }
+    
+    /* 响应式个人资料容器 */
+    .profile-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .profile-photo {
+        margin-bottom: 20px;
+        width: 120px;
+        height: 120px;
+    }
+    
+    .profile-content h2::after {
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 

@@ -34,17 +34,14 @@
          展示录影服务的主要内容和案例
          ========================================== -->
     <div class="mainbox clearfix wrapper">
-
-        <!-- 案例展示 - 视频播放器展示样例作品 -->
-        <section>
-            <h2>案例展示</h2>
-            <div class="local-video-container">
-                <video controls class="responsive-video">
-                    <source src="../videos/test_video.mp4" type="video/mp4">
-                </video>
+        
+        <!-- B站用户信息展示区域 -->
+        <section class="bilibili-user-info">
+            <div id="bilibili-user-card" class="user-card">
+                <div class="loading">加载用户信息中...</div>
             </div>
         </section>
-        
+
         <!-- B站最新视频展示区域 -->
         <section>
             <h2>最新作品展示</h2>
@@ -52,6 +49,16 @@
             <div id="bilibili-videos" class="video-container">
                 <!-- 视频内容将通过JavaScript动态加载 -->
                 <div class="loading">加载中...</div>
+            </div>
+        </section>
+
+        <!-- 视频播放器测试 -->
+        <section>
+            <h2>试试本地视频播放</h2>
+            <div class="local-video-container">
+                <video controls class="responsive-video">
+                    <source src="../videos/test_video.mp4" type="video/mp4">
+                </video>
             </div>
         </section>
     </div>
@@ -66,11 +73,6 @@
     
     <!-- 脚本区域 -->
     <script src="../JS/bilibili-api.js"></script>
-    <script>
-        document.querySelector('.nav-toggle').addEventListener('click', function() {
-            document.querySelector('.nav').classList.toggle('active');
-        });
-    </script>
     <!-- 脚本区域结束 -->
 </body>
 </html>

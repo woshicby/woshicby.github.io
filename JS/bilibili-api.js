@@ -6,8 +6,9 @@
 
 // 配置参数
 const BILIBILI_CONFIG = {
-    uid: '10824343',  // B站用户UID
+    uid: '10924343',  // B站用户UID
     container: '#bilibili-videos', // 视频容器选择器
+    userContainer: '#bilibili-user-card', // 用户信息容器选择器
     videos: [
         // 这里添加你想要展示的B站视频BV号
         'BV1YPuLzMEpB',
@@ -128,5 +129,83 @@ function showError(message) {
     container.innerHTML = `<div class="loading">${message}</div>`;
 }
 
+// 获取B站用户信息（通过CORS代理）
+function fetchBilibiliUserInfo(uid, callback) {
+    // 使用公共CORS代理服务
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const apiUrl = `https://api.bilibili.com/x/space/wbi/acc/info?mid=${uid}`;
+    
+    fetch(proxyUrl + apiUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('请求失败');
+            return response.json();
+        })
+        .then(data => {
+            if (data.code === 0) {
+                callback(null, data.data);
+            } else {
+                callback(new Error(data.message || '获取用户信息失败'));
+            }
+        })
+        .catch(error => {
+            callback(new Error(error.message || '请求失败'));
+        });
+}
+
+// 渲染用户信息卡片
+function renderUserCard(userInfo) {
+    const container = document.querySelector(BILIBILI_CONFIG.userContainer);
+    if (!container) {
+        console.error('用户信息容器未找到');
+        return;
+    }
+    
+    if (!userInfo) {
+        container.innerHTML = '<div class="error">用户信息获取失败</div>';
+        return;
+    }
+    
+    container.innerHTML = `
+        <div class="user-card">
+            <div class="user-avatar">
+                <img src="${userInfo.face}" alt="${userInfo.name}" onerror="this.src='default-avatar.jpg'">
+            </div>
+            <div class="user-details">
+                <h3>${userInfo.name}</h3>
+                <p class="user-sign">${userInfo.sign || '暂无签名'}</p>
+                <div class="user-stats">
+                    <span>粉丝: ${userInfo.follower}</span>
+                    <span>关注: ${userInfo.following}</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// 初始化用户信息
+function initBilibiliUserInfo() {
+    const container = document.querySelector(BILIBILI_CONFIG.userContainer);
+    if (!container) {
+        console.error('用户信息容器未找到');
+        return;
+    }
+    
+    // 显示加载状态
+    container.innerHTML = '<div class="loading">加载用户信息中...</div>';
+    
+    // 使用JSONP获取用户信息
+    fetchBilibiliUserInfo(BILIBILI_CONFIG.uid, (error, userInfo) => {
+        if (error) {
+            console.error('获取B站用户信息出错:', error);
+            container.innerHTML = '<div class="error">加载用户信息失败</div>';
+            return;
+        }
+        renderUserCard(userInfo);
+    });
+}
+
 // 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', initBilibiliVideos);
+document.addEventListener('DOMContentLoaded', () => {
+    initBilibiliVideos();
+    initBilibiliUserInfo();
+});

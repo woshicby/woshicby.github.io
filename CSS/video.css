@@ -84,6 +84,79 @@ div.normal_box:hover{
 /* a.botton已替换为.btn类 */
 
 /* ==========================================
+   用户信息展示区域样式
+   ==========================================
+   B站用户信息卡片样式定义
+   包含头像、用户名、粉丝数等展示
+   ========================================== */
+.bilibili-user-info {
+    margin-bottom: var(--spacing-lg);
+}
+
+.user-card {
+    background: var(--background-light);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+}
+
+.user-card:hover {
+    box-shadow: var(--shadow-medium);
+}
+
+.user-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: var(--spacing-md);
+    object-fit: cover;
+}
+
+.user-name {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--primary-text);
+}
+
+.user-fans {
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+.user-sign {
+    color: var(--secondary-text);
+    margin-bottom: var(--spacing-md);
+    font-size: 0.95rem;
+}
+
+.user-stats {
+    display: flex;
+    gap: var(--spacing-md);
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .user-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .user-avatar {
+        margin-right: 0;
+        margin-bottom: var(--spacing-sm);
+    }
+}
+
+/* ==========================================
    视频展示区域样式
    ==========================================
    B站嵌入式视频展示区域的样式定义
@@ -151,12 +224,40 @@ div.normal_box:hover{
     text-decoration: underline;
 }
 
-/* 加载状态样式 */
-.loading {
+/* 加载和错误状态样式 */
+.loading, .error {
     width: 100%;
     text-align: center;
     padding: var(--spacing-xl);
     color: var(--light-text);
+}
+
+.error {
+    color: var(--error-color);
+}
+
+/* 用户统计信息样式 */
+.user-stats span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.user-stats span::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.user-stats span:nth-child(1)::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'%3E%3Cpath d='M12 4a4 4 0 014 4 4 4 0 01-4 4 4 4 0 01-4-4 4 4 0 014-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z'/%3E%3C/svg%3E");
+}
+
+.user-stats span:nth-child(2)::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
 }
 
 /* 本地视频响应式样式 */
