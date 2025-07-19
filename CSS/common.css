@@ -193,8 +193,7 @@ body {
 .nav {
     float: right;
     padding-top: 0.5rem;
-    padding-right: 2rem;
-    padding-left: 2rem;
+    padding-right: 2rem
 }
 
 .nav ul {
@@ -203,7 +202,7 @@ body {
 
 .nav li {
     display: inline-block;
-    margin-left: 1.5rem;
+    margin-left: 2rem;
 }
 
 .nav a {
