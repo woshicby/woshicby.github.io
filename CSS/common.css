@@ -14,6 +14,7 @@
 :root {
     /* 颜色系统 */
     --primary-color: #2c3e50;
+    --primary-hover-color: #1a252f;
     --secondary-color: #3498db;
     --accent-color: #9b59b6;
     --light-accent: rgba(167, 170, 215, 0.3);
@@ -24,6 +25,9 @@
     --background-accent: rgba(52, 152, 219, 0.1);
     --danger-color: #e74c3c;
     --success-color: #2ecc71;
+    
+    /* 字体权重 */
+    --font-weight-medium: 500;
     
     /* 尺寸系统 */
     --header-height: 60px;
@@ -41,6 +45,7 @@
     --border-radius-sm: 4px;
     --border-radius-md: 6px;
     --border-radius-lg: 8px;
+    --border-radius: var(--border-radius-md);
     --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
     --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.15);
     --shadow-heavy: 0px 0px 20px rgba(35, 35, 35, 0.9);
@@ -57,16 +62,16 @@
    建立一致的基础排版系统
    ========================================== */
 body {
-    background-image:url("../images/body_backgrond.jpg");
-    background-size:100%
-    /*background-color: #f9f9f9;
-    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    /* 修复语法错误并标准化背景样式 */
+    background-image: url("../images/body_backgrond.jpg");
+    background-size: 100%;
+    background-attachment: fixed;
     color: var(--text-color);
-    background-color: #f8f9fa;
-    background-attachment:fixed;*/
     font-family: 'Segoe UI', Arial, sans-serif;
     line-height: 1.6;
     font-size: 16px;
+    margin: 0;
+    padding: 0;
 }
 
 /* ==========================================
@@ -193,7 +198,7 @@ body {
 .nav {
     float: right;
     padding-top: 0.5rem;
-    padding-right: 2rem
+    padding-right: 2rem;
 }
 
 .nav ul {
@@ -216,19 +221,162 @@ body {
     color: #3498db;
 }
 
-/* ==========================================
+/* ==========================================  
    页面组件 - 主内容盒子
-   ==========================================
-   视频展示页面主容器样式
-   设置最大宽度、背景色和阴影效果
+   ==========================================  
+   全站通用的半透明主容器样式
+   自适应不同屏幕尺寸，在各种设备上提供一致的用户体验
    ========================================== */
 div.mainbox{
-    width: 100%;
-    max-width: 1200px;
+    width: 90%; /* 使用百分比宽度，确保不会超出屏幕 */
+    margin: 0 auto; /* 水平居中 */
     background-color: var(--background-light);
     box-shadow: var(--shadow-heavy);
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-lg);
+    box-sizing: border-box;
+    transition: var(--transition-default);
+    /* 在各种屏幕尺寸上保持居中且不超出屏幕边缘 */
+}
+
+/* 响应式调整 - 超宽屏幕 */
+@media (min-width: 1800px) {
+    div.mainbox {
+        width: 85%; /* 超宽屏幕增加宽度比例 */
+        padding: calc(var(--spacing-lg) * 1.5); /* 增加内边距 */
+    }
+}
+
+/* 响应式调整 - 大屏幕 */
+@media (max-width: 1200px) {
+    div.mainbox {
+        width: 95%; /* 增加宽度比例 */
+    }
+}
+
+/* 响应式调整 - 平板设备 */
+@media (max-width: 992px) {
+    div.mainbox {
+        width: 97%; /* 进一步增加宽度比例 */
+        padding: var(--spacing-md);
+        box-shadow: var(--shadow-medium);
+    }
+}
+
+/* 导航切换按钮样式 - 桌面端默认隐藏 */
+.nav-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    z-index: 1100;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+/* 汉堡菜单图标线条 */
+.nav-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+/* 汉堡菜单激活状态 - 转换为X形状 */
+.nav-toggle.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* 响应式调整 - 移动设备 */
+@media (max-width: 768px) {
+    /* 显示导航切换按钮 */
+    .nav-toggle {
+        display: flex;
+    }
+    
+    /* 移动设备导航菜单默认隐藏 */
+    .nav {
+        position: fixed;
+        top: 0;
+        right: -280px; /* 默认隐藏在屏幕右侧 */
+        width: 280px;
+        height: 100vh;
+        background-color: var(--primary-color);
+        padding: 5rem 1rem 1rem;
+        margin: 0;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    
+    /* 激活状态 - 显示导航菜单 */
+    .nav.active {
+        right: 0;
+    }
+    
+    /* 移动设备导航链接样式 */
+    .nav ul {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .nav li {
+        display: block;
+        margin: 0.5rem 0;
+    }
+    
+    .nav a {
+        display: block;
+        padding: 0.75rem 1rem;
+        border-radius: var(--border-radius-sm);
+        transition: background-color 0.3s;
+    }
+    
+    .nav a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav a.active {
+        background-color: var(--secondary-color);
+        color: white;
+    }
+    
+    div.mainbox {
+        width: 98%; /* 几乎占满屏幕 */
+        padding: var(--spacing-sm);
+        border-radius: var(--border-radius-md);
+        box-shadow: var(--shadow-light);
+    }
+}
+
+/* 响应式调整 - 小屏手机 */
+@media (max-width: 480px) {
+    div.mainbox {
+        width: 100%; /* 完全占满屏幕 */
+        margin: 0;
+        padding: var(--spacing-xs);
+        border-radius: var(--border-radius-sm);
+        box-shadow: none;
+    }
 }
 
 /* ==========================================

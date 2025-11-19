@@ -32,10 +32,20 @@
                     <li><a href="tools.html" class="active">小工具&小游戏</a></li>
                     <li><a href="sports.html">体育运动</a></li>                    
                 </ul>
-            </div>
-            <!-- 导航栏结束 -->
         </div>
-        <!-- 头部外套结束 -->
+          <!-- 导航栏结束 -->
+      </div>
+      <!-- 头部外套结束 -->
+      
+      <!-- 移动导航菜单切换按钮 -->
+      <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+      </button>
+      
+      <!-- 引入导航功能脚本 -->
+      <script src="../JS/navigation.js"></script>
         <!-- 主体外套开始 -->
         <!-- ==========================================
              主体内容区域
@@ -147,60 +157,5 @@
         <!-- 脚注外套结束 -->
         <!-- 引入锻刀模拟器的JavaScript -->
         <script src="../JS/touken-forge.js"></script>
-        <script>
-        // 数据管理功能
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            if(confirm('确定要重置所有本地数据吗？此操作不可恢复！')) {
-                localStorage.clear();
-                location.reload();
-            }
-        });
-        
-        document.getElementById('exportBtn').addEventListener('click', () => {
-            const data = {};
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                data[key] = localStorage.getItem(key);
-            }
-            
-            const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `touken-forge-data_${new Date().toISOString().slice(0,10)}.json`;
-            a.click();
-            
-            URL.revokeObjectURL(url);
-        });
-        
-        document.getElementById('importBtn').addEventListener('click', () => {
-            document.getElementById('importFile').click();
-        });
-        
-        document.getElementById('importFile').addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                try {
-                    const data = JSON.parse(event.target.result);
-                    if(!confirm('确定要导入数据吗？当前数据将被覆盖！')) return;
-                    
-                    localStorage.clear();
-                    for (const key in data) {
-                        localStorage.setItem(key, data[key]);
-                    }
-                    alert('数据导入成功！');
-                    location.reload();
-                } catch (err) {
-                    alert('导入失败：文件格式不正确');
-                    console.error(err);
-                }
-            };
-            reader.readAsText(file);
-        });
-        </script>
     </body>
 </html>

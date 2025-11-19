@@ -1,10 +1,104 @@
-// 刀剑乱舞锻刀模拟器核心逻辑
+/**
+ * 刀剑乱舞锻刀模拟器 - 核心逻辑模块
+ * 实现游戏内锻刀系统的模拟功能，包括数据管理、锻刀概率计算、结果展示等
+ * 支持本地数据存储、导出导入功能，以及完整的锻刀体验模拟
+ */
 
-// 日志功能
+/**
+ * 初始化数据管理功能
+ * 设置数据重置、导出和导入功能的事件监听器
+ * @function initDataManagement
+ * @returns {void}
+ */
+function initDataManagement() {
+    // 重置本地存储的数据功能
+    document.getElementById('resetBtn')?.addEventListener('click', () => {
+        if(confirm('确定要重置所有本地数据吗？此操作不可恢复！')) {
+            localStorage.clear();
+            location.reload();
+        }
+    });
+    
+    // 导出所有本地存储数据为JSON文件
+    document.getElementById('exportBtn')?.addEventListener('click', () => {
+        // 创建数据对象收集所有localStorage键值对
+        const data = {};
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            data[key] = localStorage.getItem(key);
+        }
+        
+        // 创建JSON blob并生成下载URL
+        const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        
+        // 创建并触发下载链接
+        const a = document.createElement('a');
+        a.href = url;
+        // 使用当前日期作为文件名一部分
+        a.download = `touken-forge-data_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+        
+        // 清理临时URL对象
+        URL.revokeObjectURL(url);
+    });
+    
+    // 导入数据功能 - 触发文件选择对话框
+    document.getElementById('importBtn')?.addEventListener('click', () => {
+        document.getElementById('importFile')?.click();
+    });
+    
+    // 文件选择变化事件 - 处理导入文件的读取和解析
+    document.getElementById('importFile')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        // 使用FileReader读取文件内容
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                // 解析JSON数据
+                const data = JSON.parse(event.target.result);
+                // 确认是否覆盖现有数据
+                if(!confirm('确定要导入数据吗？当前数据将被覆盖！')) return;
+                
+                // 清空现有数据并导入新数据
+                localStorage.clear();
+                for (const key in data) {
+                    localStorage.setItem(key, data[key]);
+                }
+                // 显示成功提示
+                alert('数据导入成功！');
+                // 导入完成后重新加载页面以应用新数据
+                location.reload();
+            } catch (error) {
+                // 错误处理：显示导入失败提示
+                alert('数据导入失败！请确保上传的是有效的JSON文件。');
+                console.error('导入错误:', error);
+            }
+        };
+        reader.readAsText(file);
+    });
+}
+
+/**
+ * 日志功能模块
+ * 管理锻刀过程中的事件记录和显示
+ */
+
+// 存储上次日志消息，用于检测重复消息
 let lastLogMessage = '';
 let duplicateLogCount = 0;
 
+/**
+ * 记录锻刀事件到日志区域
+ * 处理日志消息的格式化、重复消息检测和展示
+ * @function logEvent
+ * @param {string} message - 要记录的日志消息内容
+ * @returns {void}
+ */
 function logEvent(message) {
+    // 创建时间戳 - 格式化当前时间为标准格式
     const now = new Date();
     const timestamp = now.toLocaleString('zh-CN', {
         year: 'numeric',
@@ -15,13 +109,15 @@ function logEvent(message) {
         second: '2-digit'
     }).replace(/\//g, '-');
     
+    // 获取日志显示区域元素
     const logArea = document.getElementById('logArea');
+    // 错误处理：检查日志区域是否存在
     if (!logArea) {
         console.error('日志区域元素未找到');
         return;
     }
     
-    // 调试信息：记录日志调用情况
+    // 开发调试信息：记录日志调用的详细参数
     console.groupCollapsed(`[日志事件] ${message.substring(0, 30)}${message.length > 30 ? '...' : ''}`);
     console.log('当前消息:', message);
     console.log('上条消息:', lastLogMessage);
@@ -29,8 +125,9 @@ function logEvent(message) {
     console.log('日志区域:', logArea);
     console.groupEnd();
     
-    // 防止重复消息记录
+    // 重复消息处理逻辑
     if (message === lastLogMessage) {
+        // 增加重复计数
         duplicateLogCount++;
         console.warn(`[重复日志阻止] 消息重复 ${duplicateLogCount} 次: "${message.substring(0, 30)}${message.length > 30 ? '...' : ''}"`);
         return;
@@ -51,6 +148,14 @@ function logEvent(message) {
 
 // 刀剑数据 - 按刀种分类
 // 根据稀有度设置基础锻造时间（秒）
+/**
+ * 稀有度对应的锻造时间（秒）
+ * @type {Object.<string, number>}
+ * @property {number} common - 普通稀有度锻造时间（10秒）
+ * @property {number} rare - 稀有锻造时间（45秒）
+ * @property {number} veryRare - 非常稀有锻造时间（88秒）
+ * @property {number} legendary - 传说级锻造时间（630秒）
+ */
 const rarityForgeTimes = {
     common: 10,
     rare: 45,
@@ -58,6 +163,11 @@ const rarityForgeTimes = {
     legendary: 630
 };
 
+/**
+ * 刀剑类型分类数据
+ * 包含各种类型的刀剑信息、概率和稀有度
+ * @type {Object}
+ */
 const swordTypes = {
     short: {
         name: "短刀",
@@ -186,7 +296,8 @@ const resourceLimits = {
 let collection = JSON.parse(localStorage.getItem('toukenCollection')) || {};
 let forgeTimer = null;
 let currentForgeTime = 0;
-let currentResources = null; // 保存当前锻造使用的资源
+let currentResources = {}; // 保存当前锻造使用的资源
+let currentForgingResult = null; // 当前锻造结果
 
 // 统计数据
 let stats = {
@@ -910,6 +1021,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 然后初始化UI和其他状态
         init();
+        
+        // 初始化数据管理功能
+        initDataManagement();
         
         console.log('应用初始化完成');
     } catch (e) {

@@ -18,13 +18,13 @@
     background-color: var(--primary-hover-color);
 }
 
-/* 刀剑乱舞锻刀模拟器样式 */
+/* 刀剑乱舞锻刀模拟器样式 - 统一配色方案 */
 
 .touken-forge-container {
-    max-width: 800px;
+    width: 100%;
     margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f4e6;
+    padding: 30px;
+    background-color: #f8f9fa;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
@@ -32,49 +32,50 @@
 
 .touken-forge-title {
     text-align: center;
-    color: #8e2323;
+    color: #333;
     margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    border-bottom: 2px solid #d9c8a9;
+    font-size: 28px;
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
     padding-bottom: 10px;
 }
 
 .touken-forge-description {
     text-align: center;
     margin-bottom: 20px;
-    color: #5a4a3a;
+    color: #666;
     line-height: 1.6;
 }
 
-/* 资源区域 */
+/* 资源区域 - 统一配色方案 */
 .resources-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 20px;
-    background-color: #f0e6d2;
-    padding: 15px;
+    background-color: #fff;
+    padding: 20px;
     border-radius: 8px;
-    border: 1px solid #d9c8a9;
+    border: 1px solid #dee2e6;
 }
 
 .resource-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 22%;
+    width: calc(25% - 10px);
+    min-width: 150px;
     margin-bottom: 10px;
 }
 
 .resource-name {
-    font-weight: bold;
-    color: #5a4a3a;
+    font-weight: 600;
+    color: #444;
     margin-bottom: 5px;
 }
 
 .resource-value {
-    color: #8e2323;
+    color: #007bff;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -94,6 +95,7 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .forge-buttons {
@@ -102,22 +104,24 @@
     align-items: center;
     gap: 10px;
     width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .forge-button {
     padding: 12px 30px;
-    background-color: #8e2323;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .forge-button:hover {
-    background-color: #a52a2a;
+    background-color: #0056b3;
 }
 
 .forge-button:disabled {
@@ -127,59 +131,63 @@
 
 .skip-button {
     padding: 12px 30px;
-    background-color: #FF9800;
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-top: 10px;
 }
 
 .skip-button:hover {
-    background-color: #F57C00;
+    background-color: #218838;
 }
 
 .forge-status {
     margin-top: 10px;
     font-weight: bold;
-    color: #5a4a3a;
+    color: #444;
 }
 
 .forge-timer {
     margin-top: 5px;
     font-size: 20px;
     font-weight: bold;
-    color: #8e2323;
+    color: #007bff;
 }
 
-/* 结果区域 */
+/* 结果区域 - 统一配色方案 */
 .result-container {
     display: none;
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
     padding: 20px;
-    background-color: #f0e6d2;
+    background-color: #fff;
     border-radius: 8px;
-    border: 1px solid #d9c8a9;
+    border: 1px solid #dee2e6;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .result-image {
     width: 150px;
     height: 200px;
     object-fit: cover;
-    border: 3px solid #d9c8a9;
+    border: 3px solid #dee2e6;
     border-radius: 5px;
     margin-bottom: 10px;
 }
 
 .result-name {
     font-size: 20px;
-    font-weight: bold;
-    color: #5a4a3a;
+    font-weight: 600;
+    color: #333;
     margin-bottom: 5px;
 }
 
@@ -213,76 +221,110 @@
     color: #8b4513;
 }
 
-/* 收藏区域 */
+/* 收藏区域 - 统一配色方案 */
 .collection-container {
-    margin-top: 30px;
+    margin-top: 20px;
     padding: 15px;
-    background-color: #f0e6d2;
+    background-color: #f8f9fa;
     border-radius: 8px;
-    border: 1px solid #d9c8a9;
+    border: 1px solid #dee2e6;
+    width: 100%;
 }
 
 .collection-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .collection-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #5a4a3a;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
 }
 
 .collection-count {
-    background-color: #8e2323;
+    background-color: #007bff;
     color: white;
     padding: 3px 8px;
     border-radius: 10px;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
+/* 内部可滚动容器 - 统一配色方案 */
 .collection-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    min-height: 300px;
+    max-height: 60vh;
+    height: auto;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
 }
+
+/* 自定义滚动条样式 - 统一配色方案 */
+.collection-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.collection-list::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.collection-list::-webkit-scrollbar-thumb {
+    background: #dee2e6;
+    border-radius: 4px;
+}
+
+.collection-list::-webkit-scrollbar-thumb:hover {
+    background: #adb5bd;
+}
+
+/* 已移动到上面的样式中 */
 
 .collection-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
+    padding: 8px;
     background-color: #fff;
     border-radius: 5px;
-    border: 1px solid #d9c8a9;
+    border: 1px solid #dee2e6;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .collection-item-image {
-    width: 80px;
-    height: 100px;
+    width: 100%;
+    max-width: 120px;
+    height: auto;
     object-fit: cover;
-    border: 2px solid #d9c8a9;
+    border: 2px solid #dee2e6;
     border-radius: 3px;
     margin-bottom: 5px;
 }
 
 .collection-item-name {
     font-size: 14px;
-    font-weight: bold;
-    color: #5a4a3a;
+    font-weight: 600;
+    color: #333;
     text-align: center;
     margin-bottom: 3px;
 }
 
 .collection-item-count {
     font-size: 12px;
-    color: #8e2323;
+    color: #007bff;
 }
 
-/* 数据管理按钮 */
+/* 数据管理按钮 - 统一配色方案 */
 .data-controls {
     margin: 20px 0;
     display: flex;
@@ -292,22 +334,22 @@
 
 .data-controls button {
     padding: 8px 16px;
-    background: #f0f0f0;
-    border: 1px solid #d9c8a9;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.2s;
-    color: #5a4a3a;
+    color: #444;
 }
 
 .data-controls button:hover {
-    background: #e0e0e0;
+    background: #e9ecef;
 }
 
-/* 统计信息展示 */
+/* 统计信息展示 - 统一配色方案 */
 .stats-container {
     background-color: #fff;
-    border: 1px solid #d9c8a9;
+    border: 1px solid #dee2e6;
     border-radius: 5px;
     padding: 10px 15px;
     margin-bottom: 20px;
@@ -318,15 +360,15 @@
 
 .stats-container span {
     font-size: 16px;
-    color: #5a4a3a;
+    color: #444;
 }
 
 .stats-container span span {
     font-weight: bold;
-    color: #8e2323;
+    color: #007bff;
 }
 
-/* 工具按钮 */
+/* 工具按钮 - 统一配色方案 */
 .tools-container {
     display: flex;
     justify-content: center;
@@ -335,7 +377,7 @@
 
 .resources-button {
     padding: 8px 15px;
-    background-color: #5a4a3a;
+    background-color: #6c757d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -345,11 +387,62 @@
 }
 
 .resources-button:hover {
-    background-color: #6d5c4d;
+    background-color: #5a6268;
 }
 
-/* 响应式设计 */
-@media (max-width: 600px) {
+/* 响应式设计 - 大屏幕优化 */
+@media (min-width: 1024px) {
+    .touken-forge-container {
+        padding: 30px;
+    }
+    
+    /* 超宽屏幕优化 */
+    @media (min-width: 1600px) {
+        .touken-forge-container {
+            padding: 40px;
+        }
+    }
+    
+    .collection-list {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 15px;
+    }
+    
+    .collection-item-image {
+        max-width: 150px;
+        height: auto;
+    }
+    
+    .forge-buttons {
+        max-width: 600px;
+    }
+    
+    .result-container {
+        max-width: 700px;
+    }
+}
+
+/* 响应式设计 - 中等屏幕优化 */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .touken-forge-container {
+        padding: 25px;
+        max-width: 100%;
+    }
+    
+    .collection-list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+    }
+    
+    .collection-item-image {
+        width: 100%;
+        max-width: 130px;
+        height: auto;
+    }
+}
+
+/* 响应式设计 - 小屏幕优化 */
+@media (max-width: 767px) {
     .resources-container {
         flex-direction: column;
     }
@@ -360,7 +453,8 @@
     }
     
     .collection-list {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
     }
     
     .result-image {
@@ -369,43 +463,64 @@
     }
     
     .collection-item-image {
-        width: 70px;
-        height: 90px;
-    }
+    width: 100%;
+    max-width: 90px;
+    height: auto;
+}
     
     .touken-forge-title {
         font-size: 20px;
     }
+    
+    .touken-forge-container {
+        padding: 15px;
+    }
 }
 
 /* 针对更小屏幕的额外调整 */
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+    .touken-forge-container {
+        padding: 15px;
+    }
+    
     .result-image {
         width: 100px;
         height: 140px;
     }
     
     .collection-item-image {
-        width: 60px;
-        height: 80px;
-    }
+    width: 100%;
+    max-width: 80px;
+    height: auto;
+}
     
     .touken-forge-title {
         font-size: 18px;
     }
     
     .collection-list {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 8px;
+    }
+    
+    .collection-item {
+        padding: 5px;
+    }
+    
+    .forge-button, .skip-button {
+        padding: 10px 20px;
+        font-size: 14px;
     }
 }
 
-/* 日志区域样式 */
+/* 日志区域样式 - 统一配色方案 */
 .log-container {
     margin-top: 20px;
     padding: 15px;
-    background-color: #f0e6d2;
+    background-color: #f8f9fa;
     border-radius: 8px;
-    border: 1px solid #d9c8a9;
+    border: 1px solid #dee2e6;
+    width: 100%;
 }
 
 .log-header {
@@ -417,12 +532,14 @@
 
 .log-title {
     font-size: 16px;
-    font-weight: bold;
-    color: #5a4a3a;
+    font-weight: 600;
+    color: #333;
 }
 
 .log-area {
-    height: 150px;
+    min-height: 120px;
+    max-height: 25vh;
+    height: auto;
     overflow-y: auto;
     padding: 10px;
     background-color: #fff;
@@ -433,11 +550,30 @@
     line-height: 1.4;
 }
 
+/* 日志区域的自定义滚动条样式 - 统一配色方案 */
+.log-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.log-area::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.log-area::-webkit-scrollbar-thumb {
+    background: #dee2e6;
+    border-radius: 4px;
+}
+
+.log-area::-webkit-scrollbar-thumb:hover {
+    background: #adb5bd;
+}
+
 .log-entry {
     margin-bottom: 8px;
     padding-bottom: 8px;
     border-bottom: 1px solid #eee;
-    color: #5a4a3a;
+    color: #444;
 }
 
 .log-entry:last-child {
@@ -446,16 +582,28 @@
     border-bottom: none;
 }
 
-/* 响应式调整 */
-@media (max-width: 600px) {
+/* 响应式调整 - 小屏幕高度优化 */
+@media (max-width: 767px) {
+    .collection-list {
+        min-height: 250px;
+        max-height: 50vh;
+    }
+    
     .log-area {
-        height: 120px;
+        min-height: 100px;
+        max-height: 20vh;
         font-size: 13px;
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+    .collection-list {
+        min-height: 200px;
+        max-height: 45vh;
+    }
+    
     .log-area {
-        height: 100px;
+        min-height: 80px;
+        max-height: 15vh;
     }
 }
