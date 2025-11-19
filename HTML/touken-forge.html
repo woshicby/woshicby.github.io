@@ -1,56 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <!-- ==========================================
-         锻刀模拟器页面 - 展示开发的锻刀模拟器
-         ========================================== -->
+    <!-- 锻刀模拟器页面 - 展示开发的锻刀模拟器 -->
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>锻刀模拟器</title>
         <link rel="stylesheet" href="../CSS/common.css">
+        <link rel="stylesheet" href="../CSS/tools-common.css">
         <link rel="stylesheet" href="../CSS/touken-forge.css">
         <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     </head>
-    <!-- ==========================================
-         页面头部 - 网站标题和导航
-         ==========================================
-         包含网站标志和主导航菜单，当前高亮"锻刀模拟器"选项
-         ========================================== -->
+    <!-- 页面头部 - 网站标题和导航 -->
     <body>
         <!-- 头部外套开始 -->
         <div class="header clearfix wrapper">
             <!-- logo/大标题区域开始 -->
-            <h1>锻刀模拟器（建设中）</h1>
+            <h1>锻刀模拟器</h1>
             <!-- logo/大标题区域结束 -->
             <!-- 导航栏开始 -->
             <div class="nav">
                 <ul class="clearfix">
                     <li><a href="../index.html">首页</a></li>
                     <li><a href="video.html">视频展示</a></li>
-                    <li><a href="study.html">学习记录</a></li>
-                    <li><a href="touken-forge.html" class="active">锻刀模拟器</a></li>
-                    <li><a href="sports.html">体育运动</a></li>                    
+                    <li><a href="study.html">个人成果</a></li>
+                    <li><a href="tools.html" class="active">小工具&小游戏</a></li>
+                    <li><a href="sports.html">体育运动</a></li>
+                    <li style="display: inline-block; vertical-align: middle;">
+                        <label class="theme-toggle">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="theme-toggle-slider"></span>
+                        </label>
+                    </li>
                 </ul>
             </div>
             <!-- 导航栏结束 -->
         </div>
         <!-- 头部外套结束 -->
+      
+        <!-- 移动导航菜单切换按钮 -->
+        <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <!-- 引入导航功能脚本 -->
+        <script src="../JS/navigation.js"></script>
+        <!-- 引入主题切换脚本 -->
+        <script src="../JS/theme-toggle.js"></script>
         <!-- 主体外套开始 -->
-        <!-- ==========================================
-             主体内容区域
-             ==========================================
-             展示锻刀模拟器列表和下载链接
-             ========================================== -->
         <div class="mainbox clearfix wrapper">
-            <!-- 锻刀模拟器部分 -->
-            <section id="game">
-                <!-- 刀剑乱舞锻刀模拟器 -->
-                <div class="touken-forge-container">
-                    <div class="touken-forge-title">刀剑乱舞锻刀模拟器</div>
-                    <div class="touken-forge-description">
+            <!-- 返回小工具页面的链接 -->
+            <div class="back-to-tools">
+                <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
+            </div>
+            <!-- 刀剑乱舞锻刀模拟器 -->
+            <div class="tool-container">
+                    <h2 class="tool-page-title">锻刀模拟器</h2>
+                    <p class="tool-description">
                         模拟《刀剑乱舞online》中的锻刀功能，通过不同的资源配比来锻造各种稀有度的刀剑。
-                    </div>
+                    </p>
                     
                     <!-- 统计信息区域 -->
                     <div class="stats-container">
@@ -93,7 +103,7 @@
                     
                     <!-- 结果区域 -->
                     <div id="resultContainer" class="result-container">
-                        <img id="resultImage" class="result-image" src="../images/touken/default_sword.jpg" alt="刀剑">
+                        <img id="resultImage" class="result-image" src="../images/touken/刀账图标/default_sword.jpg" alt="锻造结果">
                         <div id="resultName" class="result-name">未知刀剑</div>
                         <div id="resultRarity" class="rarity common">普通</div>
                     </div>
@@ -124,78 +134,15 @@
                         <button id="importBtn">导入数据</button>
                         <input type="file" id="importFile" accept=".json" style="display:none">
                     </div>
-                </div>
-                
-                <!-- 其他锻刀模拟器可以在这里添加 -->
-            </section>
+            </div>
         </div>
         <!-- 主体外套结束 -->
-        <!-- 脚注外套开始 -->
-        <!-- ==========================================
-             页脚区域
-             ==========================================
-             包含版权信息和社交链接
-             ========================================== -->
+        <!-- 页脚区域 -->
         <div class="foot wrapper">
             <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
         </div>
         <!-- 脚注外套结束 -->
         <!-- 引入锻刀模拟器的JavaScript -->
         <script src="../JS/touken-forge.js"></script>
-        <script>
-        // 数据管理功能
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            if(confirm('确定要重置所有本地数据吗？此操作不可恢复！')) {
-                localStorage.clear();
-                location.reload();
-            }
-        });
-        
-        document.getElementById('exportBtn').addEventListener('click', () => {
-            const data = {};
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                data[key] = localStorage.getItem(key);
-            }
-            
-            const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `touken-forge-data_${new Date().toISOString().slice(0,10)}.json`;
-            a.click();
-            
-            URL.revokeObjectURL(url);
-        });
-        
-        document.getElementById('importBtn').addEventListener('click', () => {
-            document.getElementById('importFile').click();
-        });
-        
-        document.getElementById('importFile').addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                try {
-                    const data = JSON.parse(event.target.result);
-                    if(!confirm('确定要导入数据吗？当前数据将被覆盖！')) return;
-                    
-                    localStorage.clear();
-                    for (const key in data) {
-                        localStorage.setItem(key, data[key]);
-                    }
-                    alert('数据导入成功！');
-                    location.reload();
-                } catch (err) {
-                    alert('导入失败：文件格式不正确');
-                    console.error(err);
-                }
-            };
-            reader.readAsText(file);
-        });
-        </script>
     </body>
 </html>

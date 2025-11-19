@@ -1,0 +1,155 @@
+/* ========================================== 
+   个人成果展示页面样式 
+   ========================================== */
+
+/* 通用部分样式 */
+.achievement-section {
+    padding: var(--spacing-md) 0;
+    margin-bottom: var(--spacing-lg);
+}
+
+
+
+/* 个人信息部分样式 */
+#personal-info .personal-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    background-color: var(--background-light);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-light);
+}
+
+#personal-info .detail-item {
+    flex: 1 1 200px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+#personal-info .detail-item strong {
+    min-width: 60px;
+}
+
+/* 链接样式已删除，使用common-selectors.css中的统一样式 */
+
+/* 研究成果部分样式 */
+#research .achievements-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.achievement-item {
+    background-color: var(--background-light);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    box-shadow: var(--shadow-light);
+    transition: all var(--transition-default);
+    border-left: 4px solid var(--primary-color);
+}
+
+.achievement-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+    border-left-color: var(--secondary-color);
+}
+
+.achievement-title {
+    color: var(--heading-color);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.5;
+}
+
+.achievement-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.achievement-meta span {
+    background-color: var(--light-accent);
+    padding: 4px 10px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.achievement-authors,
+.achievement-source {
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+
+
+/* 同行评审活动样式 */
+#peer-review .review-activity {
+    background-color: var(--background-light);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+}
+
+.review-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.review-title,
+.review-count {
+    flex: 1 1 200px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+
+
+/* 响应式样式 - 统一管理 */
+/* 平板及以下设备 */
+@media (max-width: 768px) {
+    #study li {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+}
+
+/* 手机设备 */
+@media (max-width: 480px) {
+    #study {
+        padding: var(--spacing-sm) 0;
+    }
+    
+    /* 移除对p标签的字体大小覆盖 */
+}
+
+/* 夜间模式样式 - 统一管理 */
+
+/* 夜间模式下特定容器样式，保留容器特定样式但不覆盖内部元素的全局样式 */
+body.dark-theme #personal-info .personal-details,
+body.dark-theme .achievement-item,
+body.dark-theme #peer-review .review-activity {
+    background-color: var(--background-light);
+    box-shadow: var(--shadow-light);
+}
+
+/* 保留特定的容器边框和阴影样式，但不覆盖内部文本元素样式 */
+body.dark-theme .achievement-item {
+    border-left-color: var(--secondary-color);
+}
+
+body.dark-theme .highlight {
+    box-shadow: var(--shadow-medium);
+    border-left-color: var(--accent-color);
+}
+
+body.dark-theme .achievement-meta span {
+    background-color: var(--light-accent);
+}

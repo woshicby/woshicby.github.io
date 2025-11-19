@@ -1,0 +1,34 @@
+/* ==========================================
+   夜间模式样式 - 统一管理
+   ========================================== */
+/* 夜间模式 - 个人照片边框 */
+body.dark-theme .profile-photo {
+    border-color: var(--dark-border-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .profile-photo:hover {
+    border-color: var(--secondary-color);
+}
+
+/* 夜间模式 - 个人资料内容文字 */
+body.dark-theme .profile-content {
+    color: var(--dark-text-color);
+}
+
+/* 夜间模式 - 个人资料段落样式 */
+body.dark-theme .profile-content p {
+    color: var(--dark-text-color);
+}
+
+/* 夜间模式 - 按钮容器样式 */
+body.dark-theme div.botton_box {
+    background-color: var(--dark-card-bg-color);
+    box-shadow: var(--dark-shadow-light);
+    border-left-color: var(--secondary-color);
+}
+
+body.dark-theme div.botton_box:hover {
+    border-left-color: var(--accent-color);
+    box-shadow: var(--dark-shadow-medium);
+}

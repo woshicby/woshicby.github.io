@@ -35,23 +35,7 @@ div.right_box{
     width:500px;
 }
 
-/* 响应式调整左右分栏 */
-@media (max-width: 1200px) {
-    div.left_box {
-        width: 60%;
-    }
-    div.right_box {
-        width: 40%;
-    }
-}
 
-@media (max-width: 992px) {
-    div.left_box, div.right_box {
-        float: none;
-        width: 100%;
-        margin-bottom: var(--spacing-md);
-    }
-}
 
 /* ==========================================
    组件样式 - 内容容器
@@ -80,8 +64,6 @@ div.normal_box:hover{
    视频展示页面专用链接按钮样式
    复用common.css中的基础按钮样式
    ========================================== */
-/* 使用common.css中定义的通用按钮样式 */
-/* a.botton已替换为.btn类 */
 
 /* ==========================================
    用户信息展示区域样式
@@ -122,7 +104,7 @@ div.normal_box:hover{
 .user-name {
     margin: 0;
     font-size: 1.5rem;
-    color: var(--primary-text);
+    color: var(--text-color);
 }
 
 .user-fans {
@@ -131,7 +113,7 @@ div.normal_box:hover{
 }
 
 .user-sign {
-    color: var(--secondary-text);
+    color: var(--light-text);
     margin-bottom: var(--spacing-md);
     font-size: 0.95rem;
 }
@@ -141,19 +123,6 @@ div.normal_box:hover{
     gap: var(--spacing-md);
     color: var(--light-text);
     font-size: 0.9rem;
-}
-
-/* 响应式调整 */
-@media (max-width: 768px) {
-    .user-header {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .user-avatar {
-        margin-right: 0;
-        margin-bottom: var(--spacing-sm);
-    }
 }
 
 /* ==========================================
@@ -213,17 +182,6 @@ div.normal_box:hover{
     font-weight: 500;
 }
 
-.video-title a {
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: var(--transition-default);
-}
-
-.video-title a:hover {
-    color: var(--secondary-color);
-    text-decoration: underline;
-}
-
 /* 加载和错误状态样式 */
 .loading, .error {
     width: 100%;
@@ -233,7 +191,7 @@ div.normal_box:hover{
 }
 
 .error {
-    color: var(--error-color);
+    color: var(--danger-color);
 }
 
 /* 用户统计信息样式 */
@@ -283,36 +241,57 @@ div.normal_box:hover{
     display: block;
 }
 
-/* 响应式调整 */
+/* 响应式调整 - 1200px断点 */
 @media (max-width: 1200px) {
+    /* 左右分栏调整 */
+    div.left_box {
+        width: 60%;
+    }
+    div.right_box {
+        width: 40%;
+    }
+    
+    /* 视频网格布局调整 */
     .video-wrapper {
         flex: 0 0 calc(25% - var(--spacing-md)); /* 每个视频占25%宽度 */
     }
     
+    /* 视频高度调整 */
     .responsive-video {
         max-height: 500px;
     }
 }
-
-@media (max-width: 992px) {
-    .video-wrapper {
-        flex: 0 0 calc(33.33% - var(--spacing-md)); /* 每个视频占33%宽度 */
+/* 响应式调整 - 768px断点 */
+@media (max-width: 768px) {
+    /* 左右分栏调整 */
+    div.left_box, div.right_box {
+        float: none;
+        width: 100%;
+        margin-bottom: var(--spacing-md);
     }
     
-    .responsive-video {
-        max-height: 450px;
+    /* 用户信息区域调整 */
+    .user-header {
+        flex-direction: column;
+        text-align: center;
     }
-}
-
-@media (max-width: 768px) {
+    
+    .user-avatar {
+        margin-right: 0;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    /* 视频网格布局调整 */
     .video-wrapper {
         flex: 0 0 calc(50% - var(--spacing-md)); /* 每个视频占50%宽度 */
     }
     
+    /* 视频容器调整 */
     .bilibili-player-container {
         padding-bottom: 75%; /* 调整高度比例 */
     }
     
+    /* 视频高度调整 */
     .responsive-video {
         max-height: 400px;
     }
@@ -343,6 +322,16 @@ div.normal_box:hover{
     
     .local-video-container {
         margin: var(--spacing-sm) 0;
-        box-shadow: var(--shadow-sm);
+        box-shadow: var(--shadow-light);
     }
+}
+
+/* 夜间模式样式 - 统一管理 */
+/* 保持图标不变，但遵循common.css中的文本颜色规范 */
+body.dark-theme .user-stats span:nth-child(1)::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23bdc3c7'%3E%3Cpath d='M12 4a4 4 0 014 4 4 4 0 01-4 4 4 4 0 01-4-4 4 4 0 014-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z'/%3E%3C/svg%3E");
+}
+
+body.dark-theme .user-stats span:nth-child(2)::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23bdc3c7'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
 }

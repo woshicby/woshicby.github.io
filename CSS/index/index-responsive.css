@@ -1,0 +1,33 @@
+/* ==========================================
+   响应式样式 - 统一管理
+   ========================================== */
+
+/* 响应式布局 - 首页适配 */
+@media (max-width: 768px) {
+    .botton_box {
+        float: none;
+        margin: 10px auto;
+        width: 90%;
+    }
+    a.botton {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .profile-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .profile-photo {
+        margin-bottom: 20px;
+        width: 120px;
+        height: 120px;
+    }
+    
+    .profile-content h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

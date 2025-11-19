@@ -1,0 +1,10 @@
+/* 夜间模式样式 - 统一管理 */
+body.dark-theme .tool-page-title {
+    color: var(--heading-color);
+    border-bottom-color: var(--border-color);
+}
+
+body.dark-theme .tool-container {
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+}
