@@ -62,113 +62,113 @@ const swordTypes = {
     short: {
         name: "短刀",
         swords: [
-            {name: "今剑", image: "images/touken/刀账图标/今剑.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "平野藤四郎", image: "images/touken/刀账图标/平野藤四郎.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "厚藤四郎", image: "images/touken/刀账图标/厚藤四郎.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "后藤藤四郎", image: "images/touken/刀账图标/后藤藤四郎.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "信浓藤四郎", image: "images/touken/刀账图标/信浓藤四郎.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "秋田藤四郎", image: "images/touken/刀账图标/秋田藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "前田藤四郎", image: "images/touken/刀账图标/前田藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "包丁藤四郎", image: "images/touken/刀账图标/包丁藤四郎.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "博多藤四郎", image: "images/touken/刀账图标/博多藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "乱藤四郎", image: "images/touken/刀账图标/乱藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "药研藤四郎", image: "images/touken/刀账图标/药研藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "爱染国俊", image: "images/touken/刀账图标/爱染国俊.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "太鼓钟贞宗", image: "images/touken/刀账图标/太鼓钟贞宗.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "小夜左文字", image: "images/touken/刀账图标/小夜左文字.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "不动行光", image: "images/touken/刀账图标/不动行光.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
-            {name: "毛利藤四郎", image: "images/touken/刀账图标/毛利藤四郎.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "谦信景光", image: "images/touken/刀账图标/谦信景光.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary}
+            {name: "今剑", image: "../images/touken/刀账图标/今剑.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "平野藤四郎", image: "../images/touken/刀账图标/平野藤四郎.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "厚藤四郎", image: "../images/touken/刀账图标/厚藤四郎.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "后藤藤四郎", image: "../images/touken/刀账图标/后藤藤四郎.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "信浓藤四郎", image: "../images/touken/刀账图标/信浓藤四郎.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "秋田藤四郎", image: "../images/touken/刀账图标/秋田藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "前田藤四郎", image: "../images/touken/刀账图标/前田藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "包丁藤四郎", image: "../images/touken/刀账图标/包丁藤四郎.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "博多藤四郎", image: "../images/touken/刀账图标/博多藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "乱藤四郎", image: "../images/touken/刀账图标/乱藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "药研藤四郎", image: "../images/touken/刀账图标/药研藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "爱染国俊", image: "../images/touken/刀账图标/爱染国俊.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "太鼓钟贞宗", image: "../images/touken/刀账图标/太鼓钟贞宗.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "小夜左文字", image: "../images/touken/刀账图标/小夜左文字.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "不动行光", image: "../images/touken/刀账图标/不动行光.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
+            {name: "毛利藤四郎", image: "../images/touken/刀账图标/毛利藤四郎.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "谦信景光", image: "../images/touken/刀账图标/谦信景光.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary}
         ],
         baseProbability: 0.4
     },
     wakizashi: {
         name: "胁差",
         swords: [
-            {name: "堀川国广", image: "images/touken/刀账图标/堀川国广.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "浦岛虎彻", image: "images/touken/刀账图标/浦岛虎彻.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "鲶尾藤四郎", image: "images/touken/刀账图标/鲶尾藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "骨喰藤四郎", image: "images/touken/刀账图标/骨喰藤四郎.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "笑面青江", image: "images/touken/刀账图标/笑面青江.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "物吉贞宗", image: "images/touken/刀账图标/物吉贞宗.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary}
+            {name: "堀川国广", image: "../images/touken/刀账图标/堀川国广.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "浦岛虎彻", image: "../images/touken/刀账图标/浦岛虎彻.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "鲶尾藤四郎", image: "../images/touken/刀账图标/鲶尾藤四郎.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "骨喰藤四郎", image: "../images/touken/刀账图标/骨喰藤四郎.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "笑面青江", image: "../images/touken/刀账图标/笑面青江.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "物吉贞宗", image: "../images/touken/刀账图标/物吉贞宗.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary}
         ],
         baseProbability: 0.2
     },
     uchigatana: {
         name: "打刀",
         swords: [
-            {name: "鸣狐", image: "images/touken/刀账图标/鸣狐.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "千子村正", image: "images/touken/刀账图标/千子村正.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
-            {name: "龟甲贞宗", image: "images/touken/刀账图标/龟甲贞宗.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
-            {name: "宗三左文字", image: "images/touken/刀账图标/宗三左文字.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "加州清光", image: "images/touken/刀账图标/加州清光.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "大和守安定", image: "images/touken/刀账图标/大和守安定.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "歌仙兼定", image: "images/touken/刀账图标/歌仙兼定.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "和泉守兼定", image: "images/touken/刀账图标/和泉守兼定.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "陆奥守吉行", image: "images/touken/刀账图标/陆奥守吉行.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "山姥切国广", image: "images/touken/刀账图标/山姥切国广.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "蜂须贺虎彻", image: "images/touken/刀账图标/蜂须贺虎彻.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "长曾祢虎彻", image: "images/touken/刀账图标/长曾祢虎彻.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "大俱利伽罗", image: "images/touken/刀账图标/大俱利伽罗.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "压切长谷部", image: "images/touken/刀账图标/压切长谷部.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "同田贯正国", image: "images/touken/刀账图标/同田贯正国.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare}
+            {name: "鸣狐", image: "../images/touken/刀账图标/鸣狐.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "千子村正", image: "../images/touken/刀账图标/千子村正.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
+            {name: "龟甲贞宗", image: "../images/touken/刀账图标/龟甲贞宗.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
+            {name: "宗三左文字", image: "../images/touken/刀账图标/宗三左文字.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "加州清光", image: "../images/touken/刀账图标/加州清光.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "大和守安定", image: "../images/touken/刀账图标/大和守安定.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "歌仙兼定", image: "../images/touken/刀账图标/歌仙兼定.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "和泉守兼定", image: "../images/touken/刀账图标/和泉守兼定.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "陆奥守吉行", image: "../images/touken/刀账图标/陆奥守吉行.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "山姥切国广", image: "../images/touken/刀账图标/山姥切国广.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "蜂须贺虎彻", image: "../images/touken/刀账图标/蜂须贺虎彻.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "长曾祢虎彻", image: "../images/touken/刀账图标/长曾祢虎彻.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "大俱利伽罗", image: "../images/touken/刀账图标/大俱利伽罗.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "压切长谷部", image: "../images/touken/刀账图标/压切长谷部.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "同田贯正国", image: "../images/touken/刀账图标/同田贯正国.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare}
         ],
         baseProbability: 0.15
     },
     tachi: {
         name: "太刀",
         swords: [
-            {name: "三日月宗近", image: "images/touken/刀账图标/三日月宗近.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
-            {name: "小狐丸", image: "images/touken/刀账图标/小狐丸.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
-            {name: "数珠丸恒次", image: "images/touken/刀账图标/数珠丸恒次.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "一期一振", image: "images/touken/刀账图标/一期一振.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "莺丸", image: "images/touken/刀账图标/莺丸.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "明石国行", image: "images/touken/刀账图标/明石国行.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "烛台切光忠", image: "images/touken/刀账图标/烛台切光忠.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "小龙景光", image: "images/touken/刀账图标/小龙景光.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "江雪左文字", image: "images/touken/刀账图标/江雪左文字.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "山伏国广", image: "images/touken/刀账图标/山伏国广.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "髭切", image: "images/touken/刀账图标/髭切.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "膝丸", image: "images/touken/刀账图标/膝丸.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "狮子王", image: "images/touken/刀账图标/狮子王.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "小乌丸", image: "images/touken/刀账图标/小乌丸.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "鹤丸国永", image: "images/touken/刀账图标/鹤丸国永.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "小豆长光", image: "images/touken/刀账图标/小豆长光.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary}
+            {name: "三日月宗近", image: "../images/touken/刀账图标/三日月宗近.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
+            {name: "小狐丸", image: "../images/touken/刀账图标/小狐丸.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
+            {name: "数珠丸恒次", image: "../images/touken/刀账图标/数珠丸恒次.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "一期一振", image: "../images/touken/刀账图标/一期一振.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "莺丸", image: "../images/touken/刀账图标/莺丸.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "明石国行", image: "../images/touken/刀账图标/明石国行.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "烛台切光忠", image: "../images/touken/刀账图标/烛台切光忠.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "小龙景光", image: "../images/touken/刀账图标/小龙景光.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "江雪左文字", image: "../images/touken/刀账图标/江雪左文字.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "山伏国广", image: "../images/touken/刀账图标/山伏国广.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "髭切", image: "../images/touken/刀账图标/髭切.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "膝丸", image: "../images/touken/刀账图标/膝丸.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "狮子王", image: "../images/touken/刀账图标/狮子王.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "小乌丸", image: "../images/touken/刀账图标/小乌丸.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "鹤丸国永", image: "../images/touken/刀账图标/鹤丸国永.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "小豆长光", image: "../images/touken/刀账图标/小豆长光.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary}
         ],
         baseProbability: 0.1
     },
     odachi: {
         name: "大太刀",
         swords: [
-            {name: "太郎太刀", image: "images/touken/刀账图标/太郎太刀.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "次郎太刀", image: "images/touken/刀账图标/次郎太刀.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
-            {name: "萤丸", image: "images/touken/刀账图标/萤丸.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
-            {name: "石切丸", image: "images/touken/刀账图标/石切丸.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare}
+            {name: "太郎太刀", image: "../images/touken/刀账图标/太郎太刀.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "次郎太刀", image: "../images/touken/刀账图标/次郎太刀.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare},
+            {name: "萤丸", image: "../images/touken/刀账图标/萤丸.jpg", rarity: "veryRare", forgeTime: rarityForgeTimes.veryRare},
+            {name: "石切丸", image: "../images/touken/刀账图标/石切丸.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare}
         ],
         baseProbability: 0.05
     },
     naginata: {
         name: "薙刀",
         swords: [
-            {name: "岩融", image: "images/touken/刀账图标/岩融.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "静形薙刀", image: "images/touken/刀账图标/静形薙刀.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
-            {name: "巴形薙刀", image: "images/touken/刀账图标/巴形薙刀.jpg", rarity: "rarey", forgeTime: rarityForgeTimes.rare}
+            {name: "岩融", image: "../images/touken/刀账图标/岩融.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "静形薙刀", image: "../images/touken/刀账图标/静形薙刀.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
+            {name: "巴形薙刀", image: "../images/touken/刀账图标/巴形薙刀.jpg", rarity: "rarey", forgeTime: rarityForgeTimes.rare}
         ],
         baseProbability: 0.05
     },
     spear: {
         name: "枪",
         swords: [
-            {name: "日本号", image: "images/touken/刀账图标/日本号.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
-            {name: "蜻蛉切", image: "images/touken/刀账图标/蜻蛉切.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
-            {name: "御手杵", image: "images/touken/刀账图标/御手杵.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare}
+            {name: "日本号", image: "../images/touken/刀账图标/日本号.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
+            {name: "蜻蛉切", image: "../images/touken/刀账图标/蜻蛉切.jpg", rarity: "common", forgeTime: rarityForgeTimes.common},
+            {name: "御手杵", image: "../images/touken/刀账图标/御手杵.jpg", rarity: "rare", forgeTime: rarityForgeTimes.rare}
         ],
         baseProbability: 0.05
     },
     ken: {
         name: "剑",
         swords: [
-            {name: "白山吉光", image: "images/touken/刀账图标/白山吉光.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
+            {name: "白山吉光", image: "../images/touken/刀账图标/白山吉光.jpg", rarity: "legendary", forgeTime: rarityForgeTimes.legendary},
         ],
         baseProbability: 0.01
     }
