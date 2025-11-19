@@ -1,3 +1,23 @@
+/* 返回小工具页面按钮 */
+.back-to-tools {
+    margin-bottom: 1.5rem;
+}
+
+.back-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--primary-hover-color);
+}
+
 /* 刀剑乱舞锻刀模拟器样式 */
 
 .touken-forge-container {

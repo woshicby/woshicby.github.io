@@ -1,0 +1,149 @@
+/* 小工具&小游戏页面样式 */
+
+/* 工具和游戏区域标题 */
+#tools-section h2,
+#games-section h2 {
+    color: var(--primary-color);
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+/* 工具网格布局 */
+.tools-grid,
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+/* 游戏卡片样式 */
+.game-card {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 游戏卡片图片 */
+.game-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* 游戏卡片内容 */
+.game-card-content {
+    padding: 1.5rem;
+}
+
+.game-card-content h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: var(--heading-color);
+    font-size: 1.25rem;
+}
+
+.game-card-content p {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* 游戏卡片按钮 */
+.game-card-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    transition: background-color 0.3s ease;
+}
+
+.game-card-button:hover {
+    background-color: var(--primary-hover-color);
+}
+
+/* 工具卡片样式（如果需要可以类似游戏卡片的样式） */
+.tool-card {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.tool-card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.tool-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: var(--heading-color);
+}
+
+.tool-card-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.tool-card-button:hover {
+    background-color: var(--primary-hover-color);
+}
+
+/* 响应式设计调整 */
+@media (max-width: 768px) {
+    .tools-grid,
+    .games-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .game-card-content,
+    .tool-card {
+        padding: 1.25rem;
+    }
+    
+    .game-card-image {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-card-image {
+        height: 150px;
+    }
+    
+    #tools-section h2,
+    #games-section h2 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+}
