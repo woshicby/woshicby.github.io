@@ -6,12 +6,14 @@
 
 ```
 HTML/
-├── index.html         # 网站首页
 ├── pace-calculator.html  # 配速计算器页面
 ├── sports.html        # 体育页面
+├── study.html         # 学习页面
+├── style-comparison.html  # 样式比较器页面
 ├── tools.html         # 工具集页面
 ├── touken-forge.html  # 刀剑乱舞锻刀模拟器页面
-└── video.html         # 视频播放器页面
+├── video.html         # 视频播放器页面
+└── README.md          # 目录说明文档
 ```
 
 ## 文件说明
@@ -40,6 +42,14 @@ HTML/
 - 体育新闻或文章列表
 - 运动知识分享
 - 训练计划或建议
+
+### style-comparison.html
+
+**样式比较器页面**，提供不同样式方案的对比功能：
+- 多视图样式对比
+- 实时样式切换
+- 样式参数调整
+- 对比结果导出
 
 ### tools.html
 

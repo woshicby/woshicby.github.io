@@ -66,7 +66,7 @@ h1::after {
     flex: 1;
     line-height: 1.8;
     font-size: 17px;
-    color: #2c3e50;
+    color: var(--text-color);
 }
 
 .profile-content p {
@@ -92,13 +92,13 @@ div.botton_box{
     background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(240,249,255,0.8));
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-left: 3px solid #00a4ff;
+    border-left: 3px solid var(--secondary-color);
 }
 
 div.botton_box:hover{
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
     transform: translateY(-5px) translateX(3px);
-    border-left-color: #0078d4;
+    border-left-color: var(--primary-color);
 }
 
 
@@ -198,10 +198,54 @@ div.botton_box:hover{
 
 
 
+/* ==========================================
+   页面组件 - 社交链接
+   ==========================================
+   首页社交链接区域的样式定义
+   包含图标和链接的排列与交互效果
+   ========================================== */
+.social-links {
+    margin: 1rem 0;
+}
+
+.social-links a {
+    display: inline-block;
+    margin: 0 10px;
+    color: var(--text-color);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* 移除特定颜色定义，因为ICO图标已包含正确的颜色 */
+
+.social-links a:hover {
+    transform: translateY(-3px);
+    color: #3498db;
+}
+
+.social-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+/* GitHub Issue链接样式 */
+.issue.github {
+    color: var(--secondary-color);
+    text-decoration: underline;
+    font-weight: var(--font-weight-medium);
+    transition: color 0.3s ease;
+}
+
+.issue.github:hover {
+    color: var(--primary-color);
+}
+
 .strava-connect p {
     margin-bottom: 15px;
     line-height: 1.8;
-    color: #2c3e50;
+    color: var(--text-color);
 }
 
 .strava-connect a {
@@ -220,4 +264,27 @@ div.botton_box:hover{
     background-color: #E34902;
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(252, 76, 2, 0.4);
+}
+
+/* ========================================== 
+   夜间模式样式覆盖 
+   ========================================== */
+body.dark-theme .profile-container {
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(52, 73, 94, 0.9));
+    box-shadow: var(--shadow-medium);
+}
+
+body.dark-theme .botton_box {
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.8), rgba(52, 73, 94, 0.8));
+    box-shadow: var(--shadow-light);
+    border-left-color: var(--secondary-color); /* 与日间模式保持一致的颜色映射 */
+}
+
+body.dark-theme .botton_box:hover {
+    border-left-color: var(--primary-color); /* 与日间模式保持一致的颜色映射 */
+}
+
+body.dark-theme .strava-connect {
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(52, 73, 94, 0.9));
+    box-shadow: var(--shadow-medium);
 }

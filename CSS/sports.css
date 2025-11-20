@@ -6,59 +6,43 @@
 
 /* 通用部分样式 */
 section {
-    margin: 2.5rem 0;
-    padding: 2rem;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
+    margin: var(--spacing-xl) 0;
+    padding: var(--spacing-lg);
+    background-color: var(--white);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-light);
+    transition: all var(--transition-default);
 }
 
 section:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-medium);
     transform: translateY(-2px);
 }
 
-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: #333;
-    position: relative;
-    padding-bottom: 0.8rem;
-}
 
-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #6effd4, #3f9efc);
-    border-radius: 3px;
-}
 
 /* 个人运动记录表格样式 */
 #personal-records table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1.5rem 0;
+    margin: var(--spacing-md) 0;
     font-size: 1rem;
-    border-radius: 8px;
+    border-radius: var(--border-radius-md);
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-light);
 }
 
 #personal-records th,
 #personal-records td {
-    padding: 1rem 1.5rem;
+    padding: var(--spacing-md) var(--spacing-lg);
     text-align: left;
     border: none;
+    color: var(--text-color);
 }
 
 #personal-records th {
-    background-color: #6effd4;
-    color: #333;
+    background-color: var(--accent-color);
+    color: var(--heading-color);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -66,8 +50,8 @@ section h2::after {
 }
 
 #personal-records tr {
-    border-bottom: 1px solid #f2f2f2;
-    transition: background-color 0.3s ease;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color var(--transition-default);
 }
 
 #personal-records tr:last-child {
@@ -75,75 +59,66 @@ section h2::after {
 }
 
 #personal-records tbody tr:hover {
-    background-color: #f9f9f9;
+    background-color: var(--light-accent);
 }
 
 #personal-records td:first-child {
-    color: #3f9efc;
+    color: var(--secondary-color);
 }
 
 /* Strava活动模块样式 */
 .strava-section {
-    margin: 2.5rem 0;
-    padding: 2rem;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin: var(--spacing-xl) 0;
+    padding: var(--spacing-lg);
+    background-color: var(--light-accent);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-light);
     border-top: 4px solid #fc4c02; /* Strava橙色边框 */
 }
 
-.strava-section h2 {
-    color: #fc4c02; /* Strava橙色 */
-    margin-bottom: 1rem;
-    padding-bottom: 0.8rem;
-}
 
-.strava-section h2::after {
-    background: #fc4c02; /* 覆盖默认渐变，使用Strava橙色 */
-    width: 80px;
-}
 
 .strava-section p {
-    color: #555;
+    color: var(--text-color);
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-md);
 }
 
 .strava-embed-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    margin: 1.5rem 0;
+    gap: var(--spacing-md);
+    margin: var(--spacing-md) 0;
     justify-content: space-between;
 }
 
 .strava-embed-container iframe {
     border: none;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: white;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-light);
+    transition: transform var(--transition-default), box-shadow var(--transition-default);
+    background-color: var(--white);
     flex-grow: 1;
     min-width: 300px;
 }
 
 .strava-embed-container iframe:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-medium);
 }
 
 .strava-note {
     text-align: right;
-    color: #666;
-    margin-top: 1rem;
+    color: var(--light-text);
+    margin-top: var(--spacing-sm);
     font-style: italic;
 }
 
 .strava-note a {
     color: #fc4c02;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
+    font-weight: var(--font-weight-medium);
+    transition: color var(--transition-default);
     position: relative;
 }
 
@@ -155,7 +130,7 @@ section h2::after {
     bottom: -2px;
     left: 0;
     background-color: #fc4c02;
-    transition: width 0.3s ease;
+    transition: width var(--transition-default);
 }
 
 .strava-note a:hover::after {
@@ -165,7 +140,7 @@ section h2::after {
 /* 响应式调整 */
 @media (max-width: 992px) {
     section {
-        padding: 1.5rem;
+        padding: var(--spacing-md);
     }
     
     .strava-embed-container {
@@ -179,8 +154,8 @@ section h2::after {
 
 @media (max-width: 768px) {
     section {
-        padding: 1.2rem;
-        margin: 1.5rem 0;
+        padding: var(--spacing-sm);
+        margin: var(--spacing-md) 0;
     }
     
     section h2 {
@@ -189,7 +164,7 @@ section h2::after {
     
     #personal-records th,
     #personal-records td {
-        padding: 0.8rem 1rem;
+        padding: var(--spacing-sm) var(--spacing-md);
     }
     
     .strava-embed-container iframe[height='160'] {
@@ -203,8 +178,8 @@ section h2::after {
 
 @media (max-width: 480px) {
     section {
-        padding: 1rem;
-        margin: 1rem 0;
+        padding: var(--spacing-sm);
+        margin: var(--spacing-sm) 0;
     }
     
     section h2 {
@@ -227,4 +202,42 @@ section h2::after {
     .strava-embed-container iframe[height='454'] {
         height: 320px;
     }
+}
+
+/* ========================================== 
+   夜间模式样式覆盖 
+   ========================================== */
+body.dark-theme section {
+    background-color: var(--dark-card-bg-color);
+    box-shadow: var(--dark-shadow-light);
+}
+
+body.dark-theme section:hover {
+    box-shadow: var(--dark-shadow-medium);
+}
+
+body.dark-theme #personal-records tbody tr:hover {
+    background-color: var(--dark-background-accent);
+}
+
+body.dark-theme .strava-section {
+    background-color: var(--dark-light-accent);
+    box-shadow: var(--dark-shadow-light);
+}
+
+body.dark-theme .strava-embed-container iframe {
+    background-color: var(--dark-card-bg-color);
+    box-shadow: var(--dark-shadow-light);
+}
+
+body.dark-theme .strava-embed-container iframe:hover {
+    box-shadow: var(--dark-shadow-medium);
+}
+
+body.dark-theme .sports_record {
+    color: var(--secondary-color);
+}
+
+body.dark-theme .sports_record:hover {
+    color: var(--accent-color);
 }

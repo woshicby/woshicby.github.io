@@ -10,6 +10,8 @@ CSS/
 ├── index.css          # 首页专用样式
 ├── pace-calculator.css  # 配速计算器页面专用样式
 ├── sports.css         # 体育页面专用样式
+├── style-comparison.css  # 样式比较器页面专用样式
+├── tools-common.css   # 工具集公共样式
 ├── tools.css          # 工具集页面专用样式
 ├── touken-forge.css   # 刀剑乱舞锻刀模拟器页面专用样式
 └── video.css          # 视频播放器页面专用样式
@@ -35,6 +37,8 @@ CSS/
 - **index.css**：首页布局和组件样式
 - **pace-calculator.css**：配速计算器的专用布局和交互元素样式
 - **sports.css**：体育页面的内容展示样式
+- **style-comparison.css**：样式比较器页面的对比视图和交互样式
+- **tools-common.css**：所有工具页面共享的公共样式组件
 - **tools.css**：工具集页面的卡片式布局样式
 - **touken-forge.css**：刀剑乱舞锻刀模拟器的游戏化界面样式
 - **video.css**：视频播放器控件和布局样式

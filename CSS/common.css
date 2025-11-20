@@ -12,25 +12,115 @@
    包含颜色系统、尺寸系统、间距系统、边框阴影和过渡效果
    ========================================== */
 :root {
-    /* 颜色系统 */
-    --primary-color: #2c3e50;
-    --primary-hover-color: #1a252f;
+    /* 默认使用日间模式颜色变量 */
+    --theme: light;
+    
+    /* 通用变量 - 两种主题共用 */
     --secondary-color: #3498db;
     --accent-color: #9b59b6;
-    --light-accent: rgba(167, 170, 215, 0.3);
-    --text-color: #333;
-    --light-text: #7f8c8d;
-    --white: #ffffff;
-    --background-light: rgba(255, 255, 255, 0.7);
-    --background-accent: rgba(52, 152, 219, 0.1);
     --danger-color: #e74c3c;
     --success-color: #2ecc71;
-    --card-bg-color: #ffffff;
-    --heading-color: var(--primary-color);
-    --border-color: #e0e0e0;
     
-    /* 字体权重 */
-    --font-weight-medium: 500;
+    /* 间距、尺寸、边框、阴影等通用变量 */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 30px;
+    --border-radius-sm: 4px;
+    --border-radius-md: 6px;
+    --border-radius-lg: 8px;
+    --border-radius: var(--border-radius-md);
+    --transition-default: all 0.3s ease;
+    --transition-fast: all 0.2s ease-in-out;
+    
+    /* 日间模式颜色 */
+    --light-primary-color: #2c3e50;
+    --light-primary-hover-color: #1a252f;
+    --light-light-accent: rgba(167, 170, 215, 0.3);
+    --light-text-color: #333;
+    --light-light-text: #7f8c8d;
+    --light-white: #ffffff;
+    --light-background-light: rgba(255, 255, 255, 0.7);
+    --light-background-accent: rgba(52, 152, 219, 0.1);
+    --light-card-bg-color: #ffffff;
+    --light-heading-color: #2c3e50;
+    --light-border-color: #e0e0e0;
+    --light-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --light-shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.15);
+    --light-shadow-heavy: 0px 0px 20px rgba(35, 35, 35, 0.9);
+    /* 头部和导航 */
+    --light-header-bg-color: #2c3e50;
+    --light-header-text-color: #ffffff;
+    --light-nav-link-color: #ffffff;
+    --light-nav-link-hover-color: #3498db;
+    --light-footer-bg-color: #2c3e50;
+    --light-footer-text-color: #ffffff;
+    
+    /* 夜间模式颜色 */
+    --dark-primary-color: #34495e;
+    --dark-primary-hover-color: #2c3e50;
+    --dark-light-accent: rgba(167, 170, 215, 0.15);
+    --dark-text-color: #ecf0f1;
+    --dark-light-text: #bdc3c7;
+    --dark-white: #ffffff;
+    --dark-background-light: rgba(44, 62, 80, 0.9);
+    --dark-background-accent: rgba(52, 152, 219, 0.2);
+    --dark-card-bg-color: #2c3e50;
+    --dark-heading-color: #ecf0f1;
+    --dark-border-color: #34495e;
+    --dark-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --dark-shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.4);
+    --dark-shadow-heavy: 0px 0px 20px rgba(0, 0, 0, 0.8);
+    /* 头部和导航 */
+    --dark-header-bg-color: #1a252f;
+    --dark-header-text-color: #ecf0f1;
+    --dark-nav-link-color: #ecf0f1;
+    --dark-nav-link-hover-color: #3498db;
+    --dark-footer-bg-color: #1a252f;
+    --dark-footer-text-color: #ecf0f1;
+    
+    /* 默认使用日间模式 */
+    --primary-color: var(--light-primary-color);
+    --primary-hover-color: var(--light-primary-hover-color);
+    --light-accent: var(--light-light-accent);
+    --text-color: var(--light-text-color);
+    --light-text: var(--light-light-text);
+    --white: var(--light-white);
+    --background-light: var(--light-background-light);
+    --background-accent: var(--light-background-accent);
+    --card-bg-color: var(--light-card-bg-color);
+    --heading-color: var(--light-heading-color);
+    --border-color: var(--light-border-color);
+    --shadow-light: var(--light-shadow-light);
+    --shadow-medium: var(--light-shadow-medium);
+    --shadow-heavy: var(--light-shadow-heavy);
+    --card-shadow: var(--shadow-light);
+    /* 头部和导航 */
+    --header-bg-color: var(--light-header-bg-color);
+    --header-text-color: var(--light-header-text-color);
+    --nav-link-color: var(--light-nav-link-color);
+    --nav-link-hover-color: var(--light-nav-link-hover-color);
+    --footer-bg-color: var(--light-footer-bg-color);
+    --footer-text-color: var(--light-footer-text-color);
+    /* 夜间模式对应变量 */
+    --heading-dark-color: var(--dark-heading-color);
+    --text-dark-color: var(--dark-text-color);
+    --background-dark-light: var(--dark-background-light);
+    --border-dark-color: var(--dark-border-color);
+    --shadow-dark-light: var(--dark-shadow-light);
+    --shadow-dark-medium: var(--dark-shadow-medium);
+    --header-dark-bg-color: var(--dark-header-bg-color);
+    --header-dark-text-color: var(--dark-header-text-color);
+    --nav-dark-link-color: var(--dark-nav-link-color);
+    --nav-dark-link-hover-color: var(--dark-nav-link-hover-color);
+    --footer-dark-bg-color: var(--dark-footer-bg-color);
+    --footer-dark-text-color: var(--dark-footer-text-color);
+    
+    /* 尺寸系统 */
+    --header-height: 60px;
+    --footer-height: 80px;
+    --main-min-height: calc(100vh - var(--header-height) - var(--footer-height) - 40px);
     
     /* 尺寸系统 */
     --header-height: 60px;
@@ -76,6 +166,132 @@ body {
     font-size: 16px;
     margin: 0;
     padding: 0;
+    transition: var(--transition-default);
+}
+
+/* 夜间模式样式 */
+body.dark-theme {
+    --theme: dark;
+    --primary-color: var(--dark-primary-color);
+    --primary-hover-color: var(--dark-primary-hover-color);
+    --light-accent: var(--dark-light-accent);
+    --text-color: var(--dark-text-color);
+    --light-text: var(--dark-light-text);
+    --white: var(--dark-white);
+    --background-light: var(--dark-background-light);
+    --background-accent: var(--dark-background-accent);
+    --card-bg-color: var(--dark-card-bg-color);
+    --heading-color: var(--dark-heading-color);
+    --border-color: var(--dark-border-color);
+    --shadow-light: var(--dark-shadow-light);
+    --shadow-medium: var(--dark-shadow-medium);
+    --shadow-heavy: var(--dark-shadow-heavy);
+    --card-shadow: var(--shadow-light);
+}
+
+/* 检测系统深色模式偏好 */
+@media (prefers-color-scheme: dark) {
+    /* 当系统设置为深色模式且用户未明确指定时，默认使用深色主题 */
+    :root:not([data-theme]) {
+        --theme: dark;
+        --primary-color: var(--dark-primary-color);
+        --primary-hover-color: var(--dark-primary-hover-color);
+        --light-accent: var(--dark-light-accent);
+        --text-color: var(--dark-text-color);
+        --light-text: var(--dark-light-text);
+        --white: var(--dark-white);
+        --background-light: var(--dark-background-light);
+        --background-accent: var(--dark-background-accent);
+        --card-bg-color: var(--dark-card-bg-color);
+        --heading-color: var(--dark-heading-color);
+        --border-color: var(--dark-border-color);
+        --shadow-light: var(--dark-shadow-light);
+        --shadow-medium: var(--dark-shadow-medium);
+        --shadow-heavy: var(--dark-shadow-heavy);
+        --card-shadow: var(--shadow-light);
+    }
+}
+
+/* 主题切换按钮样式 - 集成到导航栏 */
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+    margin-left: 1.5rem; /* 与导航项保持一致的间距 */
+    vertical-align: middle;
+}
+
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.theme-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.2); /* 半透明背景与导航栏更好融合 */
+    transition: var(--transition-default);
+    border-radius: 34px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.theme-toggle-slider:before {
+    position: absolute;
+    content: "☀️";
+    font-size: 14px;
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: var(--transition-default);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input:checked + .theme-toggle-slider {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+input:checked + .theme-toggle-slider:before {
+    transform: translateX(24px);
+    content: "🌙";
+}
+
+/* 响应式调整 - 移动设备 */
+@media (max-width: 768px) {
+    .theme-toggle {
+        margin-left: 0;
+        margin-bottom: 1rem;
+        width: 46px;
+        height: 24px;
+    }
+    
+    .theme-toggle-slider:before {
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+    }
+    
+    input:checked + .theme-toggle-slider:before {
+        transform: translateX(22px);
+    }
+}
+
+/* 主题切换容器 */
+.theme-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
 }
 
 /* ==========================================
@@ -179,11 +395,11 @@ body {
    设置背景色、文字颜色和阴影效果
    ========================================== */
 .header {
-    background-color: #2c3e50;
-    color: white;
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
     padding: 1rem 0;
     margin-bottom: 2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-light);
 }
 
 .header h1 {
@@ -193,18 +409,26 @@ body {
     margin-left: 2rem;
 }
 
-/* ==========================================
-   全局标题样式 - 全站统一
-   ==========================================
-   基于tools.css的标题样式，确保全站标题视觉一致性
-   ========================================= */
-h2 {
+/* 夜间模式 - 网站头部 */
+body.dark-theme .header {
+    background-color: var(--header-dark-bg-color);
+    color: var(--header-dark-text-color);
+    box-shadow: var(--shadow-dark-medium);
+}
+
+/* ==========================================   全局标题样式 - 全站统一   ==========================================   基于tools.css的标题样式，确保全站标题视觉一致性   ========================================= */h2 {
     color: var(--primary-color);
     margin-top: 2rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--accent-color);
     font-size: 1.5rem;
+}
+
+/* 夜间模式 - h2标题样式增强可读性 */
+body.dark-theme h2 {
+    color: var(--dark-heading-color);
+    border-bottom-color: var(--secondary-color);
 }
 
 h3 {
@@ -236,14 +460,23 @@ h3 {
 }
 
 .nav a {
-    color: white;
+    color: var(--nav-link-color);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     transition: color 0.3s;
 }
 
 .nav a:hover {
-    color: #3498db;
+    color: var(--nav-link-hover-color);
+}
+
+/* 夜间模式 - 导航菜单 */
+body.dark-theme .nav a {
+    color: var(--nav-dark-link-color);
+}
+
+body.dark-theme .nav a:hover {
+    color: var(--nav-dark-link-hover-color);
 }
 
 /* ==========================================  
@@ -411,10 +644,18 @@ div.mainbox{
    设置背景色、文字颜色和内边距
    ========================================== */
 .foot {
-    background-color: #2c3e50;
-    color: white;
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
     text-align: center;
     padding: 1.5rem 0;
     margin-top: 2rem;
     font-size: 0.9rem;
 }
+
+/* 夜间模式 - 网站页脚 */
+body.dark-theme .foot {
+    background-color: var(--footer-dark-bg-color);
+    color: var(--footer-dark-text-color);
+}
+
+/* 社交图标样式已移至index.css */

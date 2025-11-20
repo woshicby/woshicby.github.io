@@ -24,12 +24,18 @@
         <!-- 导航栏开始 -->
         <div class="nav">
             <ul class="clearfix">
-                <li><a href="../index.html">首页</a></li>
-                <li><a href="video.html" class="active">视频展示</a></li>
-                <li><a href="study.html">学习记录</a></li>
-                <li><a href="tools.html">小工具&小游戏</a></li>
-                <li><a href="sports.html">体育运动</a></li>
-            </ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="video.html" class="active">视频展示</a></li>
+                    <li><a href="study.html">学习记录</a></li>
+                    <li><a href="tools.html">小工具&小游戏</a></li>
+                    <li><a href="sports.html">体育运动</a></li>
+                    <li style="display: inline-block; vertical-align: middle;">
+                        <label class="theme-toggle">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="theme-toggle-slider"></span>
+                        </label>
+                    </li>
+                </ul>
         </div>
         <!-- 导航栏结束 -->
     </div>
@@ -44,6 +50,8 @@
     
     <!-- 引入导航功能脚本 -->
     <script src="../JS/navigation.js"></script>
+    <!-- 引入主题切换脚本 -->
+    <script src="../JS/theme-toggle.js"></script>
     <!-- ==========================================
          主体内容区域
          ==========================================

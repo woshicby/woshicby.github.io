@@ -23,12 +23,12 @@
 /* 工具/游戏标题样式 */
 /* 统一的工具页面标题样式 */
 .tool-page-title {
-    color: #333;
+    color: var(--heading-color);
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-md);
     font-size: 28px;
-    font-weight: 600;
-    border-bottom: 2px solid #dee2e6;
+    font-weight: var(--font-weight-bold);
+    border-bottom: 2px solid var(--border-color);
     padding-bottom: 10px;
 }
 
@@ -36,15 +36,60 @@
 .tool-description {
     font-size: 16px;
     line-height: 1.6;
-    color: #666;
+    color: var(--text-color);
     text-align: center;
-    margin: 20px auto;
-    padding: 15px;
+    margin: var(--spacing-md) auto;
+    padding: var(--spacing-md);
     max-width: 800px;
-    background-color: #fff;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    background-color: var(--background-light);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-light);
+}
+
+/* 夜间模式样式 - 增强边框可见性 */
+body.dark-theme .tool-page-title {
+    color: var(--heading-dark-color);
+    border-bottom-color: var(--border-dark-color);
+    border-bottom-width: 2px; /* 增加边框宽度 */
+    border-bottom-style: solid; /* 确保边框样式一致 */
+}
+
+body.dark-theme .tool-description {
+    color: var(--text-dark-color);
+    background-color: var(--background-dark-light);
+    border-color: var(--border-dark-color);
+    border-width: 2px; /* 增加边框宽度 */
+    box-shadow: var(--shadow-dark); /* 增强阴影效果 */
+}
+
+/* 夜间模式下的通用边框增强样式 */
+body.dark-theme .card,
+body.dark-theme .container,
+body.dark-theme .panel,
+body.dark-theme .box,
+body.dark-theme .bordered-element {
+    border-color: var(--border-dark-color);
+    border-width: 2px; /* 统一增加边框宽度 */
+}
+
+/* 确保输入框和按钮的边框也更加清晰 */
+body.dark-theme input,
+body.dark-theme textarea,
+body.dark-theme select,
+body.dark-theme button {
+    border-color: var(--border-dark-color);
+    border-width: 1.5px; /* 输入控件边框稍微细一点但仍清晰 */
+}
+
+/* 夜间模式 - 返回按钮样式增强 */
+body.dark-theme .back-button {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+body.dark-theme .back-button:hover {
+    background-color: var(--primary-hover-color);
 }
 
 /* 响应式调整 */

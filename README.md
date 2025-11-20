@@ -23,6 +23,7 @@
 
 ### 5. 实用工具
 - **工具集** (tools.html): 各种实用小工具集合
+- **样式比较器** (style-comparison.html): 样式对比工具
 
 ## 技术栈
 
@@ -39,25 +40,55 @@ woshicby.github.io/
 ├── CSS/             # 样式文件目录
 │   ├── common.css   # 公共样式
 │   ├── index.css    # 首页样式
-│   └── [其他页面样式文件]
+│   ├── pace-calculator.css
+│   ├── sports.css
+│   ├── style-comparison.css
+│   ├── tools-common.css
+│   ├── tools.css
+│   ├── touken-forge.css
+│   ├── video.css
+│   └── README.md
 ├── HTML/            # HTML页面目录
 │   ├── pace-calculator.html
 │   ├── sports.html
 │   ├── study.html
+│   ├── style-comparison.html
 │   ├── tools.html
 │   ├── touken-forge.html
-│   └── video.html
+│   ├── video.html
+│   └── README.md
 ├── JS/              # JavaScript文件目录
 │   ├── bilibili-api.js
 │   ├── navigation.js
 │   ├── pace-calculator.js
-│   └── touken-forge.js
+│   ├── touken-forge.js
+│   └── README.md
 ├── images/          # 图片资源目录
-│   ├── [各类图片]
-│   └── touken/      # 刀剑乱舞相关图片
+│   ├── BV1zM41127x9.jpg
+│   ├── bilibili-icon.svg
+│   ├── body_backgrond.jpg
+│   ├── favicon.ico
+│   ├── github-icon.svg
+│   ├── menu-icon.svg
+│   ├── test_image.jpg
+│   ├── touken/      # 刀剑乱舞相关图片
+│   │   ├── default_sword.jpg
+│   │   ├── 刀账图标/
+│   │   └── README.md
+│   ├── weibo-icon.svg
+│   └── README.md
 ├── videos/          # 视频资源目录
+│   ├── test_video.mp4
+│   └── README.md
 ├── audios/          # 音频资源目录
-└── index.html       # 网站首页
+│   ├── test_audio.mp3
+│   └── README.md
+├── 文档/            # 项目文档目录
+│   ├── resize.txt
+│   ├── resized_files_list.txt
+│   └── 时间距离配速距离计算逻辑.txt
+├── index.html       # 网站首页
+└── README.md        # 项目说明文档
 ```
 
 ## 网站特色
@@ -66,6 +97,7 @@ woshicby.github.io/
 - **模块化设计**: 公共组件和样式的复用
 - **交互体验**: 动态效果和用户交互
 - **资源优化**: 图片和媒体资源的合理组织
+- **文档完善**: 每个目录都有详细的README文档说明
 
 ## 更新记录
 
@@ -73,6 +105,9 @@ woshicby.github.io/
 - 更新响应式导航系统
 - 修复CSS样式错误
 - 增强用户体验和交互功能
+- 添加样式比较器工具
+- 完善项目文档结构
+- 优化图片资源管理
 
 ## 使用方法
 

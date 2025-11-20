@@ -29,7 +29,13 @@
                     <li><a href="video.html">视频展示</a></li>
                     <li><a href="study.html">学习记录</a></li>
                     <li><a href="tools.html" class="active">小工具&小游戏</a></li>
-                    <li><a href="sports.html">体育运动</a></li>                     
+                    <li><a href="sports.html">体育运动</a></li>
+                    <li style="display: inline-block; vertical-align: middle;">
+                        <label class="theme-toggle">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="theme-toggle-slider"></span>
+                        </label>
+                    </li>
                 </ul>
             </div>
             <!-- 导航栏结束 -->
@@ -45,6 +51,8 @@
      
         <!-- 引入导航功能脚本 -->
         <script src="../JS/navigation.js"></script>
+        <!-- 引入主题切换脚本 -->
+        <script src="../JS/theme-toggle.js"></script>
         <!-- 主体外套开始 -->
         <!-- ==========================================
              主体内容区域
@@ -73,7 +81,7 @@
                     <div class="tool-card">
                         <div class="tool-card-icon">🎨</div>
                         <div class="tool-card-content">
-                            <h3>样式对比工具</h3>
+                            <h3>样式对比页面</h3>
                             <p>展示网站各页面的不同标题样式，帮助理解样式统一的重要性和效果对比。</p>
                             <a href="style-comparison.html" class="tool-card-button">查看对比</a>
                         </div>
@@ -93,7 +101,7 @@
                         <div class="tool-card-icon">⚔️</div>
                         <!-- <img src="../images/touken/default_sword.jpg" alt="刀剑乱舞锻刀模拟器" class="game-card-image"> -->
                         <div class="game-card-content">
-                            <h3>刀剑乱舞锻刀模拟器</h3>
+                            <h3>锻刀模拟器</h3>
                             <p>模拟《刀剑乱舞online》中的锻刀功能，通过不同的资源配比来锻造各种稀有度的刀剑。</p>
                             <a href="touken-forge.html" class="game-card-button">开始游戏</a>
                         </div>

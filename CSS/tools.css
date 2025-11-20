@@ -12,15 +12,15 @@
 /* 游戏卡片样式 */
 .game-card {
     background-color: var(--card-bg-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     overflow: hidden;
-    box-shadow: var(--card-shadow);
+    box-shadow: var(--shadow-light);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .game-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-medium);
 }
 
 /* 游戏卡片图片 */
@@ -47,7 +47,7 @@
     background-color: var(--primary-color);
     color: white;
     padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     text-decoration: none;
     font-weight: var(--font-weight-medium);
     transition: background-color 0.3s ease;
@@ -60,15 +60,15 @@
 /* 工具卡片样式 - 与游戏卡片保持一致的结构 */
 .tool-card {
     background-color: var(--card-bg-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     overflow: hidden;
-    box-shadow: var(--card-shadow);
+    box-shadow: var(--shadow-light);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .tool-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-medium);
 }
 
 /* 工具卡片图标区域 - 替代图片位置 */
@@ -79,7 +79,7 @@
     align-items: center;
     justify-content: center;
     font-size: 6rem;
-    background-color: rgba(44, 62, 80, 0.05);
+    background-color: var(--light-accent);
     color: var(--primary-color);
 }
 
@@ -107,7 +107,7 @@
     background-color: var(--primary-color);
     color: white;
     padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     text-decoration: none;
     font-weight: var(--font-weight-medium);
     transition: background-color 0.3s ease;
@@ -143,7 +143,30 @@
     
     #tools-section h2,
     #games-section h2 {
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
+        margin-top: var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
     }
+}
+
+/* ========================================== 
+   夜间模式样式覆盖 
+   ========================================== */
+body.dark-theme .game-card,
+body.dark-theme .tool-card {
+    background-color: var(--dark-card-bg-color);
+    box-shadow: var(--dark-shadow-light);
+}
+
+body.dark-theme .game-card:hover,
+body.dark-theme .tool-card:hover {
+    box-shadow: var(--dark-shadow-medium);
+}
+
+body.dark-theme .tool-card-icon {
+    background-color: var(--dark-light-accent);
+}
+
+body.dark-theme .game-card-button:hover,
+body.dark-theme .tool-card-button:hover {
+    background-color: var(--primary-hover-color);
 }

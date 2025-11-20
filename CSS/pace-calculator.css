@@ -4,10 +4,10 @@
 .pace-calculator-container {
     width: 100%;
     margin: 0 auto;
-    padding: 30px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: var(--spacing-xl);
+    background-color: var(--light-accent);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-light);
     font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
 }
 
@@ -25,33 +25,33 @@
 }
 
 .mode-btn {
-    padding: 12px 30px;
-    border: 2px solid #007bff;
-    background-color: #fff;
-    color: #007bff;
-    border-radius: 5px;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border: 2px solid var(--primary-color);
+    background-color: var(--white);
+    color: var(--primary-color);
+    border-radius: var(--border-radius-md);
     cursor: pointer;
     font-size: 16px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-default);
 }
 
 .mode-btn:hover {
-    background-color: #e3f2fd;
+    background-color: var(--light-accent);
 }
 
 .mode-btn.active {
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--white);
 }
 
 /* 表单样式 - 与锻刀模拟器统一结构 */
 .calculator-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #dee2e6;
-    margin-bottom: 20px;
+    background-color: var(--white);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-md);
 }
 
 .form-group {
@@ -60,31 +60,33 @@
 
 .form-group label {
     display: block;
-    margin-bottom: 10px;
-    font-weight: 600;
-    color: #444;
+    margin-bottom: var(--spacing-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--heading-color);
     font-size: 16px;
 }
 
 .form-group input[type="number"] {
     width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
+    padding: var(--spacing-md) var(--spacing-md);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
     font-size: 16px;
-    transition: border-color 0.3s ease;
+    transition: border-color var(--transition-default);
+    background-color: var(--white);
+    color: var(--text-color);
 }
 
 .form-group input[type="number"]:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
 .form-group input[type="number"]:read-only {
-    background-color: #f5f5f5;
+    background-color: var(--light-accent);
     cursor: not-allowed;
-    color: #888;
+    color: var(--light-text);
 }
 
 /* 时间输入组合 */
@@ -96,23 +98,25 @@
 .time-inputs input,
 .pace-inputs input {
     flex: 1;
-    padding: 12px 16px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
+    padding: var(--spacing-md) var(--spacing-md);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
     font-size: 16px;
-    transition: border-color 0.3s ease;
+    transition: border-color var(--transition-default);
+    background-color: var(--white);
+    color: var(--text-color);
 }
 
 .pace-inputs input:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
 .pace-inputs input:read-only {
-    background-color: #f5f5f5;
+    background-color: var(--light-accent);
     cursor: not-allowed;
-    color: #888;
+    color: var(--light-text);
 }
 
 /* 输入组布局 - 用于水平排列输入框和下拉选项 */
@@ -137,14 +141,15 @@
 
 .unit-select {
     min-width: 80px;
-    padding: 12px 16px;
-    border: 2px solid #ddd;
+    padding: var(--spacing-md) var(--spacing-md);
+    border: 2px solid var(--border-color);
     border-left: none;
-    border-radius: 0 6px 6px 0;
-    background-color: #f8f9fa;
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    background-color: var(--light-accent);
     font-size: 16px;
     cursor: pointer;
-    transition: border-color 0.3s ease;
+    transition: border-color var(--transition-default);
+    color: var(--text-color);
 }
 
 /* 确保配速输入组的单位选择器与输入框正确连接 */
@@ -155,25 +160,26 @@
 
 .unit-select:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--primary-color);
 }
 
 /* 常用距离下拉框样式 - 水平排列 */
 .inline-dropdown {
     flex: 1;
     min-width: 200px;
-    padding: 12px 16px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    background-color: #fff;
+    padding: var(--spacing-md) var(--spacing-md);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background-color: var(--white);
     font-size: 16px;
     cursor: pointer;
-    transition: border-color 0.3s ease;
+    transition: border-color var(--transition-default);
+    color: var(--text-color);
 }
 
 .inline-dropdown:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
@@ -196,53 +202,53 @@
 /* 计算按钮 - 与锻刀模拟器统一按钮结构 */
 .calculate-button {
     width: 100%;
-    padding: 12px 30px;
-    background-color: #28a745;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background-color: var(--success-color);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius-md);
     font-size: 16px;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-default);
 }
 
 .calculate-button:hover {
-    background-color: #218838;
+    background-color: var(--success-hover-color);
 }
 
 /* 结果区域 - 与锻刀模拟器统一结构 */
 .result-area {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #dee2e6;
-    margin-bottom: 20px;
+    background-color: var(--white);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-md);
 }
 
 .result-area h3 {
-    color: #333;
-    margin-bottom: 15px;
+    color: var(--heading-color);
+    margin-bottom: var(--spacing-md);
     font-size: 20px;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
 }
 
 .result-item {
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #007bff;
+    padding: var(--spacing-md);
+    background-color: var(--light-accent);
+    border-radius: var(--border-radius-md);
+    border-left: 4px solid var(--primary-color);
 }
 
 .result-item h4 {
-    color: #444;
-    margin-bottom: 10px;
+    color: var(--heading-color);
+    margin-bottom: var(--spacing-sm);
     font-size: 18px;
 }
 
 .result-item p {
     margin-bottom: 8px;
-    color: #555;
+    color: var(--text-color);
     font-size: 16px;
     line-height: 1.5;
 }
@@ -252,32 +258,32 @@
 }
 
 .result-item strong {
-    color: #007bff;
+    color: var(--primary-color);
 }
 
 /* 错误消息 */
 .error-message {
-    color: #dc3545;
-    font-weight: 500;
-    padding: 15px;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 8px;
+    color: var(--danger-color);
+    font-weight: var(--font-weight-medium);
+    padding: var(--spacing-md);
+    background-color: var(--danger-light);
+    border: 1px solid var(--danger-border);
+    border-radius: var(--border-radius-md);
 }
 
 /* 配速参考表 - 与锻刀模拟器统一结构 */
 .pace-reference {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #dee2e6;
+    background-color: var(--white);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
 }
 
 .pace-reference h3 {
-    color: #333;
-    margin-bottom: 20px;
+    color: var(--heading-color);
+    margin-bottom: var(--spacing-md);
     font-size: 20px;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
 }
 
 
@@ -290,36 +296,37 @@
 
 .reference-table th,
 .reference-table td {
-    padding: 12px 8px;
+    padding: var(--spacing-md) 8px;
     text-align: center;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
 }
 
 .reference-table th {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
-    font-weight: 600;
-    border-bottom: 2px solid #0056b3;
+    font-weight: var(--font-weight-semibold);
+    border-bottom: 2px solid var(--primary-dark);
 }
 
 .reference-table tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
+    background-color: var(--light-accent);
 }
 
 .reference-table tbody tr:hover {
-    background-color: #e3f2fd;
+    background-color: var(--hover-color);
 }
 
 /* 响应式设计 - 大屏幕优化 */
 @media (min-width: 1024px) {
     .pace-calculator-container {
-        padding: 30px;
+        padding: var(--spacing-xl);
     }
     
     /* 超宽屏幕优化 */
     @media (min-width: 1600px) {
         .pace-calculator-container {
-            padding: 40px;
+            padding: calc(var(--spacing-xl) * 1.33);
         }
     }
 }
@@ -327,7 +334,7 @@
 /* 响应式设计 - 中等屏幕优化 */
 @media (min-width: 768px) and (max-width: 1023px) {
     .pace-calculator-container {
-        padding: 25px;
+        padding: calc(var(--spacing-xl) * 0.83);
         max-width: 100%;
     }
 }
@@ -335,11 +342,11 @@
 /* 响应式设计 - 统一结构 */
 @media (max-width: 767px) {
     .pace-calculator-container {
-        padding: 15px;
+        padding: var(--spacing-md);
     }
     
     .calculator-form {
-        padding: 15px;
+        padding: var(--spacing-md);
     }
     
     .time-inputs, .pace-inputs {
@@ -352,7 +359,7 @@
     
     .reference-table th,
     .reference-table td {
-        padding: 8px 4px;
+        padding: var(--spacing-sm) 4px;
     }
     
     /* 小屏幕容器样式调整 */
@@ -373,18 +380,18 @@
 
 /* 返回小工具页面按钮 */
 .back-to-tools {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-lg);
 }
 
 .back-button {
     display: inline-block;
     background-color: var(--primary-color);
     color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius-md);
     text-decoration: none;
     font-weight: var(--font-weight-medium);
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-default);
 }
 
 .back-button:hover {
@@ -394,23 +401,23 @@
 /* 分段时间表格容器样式 - 与锻刀模拟器统一结构 */
 .split-tables-container {
     display: flex;
-    gap: 20px;
-    margin-top: 20px;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
 }
 
 .split-table-section {
     flex: 1;
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #dee2e6;
+    background-color: var(--light-accent);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
 }
 
 .split-table-section h4 {
-    color: #333;
-    margin-bottom: 15px;
+    color: var(--heading-color);
+    margin-bottom: var(--spacing-md);
     font-size: 16px;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     text-align: center;
 }
 
@@ -418,11 +425,11 @@
 @media (max-width: 768px) {
     .split-tables-container {
         flex-direction: column;
-        gap: 15px;
+        gap: var(--spacing-md);
     }
     
     .split-table-section {
-        padding: 15px;
+        padding: var(--spacing-md);
     }
     
     .split-table-section h4 {
@@ -433,7 +440,7 @@
 /* 针对更小屏幕的额外调整 */
 @media (max-width: 480px) {
     .pace-calculator-container {
-        padding: 15px;
+        padding: var(--spacing-md);
     }
     
     .pace-calculator-container h2 {
@@ -441,7 +448,7 @@
     }
     
     .split-table-section {
-        padding: 10px;
+        padding: var(--spacing-sm);
     }
     
     .reference-table th,
@@ -451,12 +458,183 @@
     }
     
     .mode-btn {
-        padding: 10px 20px;
+        padding: var(--spacing-sm) var(--spacing-lg);
         font-size: 14px;
     }
     
     .calculate-button {
-        padding: 10px 20px;
+        padding: var(--spacing-sm) var(--spacing-lg);
         font-size: 14px;
     }
+}
+
+/* ========================================== 
+   夜间模式样式覆盖 - 增强可读性和边框可见性 
+   ========================================== */
+body.dark-theme .pace-calculator-container {
+    background-color: var(--dark-card-bg-color);
+    box-shadow: var(--dark-shadow);
+    border: 2px solid var(--dark-border-color); /* 增加边框宽度 */
+}
+
+/* 为标题添加夜间模式颜色 */
+body.dark-theme .pace-calculator-container h2,
+body.dark-theme .pace-calculator-container h3,
+body.dark-theme .result-area h3,
+body.dark-theme .pace-reference h3,
+body.dark-theme .split-table-section h4 {
+    color: var(--dark-heading-color);
+}
+
+/* 增强表单元素对比度 */
+body.dark-theme .calculator-form {
+    background-color: var(--dark-background);
+    border-color: var(--dark-border-color);
+    border-width: 2px;
+}
+
+body.dark-theme .form-group label {
+    color: var(--dark-light-text-color);
+}
+
+body.dark-theme .form-group input[type="number"],
+body.dark-theme .time-inputs input,
+body.dark-theme .pace-inputs input {
+    background-color: var(--dark-input-bg);
+    border-color: var(--dark-border-color);
+    color: var(--dark-light-text-color);
+}
+
+body.dark-theme .form-group input[type="number"]:focus,
+body.dark-theme .time-inputs input:focus,
+body.dark-theme .pace-inputs input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(51, 122, 183, 0.25);
+}
+
+body.dark-theme .form-group input[type="number"]:read-only,
+body.dark-theme .pace-inputs input:read-only {
+    background-color: var(--dark-background-accent);
+    color: var(--dark-light-text);
+}
+
+/* 增强下拉菜单样式 */
+body.dark-theme .unit-select,
+body.dark-theme .inline-dropdown {
+    background-color: var(--dark-input-bg);
+    border-color: var(--dark-border-color);
+    color: var(--dark-light-text-color);
+}
+
+body.dark-theme .unit-select:focus,
+body.dark-theme .inline-dropdown:focus {
+    border-color: var(--secondary-color);
+}
+
+/* 增强计算按钮对比度 */
+body.dark-theme .calculate-button {
+    background-color: var(--success-color);
+    color: white;
+}
+
+body.dark-theme .calculate-button:hover {
+    background-color: var(--dark-success-hover-color);
+}
+
+/* 增强结果区域样式 */
+body.dark-theme .result-area {
+    background-color: var(--dark-background);
+    border-color: var(--dark-border-color);
+    border-width: 2px;
+}
+
+body.dark-theme .result-item {
+    background-color: var(--dark-input-bg);
+    border-left-color: var(--secondary-color);
+}
+
+body.dark-theme .result-item h4 {
+    color: var(--dark-heading-color);
+}
+
+body.dark-theme .result-item p {
+    color: var(--dark-light-text-color);
+}
+
+body.dark-theme .result-item strong {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* 增强错误消息对比度 */
+body.dark-theme .error-message {
+    color: var(--danger-light);
+    background-color: var(--dark-danger-bg);
+    border-color: var(--danger-border);
+}
+
+/* 增强参考表样式 */
+body.dark-theme .pace-reference {
+    background-color: var(--dark-background);
+    border-color: var(--dark-border-color);
+    border-width: 2px;
+}
+
+body.dark-theme .reference-table {
+    border: 2px solid var(--dark-border-color); /* 增加表格边框宽度 */
+}
+
+body.dark-theme .reference-table th {
+    background-color: var(--secondary-color);
+    color: white;
+    border-bottom: 2px solid var(--primary-dark);
+}
+
+body.dark-theme .reference-table td {
+    color: var(--dark-light-text-color);
+    border-bottom: 1px solid var(--dark-border-color);
+}
+
+body.dark-theme .reference-table tbody tr:nth-child(even) {
+    background-color: var(--dark-background-accent);
+}
+
+body.dark-theme .reference-table tbody tr:hover {
+    background-color: var(--dark-hover-color);
+}
+
+/* 增强分段表格样式 */
+body.dark-theme .split-table-section {
+    background-color: var(--dark-background-accent);
+    border-color: var(--dark-border-color);
+    border-width: 2px;
+}
+
+/* 增强返回按钮样式 */
+body.dark-theme .back-button {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+body.dark-theme .back-button:hover {
+    background-color: var(--dark-secondary-hover-color);
+}
+
+/* 增强模式切换按钮对比度 */
+body.dark-theme .mode-btn {
+    border-color: var(--secondary-color);
+    background-color: var(--dark-background);
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+body.dark-theme .mode-btn:hover {
+    background-color: var(--dark-background-accent);
+    border-color: var(--primary-color);
+}
+
+body.dark-theme .mode-btn.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--primary-color);
 }

@@ -50,8 +50,18 @@ def remove_white_borders(img, tolerance=0):
 
 # 主函数
 def main():
-    # 设置图标目录路径
-    icons_dir = r"e:\工程文件\Git Repository\woshicby.github.io\images\touken\刀账图标"
+    # 设置图标目录路径（使用相对路径）
+    icons_dir = r"."
+    # 设置输出文件路径 - 放在文档目录下（使用相对路径）
+    output_dir = r"..\..\..\documents"
+    # 确保输出目录存在
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    
+    # 设置输出文件路径
+    resize_txt_path = os.path.join(output_dir, "resize.txt")
+    resized_files_list_path = os.path.join(output_dir, "resized_files_list.txt")
+    
     reference_file = "三日月宗近.jpg"
     reference_path = os.path.join(icons_dir, reference_file)
     
@@ -136,7 +146,7 @@ def main():
             print(f"处理 {filename} 时出错: {str(e)}")
             skipped_files += 1
     
-    # 输出汇总信息
+    # 输出汇总信息到控制台
     print("\n" + "=" * 80)
     print("图片尺寸调整完成！汇总信息如下：")
     print(f"总图片数: {total_files}")
@@ -146,13 +156,37 @@ def main():
     print(f"目标尺寸: {reference_size[0]}x{reference_size[1]} 像素")
     print(f"所有图标已处理完毕。")
     
-    # 输出调整了尺寸的文件名单
+    # 输出调整了尺寸的文件名单到控制台
     if resized_file_list:
         print("\n调整了尺寸的文件名单：")
         for i, filename in enumerate(resized_file_list, 1):
             print(f"{i}. {filename}")
     else:
         print("\n没有文件需要调整尺寸。")
+    
+    # 将汇总信息写入resize.txt文件
+    with open(resize_txt_path, 'w', encoding='utf-8') as resize_file:
+        resize_file.write("图片尺寸调整完成！汇总信息如下：\n")
+        resize_file.write(f"总图片数: {total_files}\n")
+        resize_file.write(f"已裁剪白边: {trimmed_files}\n")
+        resize_file.write(f"已调整尺寸: {resized_files}\n")
+        resize_file.write(f"跳过的文件: {skipped_files}\n")
+        resize_file.write(f"目标尺寸: {reference_size[0]}x{reference_size[1]} 像素\n")
+        resize_file.write(f"所有图标已处理完毕。\n")
+    
+    print(f"\n汇总信息已写入: {resize_txt_path}")
+    
+    # 将调整了尺寸的文件名单写入resized_files_list.txt文件
+    with open(resized_files_list_path, 'w', encoding='utf-8') as files_list_file:
+        files_list_file.write("调整了尺寸的文件名单：\n")
+        if resized_file_list:
+            for i, filename in enumerate(resized_file_list, 1):
+                files_list_file.write(f"{i}. {filename}\n")
+        else:
+            files_list_file.write("没有文件需要调整尺寸。\n")
+        files_list_file.write(f"\n目标尺寸：{reference_size[0]}x{reference_size[1]} 像素\n")
+    
+    print(f"文件名单已写入: {resized_files_list_path}")
 
 if __name__ == "__main__":
     main()

@@ -33,6 +33,12 @@
                     <li><a href="./HTML/study.html">学习记录</a></li>
                     <li><a href="./HTML/tools.html">小工具&小游戏</a></li>
                     <li><a href="./HTML/sports.html">体育运动</a></li>
+                    <li style="display: inline-block; vertical-align: middle;">
+                        <label class="theme-toggle">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="theme-toggle-slider"></span>
+                        </label>
+                    </li>
                 </ul>
             </div>
             <!-- 导航栏结束 -->
@@ -48,6 +54,8 @@
     
     <!-- 引入导航功能脚本 -->
     <script src="./JS/navigation.js"></script>
+    <!-- 引入主题切换脚本 -->
+    <script src="./JS/theme-toggle.js"></script>
         <!-- ==========================================
              主体内容区域
              ==========================================
@@ -74,11 +82,18 @@
                         <p>欢迎在<a href="https://github.com/woshicby/woshicby.github.io/issues/new" target="_blank" class="issue github" title="GitHub">本代码库提交issue</a>或通过下方的社交链接关注我或与我联系！</p>
                         <!-- 社交链接区域 - 外部平台链接 -->
                         <div class="social-links">
-                            <a href="https://github.com/woshicby" target="_blank" class="social-icon github" title="GitHub">GitHub</a>
-                            <a href="https://weibo.com/woshicby" target="_blank" class="social-icon weibo" title="微博">微博</a>
-                            <a href="https://space.bilibili.com/10924343" target="_blank" class="social-icon bilibili" title="B站">bilibili</a>
-                        </div>
+        <a href="https://github.com/woshicby" target="_blank" rel="noopener noreferrer">
+            <img src="images/github-icon.svg" alt="GitHub" class="social-icon"> GitHub
+        </a>
+        <a href="https://weibo.com/woshicby" target="_blank" rel="noopener noreferrer">
+            <img src="images/weibo-icon.png" alt="微博" class="social-icon"> 微博
+        </a>
+        <a href="https://space.bilibili.com/10924343" target="_blank" rel="noopener noreferrer">
+            <img src="images/bilibili-icon.png" alt="哔哩哔哩" class="social-icon"> bilibili
+        </a>
+    </div>
                     </div>
+
                 </div>
             </section>
         </div>

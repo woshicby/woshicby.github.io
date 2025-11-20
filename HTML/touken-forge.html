@@ -16,7 +16,7 @@
         <!-- 头部外套开始 -->
         <div class="header clearfix wrapper">
             <!-- logo/大标题区域开始 -->
-            <h1>锻刀模拟器（建设中）</h1>
+            <h1>锻刀模拟器</h1>
             <!-- logo/大标题区域结束 -->
             <!-- 导航栏开始 -->
             <div class="nav">
@@ -25,7 +25,13 @@
                     <li><a href="video.html">视频展示</a></li>
                     <li><a href="study.html">学习记录</a></li>
                     <li><a href="tools.html" class="active">小工具&小游戏</a></li>
-                    <li><a href="sports.html">体育运动</a></li>                    
+                    <li><a href="sports.html">体育运动</a></li>
+                    <li style="display: inline-block; vertical-align: middle;">
+                        <label class="theme-toggle">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="theme-toggle-slider"></span>
+                        </label>
+                    </li>
                 </ul>
             </div>
             <!-- 导航栏结束 -->
@@ -41,6 +47,8 @@
         
         <!-- 引入导航功能脚本 -->
         <script src="../JS/navigation.js"></script>
+        <!-- 引入主题切换脚本 -->
+        <script src="../JS/theme-toggle.js"></script>
         <!-- 主体外套开始 -->
         <div class="mainbox clearfix wrapper">
             <!-- 返回小工具页面的链接 -->
@@ -49,7 +57,7 @@
             </div>
             <!-- 刀剑乱舞锻刀模拟器 -->
             <div class="touken-forge-container">
-                    <h2 class="tool-page-title">刀剑乱舞锻刀模拟器</h2>
+                    <h2 class="tool-page-title">锻刀模拟器</h2>
                     <p class="tool-description">
                         模拟《刀剑乱舞online》中的锻刀功能，通过不同的资源配比来锻造各种稀有度的刀剑。
                     </p>
