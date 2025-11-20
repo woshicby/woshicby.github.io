@@ -69,30 +69,6 @@ h1::after {
     color: #2c3e50;
 }
 
-.profile-content h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    color: #00a4ff;
-    position: relative;
-    display: inline-block;
-}
-
-.profile-content h2::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #00a4ff, #0078d4);
-    border-radius: 2px;
-    transition: width 0.3s ease;
-}
-
-.profile-content h2:hover::after {
-    width: 100%;
-}
-
 .profile-content p {
     margin-bottom: 15px;
     word-wrap: break-word;
@@ -220,11 +196,7 @@ div.botton_box:hover{
     opacity: 0.2;
 }
 
-.strava-connect h3 {
-    color: #FC4C02;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
+
 
 .strava-connect p {
     margin-bottom: 15px;

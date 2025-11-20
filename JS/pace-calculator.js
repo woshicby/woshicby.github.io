@@ -24,6 +24,8 @@ const UNIT_CONVERSIONS = {
     ms_to_kmh: 3600 / 1000,  // 米/秒到公里/小时
     mph_to_kmh: 1.60934,     // 英里/小时到公里/小时
     kmh_to_mph: 0.621371,    // 公里/小时到英里/小时
+    ms_to_mph: 2.23694,      // 米/秒到英里/小时
+    mph_to_ms: 0.44704,      // 英里/小时到米/秒
     
     // 配速单位转换
     min_per_km_to_min_per_mile: 1.60934,  // 分钟/公里到分钟/英里
@@ -35,10 +37,87 @@ const UNIT_CONVERSIONS = {
 };
 
 /**
+ * 通用单位转换函数
+ * 用于在不同单位系统之间转换数值
+ * @function convertUnit
+ * @param {number} value - 要转换的值
+ * @param {string} fromUnit - 源单位
+ * @param {string} toUnit - 目标单位
+ * @param {string} unitType - 单位类型，可选值: 'distance', 'speed', 'pace'
+ * @returns {number} 转换后的值
+ */
+function convertUnit(value, fromUnit, toUnit, unitType) {
+    // 如果源单位和目标单位相同，直接返回原值
+    if (fromUnit === toUnit) {
+        return value;
+    }
+    
+    // 根据单位类型执行相应的转换
+    switch (unitType) {
+        case 'distance':
+            // 距离单位转换
+            if (fromUnit === 'km' && toUnit === 'mile') {
+                return value * UNIT_CONVERSIONS.km_to_mile;
+            } else if (fromUnit === 'mile' && toUnit === 'km') {
+                return value * UNIT_CONVERSIONS.mile_to_km;
+            } else if (fromUnit === 'm' && toUnit === 'km') {
+                return value * UNIT_CONVERSIONS.m_to_km;
+            } else if (fromUnit === 'km' && toUnit === 'm') {
+                return value * UNIT_CONVERSIONS.km_to_m;
+            } else if (fromUnit === 'm' && toUnit === 'mile') {
+                return value * UNIT_CONVERSIONS.m_to_mile;
+            } else if (fromUnit === 'mile' && toUnit === 'm') {
+                return value * UNIT_CONVERSIONS.mile_to_m;
+            }
+            break;
+            
+        case 'speed':
+            // 速度单位转换
+            if (fromUnit === 'kmh' && toUnit === 'mph') {
+                return value * UNIT_CONVERSIONS.kmh_to_mph;
+            } else if (fromUnit === 'mph' && toUnit === 'kmh') {
+                return value * UNIT_CONVERSIONS.mph_to_kmh;
+            } else if (fromUnit === 'kmh' && toUnit === 'ms') {
+                return value * UNIT_CONVERSIONS.kmh_to_ms;
+            } else if (fromUnit === 'ms' && toUnit === 'kmh') {
+                return value * UNIT_CONVERSIONS.ms_to_kmh;
+            } else if (fromUnit === 'ms' && toUnit === 'mph') {
+                return value * UNIT_CONVERSIONS.ms_to_mph;
+            } else if (fromUnit === 'mph' && toUnit === 'ms') {
+                return value * UNIT_CONVERSIONS.mph_to_ms;
+            }
+            break;
+            
+        case 'pace':
+            // 配速单位转换
+            if (fromUnit === 'km' && toUnit === 'mile') {
+                // 分钟/公里转换为分钟/英里
+                return value * UNIT_CONVERSIONS.min_per_km_to_min_per_mile;
+            } else if (fromUnit === 'mile' && toUnit === 'km') {
+                // 分钟/英里转换为分钟/公里
+                return value * UNIT_CONVERSIONS.min_per_mile_to_min_per_km;
+            } else if (fromUnit === 'km' && toUnit === 'm') {
+                return value * UNIT_CONVERSIONS.min_per_km_to_min_per_m;
+            } else if (fromUnit === 'm' && toUnit === 'km') {
+                return value * UNIT_CONVERSIONS.min_per_m_to_min_per_km;
+            } else if (fromUnit === 'mile' && toUnit === 'm') {
+                return value * UNIT_CONVERSIONS.min_per_mile_to_min_per_m;
+            } else if (fromUnit === 'm' && toUnit === 'mile') {
+                return value * UNIT_CONVERSIONS.min_per_m_to_min_per_mile;
+            }
+            break;
+    }
+    
+    // 如果没有找到合适的转换关系，返回原值
+    console.warn(`未找到从 ${fromUnit} 到 ${toUnit} 的 ${unitType} 单位转换关系`);
+    return value;
+}
+
+/**
  * DOM元素引用变量
  * 将在DOM加载完成后初始化
  */
-let modeBtns;              // 模式切换按钮组
+
 let distanceInput;         // 距离输入框
 let hoursInput;            // 小时输入框
 let minutesInput;          // 分钟输入框
@@ -59,7 +138,7 @@ let distanceDropdown;      // 距离下拉选择菜单
  * 默认为'pace'模式（配速计算）
  * @type {string}
  */
-let currentMode = 'pace';
+
 
 /**
  * 常用距离选项配置
@@ -171,7 +250,6 @@ const COMMON_DISTANCES = {
  */
 function initPaceCalculator() {
     // 获取所有必要的DOM元素引用
-    modeBtns = document.querySelectorAll('.mode-btn');
     distanceInput = document.getElementById('distance');
     hoursInput = document.getElementById('hours');
     minutesInput = document.getElementById('minutes');
@@ -213,19 +291,14 @@ function initPaceCalculator() {
  * @returns {void}
  */
 function setupEventListeners() {
-    // 模式切换按钮点击事件处理
-    modeBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // 移除所有按钮的active类
-            modeBtns.forEach(b => b.classList.remove('active'));
-            // 为当前点击的按钮添加active类
-            btn.classList.add('active');
-            // 更新当前模式
-            currentMode = btn.dataset.mode;
-            // 根据新模式更新表单元素可见性
-            updateFormVisibility();
+    // 优先设置开关事件监听
+    const prioritySwitch = document.getElementById('priority-switch');
+    if (prioritySwitch) {
+        prioritySwitch.addEventListener('change', function() {
+            // 当优先设置改变时，这里可以根据需要添加处理逻辑
+            // 但在当前实现中，优先设置只在计算函数内部使用
         });
-    });
+    }
     
     // 计算按钮点击事件 - 触发计算函数
     calculateBtn.addEventListener('click', calculate);
@@ -322,20 +395,22 @@ function setupEventListeners() {
     }
     
     if (speedUnitSelect) {
+        // 确保在添加事件监听器之前设置初始previousUnit属性
+        speedUnitSelect.dataset.previousUnit = speedUnitSelect.value;
         speedUnitSelect.addEventListener('change', handleSpeedUnitChange);
     }
 }
 
 // 更新表单可见性
 /**
- * 更新表单元素的可见性和编辑状态
- * 根据当前计算模式动态设置各输入框的只读状态
- * 确保在不同计算模式下只有输入框可编辑，结果框只读
+ * 更新表单元素的编辑状态
+ * 现在所有输入框在任何时候都设置为可编辑状态
+ * 计算逻辑会根据输入值的组合自动处理
  * @function updateFormVisibility
  * @returns {void}
  */
 function updateFormVisibility() {
-    // 初始化：将所有输入框设置为可编辑状态
+    // 设置所有输入框为可编辑状态
     distanceInput.readOnly = false;
     hoursInput.readOnly = false;
     minutesInput.readOnly = false;
@@ -343,42 +418,28 @@ function updateFormVisibility() {
     paceMinutesInput.readOnly = false;
     paceSecondsInput.readOnly = false;
     speedInput.readOnly = false;
-    
-    // 根据当前计算模式设置相应输入框为只读
-    if (currentMode === 'pace') {
-        // 配速计算模式：配速为计算结果，应设为只读
-        paceMinutesInput.readOnly = true;
-        paceSecondsInput.readOnly = true;
-    } else if (currentMode === 'distance') {
-        // 距离计算模式：距离为计算结果，应设为只读
-        distanceInput.readOnly = true;
-    } else if (currentMode === 'time') {
-        // 时间计算模式：时间为计算结果，应设为只读
-        hoursInput.readOnly = true;
-        minutesInput.readOnly = true;
-        secondsInput.readOnly = true;
-    } else if (currentMode === 'speed') {
-        // 速度计算模式：速度为计算结果，应设为只读
-        speedInput.readOnly = true;
-    }
 }
 
 // 处理距离单位变化
 function handleDistanceUnitChange() {
+    // 获取当前值和目标单位
+    const currentValue = distanceInput.value;
+    const toUnit = this.value;
+    
+    // 首先保存当前单位作为下一次转换的参考
+    // 但需要在获取fromUnit之后再更新，以确保转换正确
+    const fromUnit = this.dataset.previousUnit || 'km';
+    
     // 确保在任何计算模式下都能进行单位转换，不仅限于特定模式
-    if (distanceInput.value) {
-        const currentDistance = parseFloat(distanceInput.value);
+    if (currentValue) {
+        const currentDistance = parseFloat(currentValue);
         
         // 检查输入是否有效
         if (!isNaN(currentDistance) && currentDistance > 0) {
-            // 获取之前的单位，如果不存在则使用默认值'km'
-            const fromUnit = this.dataset.previousUnit || 'km';
-            const toUnit = this.value;
-            
             // 只有当单位发生变化时才进行转换
             if (fromUnit !== toUnit) {
                 // 直接进行单位转换
-                const convertedDistance = convertDistance(currentDistance, fromUnit, toUnit);
+                const convertedDistance = convertUnit(currentDistance, fromUnit, toUnit, 'distance');
                 
                 // 根据目标单位选择合适的精度处理方式
                 if (toUnit === 'm') {
@@ -401,36 +462,11 @@ function handleDistanceUnitChange() {
         }
     }
     
-    // 保存当前单位作为下一次转换的参考
-    this.dataset.previousUnit = this.value;
+    // 保存新的单位作为下一次转换的参考
+    this.dataset.previousUnit = toUnit;
     
-    // 只有当存在足够的计算条件时才重新计算结果
-    // 检查是否有距离值
-    const hasDistance = distanceInput.value && !isNaN(parseFloat(distanceInput.value)) && parseFloat(distanceInput.value) > 0;
-    // 检查是否有时间值（小时、分钟或秒中的至少一个）
-    const hasHours = hoursInput.value && !isNaN(parseInt(hoursInput.value)) && parseInt(hoursInput.value) > 0;
-    const hasMinutes = minutesInput.value && !isNaN(parseInt(minutesInput.value)) && parseInt(minutesInput.value) > 0;
-    const hasSeconds = secondsInput.value && !isNaN(parseInt(secondsInput.value)) && parseInt(secondsInput.value) > 0;
-    const hasTime = hasHours || hasMinutes || hasSeconds;
-    // 检查是否有配速值
-    const hasPace = paceMinutesInput.value && !isNaN(parseInt(paceMinutesInput.value)) && parseInt(paceMinutesInput.value) >= 0 &&
-                   paceSecondsInput.value && !isNaN(parseInt(paceSecondsInput.value)) && parseInt(paceSecondsInput.value) >= 0;
-    // 检查是否有速度值
-    const hasSpeed = speedInput.value && !isNaN(parseFloat(speedInput.value)) && parseFloat(speedInput.value) > 0;
-    
-    // 根据当前模式决定是否需要重新计算
-    const shouldRecalculate = 
-        (currentMode === 'pace' && (hasDistance && hasTime || hasSpeed)) ||
-        (currentMode === 'speed' && (hasDistance && hasTime || hasPace)) ||
-        (currentMode === 'distance' && (hasTime && (hasPace || hasSpeed)));
-    
-    if (shouldRecalculate) {
-        calculate();
-    } else {
-        // 显示初始提示信息
-        resultContent.innerHTML = '<p>请输入数据并点击计算按钮。</p>';
-        resultContent.classList.remove('error-message');
-    }
+    // 移除自动触发计算的逻辑，确保切换单位时不会重新计算其他值
+    // 用户需要手动点击计算按钮来更新结果
 }
 
 // 填充距离下拉框
@@ -502,48 +538,20 @@ function populateDistanceDropdown() {
 function handleSpeedUnitChange() {
     const speedValue = parseFloat(speedInput.value);
     if (!isNaN(speedValue)) {
-        let convertedSpeed;
-        if (speedUnitSelect.value === 'kmh') {
-            // 从英里/小时转换为公里/小时
-            convertedSpeed = speedValue * UNIT_CONVERSIONS.mph_to_kmh;
-        } else {
-            // 从公里/小时转换为英里/小时
-            convertedSpeed = speedValue * UNIT_CONVERSIONS.kmh_to_mph;
-        }
+        // 获取之前的单位，如果不存在则使用默认值'kmh'
+        const fromUnit = this.dataset.previousUnit || 'kmh';
+        const toUnit = this.value;
+        
+        // 使用通用单位转换函数
+        const convertedSpeed = convertUnit(speedValue, fromUnit, toUnit, 'speed');
         speedInput.value = convertedSpeed.toFixed(2);
-        calculate();
     }
+    
+    // 保存当前单位作为下一次转换的参考
+    this.dataset.previousUnit = this.value;
 }
 
-// 距离单位转换函数
-function convertDistance(distance, fromUnit, toUnit) {
-    if (fromUnit === toUnit) {
-        return distance;
-    }
-    
-    // 先转换为米作为中间单位
-    let mValue;
-    if (fromUnit === 'm') {
-        mValue = distance;
-    } else if (fromUnit === 'km') {
-        mValue = distance * UNIT_CONVERSIONS.km_to_m;
-    } else if (fromUnit === 'mile') {
-        mValue = distance * UNIT_CONVERSIONS.mile_to_m;
-    } else {
-        return distance; // 未知单位
-    }
-    
-    // 再转换为目标单位
-    if (toUnit === 'm') {
-        return mValue;
-    } else if (toUnit === 'km') {
-        return mValue * UNIT_CONVERSIONS.m_to_km;
-    } else if (toUnit === 'mile') {
-        return mValue * UNIT_CONVERSIONS.m_to_mile;
-    }
-    
-    return distance; // 未知单位
-}
+
 
 // 处理配速单位变化
 function handlePaceUnitChange() {
@@ -555,13 +563,8 @@ function handlePaceUnitChange() {
         const toUnit = this.value;
         
         if (fromUnit !== toUnit) {
-            // 配速转换：如果从公里转换到英里，配速时间会增加（因为英里比公里长）
-            let convertedPaceSeconds;
-            if (fromUnit === 'km' && toUnit === 'mile') {
-                convertedPaceSeconds = totalPaceSeconds * UNIT_CONVERSIONS.mile_to_km;
-            } else if (fromUnit === 'mile' && toUnit === 'km') {
-                convertedPaceSeconds = totalPaceSeconds * UNIT_CONVERSIONS.km_to_mile;
-            }
+            // 使用通用单位转换函数进行配速转换
+            const convertedPaceSeconds = convertUnit(totalPaceSeconds, fromUnit, toUnit, 'pace');
             
             const newMinutes = Math.floor(convertedPaceSeconds / 60);
             const newSeconds = Math.round(convertedPaceSeconds % 60);
@@ -575,668 +578,399 @@ function handlePaceUnitChange() {
     this.dataset.previousUnit = this.value;
 }
 
+// 获取速度/配速优先设置，默认为配速优先
+function getPrioritySetting() {
+    const prioritySwitch = document.getElementById('priority-switch');
+    return prioritySwitch ? prioritySwitch.value : 'pace'; // 默认为配速优先
+}
+
 // 计算函数
 function calculate() {
-    try {
-        let result = '';
-        const distanceUnit = distanceUnitSelect.value;
-        const paceUnit = paceUnitSelect.value;
-        const speedUnit = speedUnitSelect.value;
+    // 获取输入值
+    const distance = parseFloat(distanceInput.value) || 0;
+    const hours = parseFloat(hoursInput.value) || 0;
+    const minutes = parseFloat(minutesInput.value) || 0;
+    const seconds = parseFloat(secondsInput.value) || 0;
+    const paceMinutes = parseFloat(paceMinutesInput.value) || 0;
+    const paceSeconds = parseFloat(paceSecondsInput.value) || 0;
+    const speed = parseFloat(speedInput.value) || 0;
+    
+    // 获取单位
+    const distanceUnit = distanceUnitSelect.value;
+    const paceUnit = paceUnitSelect.value;
+    const speedUnit = speedUnitSelect.value;
+    
+    // 获取优先设置
+    const priority = getPrioritySetting();
+    
+    // 存储计算结果的数组
+    const results = [];
+    
+    // 计算总时间（秒）
+    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    
+    // 计算总配速时间（秒/单位距离）
+    const totalPaceSeconds = paceMinutes * 60 + paceSeconds;
+    
+    // 标记是否有有效的距离和时间输入
+    const hasValidDistance = distance > 0;
+    const hasValidTime = totalSeconds > 0;
+    const hasValidPace = totalPaceSeconds > 0;
+    const hasValidSpeed = speed > 0;
+    
+    // 定义可在整个函数范围内修改的距离标志变量
+    let hasDistance = hasValidDistance;
+    
+    // 声明配速变量，确保在整个函数范围内可用
+    let calculatedPaceMinutes = 0;
+    let calculatedPaceSeconds = 0;
+    
+    // 情况1：距离和时间文本框都有数值
+    if (hasValidDistance && hasValidTime) {
+        // 计算配速（秒/单位距离）
+        let totalCalculatedPaceSeconds = totalSeconds / distance;
         
-        // 获取所有输入值
-        const distance = parseFloat(distanceInput.value);
-        const hours = parseInt(hoursInput.value) || 0;
-        const minutes = parseInt(minutesInput.value) || 0;
-        const seconds = parseInt(secondsInput.value) || 0;
-        const paceMinutes = parseInt(paceMinutesInput.value) || 0;
-        const paceSecs = parseInt(paceSecondsInput.value) || 0;
-        const speedValue = parseFloat(speedInput.value);
-        const hasPace = paceMinutes > 0 || paceSecs > 0;
-        const hasSpeed = !isNaN(speedValue) && speedValue > 0;
-        const hasDistance = !isNaN(distance) && distance > 0;
-        const hasTime = hours > 0 || minutes > 0 || seconds > 0;
-        const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+        // 使用通用单位转换函数转换配速
+        totalCalculatedPaceSeconds = convertUnit(totalCalculatedPaceSeconds, distanceUnit, paceUnit, 'pace');
         
-        // 辅助函数：获取配速单位文本
-        function getPaceUnitText(unit) {
-            switch (unit) {
-                case 'km': return '公里';
-                case 'mile': return '英里';
-                case 'm': return '米';
-                default: return unit;
-            }
-        }
+        calculatedPaceMinutes = Math.floor(totalCalculatedPaceSeconds / 60);
+        calculatedPaceSeconds = Math.round(totalCalculatedPaceSeconds % 60);
         
-        // 通用函数：根据配速计算速度
-        function calculateSpeedFromPace(pMinutes, pSeconds) {
-            const totalPaceSeconds = pMinutes * 60 + pSeconds;
-            
-            // 计算速度（公里/小时），先转换为米为单位的计算
-            let speedKmh;
-            if (paceUnit === 'km') {
-                speedKmh = 3600 / totalPaceSeconds;
-            } else if (paceUnit === 'mile') {
-                // 英里配速转公里/小时：1小时跑多少英里 * 英里到公里的转换系数
-                speedKmh = (3600 / totalPaceSeconds) * UNIT_CONVERSIONS.mile_to_km;
-            } else if (paceUnit === 'm') {
-                // 米配速转公里/小时
-                speedKmh = (3600 / totalPaceSeconds) * UNIT_CONVERSIONS.m_to_km;
-            }
-            
-            let displaySpeed = speedKmh;
-            let speedUnitText = '公里/小时';
-            
-            if (speedUnit === 'mph') {
-                displaySpeed = speedKmh * UNIT_CONVERSIONS.kmh_to_mph;
-                speedUnitText = '英里/小时';
-            }
-            
-            return { speedKmh, displaySpeed, speedUnitText };
-        }
+        // 计算速度（单位距离/小时）
+        let calculatedSpeed = distance / (totalSeconds / 3600);
         
-        // 通用函数：根据速度计算配速
-        function calculatePaceFromSpeed(speedVal) {
-            // 转换为公里/小时
-            let speedKmh = speedVal;
-            if (speedUnit === 'mph') {
-                speedKmh = speedVal * UNIT_CONVERSIONS.mph_to_kmh;
-            }
-            
-            // 计算配速（秒/单位距离）
-            let paceSecondsPerUnit;
-            if (paceUnit === 'km') {
-                paceSecondsPerUnit = 3600 / speedKmh;
-            } else if (paceUnit === 'mile') {
-                // 公里/小时转英里配速
-                paceSecondsPerUnit = (3600 / speedKmh) * UNIT_CONVERSIONS.mile_to_km;
-            } else if (paceUnit === 'm') {
-                // 公里/小时转米配速
-                paceSecondsPerUnit = 3600 / (speedKmh * UNIT_CONVERSIONS.km_to_m);
-            }
-            
-            const calculatedPaceMinutes = Math.floor(paceSecondsPerUnit / 60);
-            const calculatedPaceSecs = Math.round(paceSecondsPerUnit % 60);
-            
-            return { calculatedPaceMinutes, calculatedPaceSecs, paceSecondsPerUnit };
-        }
+        // 使用通用单位转换函数转换速度
+        calculatedSpeed = convertUnit(calculatedSpeed, distanceUnit === 'km' ? 'kmh' : 'mph', speedUnit, 'speed');
         
-        // 通用函数：根据距离和时间计算速度和配速
-        function calculateFromDistanceAndTime(dist, timeSecs) {
-            // 统一转换为米作为中间单位
-            const distanceInMeters = convertDistance(dist, distanceUnit, 'm');
-            
-            // 计算速度（公里/小时）
-            const speedKmh = (distanceInMeters / timeSecs) * UNIT_CONVERSIONS.m_to_km * 3600;
-            
-            // 转换速度为显示单位
-            let displaySpeed = speedKmh;
-            let speedUnitText = '公里/小时';
-            if (speedUnit === 'mph') {
-                displaySpeed = speedKmh * UNIT_CONVERSIONS.kmh_to_mph;
-                speedUnitText = '英里/小时';
-            }
-            
-            // 计算配速（秒/单位距离）
-            let paceSecondsPerUnit;
-            if (paceUnit === 'km') {
-                // 转换距离到公里
-                const distanceInKm = distanceInMeters * UNIT_CONVERSIONS.m_to_km;
-                paceSecondsPerUnit = timeSecs / distanceInKm;
-            } else if (paceUnit === 'mile') {
-                // 转换距离到英里
-                const distanceInMiles = distanceInMeters * UNIT_CONVERSIONS.m_to_mile;
-                paceSecondsPerUnit = timeSecs / distanceInMiles;
-            } else if (paceUnit === 'm') {
-                // 直接使用米距离
-                paceSecondsPerUnit = timeSecs / distanceInMeters;
-            }
-            
-            const calculatedPaceMinutes = Math.floor(paceSecondsPerUnit / 60);
-            const calculatedPaceSecs = Math.round(paceSecondsPerUnit % 60);
-            
-            return { 
-                speedKmh, 
-                displaySpeed, 
-                speedUnitText,
-                calculatedPaceMinutes,
-                calculatedPaceSecs,
-                paceSecondsPerUnit,
-                distanceInMeters
-            };
-        }
+        // 更新配速输入框
+        paceMinutesInput.value = calculatedPaceMinutes;
+        paceSecondsInput.value = calculatedPaceSeconds;
         
-        // 根据不同的计算模式进行处理
-        switch(currentMode) {
-            case 'pace':
-                // 计算配速模式
-                if (hasDistance && hasTime) {
-                    // 有距离和时间，使用它们计算配速和速度
-                    const { displaySpeed, speedUnitText, calculatedPaceMinutes, calculatedPaceSecs } = calculateFromDistanceAndTime(distance, totalSeconds);
+        // 更新速度输入框
+        speedInput.value = calculatedSpeed.toFixed(2);
+        
+        // 输出结果
+        results.push(`距离: ${distance.toFixed(2)} ${getDistanceUnitLabel(distanceUnit)}`);
+        results.push(`时间: ${formatTime(hours, minutes, seconds)}`);
+        results.push(`配速: ${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSeconds)} ${getPaceUnitLabel(paceUnit)}`);
+        results.push(`速度: ${calculatedSpeed.toFixed(2)} ${getSpeedUnitLabel(speedUnit)}`);
+    }
+    // 情况2：距离和时间文本框中只有一项有数值
+    else if (hasValidDistance || hasValidTime) {
+        // 确定哪个输入有值
+        hasDistance = hasValidDistance;
+        const hasTime = hasValidTime;
+        
+        let calculatedSpeed, calculatedDistance, calculatedHours, calculatedMinutes, calculatedSeconds;
+        
+        // 检查配速和速度的输入情况
+        const bothPaceAndSpeed = hasValidPace && hasValidSpeed;
+        const onlyPace = hasValidPace && !hasValidSpeed;
+        const onlySpeed = !hasValidPace && hasValidSpeed;
+        
+        if (!hasValidPace && !hasValidSpeed) {
+            // 配速和速度都无数值
+            results.push('<span class="error">请输入速度或配速来完成计算</span>');
+        } else {
+            // 计算配速和速度的关系
+            if (bothPaceAndSpeed) {
+                // 两者都有值，根据优先设置决定使用哪个
+                if (priority === 'pace') {
+                    calculatedPaceMinutes = paceMinutes;
+                    calculatedPaceSeconds = paceSeconds;
                     
-                    result = `
-                        <div class="result-item">
-                            <h4>配速结果：</h4>
-                            <p>距离：<strong>${distance}</strong> ${getPaceUnitText(distanceUnit)}</p>
-                            <p>时间：<strong>${formatTime(hours, minutes, seconds)}</strong></p>
-                            <p>您的配速为 <strong>${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                            <p>您的速度为 <strong>${displaySpeed.toFixed(2)}</strong> ${speedUnitText}</p>
-                        </div>
-                    `;
-                    
-                    // 更新配速和速度输入框
-                    paceMinutesInput.value = calculatedPaceMinutes;
-                    paceSecondsInput.value = calculatedPaceSecs;
-                    speedInput.value = displaySpeed.toFixed(2);
-                } else if (hasSpeed && hasDistance) {
-                    // 有速度和距离，但没有时间，计算配速和时间
-                    const { calculatedPaceMinutes, calculatedPaceSecs } = calculatePaceFromSpeed(speedValue);
-                    
-                    // 计算时间
-                    const distanceInMeters = convertDistance(distance, distanceUnit, 'm');
-                    // 将速度转换为米/秒
-                    let speedMps;
-                    if (speedUnit === 'kmh') {
-                        speedMps = speedValue * UNIT_CONVERSIONS.kmh_to_ms;
-                    } else if (speedUnit === 'mph') {
-                        // 英里/小时转换为米/秒 = 英里/小时 * 英里到公里转换 * 公里/小时到米/秒转换
-                        speedMps = speedValue * UNIT_CONVERSIONS.mph_to_kmh * UNIT_CONVERSIONS.kmh_to_ms;
-                    }
-                    
-                    const calculatedTimeSecs = distanceInMeters / speedMps;
-                    const calculatedHours = Math.floor(calculatedTimeSecs / 3600);
-                    const remainingSeconds = calculatedTimeSecs % 3600;
-                    const calculatedMinutes = Math.floor(remainingSeconds / 60);
-                    const calculatedSeconds = Math.round(remainingSeconds % 60);
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>配速结果：</h4>
-                            <p>距离：<strong>${distance}</strong> ${getPaceUnitText(distanceUnit)}</p>
-                            <p>速度：<strong>${speedValue.toFixed(2)}</strong> ${speedUnit === 'kmh' ? '公里/小时' : '英里/小时'}</p>
-                            <p>您的配速为 <strong>${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                            <p><strong>以${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSecs)} 分钟/${getPaceUnitText(paceUnit)}完成${distance} ${getPaceUnitText(distanceUnit)}需要：</strong> ${formatTime(calculatedHours, calculatedMinutes, calculatedSeconds)}</p>
-                        </div>
-                    `;
-                    
-                    paceMinutesInput.value = calculatedPaceMinutes;
-                    paceSecondsInput.value = calculatedPaceSecs;
-                    // 更新时间输入框
-                    hoursInput.value = calculatedHours || '';
-                    minutesInput.value = calculatedMinutes || '';
-                    secondsInput.value = calculatedSeconds || '';
-                } else if (hasSpeed && hasTime) {
-                    // 有速度和时间，但没有距离，计算配速和距离
-                    const { calculatedPaceMinutes, calculatedPaceSecs } = calculatePaceFromSpeed(speedValue);
-                    
-                    // 计算距离
-                    // 将速度转换为米/秒
-                    let speedMps;
-                    if (speedUnit === 'kmh') {
-                        speedMps = speedValue * UNIT_CONVERSIONS.kmh_to_ms;
-                    } else if (speedUnit === 'mph') {
-                        // 英里/小时转换为米/秒 = 英里/小时 * 英里到公里转换 * 公里/小时到米/秒转换
-                        speedMps = speedValue * UNIT_CONVERSIONS.mph_to_kmh * UNIT_CONVERSIONS.kmh_to_ms;
-                    }
-                    
-                    const calculatedDistanceInMeters = speedMps * totalSeconds;
-                    const displayDistance = convertDistance(calculatedDistanceInMeters, 'm', distanceUnit);
-                    // 根据单位确定小数位数
-                    const decimalPlaces = distanceUnit === 'm' ? 0 : 2;
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>配速结果：</h4>
-                            <p>时间：<strong>${formatTime(hours, minutes, seconds)}</strong></p>
-                            <p>速度：<strong>${speedValue.toFixed(2)}</strong> ${speedUnit === 'kmh' ? '公里/小时' : '英里/小时'}</p>
-                            <p>您的配速为 <strong>${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                            <p><strong>以${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSecs)} 分钟/${getPaceUnitText(paceUnit)}行进${formatTime(hours, minutes, seconds)}可以完成距离：</strong> ${displayDistance.toFixed(decimalPlaces)} ${getPaceUnitText(distanceUnit)}</p>
-                        </div>
-                    `;
-                    
-                    paceMinutesInput.value = calculatedPaceMinutes;
-                    paceSecondsInput.value = calculatedPaceSecs;
-                    // 更新距离输入框
-                    distanceInput.value = displayDistance.toFixed(decimalPlaces);
-                } else if (hasSpeed) {
-                    // 距离和时间不都有值，但有速度值，使用速度计算配速
-                    const { calculatedPaceMinutes, calculatedPaceSecs } = calculatePaceFromSpeed(speedValue);
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>配速结果：</h4>
-                            <p>以速度 <strong>${speedValue.toFixed(2)}</strong> ${speedUnit === 'kmh' ? '公里/小时' : '英里/小时'}</p>
-                            <p>您的配速为 <strong>${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                        </div>
-                    `;
-                    
-                    paceMinutesInput.value = calculatedPaceMinutes;
-                    paceSecondsInput.value = calculatedPaceSecs;
-                } else {
-                    showError('请输入距离和时间，或者输入速度值来计算配速');
-                    return;
-                }
-                break;
+                    // 使用通用单位转换函数转换配速到距离单位
+                let adjustedPaceSeconds = convertUnit(totalPaceSeconds, paceUnit, distanceUnit, 'pace');
                 
-            case 'speed':
-                // 计算速度模式
-                if (hasDistance && hasTime) {
-                    // 有距离和时间，使用它们计算配速和速度
-                    const { displaySpeed, speedUnitText, calculatedPaceMinutes, calculatedPaceSecs } = calculateFromDistanceAndTime(distance, totalSeconds);
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>速度结果：</h4>
-                            <p>距离：<strong>${distance}</strong> ${getPaceUnitText(distanceUnit)}</p>
-                            <p>时间：<strong>${formatTime(hours, minutes, seconds)}</strong></p>
-                            <p>您的配速为 <strong>${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                            <p>您的速度为 <strong>${displaySpeed.toFixed(2)}</strong> ${speedUnitText}</p>
-                        </div>
-                    `;
-                    
-                    // 更新配速和速度输入框
-                    paceMinutesInput.value = calculatedPaceMinutes;
-                    paceSecondsInput.value = calculatedPaceSecs;
-                    speedInput.value = displaySpeed.toFixed(2);
-                } else if (hasPace && hasDistance) {
-                    // 优先使用配速和距离计算
-                    const { displaySpeed, speedUnitText } = calculateSpeedFromPace(paceMinutes, paceSecs);
-                    
-                    // 计算时间
-                    const paceTotalSeconds = paceMinutes * 60 + paceSecs;
-                    let distanceInTargetUnit;
-                    
-                    // 根据配速单位和距离单位进行转换
-                    if (paceUnit === 'km' && distanceUnit === 'miles') {
-                        // 配速是公里配速，距离是英里，需要转换距离到公里
-                        distanceInTargetUnit = distance * UNIT_CONVERSIONS.mile_to_km;
-                    } else if (paceUnit === 'mile' && distanceUnit === 'km') {
-                        // 配速是英里配速，距离是公里，需要转换距离到英里
-                        distanceInTargetUnit = distance * UNIT_CONVERSIONS.km_to_mile;
-                    } else {
-                        // 单位一致，直接使用
-                        distanceInTargetUnit = distance;
-                    }
-                    
-                    const calculatedTimeSecs = paceTotalSeconds * distanceInTargetUnit;
-                    const calculatedHours = Math.floor(calculatedTimeSecs / 3600);
-                    const remainingSeconds = calculatedTimeSecs % 3600;
-                    const calculatedMinutes = Math.floor(remainingSeconds / 60);
-                    const calculatedSeconds = Math.round(remainingSeconds % 60);
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>速度结果：</h4>
-                            <p>距离：<strong>${distance}</strong> ${getPaceUnitText(distanceUnit)}</p>
-                            <p>配速：<strong>${formatNumber(paceMinutes)}:${formatNumber(paceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                            <p>您的速度为 <strong>${displaySpeed.toFixed(2)}</strong> ${speedUnitText}</p>
-                            <p><strong>以${formatNumber(paceMinutes)}:${formatNumber(paceSecs)} 分钟/${getPaceUnitText(paceUnit)}完成${distance} ${getPaceUnitText(distanceUnit)}需要：</strong> ${formatTime(calculatedHours, calculatedMinutes, calculatedSeconds)}</p>
-                        </div>
-                    `;
-                    
-                    // 更新速度输入框（根据配速计算得出）
-                    speedInput.value = displaySpeed.toFixed(2);
-                    
-                    // 更新时间输入框
-                    hoursInput.value = calculatedHours || '';
-                    minutesInput.value = calculatedMinutes || '';
-                    secondsInput.value = calculatedSeconds || '';
-                } else if (hasPace && hasTime) {
-                    // 优先使用配速和时间计算
-                    const { displaySpeed, speedUnitText } = calculateSpeedFromPace(paceMinutes, paceSecs);
-                    
-                    // 计算距离
-                    const paceTotalSeconds = paceMinutes * 60 + paceSecs;
-                    let distanceInTargetUnit = totalSeconds / paceTotalSeconds;
-                    
-                    // 根据配速单位转换到目标距离单位
-                    let displayDistance;
-                    if (paceUnit === 'km' && distanceUnit === 'miles') {
-                        // 配速是公里配速，需要转换到英里距离
-                        displayDistance = distanceInTargetUnit * UNIT_CONVERSIONS.km_to_mile;
-                    } else if (paceUnit === 'mile' && distanceUnit === 'km') {
-                        // 配速是英里配速，需要转换到公里距离
-                        displayDistance = distanceInTargetUnit * UNIT_CONVERSIONS.mile_to_km;
-                    } else {
-                        // 单位一致
-                        displayDistance = distanceInTargetUnit;
-                    }
-                    
-                    // 根据单位确定小数位数
-                    const decimalPlaces = distanceUnit === 'm' ? 0 : 2;
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>速度结果：</h4>
-                            <p>时间：<strong>${formatTime(hours, minutes, seconds)}</strong></p>
-                            <p>配速：<strong>${formatNumber(paceMinutes)}:${formatNumber(paceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                            <p>您的速度为 <strong>${displaySpeed.toFixed(2)}</strong> ${speedUnitText}</p>
-                            <p><strong>以${formatNumber(paceMinutes)}:${formatNumber(paceSecs)} 分钟/${getPaceUnitText(paceUnit)}行进${formatTime(hours, minutes, seconds)}可以完成距离：</strong> ${displayDistance.toFixed(decimalPlaces)} ${getPaceUnitText(distanceUnit)}</p>
-                        </div>
-                    `;
-                    
-                    // 更新速度输入框（根据配速计算得出）
-                    speedInput.value = displaySpeed.toFixed(2);
-                    
-                    // 更新距离输入框
-                    distanceInput.value = displayDistance.toFixed(decimalPlaces);
-                } else if (hasSpeed && hasDistance) {
-                    // 只有速度和距离（没有配速），计算速度和时间
-                    // 将距离转换为米
-                    const distanceInMeters = convertDistance(distance, distanceUnit, 'm');
-                    
-                    // 将速度转换为米/秒
-                    let speedMps;
-                    if (speedUnit === 'kmh') {
-                        speedMps = speedValue * UNIT_CONVERSIONS.kmh_to_ms;
-                    } else if (speedUnit === 'mph') {
-                        // 英里/小时转换为米/秒 = 英里/小时 * 英里到公里转换 * 公里/小时到米/秒转换
-                        speedMps = speedValue * UNIT_CONVERSIONS.mph_to_kmh * UNIT_CONVERSIONS.kmh_to_ms;
-                    }
-                    
-                    const calculatedTimeSecs = distanceInMeters / speedMps;
-                    const calculatedHours = Math.floor(calculatedTimeSecs / 3600);
-                    const remainingSeconds = calculatedTimeSecs % 3600;
-                    const calculatedMinutes = Math.floor(remainingSeconds / 60);
-                    const calculatedSeconds = Math.round(remainingSeconds % 60);
-                    
-                    // 计算配速
-                    const paceResult = calculatePaceFromSpeed(speedValue);
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>速度结果：</h4>
-                            <p>距离：<strong>${distance}</strong> ${getPaceUnitText(distanceUnit)}</p>
-                            <p>您的速度为 <strong>${speedValue.toFixed(2)}</strong> ${speedUnit === 'kmh' ? '公里/小时' : '英里/小时'}</p>
-                            <p><strong>以${speedValue.toFixed(2)} ${speedUnit === 'kmh' ? '公里/小时' : '英里/小时'}完成${distance} ${getPaceUnitText(distanceUnit)}需要：</strong> ${formatTime(calculatedHours, calculatedMinutes, calculatedSeconds)}</p>
-                        </div>
-                    `;
-                    
-                    // 更新配速输入框（根据速度计算得出）
-                    paceMinutesInput.value = paceResult.calculatedPaceMinutes;
-                    paceSecondsInput.value = paceResult.calculatedPaceSecs;
-                    
-                    // 更新时间输入框
-                    hoursInput.value = calculatedHours || '';
-                    minutesInput.value = calculatedMinutes || '';
-                    secondsInput.value = calculatedSeconds || '';
-                } else if (hasSpeed && hasTime) {
-                    // 只有速度和时间（没有配速），计算速度和距离
-                    // 将速度转换为米/秒
-                    let speedMps;
-                    if (speedUnit === 'kmh') {
-                        speedMps = speedValue * UNIT_CONVERSIONS.kmh_to_ms;
-                    } else if (speedUnit === 'mph') {
-                        // 英里/小时转换为米/秒 = 英里/小时 * 英里到公里转换 * 公里/小时到米/秒转换
-                        speedMps = speedValue * UNIT_CONVERSIONS.mph_to_kmh * UNIT_CONVERSIONS.kmh_to_ms;
-                    }
-                    
-                    const calculatedDistanceInMeters = speedMps * totalSeconds;
-                    const displayDistance = convertDistance(calculatedDistanceInMeters, 'm', distanceUnit);
-                    // 根据单位确定小数位数
-                    const decimalPlaces = distanceUnit === 'm' ? 0 : 2;
-                    
-                    // 计算配速
-                    const paceResult = calculatePaceFromSpeed(speedValue);
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>速度结果：</h4>
-                            <p>时间：<strong>${formatTime(hours, minutes, seconds)}</strong></p>
-                            <p>您的速度为 <strong>${speedValue.toFixed(2)}</strong> ${speedUnit === 'kmh' ? '公里/小时' : '英里/小时'}</p>
-                            <p><strong>以${speedValue.toFixed(2)} ${speedUnit === 'kmh' ? '公里/小时' : '英里/小时'}行进${formatTime(hours, minutes, seconds)}可以完成距离：</strong> ${displayDistance.toFixed(decimalPlaces)} ${getPaceUnitText(distanceUnit)}</p>
-                        </div>
-                    `;
-                    
-                    // 更新配速输入框（根据速度计算得出）
-                    paceMinutesInput.value = paceResult.calculatedPaceMinutes;
-                    paceSecondsInput.value = paceResult.calculatedPaceSecs;
-                    
-                    // 更新距离输入框
-                    distanceInput.value = displayDistance.toFixed(decimalPlaces);
-                } else if (hasPace && hasDistance) {
-                    // 有配速和距离，但没有时间，计算速度和时间
-                    const { displaySpeed, speedUnitText } = calculateSpeedFromPace(paceMinutes, paceSecs);
-                    
-                    // 计算时间
-                    const paceTotalSeconds = paceMinutes * 60 + paceSecs;
-                    let distanceInTargetUnit;
-                    
-                    // 根据配速单位和距离单位进行转换
-                    if (paceUnit === 'km' && distanceUnit === 'miles') {
-                        // 配速是公里配速，距离是英里，需要转换距离到公里
-                        distanceInTargetUnit = distance * UNIT_CONVERSIONS.mile_to_km;
-                    } else if (paceUnit === 'mile' && distanceUnit === 'km') {
-                        // 配速是英里配速，距离是公里，需要转换距离到英里
-                        distanceInTargetUnit = distance * UNIT_CONVERSIONS.km_to_mile;
-                    } else {
-                        // 单位一致，直接使用
-                        distanceInTargetUnit = distance;
-                    }
-                    
-                    const calculatedTimeSecs = paceTotalSeconds * distanceInTargetUnit;
-                    const calculatedHours = Math.floor(calculatedTimeSecs / 3600);
-                    const remainingSeconds = calculatedTimeSecs % 3600;
-                    const calculatedMinutes = Math.floor(remainingSeconds / 60);
-                    const calculatedSeconds = Math.round(remainingSeconds % 60);
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>速度结果：</h4>
-                            <p>距离：<strong>${distance}</strong> ${getPaceUnitText(distanceUnit)}</p>
-                            <p>配速：<strong>${formatNumber(paceMinutes)}:${formatNumber(paceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                            <p>您的速度为 <strong>${displaySpeed.toFixed(2)}</strong> ${speedUnitText}</p>
-                            <p><strong>以${formatNumber(paceMinutes)}:${formatNumber(paceSecs)} 分钟/${getPaceUnitText(paceUnit)}完成${distance} ${getPaceUnitText(distanceUnit)}需要：</strong> ${formatTime(calculatedHours, calculatedMinutes, calculatedSeconds)}</p>
-                        </div>
-                    `;
-                    
-                    speedInput.value = displaySpeed.toFixed(2);
-                    // 更新时间输入框
-                    hoursInput.value = calculatedHours || '';
-                    minutesInput.value = calculatedMinutes || '';
-                    secondsInput.value = calculatedSeconds || '';
-                } else if (hasPace && hasTime) {
-                    // 有配速和时间，但没有距离，计算速度和距离
-                    const { displaySpeed, speedUnitText } = calculateSpeedFromPace(paceMinutes, paceSecs);
-                    
-                    // 计算距离
-                    const paceTotalSeconds = paceMinutes * 60 + paceSecs;
-                    let distanceInTargetUnit = totalSeconds / paceTotalSeconds;
-                    
-                    // 根据配速单位转换到目标距离单位
-                    let displayDistance;
-                    if (paceUnit === 'km' && distanceUnit === 'miles') {
-                        // 配速是公里配速，需要转换到英里距离
-                        displayDistance = distanceInTargetUnit * UNIT_CONVERSIONS.km_to_mile;
-                    } else if (paceUnit === 'mile' && distanceUnit === 'km') {
-                        // 配速是英里配速，需要转换到公里距离
-                        displayDistance = distanceInTargetUnit * UNIT_CONVERSIONS.mile_to_km;
-                    } else {
-                        // 单位一致
-                        displayDistance = distanceInTargetUnit;
-                    }
-                    
-                    // 根据单位确定小数位数
-                    const decimalPlaces = distanceUnit === 'm' ? 0 : 2;
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>速度结果：</h4>
-                            <p>时间：<strong>${formatTime(hours, minutes, seconds)}</strong></p>
-                            <p>配速：<strong>${formatNumber(paceMinutes)}:${formatNumber(paceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                            <p>您的速度为 <strong>${displaySpeed.toFixed(2)}</strong> ${speedUnitText}</p>
-                            <p><strong>以${formatNumber(paceMinutes)}:${formatNumber(paceSecs)} 分钟/${getPaceUnitText(paceUnit)}行进${formatTime(hours, minutes, seconds)}可以完成距离：</strong> ${displayDistance.toFixed(decimalPlaces)} ${getPaceUnitText(distanceUnit)}</p>
-                        </div>
-                    `;
-                    
-                    speedInput.value = displaySpeed.toFixed(2);
-                    // 更新距离输入框
-                    distanceInput.value = displayDistance.toFixed(decimalPlaces);
-                } else if (hasPace) {
-                    // 距离和时间不都有值，但有配速值，使用配速计算速度
-                    const { displaySpeed, speedUnitText } = calculateSpeedFromPace(paceMinutes, paceSecs);
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>速度结果：</h4>
-                            <p>以配速 <strong>${formatNumber(paceMinutes)}:${formatNumber(paceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                            <p>您的速度为 <strong>${displaySpeed.toFixed(2)}</strong> ${speedUnitText}</p>
-                        </div>
-                    `;
-                    
-                    speedInput.value = displaySpeed.toFixed(2);
-                } else {
-                    showError('请输入距离和时间，或者输入配速值来计算速度');
-                    return;
-                }
-                break;
+                calculatedSpeed = 3600 / adjustedPaceSeconds;
                 
-            case 'distance':
-                // 计算距离模式
-                if (hasTime && (hasPace || hasSpeed)) {
-                    let effectivePaceMinutes, effectivePaceSecs;
-                    
-                    // 优先使用配速，如果配速和速度都有且不一致
-                    if (hasPace && hasSpeed) {
-                        // 配速和速度都有，使用配速计算
-                        effectivePaceMinutes = paceMinutes;
-                        effectivePaceSecs = paceSecs;
-                    } else if (hasPace) {
-                        // 只有配速，直接使用
-                        effectivePaceMinutes = paceMinutes;
-                        effectivePaceSecs = paceSecs;
-                    } else {
-                        // 只有速度，先计算配速
-                        const paceResult = calculatePaceFromSpeed(speedValue);
-                        effectivePaceMinutes = paceResult.calculatedPaceMinutes;
-                        effectivePaceSecs = paceResult.calculatedPaceSecs;
-                        
-                        // 更新配速输入框
-                        paceMinutesInput.value = effectivePaceMinutes;
-                        paceSecondsInput.value = effectivePaceSecs;
-                    }
-                    
-                    // 计算配速总秒数
-                    const totalPaceSeconds = effectivePaceMinutes * 60 + effectivePaceSecs;
-                    
-                    // 计算距离（米）
-                    let distanceInMeters;
-                    if (paceUnit === 'km') {
-                        // 公里配速，计算公里距离再转米
-                        const distanceInKm = totalSeconds / totalPaceSeconds;
-                        distanceInMeters = distanceInKm * UNIT_CONVERSIONS.km_to_m;
-                    } else if (paceUnit === 'mile') {
-                        // 英里配速，计算英里距离再转米
-                        const distanceInMiles = totalSeconds / (totalPaceSeconds * UNIT_CONVERSIONS.mile_to_km);
-                        distanceInMeters = distanceInMiles * UNIT_CONVERSIONS.mile_to_m;
-                    } else if (paceUnit === 'm') {
-                        // 米配速，直接计算米距离
-                        distanceInMeters = totalSeconds / totalPaceSeconds;
-                    }
-                    
-                    // 根据目标距离单位转换
-                    const displayDistance = convertDistance(distanceInMeters, 'm', distanceUnit);
-                    const distanceUnitText = getPaceUnitText(distanceUnit);
-                    
-                    // 根据单位确定小数位数
-                    let decimalPlaces = distanceUnit === 'm' ? 0 : 2;
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>距离结果：</h4>
-                            <p>时间：<strong>${formatTime(hours, minutes, seconds)}</strong></p>
-                            <p>配速：<strong>${formatNumber(effectivePaceMinutes)}:${formatNumber(effectivePaceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                            <p>您能完成的距离为 <strong>${displayDistance.toFixed(decimalPlaces)}</strong> ${distanceUnitText}</p>
-                        </div>
-                    `;
-                    
-                    distanceInput.value = displayDistance.toFixed(decimalPlaces);
+                // 使用通用单位转换函数转换速度单位
+                calculatedSpeed = convertUnit(calculatedSpeed, distanceUnit === 'km' ? 'kmh' : 'mph', speedUnit, 'speed');
                 } else {
-                    showError('请输入时间，以及配速或速度中的至少一项');
-                    return;
-                }
-                break;
+                    calculatedSpeed = speed;
+                    
+                    // 使用通用单位转换函数转换速度到距离单位
+                let adjustedSpeed = convertUnit(speed, speedUnit, distanceUnit === 'km' ? 'kmh' : 'mph', 'speed');
                 
-            case 'time':
-                // 计算时间模式
-                if (hasDistance && (hasPace || hasSpeed)) {
-                    let effectivePaceMinutes, effectivePaceSecs;
+                const tempPaceSeconds = 3600 / adjustedSpeed;
+                
+                // 使用通用单位转换函数转换配速单位
+                let finalPaceSeconds = convertUnit(tempPaceSeconds, distanceUnit, paceUnit, 'pace');
                     
-                    // 优先使用配速，如果配速和速度都有且不一致
-                    if (hasPace && hasSpeed) {
-                        // 配速和速度都有，使用配速计算
-                        effectivePaceMinutes = paceMinutes;
-                        effectivePaceSecs = paceSecs;
-                    } else if (hasPace) {
-                        // 只有配速，直接使用
-                        effectivePaceMinutes = paceMinutes;
-                        effectivePaceSecs = paceSecs;
-                    } else {
-                        // 只有速度，先计算配速
-                        const paceResult = calculatePaceFromSpeed(speedValue);
-                        effectivePaceMinutes = paceResult.calculatedPaceMinutes;
-                        effectivePaceSecs = paceResult.calculatedPaceSecs;
-                        
-                        // 更新配速输入框
-                        paceMinutesInput.value = effectivePaceMinutes;
-                        paceSecondsInput.value = effectivePaceSecs;
-                    }
+                    calculatedPaceMinutes = Math.floor(finalPaceSeconds / 60);
+                    calculatedPaceSeconds = Math.round(finalPaceSeconds % 60);
+                }
+            } else if (onlyPace) {
+                // 只有配速有值
+                calculatedPaceMinutes = paceMinutes;
+                calculatedPaceSeconds = paceSeconds;
+                
+                // 使用通用单位转换函数转换配速到距离单位
+                let adjustedPaceSeconds = convertUnit(totalPaceSeconds, paceUnit, distanceUnit, 'pace');
+                
+                // 使用调整后的配速计算速度
+                calculatedSpeed = 3600 / adjustedPaceSeconds;
+            } else if (onlySpeed) {
+                // 只有速度有值
+                calculatedSpeed = speed;
+                
+                // 使用通用单位转换函数转换速度到距离单位
+                let convertedSpeed = convertUnit(speed, speedUnit, distanceUnit === 'km' ? 'kmh' : 'mph', 'speed');
+                
+                const tempPaceSeconds = 3600 / convertedSpeed;
+                calculatedPaceMinutes = Math.floor(tempPaceSeconds / 60);
+                calculatedPaceSeconds = Math.round(tempPaceSeconds % 60);
+            }
+            
+            // 更新配速和速度输入框
+            paceMinutesInput.value = calculatedPaceMinutes;
+            paceSecondsInput.value = calculatedPaceSeconds;
+            speedInput.value = calculatedSpeed.toFixed(2);
+            
+            // 计算距离和时间中缺少的项
+            if (hasDistance && !hasTime) {
+                // 有距离，计算时间
+                
+                // 当使用速度计算时间时，确保单位匹配
+                let adjustedTimeSeconds;
+                
+                // 检查是否是使用速度进行计算（只有速度有值）
+                if (onlySpeed) {
+                    // 使用通用单位转换函数转换速度到距离单位
+                let convertedSpeed = convertUnit(calculatedSpeed, speedUnit, distanceUnit === 'km' ? 'kmh' : 'mph', 'speed');
                     
-                    // 计算配速总秒数
-                    const totalPaceSeconds = effectivePaceMinutes * 60 + effectivePaceSecs;
-                    
-                    // 转换输入距离为统一的米单位
-                    const distanceInMeters = convertDistance(distance, distanceUnit, 'm');
-                    
-                    // 根据配速单位计算总时间
-                    let totalTimeSeconds;
-                    if (paceUnit === 'km') {
-                        // 公里配速：将米转换为公里
-                        const distanceInKm = distanceInMeters * UNIT_CONVERSIONS.m_to_km;
-                        totalTimeSeconds = distanceInKm * totalPaceSeconds;
-                    } else if (paceUnit === 'mile') {
-                        // 英里配速：将米转换为英里
-                        const distanceInMiles = distanceInMeters * UNIT_CONVERSIONS.m_to_mile;
-                        totalTimeSeconds = distanceInMiles * totalPaceSeconds;
-                    } else if (paceUnit === 'm') {
-                        // 米配速：直接使用米距离
-                        totalTimeSeconds = distanceInMeters * totalPaceSeconds;
-                    }
-                    
-                    // 转换总秒数为时分秒
-                    const calculatedHours = Math.floor(totalTimeSeconds / 3600);
-                    const remainingSeconds = totalTimeSeconds % 3600;
-                    const calculatedMinutes = Math.floor(remainingSeconds / 60);
-                    const calculatedSeconds = Math.round(remainingSeconds % 60);
-                    
-                    result = `
-                        <div class="result-item">
-                            <h4>时间结果：</h4>
-                            <p>距离：<strong>${distance}</strong> ${getPaceUnitText(distanceUnit)}</p>
-                            <p>配速：<strong>${formatNumber(effectivePaceMinutes)}:${formatNumber(effectivePaceSecs)}</strong> 分钟/${getPaceUnitText(paceUnit)}</p>
-                            <p>所需时间为 <strong>${formatTime(calculatedHours, calculatedMinutes, calculatedSeconds)}</strong></p>
-                        </div>
-                    `;
-                    
-                    // 更新时间输入框
-                    hoursInput.value = calculatedHours || '';
-                    minutesInput.value = calculatedMinutes || '';
-                    secondsInput.value = calculatedSeconds || '';
+                    // 计算时间：时间(秒) = 距离 / 速度 * 3600
+                    adjustedTimeSeconds = (distance / convertedSpeed) * 3600;
                 } else {
-                    showError('请输入距离，以及配速或速度中的至少一项');
-                    return;
+                    // 使用配速计算时间
+                    // 使用通用单位转换函数转换配速到距离单位
+                const totalPaceSeconds = calculatedPaceMinutes * 60 + calculatedPaceSeconds;
+                let adjustedPaceSeconds = convertUnit(totalPaceSeconds, paceUnit, distanceUnit, 'pace');
+                    
+                    adjustedTimeSeconds = distance * adjustedPaceSeconds;
                 }
-                break;
                 
-            default:
-                showError('未知的计算模式');
-                return;
+                calculatedHours = Math.floor(adjustedTimeSeconds / 3600);
+                calculatedMinutes = Math.floor((adjustedTimeSeconds % 3600) / 60);
+                calculatedSeconds = Math.round(adjustedTimeSeconds % 60);
+                
+                // 更新时间输入框
+                hoursInput.value = calculatedHours || '';
+                minutesInput.value = calculatedMinutes;
+                secondsInput.value = calculatedSeconds;
+                
+                // 添加到结果
+                results.push(`距离: ${distance.toFixed(2)} ${getDistanceUnitLabel(distanceUnit)}`);
+                results.push(`计算时间: ${formatTime(calculatedHours, calculatedMinutes, calculatedSeconds)}`);
+            } else if (!hasDistance && hasTime) {
+                // 有时间，计算距离
+                // 计算配速总秒数
+                const totalPaceSeconds = calculatedPaceMinutes * 60 + calculatedPaceSeconds;
+                
+                // 考虑配速单位和距离单位的转换
+                if (paceUnit !== distanceUnit) {
+                    // 使用通用单位转换函数转换配速到距离单位
+                    const adjustedPaceSeconds = convertUnit(totalPaceSeconds, paceUnit, distanceUnit, 'pace');
+                    calculatedDistance = totalSeconds / adjustedPaceSeconds;
+                } else {
+                    // 单位相同，直接计算
+                    calculatedDistance = totalSeconds / totalPaceSeconds;
+                }
+                
+                // 更新距离输入框
+                distanceInput.value = calculatedDistance.toFixed(2);
+                
+                // 重新标记hasDistance为true，因为现在有了计算出的距离
+                hasDistance = true;
+                
+                // 添加到结果
+                results.push(`计算距离: ${calculatedDistance.toFixed(2)} ${getDistanceUnitLabel(distanceUnit)}`);
+                results.push(`时间: ${formatTime(hours, minutes, seconds)}`);
+            }
+            
+            // 添加配速和速度到结果
+            results.push(`配速: ${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSeconds)} ${getPaceUnitLabel(paceUnit)}`);
+            results.push(`速度: ${calculatedSpeed.toFixed(2)} ${getSpeedUnitLabel(speedUnit)}`);
+        }
+    }
+    // 情况3：距离和时间文本框都无数值
+    else {
+        // 检查配速和速度的输入情况
+        const bothPaceAndSpeed = hasValidPace && hasValidSpeed;
+        const onlyPace = hasValidPace && !hasValidSpeed;
+        const onlySpeed = !hasValidPace && hasValidSpeed;
+        
+        if (!hasValidPace && !hasValidSpeed) {
+            // 配速和速度都无数值
+            results.push('<span class="error">请输入速度或配速来完成计算</span>');
+        } else {
+            let calculatedSpeed;
+            
+            if (bothPaceAndSpeed) {
+                // 两者都有值，根据优先设置决定使用哪个
+                if (priority === 'pace') {
+                    calculatedPaceMinutes = paceMinutes;
+                    calculatedPaceSeconds = paceSeconds;
+                    calculatedSpeed = 3600 / totalPaceSeconds;
+                } else {
+                    calculatedSpeed = speed;
+                    const tempPaceSeconds = 3600 / speed;
+                    calculatedPaceMinutes = Math.floor(tempPaceSeconds / 60);
+                    calculatedPaceSeconds = Math.round(tempPaceSeconds % 60);
+                }
+            } else if (onlyPace) {
+                // 只有配速有值，计算速度
+                calculatedPaceMinutes = paceMinutes;
+                calculatedPaceSeconds = paceSeconds;
+                calculatedSpeed = 3600 / totalPaceSeconds;
+            } else if (onlySpeed) {
+                // 只有速度有值，计算配速
+                calculatedSpeed = speed;
+                const tempPaceSeconds = 3600 / speed;
+                calculatedPaceMinutes = Math.floor(tempPaceSeconds / 60);
+                calculatedPaceSeconds = Math.round(tempPaceSeconds % 60);
+            }
+            
+            // 更新输入框
+            paceMinutesInput.value = calculatedPaceMinutes;
+            paceSecondsInput.value = calculatedPaceSeconds;
+            speedInput.value = calculatedSpeed.toFixed(2);
+            
+            // 添加到结果
+            results.push(`配速: ${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSeconds)} ${getPaceUnitLabel(paceUnit)}`);
+            results.push(`速度: ${calculatedSpeed.toFixed(2)} ${getSpeedUnitLabel(speedUnit)}`);
+            results.push(`优先设置: ${priority === 'pace' ? '配速优先' : '速度优先'}`);
+        }
+    }
+    
+    // 显示结果
+    resultContent.innerHTML = results.length > 0 ? results.map(line => `<p>${line}</p>`).join('') : '<p>请输入数据并点击计算按钮。</p>';
+    
+    // 确保配速输入框的值正确设置，这样即使showResult也调用updateSplitTimeTable，也能使用正确的值
+    console.log('在calculate函数末尾，确保配速输入框值正确:', calculatedPaceMinutes, ':', calculatedPaceSeconds);
+    if (calculatedPaceMinutes !== undefined && calculatedPaceSeconds !== undefined) {
+        paceMinutesInput.value = calculatedPaceMinutes;
+        paceSecondsInput.value = calculatedPaceSeconds;
+    }
+    
+    // 在计算成功后更新分段时间表格
+    // 优化条件判断，确保每次计算都能稳定触发分段时间表更新
+    // 使用results数组长度来判断计算是否成功执行
+    const currentPaceUnit = paceUnitSelect.value;
+    
+    // 确保配速单位有效
+    const validPaceUnit = currentPaceUnit === 'km' || currentPaceUnit === 'mile';
+    
+    // 提前声明变量，避免作用域问题
+    let mainDistance = null;
+    let mainUnit = null;
+    
+    // 只有当计算成功执行且配速单位有效时触发更新
+    if (results.length > 0 && validPaceUnit) {
+        console.log('准备更新分段时间表');
+        console.log('results.length:', results.length);
+        console.log('validPaceUnit:', validPaceUnit);
+        console.log('currentPaceUnit:', currentPaceUnit);
+        console.log('hasValidDistance:', hasValidDistance);
+        
+        // 如果有有效距离，直接传递距离参数给updateSplitTimeTable函数
+        // 确保分段时间表格的结束距离与计算结果一致
+        let calculatedKmEndPoint = null;
+        let calculatedMileEndPoint = null;
+        
+        // 使用hasDistance而不是hasValidDistance，因为当用户删除距离并输入时间后，
+        // 我们会计算出新的距离并将hasDistance设为true
+        if (hasDistance) {
+            // 获取主表单中的距离值和单位
+            mainDistance = parseFloat(distanceInput.value);
+            mainUnit = distanceUnitSelect.value;
+            
+            console.log('mainDistance:', mainDistance);
+            console.log('mainUnit:', mainUnit);
+            
+            // 根据单位计算公里和英里的结束距离
+            if (mainUnit === 'm') {
+                calculatedKmEndPoint = mainDistance / 1000;
+                calculatedMileEndPoint = convertUnit(calculatedKmEndPoint, 'km', 'mile', 'distance');
+            } else if (mainUnit === 'km') {
+                calculatedKmEndPoint = mainDistance;
+                calculatedMileEndPoint = convertUnit(mainDistance, 'km', 'mile', 'distance');
+            } else if (mainUnit === 'mile') {
+                calculatedMileEndPoint = mainDistance;
+                calculatedKmEndPoint = convertUnit(mainDistance, 'mile', 'km', 'distance');
+            }
         }
         
-        // 显示计算结果
-        showResult(result);
-    } catch (error) {
-        showError('计算过程中出现错误，请检查输入数据');
-        console.error(error);
+        // 确保配速变量存在
+        console.log('calculatedPaceMinutes:', calculatedPaceMinutes);
+        console.log('calculatedPaceSeconds:', calculatedPaceSeconds);
+        console.log('calculatedKmEndPoint:', calculatedKmEndPoint);
+        console.log('calculatedMileEndPoint:', calculatedMileEndPoint);
+        
+        // 调用updateSplitTimeTable函数，传递必要的参数
+        // 使用计算后的配速值，确保传递稳定有效的参数
+        if (calculatedPaceMinutes !== undefined && calculatedPaceSeconds !== undefined) {
+            console.log('调用updateSplitTimeTable');
+            updateSplitTimeTable(
+                calculatedPaceMinutes, 
+                calculatedPaceSeconds, 
+                currentPaceUnit,
+                '5', // 默认公里粒度
+                '5', // 默认英里粒度
+                calculatedKmEndPoint,
+                calculatedMileEndPoint,
+                hasDistance ? mainDistance : null,
+                hasDistance ? mainUnit : null
+            );
+        } else {
+            console.log('错误: 配速变量未定义，尝试从输入框获取值');
+            // 尝试从输入框获取值作为备用
+            const inputPaceMinutes = parseFloat(paceMinutesInput.value);
+            const inputPaceSeconds = parseFloat(paceSecondsInput.value);
+            if (!isNaN(inputPaceMinutes) && !isNaN(inputPaceSeconds)) {
+                console.log('从输入框获取配速值成功:', inputPaceMinutes, ':', inputPaceSeconds);
+                updateSplitTimeTable(
+                    inputPaceMinutes, 
+                    inputPaceSeconds, 
+                    currentPaceUnit,
+                    '5', // 默认公里粒度
+                    '5', // 默认英里粒度
+                    calculatedKmEndPoint,
+                    calculatedMileEndPoint,
+                    hasDistance ? mainDistance : null,
+                    hasDistance ? mainUnit : null
+                );
+            }
+        }
+    }
+}
+
+// 辅助函数：获取距离单位标签
+function getDistanceUnitLabel(unit) {
+    switch(unit) {
+        case 'km': return '公里';
+        case 'mile': return '英里';
+        case 'm': return '米';
+        default: return unit;
+    }
+}
+
+// 辅助函数：获取配速单位标签
+function getPaceUnitLabel(unit) {
+    switch(unit) {
+        case 'km': return '分钟/公里';
+        case 'mile': return '分钟/英里';
+        default: return `分钟/${unit}`;
+    }
+}
+
+// 辅助函数：获取速度单位标签
+function getSpeedUnitLabel(unit) {
+    switch(unit) {
+        case 'kmh': return '公里/小时';
+        case 'mph': return '英里/小时';
+        case 'ms': return '米/秒';
+        default: return `${unit}`;
     }
 }
 
@@ -1350,7 +1084,7 @@ const SPLIT_DISTANCES_MILE_PER_1 = (endPoint = 'marathon') => {
 };
 
 // 更新分段时间表格
-  function updateSplitTimeTable(paceMinutes, paceSeconds, paceUnit, kmGranularity = '5', mileGranularity = '5', kmEndPoint = null, mileEndPoint = null) {
+  function updateSplitTimeTable(paceMinutes, paceSeconds, paceUnit, kmGranularity = '5', mileGranularity = '5', kmEndPoint = null, mileEndPoint = null, originalDistance = null, originalUnit = null) {
       const paceReferenceElement = document.querySelector('.pace-reference');
       if (!paceReferenceElement) return;
       
@@ -1369,10 +1103,10 @@ const SPLIT_DISTANCES_MILE_PER_1 = (endPoint = 'marathon') => {
                   // 根据选择的单位计算两个表格需要的结束点值
                   if (unit === 'km') {
                       kmEndPoint = distance;
-                      mileEndPoint = distance * UNIT_CONVERSIONS.km_to_mile;
+                      mileEndPoint = convertUnit(distance, 'km', 'mile', 'distance');
                   } else if (unit === 'mile') {
                       mileEndPoint = distance;
-                      kmEndPoint = distance * UNIT_CONVERSIONS.mile_to_km;
+                      kmEndPoint = convertUnit(distance, 'mile', 'km', 'distance');
                   }
               } else {
                   // 2. 如果统一控件值无效，检查主表单中的距离和单位
@@ -1388,13 +1122,13 @@ const SPLIT_DISTANCES_MILE_PER_1 = (endPoint = 'marathon') => {
                           if (mainUnit === 'm') {
                               // 米转换为公里
                               kmEndPoint = mainDistance / 1000;
-                              mileEndPoint = kmEndPoint * UNIT_CONVERSIONS.km_to_mile;
+                              mileEndPoint = convertUnit(kmEndPoint, 'km', 'mile', 'distance');
                           } else if (mainUnit === 'km') {
                               kmEndPoint = mainDistance;
-                              mileEndPoint = mainDistance * UNIT_CONVERSIONS.km_to_mile;
+                              mileEndPoint = convertUnit(mainDistance, 'km', 'mile', 'distance');
                           } else if (mainUnit === 'mile') {
                               mileEndPoint = mainDistance;
-                              kmEndPoint = mainDistance * UNIT_CONVERSIONS.mile_to_km;
+                              kmEndPoint = convertUnit(mainDistance, 'mile', 'km', 'distance');
                           } else {
                               // 3. 如果主表单单位无效，使用默认全马距离
                               kmEndPoint = 42.195;
@@ -1425,13 +1159,13 @@ const SPLIT_DISTANCES_MILE_PER_1 = (endPoint = 'marathon') => {
                       if (mainUnit === 'm') {
                           // 米转换为公里
                           kmEndPoint = mainDistance / 1000;
-                          mileEndPoint = kmEndPoint * UNIT_CONVERSIONS.km_to_mile;
+                          mileEndPoint = convertUnit(kmEndPoint, 'km', 'mile', 'distance');
                       } else if (mainUnit === 'km') {
                           kmEndPoint = mainDistance;
-                          mileEndPoint = mainDistance * UNIT_CONVERSIONS.km_to_mile;
+                          mileEndPoint = convertUnit(mainDistance, 'km', 'mile', 'distance');
                       } else if (mainUnit === 'mile') {
                           mileEndPoint = mainDistance;
-                          kmEndPoint = mainDistance * UNIT_CONVERSIONS.mile_to_km;
+                          kmEndPoint = convertUnit(mainDistance, 'mile', 'km', 'distance');
                       } else {
                           // 3. 如果主表单单位无效，使用默认全马距离
                           kmEndPoint = 42.195;
@@ -1460,13 +1194,13 @@ const SPLIT_DISTANCES_MILE_PER_1 = (endPoint = 'marathon') => {
         // 如果当前配速单位是公里，直接使用
         kmPaceMinutes = paceMinutes;
         kmPaceSeconds = paceSeconds;
-        // 转换为英里配速
-        const milePaceTotalSeconds = totalPaceSeconds * UNIT_CONVERSIONS.min_per_km_to_min_per_mile;
+        // 使用通用单位转换函数转换为英里配速
+        const milePaceTotalSeconds = convertUnit(totalPaceSeconds, 'km', 'mile', 'pace');
         milePaceMinutes = Math.floor(milePaceTotalSeconds / 60);
         milePaceSeconds = Math.round(milePaceTotalSeconds % 60);
     } else if (paceUnit === 'mile') {
-        // 如果当前配速单位是英里，转换为公里配速
-        const kmPaceTotalSeconds = totalPaceSeconds * UNIT_CONVERSIONS.min_per_mile_to_min_per_km;
+        // 使用通用单位转换函数转换为公里配速
+        const kmPaceTotalSeconds = convertUnit(totalPaceSeconds, 'mile', 'km', 'pace');
         kmPaceMinutes = Math.floor(kmPaceTotalSeconds / 60);
         kmPaceSeconds = Math.round(kmPaceTotalSeconds % 60);
         // 直接使用英里配速
@@ -1489,12 +1223,13 @@ const SPLIT_DISTANCES_MILE_PER_1 = (endPoint = 'marathon') => {
         <div class="form-group">
             <label>结束距离：</label>
             <div class="input-with-unit">
-                <!-- 保留用户原始输入的距离值，不要直接使用转换后的kmEndPoint -->
+                <!-- 优先使用原始距离和单位（如果是通过calculate函数调用），否则保留用户当前输入 -->
                 <input type="number" id="global-endpoint-distance" class="endpoint-distance" step="0.1" min="0.1" 
-                    value="${distanceInput ? distanceInput.value : (unitSelector && unitSelector.value === 'mile' ? mileEndPoint : kmEndPoint)}">
+                    value="${originalDistance !== null ? originalDistance : (distanceInput ? distanceInput.value : (unitSelector && unitSelector.value === 'mile' ? mileEndPoint : kmEndPoint))}">
                 <select id="global-endpoint-unit" class="unit-select">
-                    <option value="km" ${unitSelector && unitSelector.value === 'km' ? 'selected' : ''}>公里</option>
-                    <option value="mile" ${unitSelector && unitSelector.value === 'mile' ? 'selected' : ''}>英里</option>
+                    <option value="km" ${originalUnit === 'km' ? 'selected' : (unitSelector && unitSelector.value === 'km' ? 'selected' : '')}>公里</option>
+                    <option value="mile" ${originalUnit === 'mile' ? 'selected' : (unitSelector && unitSelector.value === 'mile' ? 'selected' : '')}>英里</option>
+                    <option value="m" ${originalUnit === 'm' ? 'selected' : ''}>米</option>
                 </select>
             </div>
         </div>
@@ -1565,14 +1300,9 @@ function addEndPointChangeListeners(paceMinutes, paceSeconds, paceUnit) {
                 const newUnit = unitSelector.value;
                 const oldUnit = newUnit === 'km' ? 'mile' : 'km';
                 
-                // 根据单位进行转换
-                if (oldUnit === 'mile' && newUnit === 'km') {
-                    // 英里转公里
-                    distanceInput.value = (distance * UNIT_CONVERSIONS.mile_to_km).toFixed(1);
-                } else if (oldUnit === 'km' && newUnit === 'mile') {
-                    // 公里转英里
-                    distanceInput.value = (distance * UNIT_CONVERSIONS.km_to_mile).toFixed(1);
-                }
+                // 使用通用单位转换函数
+                const convertedDistance = convertUnit(distance, oldUnit, newUnit, 'distance');
+                distanceInput.value = convertedDistance.toFixed(1);
             }
             
             // 为了避免重复转换，我们直接从DOM获取当前值和单位
@@ -1597,7 +1327,42 @@ function handleEndPointChange(paceMinutes, paceSeconds, paceUnit) {
     
     // 不在这里进行单位转换，直接调用updateSplitTimeTable让它内部处理
     // 这样可以避免重复转换问题
-    updateSplitTimeTable(paceMinutes, paceSeconds, paceUnit, kmGranularity, mileGranularity);
+    // 获取当前表单中的距离信息
+    const distanceInput = document.getElementById('distance');
+    const distanceUnitSelect = document.getElementById('distance-unit');
+    const hasValidDistance = distanceInput && distanceInput.value && !isNaN(parseFloat(distanceInput.value));
+    const mainDistance = hasValidDistance ? parseFloat(distanceInput.value) : null;
+    const mainUnit = hasValidDistance ? distanceUnitSelect.value : null;
+    
+    // 计算公里和英里的结束点
+    let calculatedKmEndPoint = 42.195; // 默认全马距离
+    let calculatedMileEndPoint = 26.2188;
+    
+    if (hasValidDistance) {
+        if (mainUnit === 'km') {
+            calculatedKmEndPoint = mainDistance;
+            calculatedMileEndPoint = mainDistance * 0.621371;
+        } else if (mainUnit === 'mile') {
+            calculatedKmEndPoint = mainDistance * 1.60934;
+            calculatedMileEndPoint = mainDistance;
+        } else if (mainUnit === 'm') {
+            // 米转公里和英里
+            calculatedKmEndPoint = mainDistance / 1000;
+            calculatedMileEndPoint = mainDistance / 1609.34;
+        }
+    }
+    
+    updateSplitTimeTable(
+        paceMinutes, 
+        paceSeconds, 
+        paceUnit, 
+        kmGranularity, 
+        mileGranularity,
+        calculatedKmEndPoint,
+        calculatedMileEndPoint,
+        mainDistance,
+        mainUnit
+    );
 }
 
 // 为粒度选择器添加事件监听器
@@ -1706,21 +1471,8 @@ function generateSplitTimeTable(targetUnit, totalPaceSeconds, paceUnit, granular
         const distance = splitDistances[i].value;
         const distanceLabel = splitDistances[i].label;
         
-        // 根据配速单位和目标距离单位计算时间
-        let distanceInPaceUnit;
-        if (paceUnit === 'km') {
-            if (targetUnit === 'km') {
-                distanceInPaceUnit = distance;
-            } else { // mile
-                distanceInPaceUnit = distance * UNIT_CONVERSIONS.mile_to_km;
-            }
-        } else { // mile
-            if (targetUnit === 'km') {
-                distanceInPaceUnit = distance * UNIT_CONVERSIONS.km_to_mile;
-            } else { // mile
-                distanceInPaceUnit = distance;
-            }
-        }
+        // 使用通用单位转换函数，将目标距离单位转换为配速单位
+        const distanceInPaceUnit = convertUnit(distance, targetUnit, paceUnit, 'distance');
         
         // 计算该段距离的累计时间
         cumulativeTime = distanceInPaceUnit * totalPaceSeconds;
@@ -1777,8 +1529,43 @@ function showResult(content) {
         
         // 如果配速输入框有值，更新分段时间表格
         if (!isNaN(paceMinutes) && !isNaN(paceSeconds)) {
-            // 使用默认参数，将在updateSplitTimeTable函数内部处理统一的结束距离设置
-            updateSplitTimeTable(paceMinutes, paceSeconds, paceUnit);
+            console.log('在showResult中调用updateSplitTimeTable，使用完整参数集');
+            // 使用与calculate函数相同的完整参数集
+            const distanceInput = document.getElementById('distance');
+            const distanceUnitSelect = document.getElementById('distance-unit');
+            const hasValidDistance = distanceInput && distanceInput.value && !isNaN(parseFloat(distanceInput.value));
+            const mainDistance = hasValidDistance ? parseFloat(distanceInput.value) : null;
+            const mainUnit = hasValidDistance ? distanceUnitSelect.value : null;
+            
+            // 计算公里和英里的结束点
+            let calculatedKmEndPoint = 42.195; // 默认全马距离
+            let calculatedMileEndPoint = 26.2188;
+            
+            if (hasValidDistance) {
+                if (mainUnit === 'km') {
+                    calculatedKmEndPoint = mainDistance;
+                    calculatedMileEndPoint = mainDistance * 0.621371;
+                } else if (mainUnit === 'mile') {
+                    calculatedKmEndPoint = mainDistance * 1.60934;
+                    calculatedMileEndPoint = mainDistance;
+                } else if (mainUnit === 'm') {
+                    // 米转公里和英里
+                    calculatedKmEndPoint = mainDistance / 1000;
+                    calculatedMileEndPoint = mainDistance / 1609.34;
+                }
+            }
+            
+            updateSplitTimeTable(
+                paceMinutes, 
+                paceSeconds, 
+                paceUnit,
+                '5', // 默认公里粒度
+                '5', // 默认英里粒度
+                calculatedKmEndPoint,
+                calculatedMileEndPoint,
+                mainDistance,
+                mainUnit
+            );
         }
     } catch (error) {
         console.error('更新分段时间表格失败:', error);
