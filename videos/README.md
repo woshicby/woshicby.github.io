@@ -8,7 +8,7 @@ videos目录是网站的视频资源库，主要用于：
 - 为网站提供演示视频内容
 - 存储页面背景视频
 - 提供用户可播放的媒体内容
-- 其他功能性视频资源
+- 其他功能性视频资源（如工具演示视频）
 
 ## 推荐文件格式
 
@@ -25,6 +25,10 @@ videos目录是网站的视频资源库，主要用于：
   - 比MP4提供更好的压缩率，文件更小
   - 推荐作为MP4的备选，提高兼容性
 
+- **HLS (.m3u8)**：HTTP直播流格式，适合流媒体播放
+  - 支持自适应比特率流
+  - 适用于长视频和流媒体场景
+
 ## 命名规范
 
 为了便于管理和使用，建议遵循以下命名规范：
@@ -37,6 +41,7 @@ videos目录是网站的视频资源库，主要用于：
   - `bg-`：背景视频
   - `tutorial-`：教程视频
   - `preview-`：预览视频
+  - `tool-`：工具演示视频（如`tool-pace-calculator.mp4`）
 
 ## 视频优化指南
 
@@ -53,12 +58,14 @@ videos目录是网站的视频资源库，主要用于：
 - **延迟加载**：实现视频的按需加载，减少初始页面加载时间
 - **响应式视频**：为不同设备提供不同分辨率的视频
 - **考虑使用CDN**：对于大型视频文件，建议使用CDN服务加速
+- **分段加载**：对于长视频，考虑使用分段加载技术
 
 ### 响应式视频策略
 
 - 为同一视频提供多个分辨率版本
 - 使用HTML5 `video` 标签的多种来源属性
 - 考虑在移动网络环境下自动选择低质量版本
+- 使用媒体查询调整视频显示和播放行为
 
 ## 使用方法
 
@@ -104,6 +111,46 @@ videos目录是网站的视频资源库，主要用于：
 }
 ```
 
+### 主题适配
+
+视频播放器控件样式应适配网站的主题系统：
+
+```css
+/* 使用CSS变量定义播放器控件样式 */
+video::-webkit-media-controls {
+  background-color: var(--video-control-bg);
+  color: var(--video-control-color);
+}
+
+video::-webkit-media-controls-play-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+```
+
+## 模块集成
+
+### 配速计算器视频集成
+
+- 为配速计算器工具添加演示视频
+- 视频格式建议：720p MP4，控制在10MB以内
+- 视频内容：展示工具的主要功能和使用方法
+
+### B站API集成
+
+与B站API集成，实现外部视频播放：
+
+```html
+<div id="bilibili-player"></div>
+<script src="../js/bilibili-api.js"></script>
+<script>
+  // 初始化B站播放器
+  const bilibiliPlayer = new BilibiliPlayer('bilibili-player');
+  // 加载视频
+  bilibiliPlayer.loadVideo('BV1xx411c7mK');
+</script>
+```
+
 ## 注意事项
 
 - **自动播放限制**：大多数浏览器要求自动播放视频必须是静音的
@@ -117,6 +164,9 @@ videos目录是网站的视频资源库，主要用于：
 - **预加载策略**：
   - 重要视频：设置`preload="metadata"`预加载元数据
   - 非关键视频：设置`preload="none"`避免不必要的带宽消耗
+- **主题切换考虑**：
+  - 视频播放器控件应适配深色/浅色主题
+  - 视频封面图片应考虑在不同主题下的显示效果
 
 ## 视频格式转换和压缩工具推荐
 
@@ -132,6 +182,7 @@ videos目录是网站的视频资源库，主要用于：
 - 使用`playsinline`属性在iOS Safari中内联播放视频
 - 考虑在小屏幕设备上禁用自动播放，改为用户点击播放
 - 测试视频在不同移动浏览器中的表现
+- 适配不同屏幕尺寸的视频播放体验
 
 ## 视频质量和性能平衡
 
@@ -141,15 +192,38 @@ videos目录是网站的视频资源库，主要用于：
 2. **观看环境**：预计用户在什么网络环境下观看
 3. **页面用途**：营销页面可能需要更高质量，功能页面可适当降低
 4. **加载速度**：确保视频不会明显延迟页面加载时间
+5. **设备性能**：考虑低性能设备的播放能力
 
 ## 视频封面
 
-为每个视频设置合适的封面图片：
+为每个视频设置合适的封面图片，支持主题切换：
 
 ```html
-<video controls poster="../images/video-thumbnail.jpg">
+<video controls poster="../images/video-thumbnail-light.png" data-dark-poster="../images/video-thumbnail-dark.png">
   <source src="../videos/your-video.mp4" type="video/mp4">
 </video>
 ```
 
-封面图片应与视频内容相关，并保持良好的视觉质量，建议尺寸与视频分辨率相匹配。
+```javascript
+// 使用theme-toggle.js中定义的主题切换逻辑
+function updateVideoPosters() {
+  const isDarkMode = document.documentElement.classList.contains('dark-theme');
+  document.querySelectorAll('video[data-dark-poster]').forEach(video => {
+    if (isDarkMode) {
+      video.poster = video.dataset.darkPoster;
+    } else {
+      // 恢复默认海报
+      video.poster = video.dataset.defaultPoster || video.poster;
+    }
+  });
+}
+
+// 监听主题切换事件
+document.addEventListener('themeChanged', updateVideoPosters);
+```
+
+封面图片要求：
+- 与视频内容相关
+- 保持良好的视觉质量
+- 尺寸与视频分辨率相匹配
+- 提供浅色和深色两个版本以适配主题系统

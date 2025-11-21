@@ -32,6 +32,7 @@
 - **JavaScript**: 交互功能和动态内容
 - **响应式设计**: 适配移动设备和桌面设备
 - **外部API**: 集成B站API等第三方服务
+- **主题切换**: 支持深色/浅色模式切换功能
 
 ## 项目结构
 
@@ -61,13 +62,13 @@ woshicby.github.io/
 │   ├── bilibili-api.js
 │   ├── navigation.js
 │   ├── pace-calculator.js
+│   ├── theme-toggle.js
 │   ├── touken-forge.js
 │   └── README.md
 ├── images/          # 图片资源目录
 │   ├── BV1zM41127x9.jpg
-│   ├── bilibili-icon.svg
+│   ├── bilibili-icon.png
 │   ├── body_backgrond.jpg
-│   ├── favicon.ico
 │   ├── github-icon.svg
 │   ├── menu-icon.svg
 │   ├── test_image.jpg
@@ -75,7 +76,7 @@ woshicby.github.io/
 │   │   ├── default_sword.jpg
 │   │   ├── 刀账图标/
 │   │   └── README.md
-│   ├── weibo-icon.svg
+│   ├── weibo-icon.png
 │   └── README.md
 ├── videos/          # 视频资源目录
 │   ├── test_video.mp4
@@ -83,7 +84,7 @@ woshicby.github.io/
 ├── audios/          # 音频资源目录
 │   ├── test_audio.mp3
 │   └── README.md
-├── 文档/            # 项目文档目录
+├── documents/       # 项目文档目录
 │   ├── resize.txt
 │   ├── resized_files_list.txt
 │   └── 时间距离配速距离计算逻辑.txt
@@ -95,6 +96,7 @@ woshicby.github.io/
 
 - **响应式导航**: 适配移动设备的汉堡菜单导航
 - **模块化设计**: 公共组件和样式的复用
+- **主题切换**: 支持深色/浅色模式，提升用户体验
 - **交互体验**: 动态效果和用户交互
 - **资源优化**: 图片和媒体资源的合理组织
 - **文档完善**: 每个目录都有详细的README文档说明
@@ -108,6 +110,7 @@ woshicby.github.io/
 - 添加样式比较器工具
 - 完善项目文档结构
 - 优化图片资源管理
+- 添加主题切换功能 (theme-toggle.js)
 
 ## 使用方法
 
@@ -119,6 +122,10 @@ woshicby.github.io/
 
 网站采用了响应式导航系统，在移动设备上会自动转换为汉堡菜单。导航功能通过`JS/navigation.js`实现，相关样式定义在`CSS/common.css`中。
 
+### 主题切换
+
+网站支持深色/浅色主题切换功能，通过`JS/theme-toggle.js`实现，用户可以根据自己的偏好和环境切换不同的显示模式。
+
 ### 页面开发
 
-如需添加新页面，请遵循现有的文件结构和命名规范，并确保引入公共样式和导航功能。
+如需添加新页面，请遵循现有的文件结构和命名规范，并确保引入公共样式和导航功能。新页面应支持响应式设计和主题切换功能。
