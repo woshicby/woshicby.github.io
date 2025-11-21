@@ -165,36 +165,7 @@ div.botton_box:hover{
     transform: translateY(-2px);
 }
 
-/* ==========================================
-   数据展示 - 运动记录区块
-   ==========================================
-   Strava运动数据展示区域样式
-   包含链接和文本排版
-   ========================================== */
-.strava-connect {
-    padding: 30px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,249,255,0.9));
-    border-radius: 15px;
-    margin-top: 30px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    border-left: 4px solid #FC4C02; /* Strava橙色 */
-    position: relative;
-    transition: all 0.3s ease;
-}
 
-.strava-connect:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-}
-
-.strava-connect::before {
-    content: '🚴';
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2rem;
-    opacity: 0.2;
-}
 
 
 
@@ -242,29 +213,7 @@ div.botton_box:hover{
     color: var(--primary-color);
 }
 
-.strava-connect p {
-    margin-bottom: 15px;
-    line-height: 1.8;
-    color: var(--text-color);
-}
 
-.strava-connect a {
-    display: inline-block;
-    color: white;
-    background-color: #FC4C02;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(252, 76, 2, 0.3);
-    text-decoration: none;
-}
-
-.strava-connect a:hover {
-    background-color: #E34902;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(252, 76, 2, 0.4);
-}
 
 /* ========================================== 
    夜间模式样式覆盖 
@@ -282,9 +231,4 @@ body.dark-theme .botton_box {
 
 body.dark-theme .botton_box:hover {
     border-left-color: var(--primary-color); /* 与日间模式保持一致的颜色映射 */
-}
-
-body.dark-theme .strava-connect {
-    background: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(52, 73, 94, 0.9));
-    box-shadow: var(--shadow-medium);
 }

@@ -1,14 +1,6 @@
 /* 刀剑乱舞锻刀模拟器样式 - 统一配色方案 */
 
-.touken-forge-container {
-    width: 100%;
-    margin: 0 auto;
-    padding: var(--spacing-xl);
-    background-color: var(--light-accent);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-light);
-    font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
-}
+/* 主体容器使用tools-common.css中的统一样式.tool-container */
 
 /* 资源区域 - 统一配色方案 */
 .resources-container {
@@ -355,7 +347,8 @@
 
 /* 响应式设计 - 大屏幕优化 */
 @media (min-width: 1024px) {
-    .touken-forge-container {
+    /* 统一样式已移至tools-common.css */
+    /* .touken-forge-container {
         padding: var(--spacing-xl);
     }
     
@@ -387,10 +380,11 @@
 
 /* 响应式设计 - 中等屏幕优化 */
 @media (min-width: 768px) and (max-width: 1023px) {
-    .touken-forge-container {
+    /* 统一样式已移至tools-common.css */
+    /* .touken-forge-container {
         padding: 25px;
         max-width: 100%;
-    }
+    } */
     
     .collection-list {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -430,18 +424,14 @@
         max-width: 90px;
         height: auto;
     }
-    
-    
-    .touken-forge-container {
-        padding: var(--spacing-md);
-    }
 }
 
 /* 针对更小屏幕的额外调整 */
 @media (max-width: 480px) {
-    .touken-forge-container {
+    /* 统一样式已移至tools-common.css */
+    /* .touken-forge-container {
         padding: var(--spacing-md);
-    }
+    } */
     
     .result-image {
         width: 100px;
@@ -566,7 +556,6 @@
 }
 
 /* 夜间模式样式 - 增强对比度和边框可见性 */
-body.dark-theme .touken-forge-container,
 body.dark-theme .resources-container,
 body.dark-theme .result-container,
 body.dark-theme .collection-container,
@@ -575,9 +564,9 @@ body.dark-theme .collection-item,
 body.dark-theme .stats-container,
 body.dark-theme .log-container,
 body.dark-theme .log-area {
-    background-color: var(--card-dark-bg-color); /* 使用common.css中定义的标准变量 */
+    background-color: var(--card-dark-bg-color);
     border-color: var(--border-dark-color);
-    border-width: 2px; /* 增加边框宽度 */
+    border-width: 2px;
     box-shadow: var(--shadow-medium);
 }
 

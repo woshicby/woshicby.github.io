@@ -1,5 +1,7 @@
 /* 样式对比页面专用样式 */
 
+/* 主体容器使用tools-common.css中的统一样式.tool-container */
+
 /* 为展示目的复制各个页面的关键样式 */
 /* 首页样式 */
 .index-h2 {
@@ -56,8 +58,8 @@
     background-color: var(--heading-color);
 }
 
-/* 配速计算器样式 */
-.pace-h2 {
+/* 配速计算器样式 - 仅用于样式展示，不影响实际工具页面 */
+.style-example .pace-h2 {
     color: var(--heading-color);
     text-align: center;
     margin-bottom: var(--spacing-md);

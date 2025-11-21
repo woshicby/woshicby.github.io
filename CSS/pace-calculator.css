@@ -1,17 +1,6 @@
 /* 配速计算器样式 */
 
-/* 主体容器 - 与锻刀模拟器统一结构 */
-.pace-calculator-container {
-    width: 100%;
-    margin: 0 auto;
-    padding: var(--spacing-xl);
-    background-color: var(--light-accent);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-light);
-    font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
-}
-
-
+/* 主体容器使用tools-common.css中的统一样式.tool-container */
 
 /* 描述文本样式已移至tools-common.css中的.tool-description */
 
@@ -318,32 +307,30 @@
 }
 
 /* 响应式设计 - 大屏幕优化 */
-@media (min-width: 1024px) {
-    .pace-calculator-container {
-        padding: var(--spacing-xl);
-    }
-    
-    /* 超宽屏幕优化 */
-    @media (min-width: 1600px) {
-        .pace-calculator-container {
-            padding: calc(var(--spacing-xl) * 1.33);
-        }
-    }
+   
+/* 超宽屏幕优化 */
+@media (min-width: 1600px) {
+    /* 统一样式已移至tools-common.css */
+    /* .pace-calculator-container {
+        padding: calc(var(--spacing-xl) * 1.33);
+    } */
 }
 
 /* 响应式设计 - 中等屏幕优化 */
 @media (min-width: 768px) and (max-width: 1023px) {
-    .pace-calculator-container {
+    /* 统一样式已移至tools-common.css */
+    /* .pace-calculator-container {
         padding: calc(var(--spacing-xl) * 0.83);
         max-width: 100%;
-    }
+    } */
 }
 
 /* 响应式设计 - 统一结构 */
 @media (max-width: 767px) {
-    .pace-calculator-container {
+    /* 统一样式已移至tools-common.css */
+    /* .pace-calculator-container {
         padding: var(--spacing-md);
-    }
+    } */
     
     .calculator-form {
         padding: var(--spacing-md);
@@ -378,25 +365,7 @@
     }
 }
 
-/* 返回小工具页面按钮 */
-.back-to-tools {
-    margin-bottom: var(--spacing-lg);
-}
-
-.back-button {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: var(--spacing-md) var(--spacing-lg);
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    font-weight: var(--font-weight-medium);
-    transition: background-color var(--transition-default);
-}
-
-.back-button:hover {
-    background-color: var(--primary-hover-color);
-}
+/* 返回小工具页面按钮样式已在tools-common.css中定义 */
 
 /* 分段时间表格容器样式 - 与锻刀模拟器统一结构 */
 .split-tables-container {
@@ -439,13 +408,14 @@
 
 /* 针对更小屏幕的额外调整 */
 @media (max-width: 480px) {
-    .pace-calculator-container {
+    /* 统一样式已移至tools-common.css */
+    /* .pace-calculator-container {
         padding: var(--spacing-md);
     }
     
     .pace-calculator-container h2 {
         font-size: 20px;
-    }
+    } */
     
     .split-table-section {
         padding: var(--spacing-sm);
@@ -471,11 +441,7 @@
 /* ========================================== 
    夜间模式样式覆盖 - 增强可读性和边框可见性 
    ========================================== */
-body.dark-theme .pace-calculator-container {
-    background-color: var(--dark-card-bg-color);
-    box-shadow: var(--dark-shadow);
-    border: 2px solid var(--dark-border-color); /* 增加边框宽度 */
-}
+/* .pace-calculator-container样式已在tools-common.css中定义 */
 
 /* 为标题添加夜间模式颜色 */
 body.dark-theme .pace-calculator-container h2,
@@ -610,15 +576,7 @@ body.dark-theme .split-table-section {
     border-width: 2px;
 }
 
-/* 增强返回按钮样式 */
-body.dark-theme .back-button {
-    background-color: var(--secondary-color);
-    color: white;
-}
-
-body.dark-theme .back-button:hover {
-    background-color: var(--dark-secondary-hover-color);
-}
+/* 返回按钮夜间模式样式已在tools-common.css中定义 */
 
 /* 增强模式切换按钮对比度 */
 body.dark-theme .mode-btn {

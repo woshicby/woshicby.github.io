@@ -622,8 +622,9 @@ function calculate() {
     let hasDistance = hasValidDistance;
     
     // 声明配速变量，确保在整个函数范围内可用
-    let calculatedPaceMinutes = 0;
-    let calculatedPaceSeconds = 0;
+    let calculatedPaceMinutes = null;
+    let calculatedPaceSeconds = null;
+    let hasSuccessfulCalculation = false;
     
     // 情况1：距离和时间文本框都有数值
     if (hasValidDistance && hasValidTime) {
@@ -648,6 +649,8 @@ function calculate() {
         
         // 更新速度输入框
         speedInput.value = calculatedSpeed.toFixed(2);
+        
+        hasSuccessfulCalculation = true;
         
         // 输出结果
         results.push(`距离: ${distance.toFixed(2)} ${getDistanceUnitLabel(distanceUnit)}`);
@@ -727,6 +730,8 @@ function calculate() {
             paceSecondsInput.value = calculatedPaceSeconds;
             speedInput.value = calculatedSpeed.toFixed(2);
             
+            hasSuccessfulCalculation = true;
+            
             // 计算距离和时间中缺少的项
             if (hasDistance && !hasTime) {
                 // 有距离，计算时间
@@ -792,6 +797,11 @@ function calculate() {
             results.push(`配速: ${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSeconds)} ${getPaceUnitLabel(paceUnit)}`);
             results.push(`速度: ${calculatedSpeed.toFixed(2)} ${getSpeedUnitLabel(speedUnit)}`);
         }
+    } else if (hasValidDistance || hasValidTime) {
+        // 只有距离或只有时间，但没有配速或速度，只显示错误信息
+        if (!hasValidPace && !hasValidSpeed) {
+            results.push('<span class="error">请输入速度或配速来完成计算</span>');
+        }
     }
     // 情况3：距离和时间文本框都无数值
     else {
@@ -836,6 +846,8 @@ function calculate() {
             paceSecondsInput.value = calculatedPaceSeconds;
             speedInput.value = calculatedSpeed.toFixed(2);
             
+            hasSuccessfulCalculation = true;
+            
             // 添加到结果
             results.push(`配速: ${formatNumber(calculatedPaceMinutes)}:${formatNumber(calculatedPaceSeconds)} ${getPaceUnitLabel(paceUnit)}`);
             results.push(`速度: ${calculatedSpeed.toFixed(2)} ${getSpeedUnitLabel(speedUnit)}`);
@@ -848,14 +860,13 @@ function calculate() {
     
     // 确保配速输入框的值正确设置，这样即使showResult也调用updateSplitTimeTable，也能使用正确的值
     console.log('在calculate函数末尾，确保配速输入框值正确:', calculatedPaceMinutes, ':', calculatedPaceSeconds);
-    if (calculatedPaceMinutes !== undefined && calculatedPaceSeconds !== undefined) {
+    if (calculatedPaceMinutes !== null && calculatedPaceSeconds !== null && hasSuccessfulCalculation) {
         paceMinutesInput.value = calculatedPaceMinutes;
         paceSecondsInput.value = calculatedPaceSeconds;
     }
     
     // 在计算成功后更新分段时间表格
-    // 优化条件判断，确保每次计算都能稳定触发分段时间表更新
-    // 使用results数组长度来判断计算是否成功执行
+    // 优化条件判断，确保只有在成功计算且有有效配速值时才更新分段时间表
     const currentPaceUnit = paceUnitSelect.value;
     
     // 确保配速单位有效
@@ -865,8 +876,8 @@ function calculate() {
     let mainDistance = null;
     let mainUnit = null;
     
-    // 只有当计算成功执行且配速单位有效时触发更新
-    if (results.length > 0 && validPaceUnit) {
+    // 只有当计算成功执行、有有效配速值且配速单位有效时触发更新
+    if (hasSuccessfulCalculation && calculatedPaceMinutes !== null && calculatedPaceSeconds !== null && validPaceUnit) {
         console.log('准备更新分段时间表');
         console.log('results.length:', results.length);
         console.log('validPaceUnit:', validPaceUnit);
@@ -1217,19 +1228,37 @@ const SPLIT_DISTANCES_MILE_PER_1 = (endPoint = 'marathon') => {
     let mileTableHtml = generateSplitTimeTable('mile', totalPaceSeconds, paceUnit, mileGranularity, mileEndPoint);
     
     // 更新表格内容，添加粒度切换和结束点选择控件
+    // 获取当前结束距离控件的值（如果存在）
+    let currentEndPointDistance = 42.195; // 默认值
+    let currentEndPointUnit = 'km'; // 默认单位
+    
+    // 只有在点击计算且原始距离存在时，才使用原始距离和单位
+    // 否则，如果控件已存在，保留用户当前输入的值
+    const existingEndPointDistance = document.getElementById('global-endpoint-distance');
+    const existingEndPointUnit = document.getElementById('global-endpoint-unit');
+    
+    if (originalDistance !== null) {
+        // 点击计算且距离文本框有值时，统一使用原始距离和单位
+        currentEndPointDistance = originalDistance;
+        currentEndPointUnit = originalUnit || 'km';
+    } else if (existingEndPointDistance) {
+        // 保留用户手动修改的值
+        currentEndPointDistance = existingEndPointDistance.value;
+        currentEndPointUnit = existingEndPointUnit ? existingEndPointUnit.value : 'km';
+    }
+    
     paceReferenceElement.innerHTML = `
         <h3>分段时间参考</h3>
         <!-- 统一的结束距离控制 -->
         <div class="form-group">
             <label>结束距离：</label>
             <div class="input-with-unit">
-                <!-- 优先使用原始距离和单位（如果是通过calculate函数调用），否则保留用户当前输入 -->
                 <input type="number" id="global-endpoint-distance" class="endpoint-distance" step="0.1" min="0.1" 
-                    value="${originalDistance !== null ? originalDistance : (distanceInput ? distanceInput.value : (unitSelector && unitSelector.value === 'mile' ? mileEndPoint : kmEndPoint))}">
+                    value="${currentEndPointDistance}">
                 <select id="global-endpoint-unit" class="unit-select">
-                    <option value="km" ${originalUnit === 'km' ? 'selected' : (unitSelector && unitSelector.value === 'km' ? 'selected' : '')}>公里</option>
-                    <option value="mile" ${originalUnit === 'mile' ? 'selected' : (unitSelector && unitSelector.value === 'mile' ? 'selected' : '')}>英里</option>
-                    <option value="m" ${originalUnit === 'm' ? 'selected' : ''}>米</option>
+                    <option value="km" ${currentEndPointUnit === 'km' ? 'selected' : ''}>公里</option>
+                    <option value="mile" ${currentEndPointUnit === 'mile' ? 'selected' : ''}>英里</option>
+                    <option value="m" ${currentEndPointUnit === 'm' ? 'selected' : ''}>米</option>
                 </select>
             </div>
         </div>
@@ -1282,33 +1311,43 @@ function addEndPointChangeListeners(paceMinutes, paceSeconds, paceUnit) {
     
     // 处理距离输入框变化
     if (distanceInput) {
-        distanceInput.addEventListener('change', function() {
+        // 使用事件委托或直接添加监听器
+        // 由于我们不再重建整个DOM结构，简单地添加监听器即可
+        distanceInput.onchange = function() {
             handleEndPointChange(paceMinutes, paceSeconds, paceUnit);
-        });
+        };
         
-        distanceInput.addEventListener('blur', function() {
+        distanceInput.onblur = function() {
             handleEndPointChange(paceMinutes, paceSeconds, paceUnit);
-        });
+        };
     }
     
     // 处理单位选择器变化
     if (unitSelector) {
-        unitSelector.addEventListener('change', function() {
+        // 在事件处理函数外部存储之前的单位值
+        let previousUnit = unitSelector.value;
+        
+        unitSelector.onchange = function() {
+            // 获取更新后的distanceInput引用
+            const currentDistanceInput = document.getElementById('global-endpoint-distance');
+            if (!currentDistanceInput) return;
+            
             // 当单位改变时，自动转换距离值
-            const distance = parseFloat(distanceInput.value);
+            const distance = parseFloat(currentDistanceInput.value);
             if (!isNaN(distance) && distance > 0) {
                 const newUnit = unitSelector.value;
-                const oldUnit = newUnit === 'km' ? 'mile' : 'km';
                 
-                // 使用通用单位转换函数
-                const convertedDistance = convertUnit(distance, oldUnit, newUnit, 'distance');
-                distanceInput.value = convertedDistance.toFixed(1);
+                // 使用通用单位转换函数，从实际的前一个单位转换到新单位
+                const convertedDistance = convertUnit(distance, previousUnit, newUnit, 'distance');
+                currentDistanceInput.value = convertedDistance.toFixed(1);
+                
+                // 更新之前的单位值，以便下次正确转换
+                previousUnit = newUnit;
             }
             
-            // 为了避免重复转换，我们直接从DOM获取当前值和单位
-            // 而不是传递已经计算过的结束点参数
+            // 使用闭包保留当前的参数值
             handleEndPointChange(paceMinutes, paceSeconds, paceUnit);
-        });
+        };
     }
 }
 
@@ -1325,44 +1364,78 @@ function handleEndPointChange(paceMinutes, paceSeconds, paceUnit) {
     if (kmGranularitySelector) kmGranularity = kmGranularitySelector.value;
     if (mileGranularitySelector) mileGranularity = mileGranularitySelector.value;
     
-    // 不在这里进行单位转换，直接调用updateSplitTimeTable让它内部处理
-    // 这样可以避免重复转换问题
-    // 获取当前表单中的距离信息
-    const distanceInput = document.getElementById('distance');
-    const distanceUnitSelect = document.getElementById('distance-unit');
-    const hasValidDistance = distanceInput && distanceInput.value && !isNaN(parseFloat(distanceInput.value));
-    const mainDistance = hasValidDistance ? parseFloat(distanceInput.value) : null;
-    const mainUnit = hasValidDistance ? distanceUnitSelect.value : null;
+    // 获取当前结束距离控件的值
+    const endPointDistance = document.getElementById('global-endpoint-distance');
+    const endPointUnit = document.getElementById('global-endpoint-unit');
+    
+    if (!endPointDistance || !endPointUnit) return;
+    
+    // 直接更新表格内容而不重建整个DOM结构
+    // 获取距离值和单位
+    const distanceValue = parseFloat(endPointDistance.value);
+    const distanceUnit = endPointUnit.value;
+    
+    if (isNaN(distanceValue) || distanceValue <= 0) return;
     
     // 计算公里和英里的结束点
-    let calculatedKmEndPoint = 42.195; // 默认全马距离
-    let calculatedMileEndPoint = 26.2188;
+    let calculatedKmEndPoint, calculatedMileEndPoint;
     
-    if (hasValidDistance) {
-        if (mainUnit === 'km') {
-            calculatedKmEndPoint = mainDistance;
-            calculatedMileEndPoint = mainDistance * 0.621371;
-        } else if (mainUnit === 'mile') {
-            calculatedKmEndPoint = mainDistance * 1.60934;
-            calculatedMileEndPoint = mainDistance;
-        } else if (mainUnit === 'm') {
-            // 米转公里和英里
-            calculatedKmEndPoint = mainDistance / 1000;
-            calculatedMileEndPoint = mainDistance / 1609.34;
+    switch (distanceUnit) {
+        case 'km':
+            calculatedKmEndPoint = distanceValue;
+            calculatedMileEndPoint = distanceValue * 0.621371;
+            break;
+        case 'mile':
+            calculatedKmEndPoint = distanceValue * 1.60934;
+            calculatedMileEndPoint = distanceValue;
+            break;
+        case 'm':
+            calculatedKmEndPoint = distanceValue / 1000;
+            calculatedMileEndPoint = distanceValue / 1609.34;
+            break;
+        default:
+            calculatedKmEndPoint = distanceValue;
+            calculatedMileEndPoint = distanceValue * 0.621371;
+    }
+    
+    // 计算配速总秒数
+    const totalPaceSeconds = paceMinutes * 60 + paceSeconds;
+    
+    // 直接更新表格内容，只更新表格部分，保留控件结构
+    const kmTableHtml = generateSplitTimeTable('km', totalPaceSeconds, paceUnit, kmGranularity, calculatedKmEndPoint);
+    const mileTableHtml = generateSplitTimeTable('mile', totalPaceSeconds, paceUnit, mileGranularity, calculatedMileEndPoint);
+    
+    // 更新表格区域
+    const kmTableSection = document.querySelector('.split-table-section:nth-child(1)');
+    const mileTableSection = document.querySelector('.split-table-section:nth-child(2)');
+    
+    if (kmTableSection) {
+        // 保留表头控件，只替换表格
+        const existingTable = kmTableSection.querySelector('table');
+        if (existingTable) {
+            // 创建临时容器解析HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = kmTableHtml;
+            const newTable = tempDiv.querySelector('table');
+            if (newTable) {
+                existingTable.parentNode.replaceChild(newTable, existingTable);
+            }
         }
     }
     
-    updateSplitTimeTable(
-        paceMinutes, 
-        paceSeconds, 
-        paceUnit, 
-        kmGranularity, 
-        mileGranularity,
-        calculatedKmEndPoint,
-        calculatedMileEndPoint,
-        mainDistance,
-        mainUnit
-    );
+    if (mileTableSection) {
+        // 保留表头控件，只替换表格
+        const existingTable = mileTableSection.querySelector('table');
+        if (existingTable) {
+            // 创建临时容器解析HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = mileTableHtml;
+            const newTable = tempDiv.querySelector('table');
+            if (newTable) {
+                existingTable.parentNode.replaceChild(newTable, existingTable);
+            }
+        }
+    }
 }
 
 // 为粒度选择器添加事件监听器
