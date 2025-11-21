@@ -2,9 +2,9 @@
 
 ## 语言切换 / Language Switch / 言語切り替え
 
-<a href="#chinese" style="text-decoration: none; padding: 5px 10px; margin: 0 5px; background-color: #f0f0f0; border-radius: 4px;">中文 / Chinese</a>
-<a href="#english" style="text-decoration: none; padding: 5px 10px; margin: 0 5px; background-color: #f0f0f0; border-radius: 4px;">English (AI Generated)</a>
-<a href="#japanese" style="text-decoration: none; padding: 5px 10px; margin: 0 5px; background-color: #f0f0f0; border-radius: 4px;">日本語 (AI生成)</a>
+[![中文](https://img.shields.io/badge/中文-Chinese-red)](#chinese)
+[![English](https://img.shields.io/badge/English-%E8%8B%B1%E6%96%87-blue)](#english)
+[![日本語](https://img.shields.io/badge/日本語-Japanese-green)](#japanese)
 
 > **注意：英文和日语版本内容由AI生成，可能存在翻译误差，请以中文版本为准。**
 > 
