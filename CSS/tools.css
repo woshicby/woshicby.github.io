@@ -41,7 +41,7 @@
     line-height: 1.6;
 }
 
-/* 游戏卡片按钮 */
+/* 游戏卡片按钮 - 使用common.css中的按钮样式 */
 .game-card-button {
     display: inline-block;
     background-color: var(--primary-color);
@@ -52,7 +52,7 @@
     font-weight: var(--font-weight-medium);
     transition: background-color 0.3s ease;
 }
-/* 游戏卡片按钮 */
+
 .game-card-button:hover {
     background-color: var(--primary-hover-color);
 }
@@ -101,7 +101,7 @@
     line-height: 1.6;
 }
 
-/* 工具卡片按钮 */
+/* 工具卡片按钮 - 使用common.css中的按钮样式 */
 .tool-card-button {
     display: inline-block;
     background-color: var(--primary-color);
@@ -113,7 +113,8 @@
     transition: background-color 0.3s ease;
 }
 
-/* 响应式设计调整 */
+/* 响应式样式 - 统一管理 */
+/* 平板及以下设备 */
 @media (max-width: 768px) {
     .tools-grid,
     .games-grid {
@@ -136,6 +137,7 @@
     }
 }
 
+/* 手机设备 */
 @media (max-width: 480px) {
     .game-card-image {
         height: 150px;
@@ -148,24 +150,23 @@
     }
 }
 
-/* ========================================== 
-   夜间模式样式覆盖 
-   ========================================== */
+/* 夜间模式样式 - 统一管理 */
 body.dark-theme .game-card,
 body.dark-theme .tool-card {
-    background-color: var(--dark-card-bg-color);
-    box-shadow: var(--dark-shadow-light);
+    background-color: var(--card-bg-color);
+    box-shadow: var(--shadow-light);
 }
 
 body.dark-theme .game-card:hover,
 body.dark-theme .tool-card:hover {
-    box-shadow: var(--dark-shadow-medium);
+    box-shadow: var(--shadow-medium);
 }
 
 body.dark-theme .tool-card-icon {
-    background-color: var(--dark-light-accent);
+    background-color: var(--light-accent);
 }
 
+/* 按钮悬停效果与日间模式保持一致 */
 body.dark-theme .game-card-button:hover,
 body.dark-theme .tool-card-button:hover {
     background-color: var(--primary-hover-color);

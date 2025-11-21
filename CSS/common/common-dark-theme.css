@@ -1,0 +1,197 @@
+/* ==========================================
+   夜间模式样式文件
+   ==========================================
+   包含所有与黑暗模式相关的样式规则
+   负责在深色主题下调整网站的颜色和视觉效果
+   ========================================== */
+
+/* 夜间模式基础样式 */
+body.dark-theme {
+    --theme: dark;
+    --primary-color: var(--dark-primary-color);
+    --primary-hover-color: var(--dark-primary-hover-color);
+    --light-accent: var(--dark-light-accent);
+    --text-color: var(--dark-text-color);
+    --light-text: var(--dark-light-text);
+    --white: var(--dark-white);
+    --background-light: var(--dark-background-light);
+    --background-accent: var(--dark-background-accent);
+    --card-bg-color: var(--dark-card-bg-color);
+    --heading-color: var(--dark-heading-color);
+    --border-color: var(--dark-border-color);
+    --shadow-light: var(--dark-shadow-light);
+    --shadow-medium: var(--dark-shadow-medium);
+    --shadow-heavy: var(--dark-shadow-heavy);
+    --card-shadow: var(--shadow-light);
+}
+
+/* 检测系统深色模式偏好 */
+@media (prefers-color-scheme: dark) {
+    /* 当系统设置为深色模式且用户未明确指定时，默认使用深色主题 */
+    :root:not([data-theme]) {
+        --theme: dark;
+        --primary-color: var(--dark-primary-color);
+        --primary-hover-color: var(--dark-primary-hover-color);
+        --light-accent: var(--dark-light-accent);
+        --text-color: var(--dark-text-color);
+        --light-text: var(--dark-light-text);
+        --white: var(--dark-white);
+        --background-light: var(--dark-background-light);
+        --background-accent: var(--dark-background-accent);
+        --card-bg-color: var(--dark-card-bg-color);
+        --heading-color: var(--dark-heading-color);
+        --border-color: var(--dark-border-color);
+        --shadow-light: var(--dark-shadow-light);
+        --shadow-medium: var(--dark-shadow-medium);
+        --shadow-heavy: var(--dark-shadow-heavy);
+        --card-shadow: var(--shadow-light);
+    }
+}
+
+/* 夜间模式组件样式 - 按standard-selectors.css顺序排列 */
+
+/* 主题切换按钮夜间模式样式 */
+body.dark-theme .theme-toggle-slider {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+body.dark-theme .theme-toggle-slider:before {
+    background-color: white;
+}
+
+body.dark-theme input:checked + .theme-toggle-slider {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 主题切换容器夜间模式样式 */
+body.dark-theme .theme-container {
+    color: var(--dark-text-color);
+}
+
+/* 卡片容器夜间模式样式 */
+body.dark-theme .card-container {
+    background-color: var(--dark-background-light);
+    box-shadow: var(--dark-shadow-light);
+}
+
+body.dark-theme .card-container:hover {
+    box-shadow: var(--dark-shadow-medium);
+}
+
+/* 按钮系统夜间模式样式 */
+body.dark-theme .btn {
+    box-shadow: var(--dark-shadow-light);
+}
+
+body.dark-theme .btn:hover {
+    box-shadow: var(--dark-shadow-medium);
+}
+
+body.dark-theme .btn-secondary {
+    background-color: var(--dark-background-accent);
+    color: var(--dark-text-color);
+}
+
+/* 页面容器夜间模式样式 */
+body.dark-theme .wrapper {
+    color: var(--dark-text-color);
+}
+
+/* 网站头部夜间模式样式 */
+body.dark-theme .header {
+    background-color: var(--header-dark-bg-color);
+    color: var(--header-dark-text-color);
+    box-shadow: var(--shadow-dark-medium);
+}
+
+body.dark-theme .header h1 {
+    color: var(--header-dark-text-color);
+}
+
+/* 全局标题夜间模式样式 */
+body.dark-theme h2 {
+    color: var(--dark-heading-color);
+    border-bottom-color: var(--secondary-color);
+}
+
+body.dark-theme h3 {
+    color: var(--dark-heading-color);
+}
+
+/* strong标签夜间模式样式 */
+body.dark-theme strong {
+    color: var(--dark-heading-color);
+}
+
+/* 导航菜单夜间模式样式 */
+body.dark-theme .nav {
+    color: var(--dark-text-color);
+}
+
+body.dark-theme .nav a {
+    color: var(--nav-dark-link-color);
+}
+
+body.dark-theme .nav a:hover {
+    color: var(--nav-dark-link-hover-color);
+}
+
+body.dark-theme .nav a.active {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+/* 链接夜间模式 */
+body.dark-theme a {
+    color: var(--secondary-color);
+}
+
+body.dark-theme a:hover {
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+/* 主内容盒子夜间模式样式 */
+body.dark-theme div.mainbox {
+    background-color: var(--dark-background-light);
+    box-shadow: var(--dark-shadow-heavy);
+}
+
+/* section夜间模式样式 */
+body.dark-theme section {
+    background-color: var(--dark-background-light);
+    box-shadow: var(--dark-shadow-light);
+}
+
+body.dark-theme section:hover {
+    box-shadow: var(--dark-shadow-medium);
+}
+
+/* 导航切换按钮夜间模式样式 */
+body.dark-theme .nav-toggle {
+    background-color: var(--dark-primary-color);
+    box-shadow: var(--dark-shadow-medium);
+}
+
+body.dark-theme .nav-toggle span {
+    background-color: white;
+}
+
+body.dark-theme .nav-toggle.active span:nth-child(1) {
+    background-color: white;
+}
+
+body.dark-theme .nav-toggle.active span:nth-child(2) {
+    background-color: white;
+}
+
+body.dark-theme .nav-toggle.active span:nth-child(3) {
+    background-color: white;
+}
+
+/* 网站页脚夜间模式样式 */
+body.dark-theme .foot {
+    background-color: var(--footer-dark-bg-color);
+    color: var(--footer-dark-text-color);
+}

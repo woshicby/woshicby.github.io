@@ -14,18 +14,25 @@ function initDataManagement() {
     // 重置本地存储的数据功能
     document.getElementById('resetBtn')?.addEventListener('click', () => {
         if(confirm('确定要重置所有本地数据吗？此操作不可恢复！')) {
-            localStorage.clear();
+            // 只清除锻刀模拟器相关的数据（以touken开头的键）
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('touken')) {
+                    localStorage.removeItem(key);
+                }
+            });
             location.reload();
         }
     });
     
     // 导出所有本地存储数据为JSON文件
     document.getElementById('exportBtn')?.addEventListener('click', () => {
-        // 创建数据对象收集所有localStorage键值对
+        // 创建数据对象只收集锻刀模拟器相关的localStorage键值对（以touken开头）
         const data = {};
         for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i);
-            data[key] = localStorage.getItem(key);
+            if (key.startsWith('touken')) {
+                data[key] = localStorage.getItem(key);
+            }
         }
         
         // 创建JSON blob并生成下载URL
@@ -62,10 +69,11 @@ function initDataManagement() {
                 // 确认是否覆盖现有数据
                 if(!confirm('确定要导入数据吗？当前数据将被覆盖！')) return;
                 
-                // 清空现有数据并导入新数据
-                localStorage.clear();
+                // 只导入锻刀模拟器相关的数据（以touken开头的键）
                 for (const key in data) {
-                    localStorage.setItem(key, data[key]);
+                    if (key.startsWith('touken')) {
+                        localStorage.setItem(key, data[key]);
+                    }
                 }
                 // 显示成功提示
                 alert('数据导入成功！');

@@ -1,0 +1,77 @@
+/* ==========================================
+   页面组件 - 个人简介
+   ==========================================
+   实现个人资料展示区域的布局和样式
+   包含头像和个人信息的排列方式
+   ========================================== */
+.profile-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.profile-photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #00a4ff;
+    box-shadow: 0 5px 15px rgba(0, 164, 255, 0.3);
+    transition: transform 0.5s ease, border-color 0.3s ease;
+}
+
+.profile-photo:hover {
+    transform: scale(1.05) rotate(3deg);
+    border-color: #0078d4;
+}
+
+.profile-content {
+    flex: 1;
+    line-height: 1.8;
+    font-size: 17px;
+    color: var(--text-color);
+}
+
+.profile-content p {
+    margin-bottom: 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+
+/* ==========================================
+   页面组件 - 按钮容器
+   ==========================================
+   定制按钮容器的布局和交互效果
+   包含悬停状态的样式变化
+   ========================================== */
+div.botton_box{
+    float: left;
+    margin: var(--spacing-md);
+    border-radius: 15px;
+    padding: calc(var(--spacing-md) + 5px);
+    width: auto;
+    background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(240,249,255,0.8));
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-left: 3px solid var(--secondary-color);
+}
+
+div.botton_box:hover{
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px) translateX(3px);
+    border-left-color: var(--primary-color);
+}
+
+
+
+/* 社交图标 */
+.social-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}

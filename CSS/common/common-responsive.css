@@ -1,0 +1,127 @@
+/* 响应式调整 - 超宽屏幕 */
+@media (min-width: 1800px) {
+    div.mainbox {
+        width: 85%; /* 超宽屏幕增加宽度比例 */
+        padding: calc(var(--spacing-lg) * 1.5); /* 增加内边距 */
+    }
+}
+
+/* 响应式调整 - 大屏幕 */
+@media (max-width: 1200px) {
+    div.mainbox {
+        width: 95%; /* 增加宽度比例 */
+    }
+}
+
+/* 响应式调整 - 平板设备及以下 (max-width: 768px) */
+@media (max-width: 768px) {
+    /* section响应式调整 */
+    section {
+        padding: var(--spacing-md);
+    }
+    /* 主题切换按钮响应式调整 */
+    .theme-toggle {
+        margin-left: 0;
+        margin-bottom: 1rem;
+        width: 46px;
+        height: 24px;
+    }
+    
+    .theme-toggle-slider:before {
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+    }
+    
+    /* 主容器响应式调整 */
+    div.mainbox {
+        width: 97%; /* 增加宽度比例 */
+        padding: var(--spacing-md);
+        box-shadow: var(--shadow-medium);
+    }
+    
+    input:checked + .theme-toggle-slider:before {
+        transform: translateX(22px);
+    }
+    
+    /* 容器响应式调整 */
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    
+    .row {
+        flex-direction: column;
+    }
+    
+    .col {
+        width: 100% !important;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    /* 导航响应式调整 */
+    /* 显示导航切换按钮 */
+    .nav-toggle {
+        display: flex;
+    }
+    
+    /* 移动设备导航菜单默认隐藏 */
+    .nav {
+        position: fixed;
+        top: 0;
+        right: -280px; /* 默认隐藏在屏幕右侧 */
+        width: 280px;
+        height: 100vh;
+        padding: 5rem 1rem 1rem;
+        margin: 0;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    
+    /* 激活状态 - 显示导航菜单 */
+    .nav.active {
+        right: 0;
+    }
+    
+    /* 移动设备导航链接样式 */
+    .nav ul {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .nav li {
+        display: block;
+        margin: 0.5rem 0;
+    }
+    
+    .nav a {
+        display: block;
+        padding: 0.75rem 1rem;
+        border-radius: var(--border-radius-sm);
+        transition: background-color 0.3s;
+    }
+    
+    /* 移动设备导航激活状态样式（继承全局样式，调整内边距以适应移动布局） */
+    .nav a.active {
+        padding: 0.75rem 1rem;
+    }
+    
+    /* 主内容盒子响应式调整 */
+    div.mainbox {
+        width: 98%; /* 几乎占满屏幕 */
+        padding: var(--spacing-sm);
+        border-radius: var(--border-radius-md);
+        box-shadow: var(--shadow-light);
+    }
+}
+
+/* 响应式调整 - 小屏手机 */
+@media (max-width: 480px) {
+    div.mainbox {
+        width: 100%; /* 完全占满屏幕 */
+        margin: 0;
+        padding: var(--spacing-xs);
+        border-radius: var(--border-radius-sm);
+        box-shadow: none;
+    }
+}

@@ -5,19 +5,7 @@
    ========================================== */
 
 /* 通用部分样式 */
-section {
-    margin: var(--spacing-xl) 0;
-    padding: var(--spacing-lg);
-    background-color: var(--white);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-light);
-    transition: all var(--transition-default);
-}
 
-section:hover {
-    box-shadow: var(--shadow-medium);
-    transform: translateY(-2px);
-}
 
 
 
@@ -68,42 +56,22 @@ section:hover {
 
 
 
-/* 响应式调整 */
-@media (max-width: 992px) {
-    section {
-        padding: var(--spacing-md);
-    }
-    
-    
-}
-
+/* 响应式样式 - 统一管理 */
+/* 平板及以下设备 */
 @media (max-width: 768px) {
-    section {
-        padding: var(--spacing-sm);
-        margin: var(--spacing-md) 0;
-    }
-    
-    section h2 {
-        font-size: 1.5rem;
-    }
     
     #personal-records th,
     #personal-records td {
         padding: var(--spacing-sm) var(--spacing-md);
     }
     
-    
+    #personal-records table {
+        font-size: 0.95rem;
+    }
 }
 
+/* 手机设备 */
 @media (max-width: 480px) {
-    section {
-        padding: var(--spacing-sm);
-        margin: var(--spacing-sm) 0;
-    }
-    
-    section h2 {
-        font-size: 1.3rem;
-    }
     
     #personal-records table {
         font-size: 0.9rem;
@@ -113,24 +81,12 @@ section:hover {
     #personal-records td {
         padding: 0.6rem 0.8rem;
     }
-    
-    
 }
 
-/* ========================================== 
-   夜间模式样式覆盖 
-   ========================================== */
-body.dark-theme section {
-    background-color: var(--dark-card-bg-color);
-    box-shadow: var(--dark-shadow-light);
-}
-
-body.dark-theme section:hover {
-    box-shadow: var(--dark-shadow-medium);
-}
+/* 夜间模式样式 - 统一管理 */
 
 body.dark-theme #personal-records tbody tr:hover {
-    background-color: var(--dark-background-accent);
+    background-color: var(--light-accent);
 }
 
 

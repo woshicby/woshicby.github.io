@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <!-- ==========================================
-         学习记录页面 - 展示学习项目和心得
+         个人成果展示页面 - 展示研究成果和学术活动
          ========================================== -->
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>学习记录</title>
+        <title>个人成果</title>
         <link rel="stylesheet" href="../CSS/common.css">
+        <link rel="stylesheet" href="../CSS/study.css">
         <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     </head>
     <!-- ==========================================
@@ -19,14 +20,14 @@
     <body>
         <div class="header clearfix wrapper">
             <!-- logo/大标题区域开始 -->
-            <h1>学习记录</h1>
+            <h1>个人成果</h1>
             <!-- logo/大标题区域结束 -->
             <!-- 导航栏开始 -->
             <div class="nav">
                 <ul class="clearfix">
                     <li><a href="../index.html">首页</a></li>
                     <li><a href="video.html">视频展示</a></li>
-                    <li><a href="study.html" class="active">学习记录</a></li>
+                    <li><a href="study.html" class="active">个人成果</a></li>
                     <li><a href="tools.html">小工具&小游戏</a></li>
                     <li><a href="sports.html">体育运动</a></li>
                     <li style="display: inline-block; vertical-align: middle;">
@@ -52,21 +53,134 @@
         <script src="../JS/navigation.js"></script>
         <!-- 引入主题切换脚本 -->
         <script src="../JS/theme-toggle.js"></script>
+        <!-- 主体内容区域 -->
         <!-- ==========================================
              主体内容区域
              ==========================================
-             展示学习记录和项目经验
+             展示个人研究成果和学术活动
              ========================================== -->
         <div class="mainbox clearfix wrapper">
-            <!-- 学习记录部分 -->
-            <!-- 学习记录部分 - 学习项目列表 -->
-            <section id="study">
-                <h2>学习记录</h2>
-                <p>记录我在学习过程中的收获、心得和项目经验。</p>
-                <ul>
-                    <li>学习项目 1：详细描述学习项目 1 的内容。</li>
-                    <li>学习项目 2：详细描述学习项目 2 的内容。</li>
-                </ul>
+            <!-- 个人信息部分 -->
+            <section>
+                <h2>学术主页</h2>
+                <div class="personal-details">
+                    <div class="detail-item">
+                        <strong>ORCID：</strong>
+                        <a href="https://orcid.org/0009-0007-2429-6431" target="_blank">0009-0007-2429-6431</a>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Scopus Author ID：</strong>
+                        <span>58478874500</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>ResearcherID：</strong>
+                        <span>OEO-7872-2025</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 研究成果部分 -->
+            <section>
+                <h2>研究成果</h2>
+                <p>展示发表的学术论文和研究项目。</p>
+                <div class="achievements-list">
+                    <!-- 论文 1 -->
+                    <div class="achievement-item">
+                        <div class="achievement-title">
+                            <strong>Fusex: A privacy-preserving data fusion framework for encrypted distance computation with offline users</strong>
+                        </div>
+                        <div class="achievement-meta">
+                            <span class="journal">Information Fusion</span>
+                            <span class="date">2026-03</span>
+                            <span class="type">期刊论文</span>
+                        </div>
+                        <div class="achievement-authors">
+                            <strong>作者：</strong>
+                            <span>Jun Ye; Bangyan Chen; Fanglin An</span>
+                        </div>
+                        <div class="achievement-source">
+                            <strong>来源：</strong>
+                            <span>Crossref</span>
+                        </div>
+                    </div>
+
+                    <!-- 论文 2 -->
+                    <div class="achievement-item">
+                        <div class="achievement-title">
+                            <strong>Privacy-Preserving Data Sharing and Computing for Outsourced Policy Iteration with Attempt Records from Multiple Users</strong>
+                        </div>
+                        <div class="achievement-meta">
+                            <span class="journal">Applied Sciences</span>
+                            <span class="date">2025-02-28</span>
+                            <span class="type">期刊论文</span>
+                        </div>
+                        <div class="achievement-authors">
+                            <strong>作者：</strong>
+                            <span>Bangyan Chen; Jun Ye</span>
+                        </div>
+                        <div class="achievement-source">
+                            <strong>来源：</strong>
+                            <span>Crossref</span>
+                        </div>
+                    </div>
+
+                    <!-- 论文 3 -->
+                    <div class="achievement-item">
+                        <div class="achievement-title">
+                            <strong>A safe parameter aggregation method under encrypted state for federated learning</strong>
+                        </div>
+                        <div class="achievement-meta">
+                            <span class="journal">Procedia Computer Science</span>
+                            <span class="date">2024</span>
+                            <span class="type">会议论文</span>
+                        </div>
+                        <div class="achievement-authors">
+                            <strong>作者：</strong>
+                            <span>Bangyan Chen; Jun Ye</span>
+                        </div>
+                        <div class="achievement-source">
+                            <strong>来源：</strong>
+                            <span>Bangyan Chen</span>
+                        </div>
+                    </div>
+
+                    <!-- 论文 4 -->
+                    <div class="achievement-item">
+                        <div class="achievement-title">
+                            <strong>Advancements and Applications of Blind Channel Decoding Techniques</strong>
+                        </div>
+                        <div class="achievement-meta">
+                            <span class="journal">2nd IEEE International Conference on Distributed Computing and Electrical Circuits and Electronics, ICDCECE 2023</span>
+                            <span class="date">2023</span>
+                            <span class="type">会议论文</span>
+                        </div>
+                        <div class="achievement-authors">
+                            <strong>作者：</strong>
+                            <span>Chen, B.; Ye, J.</span>
+                        </div>
+                        <div class="achievement-source">
+                            <strong>来源：</strong>
+                            <span>Bangyan Chen via Scopus - Elsevier</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 同行评审活动 -->
+            <section>
+                <h2>同行评审活动</h2>
+                <div class="review-activity">
+                    <div class="review-item">
+                        <div class="review-title">
+                            <strong>评审活动：</strong>
+                            <span>Information fusion</span>
+                        </div>
+                        <div class="review-count">
+                            <strong>评审数量：</strong>
+                            <span>1 篇</span>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
         <!-- 主体外套结束 -->
@@ -77,7 +191,7 @@
              包含版权信息和社交链接
              ========================================== -->
         <div class="foot wrapper">
-            <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+            <span>个人成果展示 | 版权所有&copy</span>
         </div>
         <!-- 脚注外套结束 -->
     </body>

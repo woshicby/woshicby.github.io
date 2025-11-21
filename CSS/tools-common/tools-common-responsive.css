@@ -1,0 +1,35 @@
+/* 响应式样式 - 统一管理 */
+/* 平板及以下设备 */
+@media (max-width: 768px) {
+    .tool-page-title {
+        font-size: 24px;
+        padding-bottom: 8px;
+    }
+    
+    /* 确保所有工具容器在中等屏幕上有一致的内边距 */
+    .tool-container {
+        padding: var(--spacing-lg);
+    }
+}
+
+/* 手机设备 */
+@media (max-width: 480px) {
+    /* 合并的响应式规则 */
+    .tool-page-title {
+        font-size: 20px;
+        padding-bottom: 6px;
+    }
+    
+    /* 确保所有工具容器在小屏幕上有一致的内边距和圆角 */
+    .tool-container {
+        padding: var(--spacing-md);
+        border-radius: var(--border-radius-md);
+    }
+    
+    .tool-description {
+        font-size: 13px;
+        padding: 10px;
+        margin: 10px auto;
+        max-width: 95%;
+    }
+}

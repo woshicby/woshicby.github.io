@@ -1,0 +1,151 @@
+/* 夜间模式样式 - 统一管理 */
+body.dark-theme .result-area h3,
+body.dark-theme .pace-reference h3,
+body.dark-theme .split-table-section h4 {
+    color: var(--heading-dark-color); /* 使用tools-common.css中定义的变量名 */
+}
+
+/* 增强表单元素对比度 */
+body.dark-theme .calculator-form {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+    border-width: 1px;
+}
+
+body.dark-theme .form-group label {
+    color: var(--dark-light-text-color);
+}
+
+body.dark-theme .form-group input[type="number"],
+body.dark-theme .time-inputs input,
+body.dark-theme .pace-inputs input {
+    background-color: var(--primary-color);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+body.dark-theme .form-group input[type="number"]:focus,
+body.dark-theme .time-inputs input:focus,
+body.dark-theme .pace-inputs input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(51, 122, 183, 0.25);
+}
+
+body.dark-theme .form-group input[type="number"]:read-only,
+body.dark-theme .pace-inputs input:read-only {
+    background-color: var(--light-accent);
+    color: var(--light-text);
+}
+
+/* 增强下拉菜单样式 */
+body.dark-theme .unit-select,
+body.dark-theme .inline-dropdown {
+    background-color: var(--primary-color);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+body.dark-theme .unit-select:focus,
+body.dark-theme .inline-dropdown:focus {
+    border-color: var(--secondary-color);
+}
+
+/* 增强计算按钮对比度 */
+body.dark-theme .calculate-button {
+    background-color: var(--success-color);
+    color: white;
+}
+
+body.dark-theme .calculate-button:hover {
+    background-color: var(--success-color);
+    opacity: 0.9;
+}
+
+/* 增强结果区域样式 */
+body.dark-theme .result-area {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+    border-width: 1px;
+}
+
+body.dark-theme .result-item {
+    background-color: var(--primary-color);
+    border-left-color: var(--secondary-color);
+}
+
+body.dark-theme .result-item h4 {
+    color: var(--dark-heading-color);
+}
+
+body.dark-theme .result-item p {
+    color: var(--dark-light-text-color);
+}
+
+body.dark-theme .result-item strong {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* 增强错误消息对比度 */
+body.dark-theme .error-message {
+    color: var(--danger-color);
+    background-color: var(--light-accent);
+    border-color: var(--border-color);
+}
+
+/* 增强参考表样式 */
+body.dark-theme .pace-reference {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+    border-width: 1px;
+}
+
+body.dark-theme .reference-table {
+    border: 2px solid var(--dark-border-color); /* 增加表格边框宽度 */
+}
+
+body.dark-theme .reference-table th {
+    background-color: var(--secondary-color);
+    color: white;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+body.dark-theme .reference-table td {
+    color: var(--dark-light-text-color);
+    border-bottom: 1px solid var(--dark-border-color);
+}
+
+body.dark-theme .reference-table tbody tr:nth-child(even) {
+    background-color: var(--light-accent);
+}
+
+body.dark-theme .reference-table tbody tr:hover {
+    background-color: var(--light-accent);
+    opacity: 0.8;
+}
+
+/* 增强分段表格样式 */
+body.dark-theme .split-table-section {
+    background-color: var(--light-accent);
+    border-color: var(--border-color);
+    border-width: 1px;
+}
+
+/* 增强模式切换按钮对比度 */
+body.dark-theme .mode-btn {
+    border-color: var(--secondary-color);
+    background-color: var(--dark-background);
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+body.dark-theme .mode-btn:hover {
+    background-color: var(--dark-background-accent);
+    border-color: var(--primary-color);
+}
+
+body.dark-theme .mode-btn.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--primary-color);
+}

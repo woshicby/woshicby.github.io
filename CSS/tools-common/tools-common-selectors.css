@@ -1,0 +1,52 @@
+/* 小工具公共样式 */
+
+/* 返回小工具页面按钮 */
+.back-to-tools {
+    margin-bottom: 1.5rem;
+}
+
+.back-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--primary-hover-color);
+}
+
+/* 工具/游戏标题样式 - 按照锻刀模拟器格式 */
+.tool-page-title {
+    color: var(--heading-color);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    font-size: 24px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+/* 工具/游戏简介样式 - 按照锻刀模拟器格式 */
+.tool-description {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-color);
+    text-align: center;
+    margin: var(--spacing-md) auto;
+    max-width: 800px;
+}
+
+/* 统一工具容器样式 - 按照样式对比页面样式 */
+.tool-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+    background-color: var(--white);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+    box-sizing: border-box;
+}

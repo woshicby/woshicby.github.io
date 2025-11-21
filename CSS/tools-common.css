@@ -5,20 +5,7 @@
     margin-bottom: 1.5rem;
 }
 
-.back-button {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    font-weight: var(--font-weight-medium);
-    transition: background-color 0.3s ease;
-}
-
-.back-button:hover {
-    background-color: var(--primary-hover-color);
-}
+/* 链接样式已删除，使用common-selectors.css中的统一样式 */
 
 /* 工具/游戏标题样式 - 按照锻刀模拟器格式 */
 .tool-page-title {
@@ -26,7 +13,6 @@
     text-align: center;
     margin-bottom: var(--spacing-md);
     font-size: 24px;
-    font-weight: var(--font-weight-bold);
     border-bottom: 2px solid var(--border-color);
     padding-bottom: 10px;
 }
@@ -41,47 +27,7 @@
     max-width: 800px;
 }
 
-/* 夜间模式样式 - 增强边框可见性 */
-body.dark-theme .tool-page-title {
-    color: var(--heading-dark-color);
-    border-bottom-color: var(--border-dark-color);
-}
-
-body.dark-theme .tool-description {
-    color: var(--text-dark-color);
-}
-
-/* 夜间模式下的通用边框增强样式 */
-body.dark-theme .card,
-body.dark-theme .container,
-body.dark-theme .panel,
-body.dark-theme .box,
-body.dark-theme .bordered-element {
-    border-color: var(--border-dark-color);
-    border-width: 2px; /* 统一增加边框宽度 */
-}
-
-/* 确保输入框和按钮的边框也更加清晰 */
-body.dark-theme input,
-body.dark-theme textarea,
-body.dark-theme select,
-body.dark-theme button {
-    border-color: var(--border-dark-color);
-    border-width: 1.5px; /* 输入控件边框稍微细一点但仍清晰 */
-}
-
-/* 夜间模式 - 返回按钮样式增强 */
-body.dark-theme .back-button {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-body.dark-theme .back-button:hover {
-    background-color: var(--primary-hover-color);
-}
-
 /* 统一工具容器样式 - 按照样式对比页面样式 */
-/* 使用更具体的选择器确保优先级 */
 .tool-container {
     width: 100%;
     margin: 0 auto;
@@ -89,20 +35,12 @@ body.dark-theme .back-button:hover {
     background-color: var(--white);
     border-radius: var(--border-radius-md);
     border: 1px solid var(--border-color);
-    box-shadow: none !important;
     font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
-    /* 确保内边距一致性 */
     box-sizing: border-box;
 }
 
-/* 夜间模式下的统一容器样式增强 */
-body.dark-theme .tool-container {
-    background-color: var(--background-dark-light);
-    border: 1px solid var(--border-dark-color);
-    box-shadow: none !important;
-}
-
-/* 响应式调整 */
+/* 响应式样式 - 统一管理 */
+/* 平板及以下设备 */
 @media (max-width: 768px) {
     .tool-page-title {
         font-size: 24px;
@@ -115,26 +53,18 @@ body.dark-theme .tool-container {
     }
 }
 
+/* 手机设备 */
 @media (max-width: 480px) {
+    /* 合并的响应式规则 */
+    .tool-page-title {
+        font-size: 20px;
+        padding-bottom: 6px;
+    }
+    
     /* 确保所有工具容器在小屏幕上有一致的内边距和圆角 */
     .tool-container {
         padding: var(--spacing-md);
         border-radius: var(--border-radius-md);
-    }
-    
-    .tool-description {
-        font-size: 14px;
-        padding: 12px;
-        margin: 15px auto;
-        max-width: 90%;
-    }
-}
-
-/* 合并重复的响应式规则 */
-@media (max-width: 480px) {
-    .tool-page-title {
-        font-size: 20px;
-        padding-bottom: 6px;
     }
     
     .tool-description {
@@ -143,4 +73,15 @@ body.dark-theme .tool-container {
         margin: 10px auto;
         max-width: 95%;
     }
+}
+
+/* 夜间模式样式 - 统一管理 */
+body.dark-theme .tool-page-title {
+    color: var(--heading-color);
+    border-bottom-color: var(--border-color);
+}
+
+body.dark-theme .tool-container {
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
 }

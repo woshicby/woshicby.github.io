@@ -1,108 +1,7 @@
 /* 样式对比页面专用样式 */
 
 /* 主体容器使用tools-common.css中的统一样式.tool-container */
-
-/* 为展示目的复制各个页面的关键样式 */
-/* 首页样式 */
-.index-h2 {
-    font-size: 2rem;
-    margin-bottom: var(--spacing-sm);
-    color: var(--accent-color, #00a4ff);
-    position: relative;
-    display: inline-block;
-}
-
-.index-h2::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-color, #00a4ff) 0%, var(--primary-color, #0072ff) 100%);
-}
-
-/* 工具页面样式 */
-.tools-h2 {
-    color: var(--primary-color);
-    margin-top: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-xs);
-    border-bottom: 2px solid var(--accent-color);
-    font-size: 1.5rem;
-}
-
-.tools-h3 {
-    margin-top: 0;
-    margin-bottom: var(--spacing-sm);
-    color: var(--heading-color);
-    font-size: 1.25rem;
-}
-
-/* 体育页面样式 */
-.sports-h2 {
-    font-size: 1.8rem;
-    margin-bottom: var(--spacing-lg);
-    color: var(--heading-color);
-    position: relative;
-    padding-bottom: 0.8rem;
-}
-
-.sports-h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background-color: var(--heading-color);
-}
-
-/* 配速计算器样式 - 仅用于样式展示，不影响实际工具页面 */
-.style-example .pace-h2 {
-    color: var(--heading-color);
-    text-align: center;
-    margin-bottom: var(--spacing-md);
-    font-size: 28px;
-    font-weight: 600;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
-}
-
-.pace-h3 {
-    color: var(--heading-color);
-    margin-bottom: var(--spacing-sm);
-    font-size: 20px;
-    font-weight: 600;
-}
-
-/* 示例文本样式 */
-.example-p {
-    line-height: 1.6;
-    color: var(--text-color);
-}
-
-/* Strava模块H3样式 */
-.strava-h3 {
-    color: var(--accent-color);
-    margin-bottom: var(--spacing-sm);
-    font-weight: 600;
-}
-
-/* 结果项样式 */
-.result-item {
-    padding: var(--spacing-md);
-    background-color: var(--light-accent);
-    border-radius: var(--border-radius-md);
-    border-left: 4px solid var(--primary-color);
-    margin-bottom: var(--spacing-sm);
-}
-
-.result-item h4 {
-    color: var(--heading-color);
-    margin-bottom: var(--spacing-sm);
-    font-size: 18px;
-}
+/* 注：展示各页面标题和元素样式的CSS代码已移动到HTML文件中作为内联样式 */
 
 /* 提示框样式 */
 .style-tip {
@@ -174,43 +73,38 @@
     margin-bottom: var(--spacing-xs);
 }
 
-/* 夜间模式样式 - 增强可读性和边框可见性 */
-body.dark-theme .style-example,
-body.dark-theme .code-block,
+/* 夜间模式样式 - 统一管理 */
+body.dark-theme .style-example {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+    box-shadow: none; /* 确保不覆盖tools-common.css中的box-shadow设置 */
+}
+
+/* 保留特定元素的样式增强 */
 body.dark-theme .result-item,
 body.dark-theme .style-tip {
-    background-color: var(--dark-card-bg-color);
-    border-color: var(--dark-border-color);
-    border-width: 2px; /* 增加边框宽度 */
-    box-shadow: var(--dark-shadow);
+    background-color: var(--light-accent);
+    border-color: var(--border-color);
 }
 
-/* 增强结果项和提示框的边框清晰度 */
-body.dark-theme .result-item {
-    border-left-width: 4px; /* 增强左侧边框宽度，使其更加突出 */
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
+/* 为代码块保留特定的样式增强 */
+body.dark-theme .code-block {
+    background-color: var(--code-bg-color);
+    border-color: var(--border-color);
+    border-width: 1px;
 }
 
+/* 保留特定的边框样式增强，但不覆盖通用样式 */
+body.dark-theme .result-item,
 body.dark-theme .style-tip {
-    border-left-width: 4px; /* 增强左侧边框宽度 */
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
+    border-left-width: 4px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
 }
 
-/* 为所有标题类添加夜间模式颜色 */
-body.dark-theme .index-h2,
-body.dark-theme .tools-h2,
-body.dark-theme .sports-h2,
-body.dark-theme .pace-h2,
-body.dark-theme .tools-h3,
-body.dark-theme .strava-h3 {
-    color: var(--dark-heading-color);
-}
-
-/* 增强标题装饰元素的对比度 */
+/* 标题样式使用通用变量 */
+/* 标题装饰元素保持原有设计，但使用通用变量 */
 body.dark-theme .index-h2::after {
     background: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
 }
@@ -219,54 +113,13 @@ body.dark-theme .sports-h2::after {
     background-color: var(--secondary-color);
 }
 
-/* 增强段落文本对比度 */
-body.dark-theme .example-p,
-body.dark-theme .style-comparison-description {
-    color: var(--dark-light-text-color);
-    line-height: 1.6;
-}
-
-/* 增强结果项和提示框的可见性 */
+/* 保留特定的主题对比效果 */
 body.dark-theme .result-item {
     border-left-color: var(--secondary-color);
-    background-color: var(--dark-input-bg);
-}
-
-body.dark-theme .result-item h4 {
-    color: var(--dark-heading-color);
+    background-color: var(--light-accent);
 }
 
 body.dark-theme .style-tip {
     border-left-color: var(--secondary-color);
-    background-color: var(--dark-input-bg);
-}
-
-body.dark-theme .style-tip p {
-    color: var(--dark-light-text-color);
-}
-
-body.dark-theme .style-tip p:first-child {
-    color: var(--secondary-color);
-}
-
-/* 增强样式名称和代码块的可读性 */
-body.dark-theme .style-name {
-    color: var(--dark-light-text-color);
-    font-weight: bold;
-}
-
-body.dark-theme .code-block {
-    background-color: var(--dark-code-bg-color);
-    color: var(--dark-light-text-color);
-    border: 1px solid var(--dark-border-color);
-}
-
-/* 增强样式注释部分的可读性 */
-body.dark-theme .style-notes h4 {
-    color: var(--dark-heading-color);
-}
-
-body.dark-theme .style-notes ul,
-body.dark-theme .style-notes li {
-    color: var(--dark-light-text-color);
+    background-color: var(--light-accent);
 }

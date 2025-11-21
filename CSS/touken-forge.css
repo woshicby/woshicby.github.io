@@ -1,6 +1,7 @@
 /* 刀剑乱舞锻刀模拟器样式 - 统一配色方案 */
 
-/* 主体容器使用tools-common.css中的统一样式.tool-container */
+/* 主体容器直接使用tools-common.css中的统一样式.tool-container */
+/* 注意：避免定义与tools-common.css冲突的容器样式 */
 
 /* 资源区域 - 统一配色方案 */
 .resources-container {
@@ -345,19 +346,106 @@
     background-color: var(--secondary-hover);
 }
 
-/* 响应式设计 - 大屏幕优化 */
-@media (min-width: 1024px) {
-    /* 统一样式已移至tools-common.css */
-    /* .touken-forge-container {
-        padding: var(--spacing-xl);
+/* 响应式样式 - 统一管理 */
+/* 平板及以下设备 */
+@media (max-width: 768px) {
+    .resources-container {
+        flex-direction: column;
     }
     
-    /* 超宽屏幕优化 */
-    @media (min-width: 1600px) {
-        .touken-forge-container {
-            padding: 40px;
-        }
+    .resource-item {
+        width: 100%;
+        margin-bottom: var(--spacing-md);
     }
+    
+    .collection-list {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: var(--spacing-sm);
+        min-height: 250px;
+        max-height: 50vh;
+    }
+    
+    .result-image {
+        width: 120px;
+        height: 160px;
+    }
+    
+    .collection-item-image {
+        width: 100%;
+        max-width: 90px;
+        height: auto;
+    }
+    
+    .log-area {
+        min-height: 100px;
+        max-height: 20vh;
+        font-size: 13px;
+    }
+    
+    /* 收藏项目容器最大宽度限制 */
+    .collection-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+/* 手机设备 */
+@media (max-width: 480px) {
+    /* 注：容器的响应式样式已在tools-common.css中统一定义 */
+    
+    .result-image {
+        width: 100px;
+        height: 140px;
+    }
+    
+    .collection-item-image {
+        width: 100%;
+        max-width: 80px;
+        height: auto;
+    }
+    
+    .collection-list {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 8px;
+        min-height: 200px;
+        max-height: 45vh;
+    }
+    
+    .collection-item {
+        padding: var(--spacing-xs);
+    }
+    
+    .forge-button, .skip-button {
+        padding: var(--spacing-sm) 20px;
+        font-size: 14px;
+    }
+    
+    /* 小屏幕日志区域高度优化 */
+    .log-area {
+        min-height: 80px;
+        max-height: 15vh;
+    }
+}
+
+/* 平板及以上设备 */
+@media (max-width: 1200px) {
+    /* 注：容器的响应式样式已在tools-common.css中统一定义 */
+    
+    .collection-list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+    }
+    
+    .collection-item-image {
+        width: 100%;
+        max-width: 130px;
+        height: auto;
+    }
+}
+
+/* 桌面及以上设备 */
+@media (max-width: 1800px) {
+    /* 注：容器的响应式样式已在tools-common.css中统一定义 */
     
     .collection-list {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -375,88 +463,6 @@
     
     .result-container {
         max-width: 700px;
-    }
-}
-
-/* 响应式设计 - 中等屏幕优化 */
-@media (min-width: 768px) and (max-width: 1023px) {
-    /* 统一样式已移至tools-common.css */
-    /* .touken-forge-container {
-        padding: 25px;
-        max-width: 100%;
-    } */
-    
-    .collection-list {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 12px;
-    }
-    
-    .collection-item-image {
-        width: 100%;
-        max-width: 130px;
-        height: auto;
-    }
-}
-
-/* 响应式设计 - 小屏幕优化 */
-@media (max-width: 767px) {
-    .resources-container {
-        flex-direction: column;
-    }
-    
-    .resource-item {
-        width: 100%;
-        margin-bottom: var(--spacing-md);
-    }
-    
-    .collection-list {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: var(--spacing-sm);
-    }
-    
-    .result-image {
-        width: 120px;
-        height: 160px;
-    }
-    
-    .collection-item-image {
-        width: 100%;
-        max-width: 90px;
-        height: auto;
-    }
-}
-
-/* 针对更小屏幕的额外调整 */
-@media (max-width: 480px) {
-    /* 统一样式已移至tools-common.css */
-    /* .touken-forge-container {
-        padding: var(--spacing-md);
-    } */
-    
-    .result-image {
-        width: 100px;
-        height: 140px;
-    }
-    
-    .collection-item-image {
-        width: 100%;
-        max-width: 80px;
-        height: auto;
-    }
-    
-    
-    .collection-list {
-        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-        gap: 8px;
-    }
-    
-    .collection-item {
-        padding: var(--spacing-xs);
-    }
-    
-    .forge-button, .skip-button {
-        padding: var(--spacing-sm) 20px;
-        font-size: 14px;
     }
 }
 
@@ -529,33 +535,9 @@
     border-bottom: none;
 }
 
-/* 响应式调整 - 小屏幕高度优化 */
-@media (max-width: 767px) {
-    .collection-list {
-        min-height: 250px;
-        max-height: 50vh;
-    }
-    
-    .log-area {
-        min-height: 100px;
-        max-height: 20vh;
-        font-size: 13px;
-    }
-}
 
-@media (max-width: 480px) {
-    .collection-list {
-        min-height: 200px;
-        max-height: 45vh;
-    }
-    
-    .log-area {
-        min-height: 80px;
-        max-height: 15vh;
-    }
-}
 
-/* 夜间模式样式 - 增强对比度和边框可见性 */
+/* 夜间模式样式 - 统一管理 */
 body.dark-theme .resources-container,
 body.dark-theme .result-container,
 body.dark-theme .collection-container,
@@ -564,10 +546,10 @@ body.dark-theme .collection-item,
 body.dark-theme .stats-container,
 body.dark-theme .log-container,
 body.dark-theme .log-area {
-    background-color: var(--card-dark-bg-color);
-    border-color: var(--border-dark-color);
-    border-width: 2px;
-    box-shadow: var(--shadow-medium);
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+    border-width: 1px;
+    box-shadow: none; /* 确保不覆盖tools-common.css中的box-shadow设置 */
 }
 
 /* 增强输入框和按钮边框可见性 */
@@ -585,19 +567,8 @@ body.dark-theme .rarity.legendary {
     border-style: solid;
 }
 
-/* 增强文本对比度，使用更亮的颜色 */
-body.dark-theme .resource-name,
-body.dark-theme .forge-status,
-body.dark-theme .result-name,
-body.dark-theme .collection-title,
-body.dark-theme .collection-item-name,
-body.dark-theme .log-title,
-body.dark-theme .stats-container span {
-    color: var(--heading-dark-color); /* 使用common.css中定义的标准变量 */
-}
-
+/* 使用common.css中定义的标准文本颜色变量 */
 body.dark-theme .log-entry {
-    color: var(--text-dark-color); /* 使用common.css中定义的标准变量 */
     opacity: 0.95; /* 略微提高不透明度 */
 }
 
@@ -610,16 +581,15 @@ body.dark-theme .stats-container span span {
     font-weight: 600;
 }
 
-/* 输入框样式增强 */
+/* 输入框样式 */
 body.dark-theme .resource-input,
 body.dark-theme .data-controls button {
-    background-color: var(--input-dark-bg-color); /* 使用common.css中定义的标准变量 */
-    border-color: var(--border-dark-color);
-    color: var(--text-dark-color);
+    background-color: var(--light-accent);
+    border-color: var(--border-color);
 }
 
 body.dark-theme .data-controls button:hover {
-    background-color: var(--dark-hover-bg-color);
+    background-color: var(--hover-bg-color);
     border-color: var(--secondary-color);
 }
 
@@ -656,20 +626,20 @@ body.dark-theme .collection-count {
     color: white;
 }
 
-/* 夜间模式下的滚动条样式 */
+/* 夜间模式下的滚动条样式使用通用变量 */
 body.dark-theme .collection-list::-webkit-scrollbar-track,
 body.dark-theme .log-area::-webkit-scrollbar-track {
-    background: var(--dark-bg-color);
+    background: var(--light-accent);
 }
 
 body.dark-theme .collection-list::-webkit-scrollbar-thumb,
 body.dark-theme .log-area::-webkit-scrollbar-thumb {
-    background: var(--dark-border-color);
+    background: var(--border-color);
 }
 
 body.dark-theme .collection-list::-webkit-scrollbar-thumb:hover,
 body.dark-theme .log-area::-webkit-scrollbar-thumb:hover {
-    background: var(--dark-disabled-color);
+    background: var(--disabled-color);
 }
 
 /* 夜间模式下的稀有度颜色适配 - 增强对比度 */
