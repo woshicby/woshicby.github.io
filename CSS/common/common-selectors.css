@@ -25,8 +25,7 @@ body {
     display: inline-block;
     width: 50px;
     height: 26px;
-    margin-left: 1.5rem; /* 与导航项保持一致的间距 */
-    vertical-align: middle;
+    margin: 0 10px; /* 与导航项保持一致的间距 */
 }
 
 .theme-toggle input {
@@ -42,6 +41,8 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
+    width: 50px;
+    height: 26px;
     background-color: rgba(255, 255, 255, 0.2); /* 半透明背景与导航栏更好融合 */
     transition: var(--transition-default);
     border-radius: 34px;

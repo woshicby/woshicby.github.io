@@ -23,6 +23,16 @@ body.dark-theme {
     --shadow-medium: var(--dark-shadow-medium);
     --shadow-heavy: var(--dark-shadow-heavy);
     --card-shadow: var(--shadow-light);
+    /* 头部和导航 */
+    --header-bg-color: var(--dark-header-bg-color);
+    --header-text-color: var(--dark-header-text-color);
+    --nav-link-color: var(--dark-nav-link-color);
+    --nav-link-hover-color: var(--dark-nav-link-hover-color);
+    --nav-bg-color: var(--dark-nav-bg-color);
+    --nav-a-bg-color: var(--dark-nav-a-bg-color);
+    --nav-a-hover-bg-color: var(--dark-nav-a-hover-bg-color);
+    --footer-bg-color: var(--dark-footer-bg-color);
+    --footer-text-color: var(--dark-footer-text-color);
 }
 
 /* 检测系统深色模式偏好 */
@@ -45,6 +55,16 @@ body.dark-theme {
         --shadow-medium: var(--dark-shadow-medium);
         --shadow-heavy: var(--dark-shadow-heavy);
         --card-shadow: var(--shadow-light);
+        /* 头部和导航 */
+        --header-bg-color: var(--dark-header-bg-color);
+        --header-text-color: var(--dark-header-text-color);
+        --nav-link-color: var(--dark-nav-link-color);
+        --nav-link-hover-color: var(--dark-nav-link-hover-color);
+        --nav-bg-color: var(--dark-nav-bg-color);
+        --nav-a-bg-color: var(--dark-nav-a-bg-color);
+        --nav-a-hover-bg-color: var(--dark-nav-a-hover-bg-color);
+        --footer-bg-color: var(--dark-footer-bg-color);
+        --footer-text-color: var(--dark-footer-text-color);
     }
 }
 
@@ -100,13 +120,13 @@ body.dark-theme .wrapper {
 
 /* 网站头部夜间模式样式 */
 body.dark-theme .header {
-    background-color: var(--header-dark-bg-color);
-    color: var(--header-dark-text-color);
-    box-shadow: var(--shadow-dark-medium);
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
+    box-shadow: var(--shadow-medium);
 }
 
 body.dark-theme .header h1 {
-    color: var(--header-dark-text-color);
+    color: var(--header-text-color);
 }
 
 /* 全局标题夜间模式样式 */
@@ -126,15 +146,16 @@ body.dark-theme strong {
 
 /* 导航菜单夜间模式样式 */
 body.dark-theme .nav {
-    color: var(--dark-text-color);
+    background-color: var(--nav-bg-color);
+    color: var(--nav-link-color);
 }
 
 body.dark-theme .nav a {
-    color: var(--nav-dark-link-color);
+    color: var(--nav-link-color);
 }
 
 body.dark-theme .nav a:hover {
-    color: var(--nav-dark-link-hover-color);
+    color: var(--nav-link-hover-color);
 }
 
 body.dark-theme .nav a.active {
@@ -170,7 +191,6 @@ body.dark-theme section:hover {
 
 /* 导航切换按钮夜间模式样式 */
 body.dark-theme .nav-toggle {
-    background-color: var(--dark-primary-color);
     box-shadow: var(--dark-shadow-medium);
 }
 
@@ -192,6 +212,6 @@ body.dark-theme .nav-toggle.active span:nth-child(3) {
 
 /* 网站页脚夜间模式样式 */
 body.dark-theme .foot {
-    background-color: var(--footer-dark-bg-color);
-    color: var(--footer-dark-text-color);
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
 }

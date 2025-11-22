@@ -47,22 +47,24 @@
     --light-white: #ffffff;
     --light-background-light: rgba(255, 255, 255, 0.7);
     --light-background-accent: rgba(52, 152, 219, 0.1);
-    --light-card-bg-color: #ffffff;
-    --light-heading-color: #2c3e50;
+    --light-card-bg-color: #f8f9fa;
+    --light-heading-color: #34495e;
     --light-border-color: #e0e0e0;
     --light-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
     --light-shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.15);
     --light-shadow-heavy: 0px 0px 20px rgba(35, 35, 35, 0.9);
-    /* 头部和导航 */
     --light-header-bg-color: #2c3e50;
     --light-header-text-color: #ffffff;
     --light-nav-link-color: #ffffff;
     --light-nav-link-hover-color: #3498db;
+    --light-nav-bg-color: #2c3e50;
+    --light-nav-a-bg-color: transparent;
+    --light-nav-a-hover-bg-color: rgba(52, 152, 219, 0.3);
     --light-footer-bg-color: #2c3e50;
     --light-footer-text-color: #ffffff;
     
     /* 夜间模式颜色 */
-    --dark-primary-color: #34495e;
+    --dark-primary-color: #1a252f;
     --dark-primary-hover-color: #2c3e50;
     --dark-light-accent: rgba(167, 170, 215, 0.15);
     --dark-text-color: #ecf0f1;
@@ -76,11 +78,13 @@
     --dark-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.3);
     --dark-shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.4);
     --dark-shadow-heavy: 0px 0px 20px rgba(0, 0, 0, 0.8);
-    /* 头部和导航 */
     --dark-header-bg-color: #1a252f;
     --dark-header-text-color: #ecf0f1;
     --dark-nav-link-color: #ecf0f1;
     --dark-nav-link-hover-color: #3498db;
+    --dark-nav-bg-color: #1a252f;
+    --dark-nav-a-bg-color: transparent;
+    --dark-nav-a-hover-bg-color: rgba(52, 152, 219, 0.3);
     --dark-footer-bg-color: #1a252f;
     --dark-footer-text-color: #ecf0f1;
     
@@ -100,11 +104,13 @@
     --shadow-medium: var(--light-shadow-medium);
     --shadow-heavy: var(--light-shadow-heavy);
     --card-shadow: var(--shadow-light);
-    /* 头部和导航 */
     --header-bg-color: var(--light-header-bg-color);
     --header-text-color: var(--light-header-text-color);
     --nav-link-color: var(--light-nav-link-color);
     --nav-link-hover-color: var(--light-nav-link-hover-color);
+    --nav-bg-color: var(--light-nav-bg-color);
+    --nav-a-bg-color: var(--light-nav-a-bg-color);
+    --nav-a-hover-bg-color: var(--light-nav-a-hover-bg-color);
     --footer-bg-color: var(--light-footer-bg-color);
     --footer-text-color: var(--light-footer-text-color);
     /* 夜间模式对应变量 */
@@ -118,6 +124,9 @@
     --header-dark-text-color: var(--dark-header-text-color);
     --nav-dark-link-color: var(--dark-nav-link-color);
     --nav-dark-link-hover-color: var(--dark-nav-link-hover-color);
+    --nav-dark-bg-color: var(--dark-nav-bg-color);
+    --nav-dark-a-bg-color: var(--dark-nav-a-bg-color);
+    --nav-dark-a-hover-bg-color: var(--dark-nav-a-hover-bg-color);
     --footer-dark-bg-color: var(--dark-footer-bg-color);
     --footer-dark-text-color: var(--dark-footer-text-color);
     
@@ -125,25 +134,4 @@
     --header-height: 60px;
     --footer-height: 80px;
     --main-min-height: calc(100vh - var(--header-height) - var(--footer-height) - 40px);
-    
-    /* 间距系统 */
-    --spacing-xs: 5px;
-    --spacing-sm: 10px;
-    --spacing-md: 15px;
-    --spacing-lg: 20px;
-    --spacing-xl: 30px;
-    
-    /* 边框和阴影 */
-    --border-radius-sm: 4px;
-    --border-radius-md: 6px;
-    --border-radius-lg: 8px;
-    --border-radius: var(--border-radius-md);
-    --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.15);
-    --card-shadow: var(--shadow-light);
-    --shadow-heavy: 0px 0px 20px rgba(35, 35, 35, 0.9);
-    
-    /* 过渡效果 */
-    --transition-default: all 0.3s ease;
-    --transition-fast: all 0.2s ease-in-out;
 }

@@ -66,6 +66,7 @@
     
     /* 移动设备导航菜单默认隐藏 */
     .nav {
+        background-color: var(--nav-bg-color);
         position: fixed;
         top: 0;
         right: -280px; /* 默认隐藏在屏幕右侧 */
@@ -76,6 +77,7 @@
         transition: right 0.3s ease;
         z-index: 1000;
         overflow-y: auto;
+        box-shadow: var(--shadow-heavy);
     }
     
     /* 激活状态 - 显示导航菜单 */
@@ -101,6 +103,22 @@
         transition: background-color 0.3s;
     }
     
+    /* 移动设备主题切换按钮对齐样式 */
+    .nav .theme-toggle {
+        width: 100%;
+        height: auto;
+        border-radius: var(--border-radius-sm);
+        background-color: var(--nav-a-bg-color);
+        text-align: left;
+        display: flex;
+        align-items: center;
+        margin: 0 10px;
+        transition: background-color 0.3s;
+        /* 添加padding使按钮整体响应父容器的margin和padding */
+        left: 1rem;
+    }
+    
+
     /* 移动设备导航激活状态样式（继承全局样式，调整内边距以适应移动布局） */
     .nav a.active {
         padding: 0.75rem 1rem;
