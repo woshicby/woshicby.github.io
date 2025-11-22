@@ -45,6 +45,8 @@
     background-color: var(--background-light);
     border-radius: var(--border-radius-md);
     padding: var(--spacing-lg);
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
     box-shadow: var(--shadow-light);
     transition: all var(--transition-default);
     border-left: 4px solid var(--primary-color);
