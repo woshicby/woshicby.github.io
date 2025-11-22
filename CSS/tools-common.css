@@ -5,7 +5,19 @@
     margin-bottom: 1.5rem;
 }
 
-/* 链接样式已删除，使用common-selectors.css中的统一样式 */
+.back-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--primary-hover-color);
+}
 
 /* 工具/游戏标题样式 - 按照锻刀模拟器格式 */
 .tool-page-title {
