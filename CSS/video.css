@@ -10,24 +10,7 @@
     padding: 0px;
     max-width:100%;
     line-height: 1.42857143;
-    -moz-transition: all .2s ease-in-out;
-    -webkit-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out
-}
-
-
-
-
-
-/* ==========================================
-   布局组件 - 左右分栏
-   ==========================================
-   实现页面内容的左右分栏布局
-   左侧700px，右侧500px宽度设置
-   ========================================== */
-div.left_box{
-    float:left;
+    transition: var(--transition-default);
     width:700px;
 }
 div.right_box{
@@ -46,15 +29,19 @@ div.right_box{
 div.normal_box{
     float: left;
     margin: var(--spacing-md);
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius-md);
     padding: var(--spacing-md);
     width: auto;
     background: var(--light-accent);
     box-shadow: var(--shadow-light);
     transition: var(--transition-default);
+    border: 2px solid transparent;
 }
 div.normal_box:hover{
+    transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--background-accent);
 }
 
 
@@ -77,14 +64,18 @@ div.normal_box:hover{
 
 .user-card {
     background: var(--background-light);
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius-md);
     padding: var(--spacing-md);
     box-shadow: var(--shadow-light);
     transition: var(--transition-default);
+    border: 2px solid transparent;
 }
 
 .user-card:hover {
+    transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--background-accent);
 }
 
 .user-header {
@@ -96,7 +87,7 @@ div.normal_box:hover{
 .user-avatar {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
+    border-radius: var(--border-radius-md);
     margin-right: var(--spacing-md);
     object-fit: cover;
 }
@@ -150,10 +141,14 @@ div.normal_box:hover{
     overflow: hidden;
     box-shadow: var(--shadow-light);
     transition: var(--transition-default);
+    border: 2px solid transparent;
 }
 
 .video-wrapper:hover {
+    transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--background-accent);
 }
 
 /* B站播放器容器 */
@@ -228,10 +223,14 @@ div.normal_box:hover{
     box-shadow: var(--shadow-light);
     transition: var(--transition-default);
     background-color: var(--background-light);
+    border: 2px solid transparent;
 }
 
 .local-video-container:hover {
+    transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--background-accent);
 }
 
 .responsive-video {

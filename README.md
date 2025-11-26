@@ -32,14 +32,25 @@
 
 ### 3. 媒体展示
 - **视频播放器** (video.html): 视频内容展示和播放
-- **体育页面** (sports.html): 体育相关内容
 
-### 4. 学习资源
+### 4. 体育相关
+- **跑步记录** (sports.html): 展示个人跑步记录，支持赛季最佳(SB)和个人最佳(PB)标记，可折叠的赛季记录展示，完赛证书采用多列瀑布流布局展示
+
+### 5. 学习资源
 - **学习页面** (study.html): 学习资料和笔记
 
-### 5. 实用工具
+### 6. 博客/文章
+- **文章列表** (posts.html): 博客文章列表展示
+- **文章详情** (post-detail.html): 文章详细内容展示，支持Markdown格式
+
+### 7. 实用工具
 - **工具集** (tools.html): 各种实用小工具集合
 - **样式比较器** (style-comparison.html): 样式对比工具
+- **Markdown转换工具** (convert-md-to-json.html): 将Markdown文件转换为JSON格式
+
+### 8. 技术功能
+- **MathJax支持**: 数学公式渲染
+- **代码高亮**: 支持代码语法高亮显示
 
 ## 技术栈
 
@@ -49,12 +60,19 @@
 - **响应式设计**: 适配移动设备和桌面设备
 - **外部API**: 集成B站API等第三方服务
 - **主题切换**: 支持深色/浅色模式切换功能
+- **Markdown支持**: 文章内容的Markdown格式渲染
+- **MathJax**: 数学公式渲染
+- **代码高亮**: highlight.js实现代码语法高亮
 
 ## 项目结构
 
 ```
 woshicby.github.io/
 ├── CSS/             # 样式文件目录
+│   ├── common/      # 公共样式子目录
+│   ├── index/       # 首页样式子目录
+│   ├── pace-calculator/  # 配速计算器样式子目录
+│   ├── tools-common/     # 工具公共样式子目录
 │   ├── common.css   # 公共样式
 │   ├── index.css    # 首页样式
 │   ├── pace-calculator.css
@@ -64,23 +82,27 @@ woshicby.github.io/
 │   ├── tools.css
 │   ├── touken-forge.css
 │   ├── video.css
-│   └── README.md
-├── HTML/            # HTML页面目录
-│   ├── pace-calculator.html
-│   ├── sports.html
-│   ├── study.html
-│   ├── style-comparison.html
-│   ├── tools.html
-│   ├── touken-forge.html
-│   ├── video.html
-│   └── README.md
+│   ├── convert-md-to-json.css  # Markdown转换工具样式
+│   ├── github.min.css  # GitHub风格样式
+│   ├── post-detail.css  # 文章详情样式
+│   ├── posts.css       # 文章列表样式
+│   └── study.css       # 学习页面样式
 ├── JS/              # JavaScript文件目录
+│   ├── MathJax-3.2.2es5/  # MathJax数学公式库
+│   ├── markdown/     # Markdown相关功能
 │   ├── bilibili-api.js
 │   ├── navigation.js
 │   ├── pace-calculator.js
 │   ├── theme-toggle.js
 │   ├── touken-forge.js
-│   └── README.md
+│   ├── sports.js     # 跑步记录功能
+│   ├── convert-md-to-json.js  # Markdown转换工具
+│   ├── highlight.min.js  # 代码高亮
+│   ├── post-detail.js  # 文章详情功能
+│   └── posts.js       # 文章列表功能
+├── posts/           # 博客文章目录
+│   ├── markdown示例.md
+│   └── posts.json
 ├── images/          # 图片资源目录
 │   ├── BV1zM41127x9.jpg
 │   ├── bilibili-icon.png
@@ -89,22 +111,29 @@ woshicby.github.io/
 │   ├── menu-icon.svg
 │   ├── test_image.jpg
 │   ├── touken/      # 刀剑乱舞相关图片
-│   │   ├── default_sword.jpg
-│   │   ├── 刀账图标/
-│   │   └── README.md
-│   ├── weibo-icon.png
-│   └── README.md
+│   │   └── default_sword.jpg
+│   └── weibo-icon.png
 ├── videos/          # 视频资源目录
-│   ├── test_video.mp4
-│   └── README.md
+│   └── test_video.mp4
 ├── audios/          # 音频资源目录
-│   ├── test_audio.mp3
-│   └── README.md
+│   └── test_audio.mp3
 ├── documents/       # 项目文档目录
 │   ├── resize.txt
 │   ├── resized_files_list.txt
-│   └── 时间距离配速距离计算逻辑.txt
+│   ├── 时间距离配速距离计算逻辑.txt
+│   └── race-records.json  # 跑步记录数据
+├── templates/       # 模板文件目录
 ├── index.html       # 网站首页
+├── pace-calculator.html
+├── sports.html
+├── study.html
+├── style-comparison.html
+├── tools.html
+├── touken-forge.html
+├── video.html
+├── convert-md-to-json.html  # Markdown转换工具页面
+├── post-detail.html  # 文章详情页面
+├── posts.html        # 文章列表页面
 └── README.md        # 项目说明文档
 ```
 
@@ -120,13 +149,23 @@ woshicby.github.io/
 ## 更新记录
 
 - 2023.02.22: 项目初始化
-- 更新响应式导航系统
-- 修复CSS样式错误
-- 增强用户体验和交互功能
-- 添加样式比较器工具
-- 完善项目文档结构
-- 优化图片资源管理
-- 添加主题切换功能 (theme-toggle.js)
+- 2025.07.18: 添加样式比较器工具
+- 2025.07.19: 完善项目文档结构
+- 2025.07.19: 优化图片资源管理
+- 2025.07.20: 更新响应式导航系统
+- 2025.11.20: 添加主题切换功能 (theme-toggle.js)
+- 2025.11.21: 增强用户体验和交互功能
+- 2025.11.23: 重构CSS和JS目录结构，添加子目录管理
+- 2025.11.23: 更新HTML文件位置到根目录
+- 2025.11.27: 实现博客文章功能 (posts.html, post-detail.html)
+- 2025.11.27: 添加Markdown支持和数学公式渲染
+- 2025.11.27: 实现代码高亮功能
+- 2025.11.27: 添加Markdown转换工具 (convert-md-to-json.html)
+- 2025.12.14: 添加跑步记录功能 (sports.html)，支持赛季最佳和个人最佳标记
+- 2025.12.15: 完赛证书采用多列瀑布流布局展示，提升视觉体验和空间利用率
+- 2025.12.15: 调整个人简介区域的HTML和CSS布局，优化标题和内容排列
+- 2025.12.16: 修复夜间模式下nav-card和skill-card悬停效果的不一致问题
+- 2025.12.16: 统一了夜间模式悬停效果的视觉一致性
 
 ## 使用方法
 
@@ -166,14 +205,25 @@ This is a personal website built with HTML, CSS, and JavaScript, designed to dem
 
 ### 3. Media Display
 - **Video Player** (video.html): Video content display and playback
-- **Sports Page** (sports.html): Sports-related content
 
-### 4. Learning Resources
+### 4. Sports-related
+- **Running Records** (sports.html): Displays personal running records with Season Best (SB) and Personal Best (PB) markers, featuring collapsible season records and multi-column waterfall layout for finisher certificates
+
+### 5. Learning Resources
 - **Study Page** (study.html): Learning materials and notes
 
-### 5. Utility Tools
+### 6. Blog/Articles
+- **Article List** (posts.html): Blog article list display
+- **Article Detail** (post-detail.html): Article content display with Markdown support
+
+### 7. Utility Tools
 - **Tools Collection** (tools.html): A collection of various practical small tools
 - **Style Comparator** (style-comparison.html): Style comparison tool
+- **Markdown to JSON Converter** (convert-md-to-json.html): Converts Markdown files to JSON format
+
+### 8. Technical Features
+- **MathJax Support**: Mathematical formula rendering
+- **Code Highlighting**: Supports syntax highlighting for code
 
 ## Technology Stack
 
@@ -183,12 +233,19 @@ This is a personal website built with HTML, CSS, and JavaScript, designed to dem
 - **Responsive Design**: Adapting to mobile and desktop devices
 - **External APIs**: Integration with third-party services like Bilibili API
 - **Theme Switching**: Supporting dark/light mode switching functionality
+- **Markdown Support**: Markdown format rendering for article content
+- **MathJax**: Mathematical formula rendering
+- **Code Highlighting**: Syntax highlighting with highlight.js
 
 ## Project Structure
 
 ```
 woshicby.github.io/
 ├── CSS/             # CSS files directory
+│   ├── common/      # Common styles subdirectory
+│   ├── index/       # Homepage styles subdirectory
+│   ├── pace-calculator/  # Pace calculator styles subdirectory
+│   ├── tools-common/     # Tools common styles subdirectory
 │   ├── common.css   # Common styles
 │   ├── index.css    # Homepage styles
 │   ├── pace-calculator.css
@@ -198,23 +255,27 @@ woshicby.github.io/
 │   ├── tools.css
 │   ├── touken-forge.css
 │   ├── video.css
-│   └── README.md
-├── HTML/            # HTML pages directory
-│   ├── pace-calculator.html
-│   ├── sports.html
-│   ├── study.html
-│   ├── style-comparison.html
-│   ├── tools.html
-│   ├── touken-forge.html
-│   ├── video.html
-│   └── README.md
+│   ├── convert-md-to-json.css  # Markdown converter styles
+│   ├── github.min.css  # GitHub style
+│   ├── post-detail.css  # Article detail styles
+│   ├── posts.css       # Article list styles
+│   └── study.css       # Study page styles
 ├── JS/              # JavaScript files directory
+│   ├── MathJax-3.2.2es5/  # MathJax library
+│   ├── markdown/     # Markdown related functionality
 │   ├── bilibili-api.js
 │   ├── navigation.js
 │   ├── pace-calculator.js
 │   ├── theme-toggle.js
 │   ├── touken-forge.js
-│   └── README.md
+│   ├── sports.js     # Running records functionality
+│   ├── convert-md-to-json.js  # Markdown converter
+│   ├── highlight.min.js  # Code highlighting
+│   ├── post-detail.js  # Article detail functionality
+│   └── posts.js       # Article list functionality
+├── posts/           # Blog articles directory
+│   ├── markdown示例.md
+│   └── posts.json
 ├── images/          # Image resources directory
 │   ├── BV1zM41127x9.jpg
 │   ├── bilibili-icon.png
@@ -223,22 +284,29 @@ woshicby.github.io/
 │   ├── menu-icon.svg
 │   ├── test_image.jpg
 │   ├── touken/      # Touken Ranbu related images
-│   │   ├── default_sword.jpg
-│   │   ├── 刀账图标/ (Sword Inventory Icons)
-│   │   └── README.md
-│   ├── weibo-icon.png
-│   └── README.md
+│   │   └── default_sword.jpg
+│   └── weibo-icon.png
 ├── videos/          # Video resources directory
-│   ├── test_video.mp4
-│   └── README.md
+│   └── test_video.mp4
 ├── audios/          # Audio resources directory
-│   ├── test_audio.mp3
-│   └── README.md
+│   └── test_audio.mp3
 ├── documents/       # Project documents directory
 │   ├── resize.txt
 │   ├── resized_files_list.txt
-│   └── 时间距离配速距离计算逻辑.txt (Time-Distance-Pace Calculation Logic)
+│   ├── 时间距离配速距离计算逻辑.txt (Time-Distance-Pace Calculation Logic)
+│   └── race-records.json  # Running records data
+├── templates/       # Template files directory
 ├── index.html       # Website homepage
+├── pace-calculator.html
+├── sports.html
+├── study.html
+├── style-comparison.html
+├── tools.html
+├── touken-forge.html
+├── video.html
+├── convert-md-to-json.html  # Markdown converter page
+├── post-detail.html  # Article detail page
+├── posts.html        # Article list page
 └── README.md        # Project documentation
 ```
 
@@ -254,13 +322,23 @@ woshicby.github.io/
 ## Update History
 
 - 2023.02.22: Project initialization
-- Updated responsive navigation system
-- Fixed CSS styling errors
-- Enhanced user experience and interactive features
-- Added style comparator tool
-- Improved project documentation structure
-- Optimized image resource management
-- Added theme switching functionality (theme-toggle.js)
+- 2025.07.18: Added style comparator tool
+- 2025.07.19: Improved project documentation structure
+- 2025.07.19: Optimized image resource management
+- 2025.07.20: Updated responsive navigation system
+- 2025.11.20: Added theme switching functionality (theme-toggle.js)
+- 2025.11.21: Enhanced user experience and interactive features
+- 2025.11.23: Refactored CSS and JS directory structure with subdirectories
+- 2025.11.23: Updated HTML file locations to root directory
+- 2025.11.27: Implemented blog article functionality (posts.html, post-detail.html)
+- 2025.11.27: Added Markdown support and mathematical formula rendering
+- 2025.11.27: Implemented code highlighting functionality
+- 2025.11.27: Added Markdown to JSON converter (convert-md-to-json.html)
+- 2025.12.14: Added running records feature (sports.html) with SB and PB markers
+- 2025.12.15: Implemented multi-column waterfall layout for finisher certificates, improving visual experience and space utilization
+- 2025.12.15: Adjusted HTML and CSS layout of "About Me" section, optimizing title and content arrangement
+- 2025.12.16: Fixed inconsistent hover effects between nav-card and skill-card in dark mode
+- 2025.12.16: Unified visual consistency of hover effects in dark mode
 
 ## Usage
 
@@ -300,14 +378,25 @@ When adding new pages, please follow the existing file structure and naming conv
 
 ### 3. メディア表示
 - **ビデオプレイヤー** (video.html): ビデオコンテンツの表示と再生
-- **スポーツページ** (sports.html): スポーツ関連コンテンツ
 
-### 4. 学習リソース
+### 4. スポーツ関連
+- **ランニング記録** (sports.html): 個人のランニング記録を表示し、シーズンベスト(SB)とパーソナルベスト(PB)のマーカーをサポート、折りたたみ可能なシーズン記録機能を搭載、完走証明書は多列のウォーターフォールレイアウトで表示
+
+### 5. 学習リソース
 - **学習ページ** (study.html): 学習資料とノート
 
-### 5. 便利ツール
+### 6. ブログ/記事
+- **記事一覧** (posts.html): ブログ記事一覧表示
+- **記事詳細** (post-detail.html): Markdown形式で記事内容を表示
+
+### 7. 便利ツール
 - **ツールコレクション** (tools.html): 様々な実用的な小さなツールの集合
 - **スタイル比較ツール** (style-comparison.html): スタイル比較ツール
+- **MarkdownからJSONへの変換ツール** (convert-md-to-json.html): MarkdownファイルをJSON形式に変換
+
+### 8. 技術機能
+- **MathJaxサポート**: 数式のレンダリング
+- **コードハイライト**: コードの構文ハイライト表示をサポート
 
 ## 技術スタック
 
@@ -317,12 +406,19 @@ When adding new pages, please follow the existing file structure and naming conv
 - **レスポンシブデザイン**: モバイルデバイスとデスクトップデバイスへの適応
 - **外部API**: Bilibili APIなどのサードパーティサービスとの統合
 - **テーマ切り替え**: ダーク/ライトモード切り替え機能のサポート
+- **Markdownサポート**: 記事コンテンツのMarkdown形式レンダリング
+- **MathJax**: 数式のレンダリング
+- **コードハイライト**: highlight.jsによる構文ハイライト
 
 ## プロジェクト構造
 
 ```
 woshicby.github.io/
 ├── CSS/             # CSSファイルディレクトリ
+│   ├── common/      # 共通スタイルサブディレクトリ
+│   ├── index/       # ホームページスタイルサブディレクトリ
+│   ├── pace-calculator/  # ペース計算機スタイルサブディレクトリ
+│   ├── tools-common/     # ツール共通スタイルサブディレクトリ
 │   ├── common.css   # 共通スタイル
 │   ├── index.css    # ホームページスタイル
 │   ├── pace-calculator.css
@@ -332,23 +428,27 @@ woshicby.github.io/
 │   ├── tools.css
 │   ├── touken-forge.css
 │   ├── video.css
-│   └── README.md
-├── HTML/            # HTMLページディレクトリ
-│   ├── pace-calculator.html
-│   ├── sports.html
-│   ├── study.html
-│   ├── style-comparison.html
-│   ├── tools.html
-│   ├── touken-forge.html
-│   ├── video.html
-│   └── README.md
+│   ├── convert-md-to-json.css  # Markdown変換ツールスタイル
+│   ├── github.min.css  # GitHubスタイル
+│   ├── post-detail.css  # 記事詳細スタイル
+│   ├── posts.css       # 記事一覧スタイル
+│   └── study.css       # 学習ページスタイル
 ├── JS/              # JavaScriptファイルディレクトリ
+│   ├── MathJax-3.2.2es5/  # MathJaxライブラリ
+│   ├── markdown/     # Markdown関連機能
 │   ├── bilibili-api.js
 │   ├── navigation.js
 │   ├── pace-calculator.js
 │   ├── theme-toggle.js
 │   ├── touken-forge.js
-│   └── README.md
+│   ├── sports.js     # ランニング記録機能
+│   ├── convert-md-to-json.js  # Markdown変換ツール
+│   ├── highlight.min.js  # コードハイライト
+│   ├── post-detail.js  # 記事詳細機能
+│   └── posts.js       # 記事一覧機能
+├── posts/           # ブログ記事ディレクトリ
+│   ├── markdown示例.md
+│   └── posts.json
 ├── images/          # 画像リソースディレクトリ
 │   ├── BV1zM41127x9.jpg
 │   ├── bilibili-icon.png
@@ -357,22 +457,29 @@ woshicby.github.io/
 │   ├── menu-icon.svg
 │   ├── test_image.jpg
 │   ├── touken/      # 刀剣乱舞関連画像
-│   │   ├── default_sword.jpg
-│   │   ├── 刀账图标/ (刀帳アイコン)
-│   │   └── README.md
-│   ├── weibo-icon.png
-│   └── README.md
+│   │   └── default_sword.jpg
+│   └── weibo-icon.png
 ├── videos/          # 動画リソースディレクトリ
-│   ├── test_video.mp4
-│   └── README.md
+│   └── test_video.mp4
 ├── audios/          # 音声リソースディレクトリ
-│   ├── test_audio.mp3
-│   └── README.md
+│   └── test_audio.mp3
 ├── documents/       # プロジェクトドキュメントディレクトリ
 │   ├── resize.txt
 │   ├── resized_files_list.txt
-│   └── 时间距离配速距离计算逻辑.txt (時間-距離-ペース計算ロジック)
+│   ├── 时间距离配速距离计算逻辑.txt (時間-距離-ペース計算ロジック)
+│   └── race-records.json  # ランニング記録データ
+├── templates/       # テンプレートファイルディレクトリ
 ├── index.html       # ウェブサイトホームページ
+├── pace-calculator.html
+├── sports.html
+├── study.html
+├── style-comparison.html
+├── tools.html
+├── touken-forge.html
+├── video.html
+├── convert-md-to-json.html  # Markdown変換ツールページ
+├── post-detail.html  # 記事詳細ページ
+├── posts.html        # 記事一覧ページ
 └── README.md        # プロジェクトドキュメント
 ```
 
@@ -388,13 +495,23 @@ woshicby.github.io/
 ## 更新履歴
 
 - 2023.02.22: プロジェクト初期化
-- レスポンシブナビゲーションシステムの更新
-- CSSスタイリングエラーの修正
-- ユーザーエクスペリエンスとインタラクティブ機能の強化
-- スタイル比較ツールの追加
-- プロジェクトドキュメント構造の改善
-- 画像リソース管理の最適化
-- テーマ切り替え機能の追加 (theme-toggle.js)
+- 2025.07.18: スタイル比較ツールの追加
+- 2025.07.19: プロジェクトドキュメント構造の改善
+- 2025.07.19: 画像リソース管理の最適化
+- 2025.07.20: レスポンシブナビゲーションシステムの更新
+- 2025.11.20: テーマ切り替え機能の追加 (theme-toggle.js)
+- 2025.11.21: ユーザーエクスペリエンスとインタラクティブ機能の強化
+- 2025.11.23: CSSとJSのディレクトリ構造をリファクタリング、サブディレクトリ管理を追加
+- 2025.11.23: HTMLファイルの位置をルートディレクトリに更新
+- 2025.11.27: ブログ記事機能 (posts.html, post-detail.html) の実装
+- 2025.11.27: Markdownサポートと数式レンダリングの追加
+- 2025.11.27: コードハイライト機能の実装
+- 2025.11.27: MarkdownからJSONへの変換ツールの追加 (convert-md-to-json.html)
+- 2025.12.14: ランニング記録機能 (sports.html) の追加、SBとPBのマーカーをサポート
+- 2025.12.15: 完走証明書に多列のウォーターフォールレイアウトを実装、視覚体験とスペース利用率を向上
+- 2025.12.15: 「About Me」セクションのHTMLとCSSレイアウトを調整、タイトルとコンテンツの配置を最適化
+- 2025.12.16: ダークモードでのnav-cardとskill-cardのホバー効果の不一致を修正
+- 2025.12.16: ダークモードでのホバー効果の視覚的一貫性を統一
 
 ## 使用方法
 

@@ -1,14 +1,51 @@
-/* ==========================================
-   夜间模式样式 - 统一管理
-   ========================================== */
+/* ==========================================   夜间模式样式 - 统一管理   ========================================== */
+/* 夜间模式 - 欢迎区域样式 */
+body.dark-theme .welcome-section {
+    background-color: var(--dark-card-bg-color);
+    box-shadow: var(--dark-shadow-light);
+}
+
+
+
 /* 夜间模式 - 个人照片边框 */
 body.dark-theme .profile-photo {
     border-color: var(--dark-border-color);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--dark-shadow-light);
+    transition: var(--transition-default);
 }
 
 body.dark-theme .profile-photo:hover {
     border-color: var(--secondary-color);
+    transform: translateY(-5px);
+    box-shadow: var(--dark-shadow-medium);
+}
+
+/* 夜间模式 - 按钮样式 */
+body.dark-theme .btn-primary, body.dark-theme .btn-secondary {
+    border: 2px solid var(--secondary-color);
+    background-color: transparent;
+    color: var(--secondary-color);
+    box-shadow: var(--dark-shadow-light);
+}
+
+body.dark-theme .btn-primary:hover, body.dark-theme .btn-secondary:hover {
+    background-color: var(--dark-primary-hover-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--dark-shadow-medium);
+}
+
+/* 夜间模式 - 统一卡片样式 */
+body.dark-theme .card, body.dark-theme .welcome-section, body.dark-theme .skill-card, body.dark-theme .nav-card {
+    background-color: var(--dark-card-bg-color);
+    box-shadow: var(--dark-shadow-light);
+}
+
+body.dark-theme .card:hover, body.dark-theme .welcome-section:hover, body.dark-theme .skill-card:hover, body.dark-theme .nav-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--dark-shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--dark-primary-hover-color);
 }
 
 /* 夜间模式 - 个人资料内容文字 */
@@ -29,6 +66,61 @@ body.dark-theme div.botton_box {
 }
 
 body.dark-theme div.botton_box:hover {
-    border-left-color: var(--accent-color);
+    transform: translateY(-5px);
     box-shadow: var(--dark-shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--dark-primary-hover-color);
+}
+
+/* 夜间模式 - 技能卡片样式 */
+body.dark-theme .skill-card {
+    background-color: var(--dark-card-bg-color);
+    box-shadow: var(--dark-shadow-light);
+    border: 2px solid transparent;
+}
+
+body.dark-theme .skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--dark-shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--dark-primary-hover-color);
+}
+
+body.dark-theme .skill-card strong {
+    color: var(--dark-heading-color);
+}
+
+body.dark-theme .skill-card p {
+    color: var(--dark-light-text);
+}
+
+/* 夜间模式 - 导航卡片样式 */
+body.dark-theme .nav-card {
+    background-color: var(--dark-card-bg-color);
+    box-shadow: var(--dark-shadow-light);
+    color: var(--dark-text-color);
+}
+
+body.dark-theme .nav-card:hover {
+    box-shadow: var(--dark-shadow-medium);
+    background-color: var(--dark-primary-hover-color);
+}
+
+body.dark-theme .nav-card strong {
+    color: var(--dark-heading-color);
+}
+
+body.dark-theme .nav-card p {
+    color: var(--dark-light-text);
+}
+
+/* 夜间模式 - 社交链接样式 */
+body.dark-theme .social-link {
+    background-color: var(--dark-background-accent);
+    color: var(--dark-text-color);
+}
+
+body.dark-theme .social-link:hover {
+    background-color: var(--dark-primary-hover-color);
+    color: white;
 }

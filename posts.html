@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN"> <!-- 将语言设置为中文 -->
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>博文列表</title>
+        <link rel="stylesheet" href="./CSS/common.css">
+        <link rel="stylesheet" href="./CSS/posts.css">
+        <!-- 添加 favicon -->
+        <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+        <!-- 引入导航功能脚本 -->
+        <script src="./JS/navigation.js"></script>
+        <!-- 引入主题切换脚本 -->
+        <script src="./JS/theme-toggle.js"></script>
+        <script src="./JS/posts.js"></script>
+    </head>
+    <body class="posts-page">
+        <!-- 页面头部 - 网站标题和导航 -->
+        <div class="header clearfix wrapper">
+        <!-- logo/大标题区域开始 -->
+        <h1>博文列表</h1>
+        <!-- logo/大标题区域结束 -->
+        <!-- 导航栏开始 -->
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="./index.html">首页</a></li>
+                    <li><a href="./video.html">视频展示</a></li>
+                    <li><a href="./posts.html" class="active">博客文章</a></li>
+                    <li><a href="./study.html">个人成果</a></li>
+                    <li><a href="./tools.html">小工具&小游戏</a></li>
+                    <li><a href="./sports.html">体育运动</a></li>
+                <li style="display: inline-block; vertical-align: middle;">
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!-- 导航栏结束 -->
+    </div>
+    <!-- 头部外套结束 -->
+    
+    <!-- 移动导航菜单切换按钮 -->
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <div class="mainbox clearfix wrapper">
+
+        <section class="posts-container">
+            <h2 class="section-title">博文列表</h2>
+            <div id="posts-list" class="posts-list">
+                <!-- 博文列表将通过JavaScript动态加载 -->
+                <div class="loading">加载中...</div>
+            </div>
+        </section>
+
+        <section class="sidebar">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索博文...">
+            </div>
+            <div class="categories-list">
+                <h3>分类</h3>
+                <ul id="categories-list"></ul>
+            </div>
+            <div class="tags-list">
+                <h3>标签</h3>
+                <div id="tags-container"></div>
+            </div>
+            <div class="posts-convert">
+                <h3>准备上传博文</h3>
+                <a href="./convert-md-to-json.html" class="convert-link">使用Markdown到JSON转换工具</a>
+            </div>
+        </section>
+        </div>
+        <!-- 脚注外套开始 -->
+        <div class="foot wrapper">
+            <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+        </div>
+        <!-- 脚注外套结束 -->
+    </body>
+</html>

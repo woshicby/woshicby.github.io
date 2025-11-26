@@ -419,23 +419,8 @@ function updateResourceDisplay(resourceType) {
     }
 }
 
-// DOM元素
-const elements = {
-    charcoalInput: document.getElementById('charcoalInput'),
-    steelInput: document.getElementById('steelInput'),
-    coolantInput: document.getElementById('coolantInput'),
-    whetstoneInput: document.getElementById('whetstoneInput'),
-    forgeButton: document.getElementById('forgeButton'),
-    speedUpButton: document.getElementById('speedUpButton'),
-    forgeStatus: document.getElementById('forgeStatus'),
-    forgeTimer: document.getElementById('forgeTimer'),
-    resultContainer: document.getElementById('resultContainer'),
-    resultImage: document.getElementById('resultImage'),
-    resultName: document.getElementById('resultName'),
-    rarityDisplay: document.getElementById('resultRarity'),
-    collectionCount: document.getElementById('collectionCount'),
-    collectionList: document.getElementById('collectionList')
-};
+// DOM元素 - 先声明为空对象，在DOMContentLoaded事件中初始化
+let elements = {};
 
 
 
@@ -1023,19 +1008,63 @@ function getRarityName(rarity) {
 // 启动应用
 document.addEventListener('DOMContentLoaded', function() {
     console.group('应用初始化');
+    console.log('DOM完全加载，开始初始化应用...');
     try {
+        // 初始化DOM元素引用
+        console.log('初始化DOM元素引用...');
+        elements = {
+            charcoalInput: document.getElementById('charcoalInput'),
+            steelInput: document.getElementById('steelInput'),
+            coolantInput: document.getElementById('coolantInput'),
+            whetstoneInput: document.getElementById('whetstoneInput'),
+            forgeButton: document.getElementById('forgeButton'),
+            speedUpButton: document.getElementById('speedUpButton'),
+            forgeStatus: document.getElementById('forgeStatus'),
+            forgeTimer: document.getElementById('forgeTimer'),
+            resultContainer: document.getElementById('resultContainer'),
+            resultImage: document.getElementById('resultImage'),
+            resultName: document.getElementById('resultName'),
+            rarityDisplay: document.getElementById('resultRarity'),
+            collectionCount: document.getElementById('collectionCount'),
+            collectionList: document.getElementById('collectionList')
+        };
+        
         // 先初始化资源状态
+        console.log('初始化资源状态...');
         initResources();
         
         // 然后初始化UI和其他状态
+        console.log('初始化UI和其他状态...');
         init();
         
         // 初始化数据管理功能
+        console.log('初始化数据管理功能...');
         initDataManagement();
         
         console.log('应用初始化完成');
+        
+        // 添加简单的测试
+        console.log('=== 简单功能测试 ===');
+        console.log('elements对象:', elements);
+        console.log('gameState对象:', gameState);
+        
+        // 测试资源显示更新
+        console.log('测试资源显示更新...');
+        updateAllResourceDisplays();
+        
+        // 测试锻造按钮事件
+        if (elements.forgeButton) {
+            console.log('锻造按钮存在，添加测试事件监听器');
+            elements.forgeButton.addEventListener('click', function() {
+                console.log('锻造按钮被点击！');
+            });
+        } else {
+            console.error('锻造按钮不存在');
+        }
+        
     } catch (e) {
         console.error('初始化失败:', e);
+        console.error('错误堆栈:', e.stack);
         // 恢复默认状态
         gameState = {
             charcoal: 500000,
@@ -1047,11 +1076,4 @@ document.addEventListener('DOMContentLoaded', function() {
         updateAllResourceDisplays();
     }
     console.groupEnd();
-    
-    // 调试：立即检查资源状态
-    setTimeout(() => {
-        console.log('初始化后资源验证:', JSON.stringify(gameState));
-        const saved = localStorage.getItem('toukenResources');
-        console.log('本地存储当前值:', saved);
-    }, 1000);
 });

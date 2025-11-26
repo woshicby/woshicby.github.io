@@ -15,12 +15,15 @@
     border-radius: var(--border-radius-md);
     overflow: hidden;
     box-shadow: var(--shadow-light);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: var(--transition-default);
+    border: 2px solid transparent;
 }
 
 .game-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--background-accent);
 }
 
 /* 游戏卡片图片 */
@@ -50,7 +53,7 @@
     border-radius: var(--border-radius-md);
     text-decoration: none;
     font-weight: var(--font-weight-medium);
-    transition: background-color 0.3s ease;
+    transition: var(--transition-default);
 }
 
 .game-card-button:hover {
@@ -63,12 +66,15 @@
     border-radius: var(--border-radius-md);
     overflow: hidden;
     box-shadow: var(--shadow-light);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: var(--transition-default);
+    border: 2px solid transparent;
 }
 
 .tool-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--background-accent);
 }
 
 /* 工具卡片图标区域 - 替代图片位置 */
@@ -110,7 +116,7 @@
     border-radius: var(--border-radius-md);
     text-decoration: none;
     font-weight: var(--font-weight-medium);
-    transition: background-color 0.3s ease;
+    transition: var(--transition-default);
 }
 
 /* 响应式样式 - 统一管理 */
@@ -143,11 +149,7 @@
         height: 150px;
     }
     
-    #tools-section h2,
-    #games-section h2 {
-        margin-top: var(--spacing-md);
-        margin-bottom: var(--spacing-sm);
-    }
+    
 }
 
 /* 夜间模式样式 - 统一管理 */
@@ -169,5 +171,5 @@ body.dark-theme .tool-card-icon {
 /* 按钮悬停效果与日间模式保持一致 */
 body.dark-theme .game-card-button:hover,
 body.dark-theme .tool-card-button:hover {
-    background-color: var(--primary-hover-color);
+    background-color: var(--dark-primary-hover-color);
 }

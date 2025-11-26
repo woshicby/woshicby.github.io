@@ -106,5 +106,8 @@ function setupSystemThemeListener() {
     });
 }
 
-// 启用系统主题变化监听
-setupSystemThemeListener();
+// 等待DOM完全加载后启用系统主题变化监听
+document.addEventListener('DOMContentLoaded', function() {
+    // 启用系统主题变化监听
+    setupSystemThemeListener();
+});

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- ==========================================
+         旧有不同样式对比页面 - 展示各页面原始样式差异
+         ========================================== -->
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>旧有不同样式对比</title>
+        <link rel="stylesheet" href="./CSS/common.css">
+        <link rel="stylesheet" href="./CSS/tools-common.css">
+        <link rel="stylesheet" href="./CSS/style-comparison.css">
+        <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+        <!-- 引入导航功能脚本 -->
+        <script src="./JS/navigation.js"></script>
+        <!-- 引入主题切换脚本 -->
+        <script src="./JS/theme-toggle.js"></script>
+        <style>
+            /* 内联样式 - 展示各页面标题和元素样式 */
+            /* 首页样式 */
+            .index-h2 {
+                font-size: 2rem;
+                margin-bottom: var(--spacing-sm);
+                color: var(--accent-color, #00a4ff);
+                position: relative;
+                display: inline-block;
+            }
+
+            .index-h2::after {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+                width: 60px;
+                height: 3px;
+                background: linear-gradient(90deg, var(--accent-color, #00a4ff) 0%, var(--primary-color, #0072ff) 100%);
+            }
+
+            /* 工具页面样式 */
+            .tools-h2 {
+                color: var(--primary-color);
+                margin-top: var(--spacing-md);
+                margin-bottom: var(--spacing-lg);
+                padding-bottom: var(--spacing-xs);
+                border-bottom: 2px solid var(--accent-color);
+                font-size: 1.5rem;
+            }
+
+            .tools-h3 {
+                margin-top: 0;
+                margin-bottom: var(--spacing-sm);
+                color: var(--heading-color);
+                font-size: 1.25rem;
+            }
+
+            /* 体育页面样式 */
+            .sports-h2 {
+                font-size: 1.8rem;
+                margin-bottom: var(--spacing-lg);
+                color: var(--heading-color);
+                position: relative;
+                padding-bottom: 0.8rem;
+            }
+
+            .sports-h2::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 60px;
+                height: 3px;
+                background-color: var(--heading-color);
+            }
+
+            /* 配速计算器样式 */
+            .style-example .pace-h2 {
+                color: var(--heading-color);
+                text-align: center;
+                margin-bottom: var(--spacing-md);
+                font-size: 28px;
+                font-weight: 600;
+                border-bottom: 2px solid var(--border-color);
+                padding-bottom: 10px;
+            }
+
+            .pace-h3 {
+                color: var(--heading-color);
+                margin-bottom: var(--spacing-sm);
+                font-size: 20px;
+                font-weight: 600;
+            }
+
+            /* 示例文本样式 */
+            .example-p {
+                line-height: 1.6;
+                color: var(--text-color);
+            }
+
+            /* Strava模块H3样式 */
+            .strava-h3 {
+                color: var(--accent-color);
+                margin-bottom: var(--spacing-sm);
+                font-weight: 600;
+            }
+
+            /* 结果项样式 */
+            .result-item {
+                padding: var(--spacing-md);
+                background-color: var(--light-accent);
+                border-radius: var(--border-radius-md);
+                border-left: 4px solid var(--primary-color);
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .result-item h4 {
+                color: var(--heading-color);
+                margin-bottom: var(--spacing-sm);
+                font-size: 18px;
+            }
+        </style>
+    </head>
+    <!-- ==========================================
+         页面头部 - 网站标题和导航
+         ==========================================
+         包含网站标志和主导航菜单
+         ========================================== -->
+    <body>
+        <!-- 头部外套开始 -->
+        <div class="header clearfix wrapper">
+            <!-- logo/大标题区域开始 -->
+            <h1>样式对比页面</h1>
+            <!-- logo/大标题区域结束 -->
+            <!-- 导航栏开始 -->
+            <div class="nav">
+                <ul class="clearfix">
+                    <li><a href="./index.html">首页</a></li>
+                    <li><a href="./video.html">视频展示</a></li>
+                    <li><a href="./posts.html">博客文章</a></li>
+                    <li><a href="./study.html">个人成果</a></li>
+                    <li><a href="./tools.html">小工具&小游戏</a></li>
+                    <li><a href="./sports.html">体育运动</a></li>
+                    <li style="display: inline-block; vertical-align: middle;">
+                        <label class="theme-toggle">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="theme-toggle-slider"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <!-- 导航栏结束 -->
+        </div>
+        <!-- 头部外套结束 -->
+    
+        <!-- 移动导航菜单切换按钮 -->
+        <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- 样式已移动到style-comparison.css文件 -->
+        <!-- 主体内容区域 -->
+        <div class="mainbox clearfix wrapper">
+            <!-- 小工具返回链接 -->
+            <div class="back-to-tools">
+                <a href="./tools.html" class="back-button">← 返回小工具&小游戏</a>
+            </div>
+            <!-- 样式比较容器 -->
+            <div class="tool-container">
+                <h2 class="tool-page-title">样式对比页面</h2>
+                <p class="tool-description">
+                    本页面展示了网站不同页面中使用的各种标题和内容样式，方便比较和选择统一的样式方案。通过查看本页面，您可以直观地看到各页面之间的样式差异，并帮助确定最终的统一样式规范。
+                </p>
+            <!-- H2标题样式比较 -->
+            <div class="style-section">
+                <h3>H2标题样式比较</h3>
+                <div class="style-example">
+                    <div class="style-name">首页 (index.css) - .profile-content h2</div>
+                    <h2 class="index-h2">首页标题样式示例</h2>
+                    <p class="example-p">这是一个示例段落，展示与首页标题样式的搭配效果。</p>
+                    <div class="code-block">
+.profile-content h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #00a4ff;
+    position: relative;
+    display: inline-block;
+}
+
+.profile-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #00a4ff 0%, #0072ff 100%);
+}</div>
+                </div>
+                <div class="style-example">
+                    <div class="style-name">工具和游戏页面 (tools.css) - #tools-section h2, #games-section h2</div>
+                    <h2 class="tools-h2">工具页面标题样式示例</h2>
+                    <p class="example-p">这是一个示例段落，展示与工具页面标题样式的搭配效果。</p>
+                    <div class="code-block">
+#tools-section h2,
+#games-section h2 {
+    color: var(--primary-color);
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent-color);
+}</div>
+                </div>
+                <div class="style-example">
+                    <div class="style-name">体育运动页面 (sports.css) - section h2</div>
+                    <h2 class="sports-h2">体育页面标题样式示例</h2>
+                    <p class="example-p">这是一个示例段落，展示与体育页面标题样式的搭配效果。</p>
+                    <div class="code-block">
+section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: #333;
+}</div>
+                </div>
+                <div class="style-example">
+                    <div class="style-name">配速计算器 (pace-calculator.css) - .pace-calculator-container h2</div>
+                    <h2 class="pace-h2">计算器页面标题样式示例</h2>
+                    <p class="example-p">这是一个示例段落，展示与计算器页面标题样式的搭配效果。</p>
+                    <div class="code-block">
+.pace-calculator-container h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 10px;
+}</div>
+                </div>
+            </div>
+            <!-- H3标题样式比较 -->
+            <div class="style-section">
+                <h3>H3标题样式比较</h3>
+                <div class="style-example">
+                    <div class="style-name">首页 (index.css) - .strava-connect h3</div>
+                    <h3 class="strava-h3">首页Strava模块H3样式</h3>
+                    <p class="example-p">这是一个示例段落，展示与首页Strava模块H3样式的搭配效果。</p>
+                    <div class="code-block">
+.strava-connect h3 {
+    color: #FC4C02;
+    margin-bottom: 15px;
+    font-weight: 600;
+}</div>
+                </div>
+                <div class="style-example">
+                    <div class="style-name">工具页面 (tools.css) - .tool-card-content h3, .game-card-content h3</div>
+                    <h3 class="tools-h3">工具/游戏卡片H3样式</h3>
+                    <p class="example-p">这是一个示例段落，展示与工具/游戏卡片H3样式的搭配效果。</p>
+                    <div class="code-block">
+.tool-card-content h3,
+.game-card-content h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: var(--heading-color);
+    font-size: 1.25rem;
+}</div>
+                </div>
+                <div class="style-example">
+                    <div class="style-name">配速计算器 (pace-calculator.css) - .result-area h3</div>
+                    <h3 class="pace-h3">计算器结果区域H3样式</h3>
+                    <p class="example-p">这是一个示例段落，展示与计算器结果区域H3样式的搭配效果。</p>
+                    <div class="code-block">
+.result-area h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 600;
+}</div>
+                </div>
+            </div>
+        
+        <!-- 其他元素样式比较 -->
+            <div class="style-section">
+                <h3>其他元素样式对比</h3>
+                
+                <div class="style-example">
+                    <div class="style-name">配速计算器结果项样式</div>
+                    <div class="result-item">
+                        <h4>结果项标题</h4>
+                        <p>这是一个结果项的内容示例，带有左侧边框标识。</p>
+                    </div>
+                    <div class="code-block">
+.result-item {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+</div>
+                </div>
+            </div>
+            
+            <!-- 样式统一建议说明 -->
+            <div class="style-section">
+                <h3>样式统一建议</h3>
+                <div class="style-notes">
+                    <h4>关于标题样式</h4>
+                    <ul>
+                        <li>建议选择一种H2样式作为全站统一标准，推荐首页或体育页面的样式</li>
+                        <li>所有页面的H1、H2、H3标题应有清晰的视觉层次关系</li>
+                        <li>可以保留特定模块的特殊样式（如Strava的橙色标题）作为强调</li>
+                    </ul>
+                    
+                    <h4>关于CSS管理</h4>
+                    <ul>
+                        <li>建议在common.css中定义基础标题样式和通用变量</li>
+                        <li>在各页面特定CSS中仅添加必要的页面特定样式，避免重复定义</li>
+                        <li>使用CSS变量统一管理颜色、字体大小等属性，便于后期维护</li>
+                    </ul>
+                    
+                    <h4>关于间距和布局</h4>
+                    <ul>
+                        <li>所有标题样式应保持一致的视觉层次和间距规范</li>
+                        <li>段落文本与标题之间的间距应统一</li>
+                        <li>各section之间的间距也应保持一致</li>
+                    </ul>
+                </div>
+                
+                <div class="style-tip">
+                    <p>提示：</p>
+                    <p>选择样式后，可以在common.css中定义统一的标题样式，然后修改各个页面的CSS文件，移除重复的样式定义，只保留必要的页面特定样式。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- 主体外套结束 -->
+        <!-- 页脚区域 -->
+        <div class="foot wrapper">
+            <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+        </div>
+    </body>
+</html>

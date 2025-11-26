@@ -57,7 +57,7 @@ body.dark-theme .calculate-button {
 }
 
 body.dark-theme .calculate-button:hover {
-    background-color: var(--success-color);
+    background-color: var(--dark-primary-hover-color);
     opacity: 0.9;
 }
 
@@ -120,7 +120,7 @@ body.dark-theme .reference-table tbody tr:nth-child(even) {
 }
 
 body.dark-theme .reference-table tbody tr:hover {
-    background-color: var(--light-accent);
+    background-color: var(--dark-primary-hover-color);
     opacity: 0.8;
 }
 
@@ -140,7 +140,7 @@ body.dark-theme .mode-btn {
 }
 
 body.dark-theme .mode-btn:hover {
-    background-color: var(--dark-background-accent);
+    background-color: var(--dark-primary-hover-color);
     border-color: var(--primary-color);
 }
 
