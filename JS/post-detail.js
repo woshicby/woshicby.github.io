@@ -71,7 +71,7 @@ class PostDetailManager {
 
     renderPostDetail(post) {
         // 设置页面标题
-        document.title = `${post.title} - CHEN Bangyan`;
+        document.title = `${post.title} - BY的博客文章`;
         
         // 渲染博文标题
         document.getElementById('post-title').textContent = post.title;
