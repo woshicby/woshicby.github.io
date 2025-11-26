@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- ==========================================
+         体育相关页面 - 展示运动记录和个人成绩
+         ========================================== -->
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>体育运动</title>
+        <link rel="stylesheet" href="./CSS/common.css">
+        <link rel="stylesheet" href="./CSS/sports.css">
+        <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+        <!-- 引入导航功能脚本 -->
+        <script src="./JS/navigation.js"></script>
+        <!-- 引入主题切换脚本 -->
+        <script src="./JS/theme-toggle.js"></script>
+    </head>
+    <!-- ==========================================
+         页面头部 - 网站标题和导航
+         ==========================================
+         包含网站标志和主导航菜单，当前高亮"体育相关"选项
+         ========================================== -->
+    <body>
+        <!-- 头部外套开始 -->
+        <div class="header clearfix wrapper">
+            <!-- logo/大标题区域开始 -->
+            <h1>体育运动</h1>
+            <!-- logo/大标题区域结束 -->
+            <!-- 导航栏开始 -->
+            <div class="nav">
+                <ul class="clearfix">
+                    <li><a href="./index.html">首页</a></li>
+                    <li><a href="./video.html">视频展示</a></li>
+                    <li><a href="./posts.html">博客文章</a></li>
+                    <li><a href="./study.html">个人成果</a></li>
+                    <li><a href="./tools.html">小工具&小游戏</a></li>
+                    <li><a href="./sports.html" class="active">体育运动</a></li>
+                    <li style="display: inline-block; vertical-align: middle;">
+                        <label class="theme-toggle">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="theme-toggle-slider"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <!-- 导航栏结束 -->
+        </div>
+        <!-- 头部外套结束 -->
+        
+        <!-- 移动导航菜单切换按钮 -->
+        <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <!-- 主体外套开始 -->
+        <!-- ==========================================
+             主体内容区域
+             ==========================================
+             展示个人运动记录和成绩
+             ========================================== -->
+        <div class="mainbox clearfix wrapper">
+            <!-- 个人纪录部分 -->
+            <!-- 个人纪录部分 - 运动成绩表格 -->
+            <section>
+                <h2>个人运动记录</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>运动项目</th>
+                            <th>最佳成绩</th>
+                            <th>达成日期</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>3000米</td>
+                            <td>12:41</td>
+                            <td><a href="http://www.strava.com/activities/11438665949" class="sports_record">2023-05-18</a></td>
+                        </tr>
+                        <tr>
+                            <td>5k</td>
+                            <td>22:23</td>
+                            <td><a href="http://www.strava.com/activities/11306859273" class="sports_record">2024-05-01</a></td>
+                        </tr>
+                        <tr>
+                            <td>10k</td>
+                            <td>47:23</td>
+                            <td><a href="http://www.strava.com/activities/12597128224" class="sports_record">2024-10-07</a></td>
+                        </tr>
+                        <tr>
+                            <td>半程马拉松</td>
+                            <td>1:40:53</td>
+                            <td><a href="http://www.strava.com/activities/13117579225" class="sports_record">2024-12-15</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <!-- Strava最近活动模块 -->
+            <section>
+                <h2>我的最近活动</h2>
+                <p>以下是我在Strava上记录的最近运动活动，包括跑步、骑行和其他户外运动的数据统计和轨迹记录：</p>
+                <div class="strava-embed-container">
+                    <!-- Strava活动iframe -->
+                    <iframe height='200' width='48%' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/136063170/activity-summary/91c522e2bd1fc757476b5585858c75a0201905ac'></iframe>
+                    <iframe height='500' width='48%' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/136063170/latest-rides/91c522e2bd1fc757476b5585858c75a0201905ac'></iframe>
+                </div>
+                <p class="strava-note">
+                    <small>查看更多活动，请访问我的 <a href="https://www.strava.com/athletes/136063170" target="_blank">Strava个人主页</a></small>
+                </p>
+            </section>
+        </div>
+        <!-- 主体外套结束 -->
+        <!-- 脚注外套开始 -->
+        <!-- ==========================================
+             页脚区域
+             ==========================================
+             包含版权信息和社交链接
+             ========================================== -->
+        <div class="foot wrapper">
+            <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+        </div>
+        <!-- 脚注外套结束 -->
+    </body>
+</html>

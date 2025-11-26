@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown到JSON转换工具 - CHEN Bangyan</title>
+    <!-- 通过相对路径引入公共样式 -->
+    <link rel="stylesheet" href="./CSS/common.css">
+    <!-- 页面专属样式 -->
+    <link rel="stylesheet" href="./CSS/convert-md-to-json.css">
+    <!-- 引入导航功能脚本 -->
+    <script src="./JS/navigation.js"></script>
+    <!-- 引入主题切换脚本 -->
+    <script src="./JS/theme-toggle.js"></script>
+    <!-- 引入Markdown转换脚本 -->
+    <script src="./JS/convert-md-to-json.js"></script>
+</head>
+<body>
+    <!-- 页面头部 - 使用common.css提供的导航样式 -->
+    <div class="header clearfix wrapper">
+        <!-- logo/大标题区域开始 -->
+        <h1>Markdown到JSON转换工具</h1>
+        <!-- logo/大标题区域结束 -->
+        <!-- 导航栏开始 -->
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./video.html">视频展示</a></li>
+                <li><a href="./posts.html" class="active">博客文章</a></li>
+                <li><a href="./study.html">个人成果</a></li>
+                <li><a href="./tools.html">小工具&小游戏</a></li>
+                <li><a href="./sports.html">体育运动</a></li>
+                <li style="display: inline-block; vertical-align: middle;">
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!-- 导航栏结束 -->
+    </div>
+    <!-- 头部外套结束 -->
+    
+    <!-- 移动导航菜单切换按钮 -->
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <!-- 主要内容区域 -->
+    <div class="mainbox wrapper">
+        <div class="convert-container">
+            <div class="back-link">
+                <a href="./posts.html">返回博文列表</a>
+            </div>
+
+            <h1>Markdown到JSON转换工具</h1>
+            
+            <div class="tips">
+                <h4>使用说明：</h4>
+                <p>1. 在下方文本框中粘贴Markdown格式的博文内容，或上传Markdown文件</p>
+                <p>2. 点击"转换"按钮生成JSON格式</p>
+                <p>3. 将生成的JSON内容保存到posts.json文件中</p>
+                <div class="example">
+                    <strong>Markdown示例格式：</strong><br>
+                    ---<br>
+                    title: 示例博文标题<br>
+                    date: 2024-01-01<br>
+                    categories: [技术, 教程]<br>
+                    tags: [JavaScript, Web开发]<br>
+                    excerpt: 这是博文摘要<br>
+                    ---<br><br>
+                    # 正文标题<br>
+                    博文内容...
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="markdown-input">Markdown内容：</label>
+                <textarea id="markdown-input" placeholder="在此粘贴Markdown内容..."></textarea>
+            </div>
+            
+            <div class="button-group">
+                <label class="file-input">
+                    <input type="file" id="file-input" accept=".md,.markdown" style="display: none;">
+                    <button type="button" onclick="document.getElementById('file-input').click();">上传Markdown文件</button>
+                </label>
+                <button id="convert-btn">转换</button>
+                <button id="add-btn">添加到博文列表</button>
+                <button id="clear-btn">清空</button>
+                <button id="generate-btn">生成完整JSON</button>
+            </div>
+            
+            <div class="result">
+                <h3>转换结果：</h3>
+                <pre id="json-output"></pre>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 脚注外套开始 -->
+    <div class="foot wrapper">
+        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+    </div>
+    <!-- 脚注外套结束 -->
+</body>
+</html>

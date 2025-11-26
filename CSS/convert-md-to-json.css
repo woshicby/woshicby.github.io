@@ -1,0 +1,444 @@
+/* Markdown转换工具专用样式 */
+
+/* 夜间模式样式支持 */
+@media (prefers-color-scheme: dark) {
+    body.dark-theme {
+        --bg-color: var(--dark-bg-color, #1a1a1a);
+        --primary-text: var(--dark-primary-text, #e0e0e0);
+        --secondary-text: var(--dark-secondary-text, #b0b0b0);
+        --border-color: var(--dark-border-color, #333333);
+        --accent-color: var(--dark-accent-color, #4a9eff);
+        --accent-hover: var(--dark-accent-hover, #357abd);
+        --code-bg: var(--dark-code-bg, #2d2d2d);
+        --secondary-bg: var(--dark-secondary-bg, #252525);
+        --hover-bg: var(--dark-hover-bg, #2a2a2a);
+        --disabled-color: var(--dark-disabled-color, #555555);
+        --placeholder-color: var(--dark-placeholder-color, #777777);
+        --box-shadow: var(--dark-box-shadow, 0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: monospace;
+    resize: vertical;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.result {
+    margin-top: 30px;
+}
+
+pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.file-input {
+    margin-bottom: 10px;
+}
+
+.tips {
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.tips h4 {
+    margin-top: 0;
+}
+
+.example {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* 转换工具容器样式 */
+.convert-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+    background-color: var(--white);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+    box-sizing: border-box;
+}
+
+/* 页面标题样式 */
+.convert-container h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-text);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* 使用说明区域样式 */
+.tips {
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.tips h4 {
+    color: var(--primary-text);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.tips p {
+    color: var(--secondary-text);
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.tips p:last-child {
+    margin-bottom: 0;
+}
+
+/* 示例格式样式 */
+.example {
+    background-color: var(--code-bg);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-top: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: var(--secondary-text);
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.example strong {
+    color: var(--primary-text);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* 输入组样式 */
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    color: var(--primary-text);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Markdown输入框样式 */
+#markdown-input {
+    width: 100%;
+    min-height: 250px;
+    padding: 1rem;
+    font-size: 0.95rem;
+    font-family: 'Courier New', monospace;
+    line-height: 1.6;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--bg-color);
+    color: var(--primary-text);
+    resize: vertical;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+#markdown-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    background-color: var(--bg-color);
+}
+
+#markdown-input::placeholder {
+    color: var(--placeholder-color);
+}
+
+/* 按钮组样式 */
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.button-group button {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: white;
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-group button:hover {
+    background-color: var(--accent-hover);
+}
+
+.button-group button:active {
+    transform: translateY(1px);
+}
+
+.button-group button:disabled {
+    background-color: var(--disabled-color);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 文件输入样式 */
+.file-input {
+    display: inline-block;
+}
+
+.file-input button {
+    background-color: var(--secondary-bg);
+    color: var(--primary-text);
+    border: 2px solid var(--border-color);
+}
+
+.file-input button:hover {
+    background-color: var(--hover-bg);
+    border-color: var(--accent-color);
+}
+
+/* 结果区域样式 */
+.result {
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.result h3 {
+    color: var(--primary-text);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+/* JSON输出区域样式 */
+#json-output {
+    background-color: var(--code-bg);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    min-height: 200px;
+    max-height: 400px;
+    overflow-x: auto;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--primary-text);
+    border: 1px solid var(--border-color);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* 返回链接样式 */
+.back-link {
+    margin-bottom: 2rem;
+}
+
+.back-link a {
+    display: inline-block;
+    color: var(--accent-color);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--accent-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: bold;
+}
+
+.back-link a:hover {
+    background-color: var(--accent-color);
+    color: white;
+    text-decoration: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .convert-container {
+        padding: 1.5rem;
+    }
+    
+    .convert-container h1 {
+        font-size: 1.8rem;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .button-group button {
+        width: 100%;
+        padding: 0.85rem 1rem;
+    }
+    
+    #markdown-input {
+        min-height: 200px;
+    }
+    
+    #json-output {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .convert-container {
+        padding: 1rem;
+    }
+    
+    .convert-container h1 {
+        font-size: 1.6rem;
+    }
+    
+    .tips {
+        padding: 1rem;
+    }
+    
+    .example {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    #markdown-input {
+        min-height: 180px;
+        padding: 0.75rem;
+    }
+    
+    .result {
+        padding: 1rem;
+    }
+    
+    #json-output {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* 夜间模式主题切换支持 */
+body.dark-theme .convert-container {
+    background-color: var(--bg-color);
+    box-shadow: var(--box-shadow);
+}
+
+body.dark-theme .convert-container h1,
+body.dark-theme .tips h4,
+body.dark-theme .input-group label,
+body.dark-theme .result h3 {
+    color: var(--primary-text);
+}
+
+body.dark-theme .tips,
+body.dark-theme .result {
+    background-color: var(--secondary-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .tips p,
+body.dark-theme .example {
+    color: var(--secondary-text);
+}
+
+body.dark-theme .example {
+    background-color: var(--code-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .example strong {
+    color: var(--primary-text);
+}
+
+body.dark-theme #markdown-input {
+    background-color: var(--bg-color);
+    color: var(--primary-text);
+    border-color: var(--border-color);
+}
+
+body.dark-theme #markdown-input:focus {
+    border-color: var(--accent-color);
+    background-color: var(--bg-color);
+}
+
+body.dark-theme .button-group button {
+    background-color: var(--accent-color);
+}
+
+body.dark-theme .button-group button:hover {
+    background-color: var(--accent-hover);
+}
+
+body.dark-theme .button-group button:disabled {
+    background-color: var(--disabled-color);
+}
+
+body.dark-theme .file-input button {
+    background-color: var(--secondary-bg);
+    color: var(--primary-text);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .file-input button:hover {
+    background-color: var(--hover-bg);
+    border-color: var(--accent-color);
+}
+
+body.dark-theme #json-output {
+    background-color: var(--code-bg);
+    color: var(--primary-text);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .back-link a {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+body.dark-theme .back-link a:hover {
+    background-color: var(--accent-color);
+    color: white;
+}

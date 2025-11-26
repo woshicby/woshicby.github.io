@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博文详情</title>
+    <!-- 通过相对路径引入公共样式 -->
+    <link rel="stylesheet" href="./CSS/common.css">
+    <!-- 引入博文详情页专用样式 -->
+    <link rel="stylesheet" href="./CSS/post-detail.css">
+    <!-- 引入highlight.js用于代码高亮 -->
+    <link rel="stylesheet" href="./CSS/github.min.css">
+    <!-- 引入导航功能脚本 -->
+    <script src="./JS/navigation.js"></script>
+    <!-- 引入主题切换脚本 -->
+    <script src="./JS/theme-toggle.js"></script>
+    <!-- 引入Markdown解析库 -->
+    <script src="./JS/markdown/markdown-it.min.js"></script>
+    <script src="./JS/markdown/markdown-it-mark.min.js"></script>
+    <script src="./JS/markdown/markdown-it-sub.min.js"></script>
+    <script src="./JS/markdown/markdown-it-sup.min.js"></script>
+    <script src="./JS/markdown/markdown-it-footnote.min.js"></script>
+    <!-- 引入highlight.js用于代码高亮 -->
+    <script src="./JS/highlight.min.js"></script>
+    <!-- 引入MathJax库用于渲染数学公式 -->
+    <script src="./JS/MathJax-3.2.2es5/tex-mml-chtml.js" async></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <!-- 引入博文详情脚本 -->
+    <script src="./JS/post-detail.js"></script>
+</head>
+<body class="post-detail-page">
+    <!-- 页面头部 - 网站标题和导航 -->
+    <div class="header clearfix wrapper">
+        <!-- logo/大标题区域开始 -->
+        <h1>博文详情</h1>
+        <!-- logo/大标题区域结束 -->
+        <!-- 导航栏开始 -->
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./video.html">视频展示</a></li>
+                <li><a href="./posts.html">博客文章</a></li>
+                <li><a href="./study.html">个人成果</a></li>
+                <li><a href="./tools.html">小工具&小游戏</a></li>
+                <li><a href="./sports.html">体育运动</a></li>
+                <li style="display: inline-block; vertical-align: middle;">
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!-- 导航栏结束 -->
+    </div>
+    <!-- 头部外套结束 -->
+    
+    <!-- 移动导航菜单切换按钮 -->
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <div class="mainbox clearfix wrapper">
+        <div class="post-detail">
+            <div class="post-nav">
+                <a href="./posts.html" class="back-to-list">返回博文列表</a>
+            </div>
+            <h2 class="post-title" id="post-title">加载中...</h2>
+            <div class="post-meta" id="post-meta">
+                <!-- 博文元信息将通过JavaScript动态加载 -->
+            </div>
+            <div class="post-categories" id="post-categories">
+                <!-- 博文分类将通过JavaScript动态加载 -->
+            </div>
+            <div class="post-tags" id="post-tags">
+                <!-- 博文标签将通过JavaScript动态加载 -->
+            </div>
+            <div class="post-content" id="post-content">
+                <!-- 博文内容将通过JavaScript动态加载 -->
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 脚注外套开始 -->
+    <div class="foot wrapper">
+        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+    </div>
+    <!-- 脚注外套结束 -->
+</body>
+</html>

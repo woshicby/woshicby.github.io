@@ -1,0 +1,345 @@
+/* 页面特定的body补充样式，不覆盖common.css的基础设置 */
+body.posts-page {
+    padding-bottom: 40px;
+}
+
+/* 使用主站点头部样式，这里不需要重复定义 */
+/* 保持样式简洁，主要依赖common.css中的定义 */
+
+/* 主内容区 - 添加页面特定前缀 */
+.posts-page .mainbox {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+}
+
+.posts-page .posts-container {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+}
+
+.posts-page .section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #007bff;
+}
+
+/* 博文列表 - 添加页面特定前缀 */
+.posts-page .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.posts-page .post-item {
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.posts-page .post-item:last-child {
+    border-bottom: none;
+}
+
+.posts-page .post-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.posts-page .post-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--heading-color);
+    text-decoration: none;
+    display: block;
+    transition: color var(--transition-default);
+}
+
+.posts-page .post-title:hover {
+    color: var(--secondary-color);
+}
+
+.posts-page .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    color: var(--light-text);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.posts-page .post-excerpt {
+    color: var(--text-color);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.7;
+}
+
+.posts-page .post-categories, .posts-page .post-tags {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-sm);
+}
+
+.posts-page .category-badge, .posts-page .tag-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: var(--background-accent);
+    color: var(--secondary-color);
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: background-color var(--transition-default), color var(--transition-default);
+}
+
+.posts-page .category-badge:hover, .posts-page .tag-badge:hover {
+    background-color: var(--light-accent);
+    color: var(--primary-color);
+}
+
+.posts-page .sidebar {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+/* 侧边栏搜索框样式，使用特定ID确保只应用于此页面 */
+/* 确保只影响博客页面的样式，添加父容器限制 */
+.posts-page #search-input {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    background-color: var(--background-light);
+    color: var(--text-color);
+}
+
+.posts-page .categories-list, .posts-page .tags-list {
+    margin-bottom: 1.5rem;
+}
+
+.posts-page .categories-list h3, .posts-page .tags-list h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--heading-color);
+}
+
+.posts-page #search-input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* 为分类列表添加ID选择器样式 */
+.posts-page #categories-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.posts-page #categories-list li {}
+
+.posts-page #categories-list a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color var(--transition-default);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.posts-page #categories-list a:hover {
+    color: var(--secondary-color);
+}
+
+/* 为标签容器添加ID选择器样式 */
+.posts-page #tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+    padding: 0;
+}
+
+.posts-page .count {
+    background-color: var(--background-accent);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: var(--light-text);
+}
+
+/* 使用common.css中的页脚样式，这里只添加特定补充 */
+.posts-page .foot {
+    margin-top: 40px;
+}
+
+.posts-page .loading {
+    text-align: center;
+    padding: 50px;
+    color: var(--light-text);
+}
+
+/* 响应式设计 - 添加页面特定前缀 */
+@media (max-width: 900px) {
+    .posts-page .mainbox {
+        grid-template-columns: 1fr;
+        gap: 0px;
+    }
+
+    .posts-page .sidebar {
+        position: static;
+    }
+}
+
+/* 移除自定义主题变量定义，使用common.css中的主题变量 */
+
+/* 博文详情页样式 - 将在post-detail.html中使用 */
+.post-detail-page .post-detail {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-light);
+}
+
+.post-detail-page .post-detail-title {
+    font-size: 2.2rem;
+    color: var(--heading-color);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.3;
+}
+
+.post-detail-page .post-detail-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    color: var(--light-text);
+    font-size: 1rem;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.post-detail-page .post-detail-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-xl);
+}
+
+.post-detail-page .post-detail-content h1,
+.post-detail-page .post-detail-content h2,
+.post-detail-page .post-detail-content h3,
+.post-detail-page .post-detail-content h4,
+.post-detail-page .post-detail-content h5,
+.post-detail-page .post-detail-content h6 {
+    color: var(--heading-color);
+    margin: var(--spacing-xl) 0 var(--spacing-md) 0;
+    line-height: 1.4;
+}
+
+.post-detail-page .post-detail-content h1 {
+    font-size: 1.8rem;
+}
+
+.post-detail-page .post-detail-content h2 {
+    font-size: 1.6rem;
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.post-detail-page .post-detail-content p {
+    margin-bottom: var(--spacing-lg);
+}
+
+.post-detail-page .post-detail-content ul,
+.post-detail-page .post-detail-content ol {
+    margin-bottom: var(--spacing-lg);
+    padding-left: 30px;
+}
+
+.post-detail-page .post-detail-content li {
+    margin-bottom: var(--spacing-xs);
+}
+
+.post-detail-page .post-detail-content a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color var(--transition-default);
+}
+
+.post-detail-page .post-detail-content a:hover {
+    text-decoration: underline;
+}
+
+.post-detail-page .post-detail-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-sm);
+    margin: var(--spacing-lg) 0;
+    display: block;
+}
+
+.post-detail-page .post-detail-content blockquote {
+    border-left: 4px solid var(--secondary-color);
+    padding-left: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+    color: var(--light-text);
+    font-style: italic;
+}
+
+.post-detail-page .post-detail-content pre {
+    background-color: var(--background-accent);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    overflow-x: auto;
+    margin: var(--spacing-lg) 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.post-detail-page .post-detail-content code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--background-accent);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+.post-detail-page .back-to-list {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: var(--secondary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius-sm);
+    transition: background-color var(--transition-default);
+}
+
+.post-detail-page .back-to-list:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.post-detail-page .not-found {
+    text-align: center;
+    padding: 50px;
+    color: var(--light-text);
+}
+
+.post-detail-page .not-found h2 {
+    font-size: 2rem;
+    color: var(--heading-color);
+    margin-bottom: var(--spacing-sm);
+}
