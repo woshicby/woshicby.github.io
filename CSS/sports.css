@@ -112,8 +112,10 @@
 .season-content {
     padding: var(--spacing-xs);
     transition: all 0.3s ease;
-    max-height: 1000px; /* 足够大的值确保所有内容都能显示 */
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
 }
 
 /* 折叠状态样式 */
@@ -311,7 +313,8 @@
     color: var(--secondary-color);
     white-space: normal;
     word-break: break-word;
-    min-width: 180px;
+    text-align: left;
+    min-width: 200px;
     max-width: 300px;
 }
 
@@ -363,9 +366,6 @@
     }
     
     .race-location {
-        width: 180px;
-        max-width: 300px;
-        text-align: right;
         margin-right: var(--spacing-sm);
         white-space: normal;
         word-break: break-word;
