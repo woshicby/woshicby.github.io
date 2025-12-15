@@ -24,7 +24,7 @@
         "pace": "",
         "stravaLink": "",
         "season": "2023秋季",
-        "certification": ["A1","国际精英标"],
+        "certification": ["A1","国际标牌"],
         "isTrail": false
     },
     {
@@ -108,7 +108,7 @@
         "pace": "",
         "stravaLink": "",
         "season": "2024春季",
-        "certification": ["C"],
+        "certification": [],
         "isTrail": false
     },
     {
@@ -192,7 +192,7 @@
         "pace": "",
         "stravaLink": "",
         "season": "2024秋季",
-        "certification": ["A1","国际精英标"],
+        "certification": ["A1","国际标牌"],
         "isTrail": false
     },
     {
@@ -220,7 +220,7 @@
         "pace": "",
         "stravaLink": "",
         "season": "2025春季",
-        "certification": ["A1"],
+        "certification": ["C"],
         "isTrail": false
     },
     {
@@ -262,7 +262,7 @@
         "pace": "",
         "stravaLink": "",
         "season": "2025春季",
-        "certification": ["C"],
+        "certification": [],
         "isTrail": false
     },
     {
@@ -304,7 +304,7 @@
         "pace": "",
         "stravaLink": "",
         "season": "2025秋季",
-        "certification": ["ITRA 2分"],
+        "certification": ["ITRA 1分"],
         "isTrail": true
     },
     {
@@ -318,7 +318,7 @@
         "pace": "",
         "stravaLink": "",
         "season": "2025秋季",
-        "certification": ["ITRA 2分"],
+        "certification": ["ITRA 1分"],
         "isTrail": true
     },
     {
@@ -326,7 +326,7 @@
         "name": "2025栖霞环湖赛",
         "date": "2025-10-12",
         "location": "山东省烟台市栖霞龙腾广场",
-        "event": "20.25km",
+        "event": "16.68km",
         "result": "1:27:30",
         "distance": "20.25公里",
         "pace": "",
