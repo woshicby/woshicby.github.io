@@ -1,6 +1,80 @@
 // 运动比赛记录数据 - 从外部文件加载
 let raceRecords = [];
 
+// 模拟比赛记录数据，用于在无法加载外部JSON文件时使用
+const mockRaceRecords = [
+    {
+        "id": 1,
+        "name": "2023城市马拉松",
+        "date": "2023-03-15",
+        "location": "北京",
+        "event": "全程马拉松",
+        "distance": "42.195公里",
+        "result": "3:45:30",
+        "pace": "5'20'/公里",
+        "season": "2023春季",
+        "isTrail": false,
+        "certification": ["AIMS"],
+        "stravaLink": ""
+    },
+    {
+        "id": 2,
+        "name": "2023春季10公里赛",
+        "date": "2023-04-22",
+        "location": "上海",
+        "event": "10公里",
+        "distance": "10公里",
+        "result": "42:15",
+        "pace": "4'13'/公里",
+        "season": "2023春季",
+        "isTrail": false,
+        "certification": [],
+        "stravaLink": ""
+    },
+    {
+        "id": 3,
+        "name": "2023越野挑战赛",
+        "date": "2023-06-10",
+        "location": "杭州",
+        "event": "越野20公里",
+        "distance": "20公里",
+        "result": "2:15:40",
+        "pace": "6'47'/公里",
+        "season": "2023夏季",
+        "isTrail": true,
+        "certification": [],
+        "stravaLink": ""
+    },
+    {
+        "id": 4,
+        "name": "2023秋季半马",
+        "date": "2023-09-17",
+        "location": "广州",
+        "event": "半程马拉松",
+        "distance": "21.0975公里",
+        "result": "1:48:22",
+        "pace": "5'07'/公里",
+        "season": "2023秋季",
+        "isTrail": false,
+        "certification": ["IAAF"],
+        "stravaLink": ""
+    },
+    {
+        "id": 5,
+        "name": "2023冬季5公里赛",
+        "date": "2023-12-03",
+        "location": "深圳",
+        "event": "5公里",
+        "distance": "5公里",
+        "result": "19:30",
+        "pace": "3'54'/公里",
+        "season": "2023冬季",
+        "isTrail": false,
+        "certification": [],
+        "stravaLink": ""
+    }
+];
+
 // 将时间格式的成绩转换为总秒数以便比较
 function convertResultToSeconds(result) {
     const parts = result.split(':').map(Number);
@@ -184,9 +258,13 @@ function generateRaceRecords() {
     const pbs = findPersonalBests(raceRecords);
     const sbs = findSeasonBests(raceRecords);
     
-    // 生成个人记录并添加到列表顶部
+    // 生成个人记录并添加到mainbox中，位于比赛记录上方
     const prContainer = generatePersonalRecords(raceRecords);
-    raceList.appendChild(prContainer);
+    const mainbox = document.querySelector('.mainbox');
+    const raceRecordsSection = document.getElementById('race-records');
+    if (mainbox && raceRecordsSection) {
+        mainbox.insertBefore(prContainer, raceRecordsSection);
+    }
     
     // 按赛季分组比赛记录
     const racesBySeason = groupRacesBySeason(raceRecords);
@@ -200,14 +278,29 @@ function generateRaceRecords() {
         // 创建赛季标题栏（可点击展开/折叠）
         const seasonHeader = document.createElement('div');
         seasonHeader.className = 'season-header';
+        
+        // 找出本赛季的所有PB项目
+        const currentSeasonRaces = racesBySeason[season];
+        const pbEventsInSeason = [...new Set(
+            currentSeasonRaces
+                .filter(race => pbs[race.event] === race.id)
+                .map(race => race.event)
+        )];
+        
+        // 为每个PB项目生成标签HTML
+        const pbTags = pbEventsInSeason
+            .map(event => `<span class="race-marker pb">${event}-PB</span>`)
+            .join(' ');
+        
+        // 设置赛季标题内容，包含所有PB标签
         seasonHeader.innerHTML = `
-            <h3>${season}</h3>
-            <span class="season-toggle">▼</span>
+            <h3>${season} ${pbTags}</h3>
+            <span class="season-toggle">▶</span>
         `;
         
         // 创建赛季内容容器
         const seasonContent = document.createElement('div');
-        seasonContent.className = 'season-content';
+        seasonContent.className = 'season-content collapsed';
         
         // 为该赛季的所有比赛生成HTML
         racesBySeason[season].forEach(race => {
@@ -228,17 +321,20 @@ function generateRaceRecords() {
             
             // 生成最佳成绩标记HTML
             let markers = '';
-            if (isPB) markers += `<span class="race-marker pb">${race.event}PB</span>`;
-            if (isSB) markers += `<span class="race-marker sb">${race.event}SB</span>`;
+            if (isPB) markers += `<span class="race-marker pb">${race.event}-PB</span>`;
+            if (isSB) markers += `<span class="race-marker sb">${race.event}-SB</span>`;
             
             const raceItem = document.createElement('div');
             raceItem.className = 'race-item';
             
             raceItem.innerHTML = `
                 <div class="race-info">
-                    <h3>${race.name} ${certificationMark} ${markers}</h3>
-                    <span class="race-date">${race.date}</span>
-                    <span class="race-location">${race.location}</span>
+                    <h3 class="race-title">${race.name}</h3>
+                    <div class="race-tags">${certificationMark} ${markers}</div>
+                    <div class="race-meta">
+                        <span class="race-date">${race.date}</span>
+                        <span class="race-location">${race.location}</span>
+                    </div>
                 </div>
                 <div class="race-details">
                     <div class="race-event">
@@ -291,6 +387,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         generateRaceRecords();
     } catch (error) {
-        console.error('加载比赛记录数据失败:', error);
+        console.error('加载比赛记录数据失败，使用模拟数据:', error);
+        // 使用模拟数据
+        raceRecords = mockRaceRecords;
+        generateRaceRecords();
     }
 });

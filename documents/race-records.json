@@ -151,7 +151,7 @@
         "stravaLink": "",
         "season": "2024春季",
         "certification": [],
-        "isTrail": false
+        "isTrail": true
     },
     {
         "id": 12,
@@ -298,7 +298,7 @@
         "name": "2025昆嵛50越野挑战赛",
         "date": "2025-09-21",
         "location": "山东省威海市文登区昆嵛山",
-        "event": "25km",
+        "event": "问水·25km",
         "result": "4:56:02",
         "distance": "28公里",
         "pace": "",
