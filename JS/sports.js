@@ -7,7 +7,7 @@ const mockRaceRecords = [
         "id": 1,
         "name": "2023城市马拉松",
         "date": "2023-03-15",
-        "location": "北京",
+        "location": "北京市朝阳区建国路88号奥林匹克公园内国家体育场东侧",
         "event": "全程马拉松",
         "distance": "42.195公里",
         "result": "3:45:30",

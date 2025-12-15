@@ -302,14 +302,17 @@
     color: var(--secondary-color);
     white-space: nowrap;
     min-width: 120px;
+    max-width: 150px;
 }
 
 .race-location {
     margin: 0;
     font-size: 0.9rem;
     color: var(--secondary-color);
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
     min-width: 180px;
+    max-width: 300px;
 }
 
 /* 中等屏幕下：标题一行，标签在标题下一行，时间地址一行 */
@@ -356,12 +359,16 @@
     .race-date {
         width: 120px;
         text-align: right;
+        max-width: 150px;
     }
     
     .race-location {
         width: 180px;
+        max-width: 300px;
         text-align: right;
         margin-right: var(--spacing-sm);
+        white-space: normal;
+        word-break: break-word;
     }
 }
 
