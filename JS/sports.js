@@ -228,8 +228,8 @@ function generateRaceRecords() {
             
             // 生成最佳成绩标记HTML
             let markers = '';
-            if (isPB) markers += '<span class="race-marker pb">PB</span>';
-            if (isSB) markers += '<span class="race-marker sb">SB</span>';
+            if (isPB) markers += `<span class="race-marker pb">${race.event}PB</span>`;
+            if (isSB) markers += `<span class="race-marker sb">${race.event}SB</span>`;
             
             const raceItem = document.createElement('div');
             raceItem.className = 'race-item';

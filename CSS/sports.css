@@ -132,6 +132,7 @@
     border: 1px solid var(--accent-color);
     border-radius: var(--border-radius-sm);
     background-color: rgba(255, 165, 0, 0.1);
+    vertical-align: middle;
 }
 
 /* 个人记录容器样式 */
@@ -231,6 +232,7 @@
     font-weight: bold;
     border-radius: var(--border-radius-sm);
     text-transform: uppercase;
+    vertical-align: middle;
 }
 
 /* 个人最佳(PB)标记样式 */
