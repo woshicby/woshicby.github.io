@@ -15,6 +15,8 @@
         <script src="./JS/navigation.js"></script>
         <!-- 引入主题切换脚本 -->
         <script src="./JS/theme-toggle.js"></script>
+        <!-- 引入体育页面脚本 -->
+        <script src="./JS/sports.js"></script>
     </head>
     <!-- ==========================================
          页面头部 - 网站标题和导航
@@ -62,40 +64,12 @@
              ========================================== -->
         <div class="mainbox clearfix wrapper">
             <!-- 个人纪录部分 -->
-            <!-- 个人纪录部分 - 运动成绩表格 -->
-            <section>
-                <h2>个人运动记录</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>运动项目</th>
-                            <th>最佳成绩</th>
-                            <th>达成日期</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>3000米</td>
-                            <td>12:41</td>
-                            <td><a href="http://www.strava.com/activities/11438665949" class="sports_record">2023-05-18</a></td>
-                        </tr>
-                        <tr>
-                            <td>5k</td>
-                            <td>22:23</td>
-                            <td><a href="http://www.strava.com/activities/11306859273" class="sports_record">2024-05-01</a></td>
-                        </tr>
-                        <tr>
-                            <td>10k</td>
-                            <td>47:23</td>
-                            <td><a href="http://www.strava.com/activities/12597128224" class="sports_record">2024-10-07</a></td>
-                        </tr>
-                        <tr>
-                            <td>半程马拉松</td>
-                            <td>1:40:53</td>
-                            <td><a href="http://www.strava.com/activities/13117579225" class="sports_record">2024-12-15</a></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- 个人纪录部分 - 比赛信息列表 -->
+            <section id="race-records">
+                <h2>比赛记录</h2>
+                <div class="race-list">
+                    <!-- 比赛记录将通过JavaScript动态生成 -->
+                </div>
             </section>
             
             <!-- Strava最近活动模块 -->
