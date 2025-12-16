@@ -5,73 +5,367 @@ let raceRecords = [];
 const mockRaceRecords = [
     {
         "id": 1,
-        "name": "2023城市马拉松",
-        "date": "2023-03-15",
-        "location": "北京市朝阳区建国路88号奥林匹克公园内国家体育场东侧",
-        "event": "全程马拉松",
-        "distance": "42.195公里",
-        "result": "3:45:30",
-        "pace": "5'20'/公里",
-        "season": "2023春季",
-        "isTrail": false,
-        "certification": ["AIMS"],
-        "stravaLink": ""
+        "name": "2023年海南城市夜跑",
+        "date": "2023-08-18",
+        "location": "海南省海口市龙华区世纪公园(渡海路西)",
+        "event": "5km",
+        "result": "25:37",
+        "distance": "5公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2023秋季",
+        "certification": [],
+        "isTrail": false
     },
     {
         "id": 2,
-        "name": "2023春季10公里赛",
-        "date": "2023-04-22",
-        "location": "上海",
-        "event": "10公里",
-        "distance": "10公里",
-        "result": "42:15",
-        "pace": "4'13'/公里",
-        "season": "2023春季",
-        "isTrail": false,
-        "certification": [],
-        "stravaLink": ""
+        "name": "2023海南儋州马拉松",
+        "date": "2023-12-17",
+        "location": "海南省儋州市那大镇",
+        "event": "半程马拉松",
+        "result": "1:50:40",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2023秋季",
+        "certification": ["A1","国际标牌"],
+        "isTrail": false
     },
     {
         "id": 3,
-        "name": "2023越野挑战赛",
-        "date": "2023-06-10",
-        "location": "杭州",
-        "event": "越野20公里",
-        "distance": "20公里",
-        "result": "2:15:40",
-        "pace": "6'47'/公里",
-        "season": "2023夏季",
-        "isTrail": true,
-        "certification": [],
-        "stravaLink": ""
+        "name": "2024茂名马拉松",
+        "date": "2024-03-24",
+        "location": "广东省茂名市中国第一滩",
+        "event": "半程马拉松",
+        "result": "1:47:22",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024春季",
+        "certification": ["A1"],
+        "isTrail": false
     },
     {
         "id": 4,
-        "name": "2023秋季半马",
-        "date": "2023-09-17",
-        "location": "广州",
+        "name": "2024陵水半程马拉松",
+        "date": "2024-03-31",
+        "location": "海南省陵水黎族自治县英州镇清水湾",
         "event": "半程马拉松",
+        "result": "2:13:58",
         "distance": "21.0975公里",
-        "result": "1:48:22",
-        "pace": "5'07'/公里",
-        "season": "2023秋季",
-        "isTrail": false,
-        "certification": ["IAAF"],
-        "stravaLink": ""
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024春季",
+        "certification": ["A1"],
+        "isTrail": false
     },
     {
         "id": 5,
-        "name": "2023冬季5公里赛",
-        "date": "2023-12-03",
-        "location": "深圳",
-        "event": "5公里",
-        "distance": "5公里",
-        "result": "19:30",
-        "pace": "3'54'/公里",
-        "season": "2023冬季",
-        "isTrail": false,
+        "name": "2024年海南大学第二届荧光夜跑",
+        "date": "2024-04-20",
+        "location": "海南大学海甸校区第一田径场",
+        "event": "3.4km",
+        "result": "24:19",
+        "distance": "3.4公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024春季",
         "certification": [],
-        "stravaLink": ""
+        "isTrail": true
+    },
+    {
+        "id": 6,
+        "name": "2024海南（海口）万人健步大会",
+        "date": "2024-04-27",
+        "location": "海南省海口市白沙门公园阳光草坪",
+        "event": "8.8km",
+        "result": "51:06",
+        "distance": "8.8公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024春季",
+        "certification": [],
+        "isTrail": true
+    },
+    {
+        "id": 7,
+        "name": "2024海口湾路跑段位赛(5K)",
+        "date": "2024-05-01",
+        "location": "海南省海口市海口湾",
+        "event": "5km",
+        "result": "22:23",
+        "distance": "5公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024春季",
+        "certification": [],
+        "isTrail": false
+    },
+    {
+        "id": 8,
+        "name": "2024海南定安幸福跑",
+        "date": "2024-05-12",
+        "location": "海南省定安县",
+        "event": "10km",
+        "result": "49:45",
+        "distance": "10公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024春季",
+        "certification": [],
+        "isTrail": false
+    },
+    {
+        "id": 9,
+        "name": "2024高校百英里资格赛（海南大学）-5月",
+        "date": "2024-05-18",
+        "location": "海南大学海甸校区第二田径场",
+        "event": "3000m",
+        "result": "12:41",
+        "distance": "3公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024春季",
+        "certification": [],
+        "isTrail": false
+    },
+    {
+        "id": 10,
+        "name": "2024高校百英里资格赛（海南大学）-6月",
+        "date": "2024-06-10",
+        "location": "海南大学海甸校区第二田径场",
+        "event": "3000m",
+        "result": "12:46",
+        "distance": "3公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024春季",
+        "certification": [],
+        "isTrail": false
+    },
+    {
+        "id": 11,
+        "name": "2024夜跑莆田木兰溪马拉松接力赛",
+        "date": "2024-08-03",
+        "location": "福建省莆田市体育中心",
+        "event": "5200m",
+        "result": "24:31",
+        "distance": "5.20公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024春季",
+        "certification": [],
+        "isTrail": true
+    },
+    {
+        "id": 12,
+        "name": "南国食品·2024年（第二届）全民健康跑（10km段位赛）",
+        "date": "2024-10-07",
+        "location": "海南省海口市龙华区海口湾1号西北(观海路南)FUNBAY自在湾",
+        "event": "10km",
+        "result": "47:27",
+        "distance": "10公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024秋季",
+        "certification": [],
+        "isTrail": false
+    },
+    {
+        "id": 13,
+        "name": "2024澄迈半程马拉松",
+        "date": "2024-11-17",
+        "location": "海南省澄迈县",
+        "event": "半程马拉松",
+        "result": "1:41:51",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024秋季",
+        "certification": ["A1"],
+        "isTrail": false
+    },
+    {
+        "id": 14,
+        "name": "2024海南儋州马拉松",
+        "date": "2024-12-15",
+        "location": "海南省儋州市那大镇",
+        "event": "半程马拉松",
+        "result": "1:40:53",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024秋季",
+        "certification": ["A1","国际标牌"],
+        "isTrail": false
+    },
+    {
+        "id": 15,
+        "name": "2024莆田木兰溪马拉松",
+        "date": "2024-12-29",
+        "location": "福建省莆田市",
+        "event": "半程马拉松",
+        "result": "1:51:24",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2024秋季",
+        "certification": ["A1"],
+        "isTrail": false
+    },
+    {
+        "id": 16,
+        "name": "2025万宁马拉松",
+        "date": "2025-03-02",
+        "location": "海南省万宁市",
+        "event": "半程马拉松",
+        "result": "2:13:07",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2025春季",
+        "certification": ["C"],
+        "isTrail": false
+    },
+    {
+        "id": 17,
+        "name": "2025陵水半程马拉松",
+        "date": "2025-03-09",
+        "location": "海南省陵水黎族自治县",
+        "event": "半程马拉松",
+        "result": "1:48:48",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2025春季",
+        "certification": ["C"],
+        "isTrail": false
+    },
+    {
+        "id": 18,
+        "name": "2025年海南大学第三届荧光夜跑",
+        "date": "2025-04-19",
+        "location": "海南大学海甸校区第一田径场",
+        "event": "3.4km",
+        "result": "23:19",
+        "distance": "3.40公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2025春季",
+        "certification": [],
+        "isTrail": true
+    },
+    {
+        "id": 19,
+        "name": "2025海南定安幸福跑",
+        "date": "2025-05-11",
+        "location": "海南省定安县",
+        "event": "10km",
+        "result": "50:48",
+        "distance": "10公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2025春季",
+        "certification": [],
+        "isTrail": false
+    },
+    {
+        "id": 20,
+        "name": "2025中国(海南)热带雨林健步走公开赛(10k)",
+        "date": "2025-06-01",
+        "location": "海南省五指山市",
+        "event": "10km",
+        "result": "1:06:14",
+        "distance": "10公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2025春季",
+        "certification": ["C"],
+        "isTrail": false
+    },
+    {
+        "id": 21,
+        "name": "2025莱州（石都）半程马拉松",
+        "date": "2025-09-14",
+        "location": "山东省烟台市莱州市市民之家",
+        "event": "半程马拉松",
+        "result": "1:58:28",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2025秋季",
+        "certification": ["C"],
+        "isTrail": false
+    },
+    {
+        "id": 22,
+        "name": "2025昆嵛50越野挑战赛",
+        "date": "2025-09-21",
+        "location": "山东省威海市文登区昆嵛山",
+        "event": "问水·25km",
+        "result": "4:56:02",
+        "distance": "28公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2025秋季",
+        "certification": ["ITRA 1分"],
+        "isTrail": true
+    },
+    {
+        "id": 23,
+        "name": "2025烟台山星空越野赛",
+        "date": "2025-10-05",
+        "location": "山东省烟台市芝罘区滨海广场",
+        "event": "22km",
+        "result": "3:09:59",
+        "distance": "22公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2025秋季",
+        "certification": ["ITRA 1分"],
+        "isTrail": true
+    },
+    {
+        "id": 24,
+        "name": "2025栖霞环湖赛",
+        "date": "2025-10-12",
+        "location": "山东省烟台市栖霞龙腾广场",
+        "event": "20.25km",
+        "result": "1:27:30",
+        "distance": "16.68公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2025秋季",
+        "certification": ["C"],
+        "isTrail": true
+    },
+    {
+        "id": 25,
+        "name": "2025黄河口（东营）马拉松",
+        "date": "2025-10-19",
+        "location": "山东省东营市新世纪广场",
+        "event": "半程马拉松",
+        "result": "1:44:17",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2025秋季",
+        "certification": ["A1","国际金标"],
+        "isTrail": false
+    },
+    {
+        "id": 26,
+        "name": "2025日照马拉松",
+        "date": "2025-10-26",
+        "location": "山东省日照市人民广场",
+        "event": "半程马拉松",
+        "result": "1:49:43",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2025秋季",
+        "certification": ["A1"],
+        "isTrail": false
     }
 ];
 
@@ -366,6 +660,9 @@ function generateRaceRecords() {
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const response = await fetch('../JSON/race-records.json');
+        if (!response.ok) {
+            throw new Error(`HTTP错误! 状态码: ${response.status}`);
+        }
         raceRecords = await response.json();
         
         // 自动计算缺失的配速
@@ -375,6 +672,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
         
+        console.log('已从JSON文件加载比赛记录数据:', raceRecords.length, '条记录');
         generateRaceRecords();
         // 加载并处理完赛证书数据
         loadCertificatesData();
@@ -382,6 +680,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('加载比赛记录数据失败，使用模拟数据:', error);
         // 使用模拟数据
         raceRecords = mockRaceRecords;
+        console.log('已使用模拟数据:', raceRecords.length, '条记录');
         generateRaceRecords();
         // 加载并处理完赛证书数据
         loadCertificatesData();
@@ -431,11 +730,22 @@ function generateCertificates(certificates) {
         certificateLink.target = '_blank';
         certificateLink.rel = 'noopener noreferrer';
         
+        // 创建证书图片容器
+        const certificateImageContainer = document.createElement('div');
+        certificateImageContainer.style.width = '100%';
+        certificateImageContainer.style.overflow = 'hidden';
+        certificateImageContainer.style.display = 'flex';
+        certificateImageContainer.style.justifyContent = 'center';
+        certificateImageContainer.style.alignItems = 'center';
+        certificateImageContainer.style.backgroundColor = 'var(--background-color)';
+        
         // 创建证书图片
         const certificateImage = document.createElement('img');
         certificateImage.alt = `${certificate.name}完赛证书`;
         certificateImage.style.width = '100%';
-        certificateImage.style.height = 'auto';
+        certificateImage.style.height = '100%';
+        certificateImage.style.objectFit = 'contain';
+        certificateImage.style.display = 'block';
         
         // 创建证书信息区域
         const certificateInfo = document.createElement('div');
@@ -488,7 +798,8 @@ function generateCertificates(certificates) {
         tryNextExtension();
         
         // 组装证书项
-        certificateLink.appendChild(certificateImage);
+        certificateImageContainer.appendChild(certificateImage);
+        certificateLink.appendChild(certificateImageContainer);
         certificateItem.appendChild(certificateLink);
         certificateItem.appendChild(certificateInfo);
         

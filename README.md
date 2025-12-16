@@ -34,7 +34,7 @@
 - **视频播放器** (video.html): 视频内容展示和播放
 
 ### 4. 体育相关
-- **跑步记录** (sports.html): 展示个人跑步记录，支持赛季最佳(SB)和个人最佳(PB)标记，可折叠的赛季记录展示
+- **跑步记录** (sports.html): 展示个人跑步记录，支持赛季最佳(SB)和个人最佳(PB)标记，可折叠的赛季记录展示，完赛证书采用多列瀑布流布局展示
 
 ### 5. 学习资源
 - **学习页面** (study.html): 学习资料和笔记
@@ -157,6 +157,7 @@ woshicby.github.io/
 - 优化图片资源管理
 - 添加主题切换功能 (theme-toggle.js)
 - 添加跑步记录功能 (sports.html)，支持赛季最佳和个人最佳标记
+- 完赛证书采用多列瀑布流布局展示，提升视觉体验和空间利用率
 - 实现博客文章功能 (posts.html, post-detail.html)
 - 添加Markdown支持和数学公式渲染
 - 实现代码高亮功能
@@ -204,7 +205,7 @@ This is a personal website built with HTML, CSS, and JavaScript, designed to dem
 - **Video Player** (video.html): Video content display and playback
 
 ### 4. Sports-related
-- **Running Records** (sports.html): Displays personal running records with Season Best (SB) and Personal Best (PB) markers, featuring collapsible season records
+- **Running Records** (sports.html): Displays personal running records with Season Best (SB) and Personal Best (PB) markers, featuring collapsible season records and multi-column waterfall layout for finisher certificates
 
 ### 5. Learning Resources
 - **Study Page** (study.html): Learning materials and notes
@@ -327,6 +328,7 @@ woshicby.github.io/
 - Optimized image resource management
 - Added theme switching functionality (theme-toggle.js)
 - Added running records feature (sports.html) with SB and PB markers
+- Implemented multi-column waterfall layout for finisher certificates, improving visual experience and space utilization
 - Implemented blog article functionality (posts.html, post-detail.html)
 - Added Markdown support and mathematical formula rendering
 - Implemented code highlighting functionality
@@ -374,7 +376,7 @@ When adding new pages, please follow the existing file structure and naming conv
 - **ビデオプレイヤー** (video.html): ビデオコンテンツの表示と再生
 
 ### 4. スポーツ関連
-- **ランニング記録** (sports.html): 個人のランニング記録を表示し、シーズンベスト(SB)とパーソナルベスト(PB)のマーカーをサポート、折りたたみ可能なシーズン記録機能を搭載
+- **ランニング記録** (sports.html): 個人のランニング記録を表示し、シーズンベスト(SB)とパーソナルベスト(PB)のマーカーをサポート、折りたたみ可能なシーズン記録機能を搭載、完走証明書は多列のウォーターフォールレイアウトで表示
 
 ### 5. 学習リソース
 - **学習ページ** (study.html): 学習資料とノート
@@ -497,6 +499,7 @@ woshicby.github.io/
 - 画像リソース管理の最適化
 - テーマ切り替え機能の追加 (theme-toggle.js)
 - ランニング記録機能 (sports.html) の追加、SBとPBのマーカーをサポート
+- 完走証明書に多列のウォーターフォールレイアウトを実装、視覚体験とスペース利用率を向上
 - ブログ記事機能 (posts.html, post-detail.html) の実装
 - Markdownサポートと数式レンダリングの追加
 - コードハイライト機能の実装
