@@ -464,7 +464,7 @@ function generateCertificates(certificates) {
         const tryNextExtension = () => {
             if (index < extensions.length) {
                 const extension = extensions[index];
-                const filename = `${certificate.datePart}-${certificate.id}${extension}`;
+                const filename = `${certificate.datePart}${extension}`;
                 const imagePath = `./images/finisher_certificates/${filename}`;
                 
                 certificateImage.src = imagePath;
