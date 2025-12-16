@@ -34,8 +34,8 @@ class PostManager {
     async loadPosts() {
         try {
             // 尝试从posts.json加载数据，使用正确的相对路径
-            const response = await fetch('../posts/posts.json');
-            console.log('尝试加载posts.json，URL:', '../posts/posts.json');
+        const response = await fetch('../JSON/posts.json');
+        console.log('尝试加载posts.json，URL:', '../JSON/posts.json');
             
             if (response.ok) {
                 // 确保加载posts.json中的所有文章数据

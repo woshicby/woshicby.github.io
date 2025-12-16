@@ -199,19 +199,16 @@ function generatePersonalRecords(races) {
     const pbs = findPersonalBests(races);
     const raceMap = {};
     
-    // 创建比赛记录映射，方便查找
     races.forEach(race => {
         raceMap[race.id] = race;
     });
     
-    // 创建个人记录容器
-    const prContainer = document.createElement('div');
-    prContainer.className = 'personal-records';
-    prContainer.innerHTML = '<h2>个人最佳成绩(PB)</h2>';
+    // 获取硬编码的个人记录内容容器
+    const prContent = document.getElementById('personal-records-content');
+    if (!prContent) return;
     
-    // 创建个人记录内容容器
-    const prContent = document.createElement('div');
-    prContent.className = 'personal-records-content';
+    // 清空容器内容
+    prContent.innerHTML = '';
     
     // 为每个项目的PB生成HTML
     Object.keys(pbs).forEach(event => {
@@ -241,10 +238,8 @@ function generatePersonalRecords(races) {
             prContent.appendChild(prItem);
         }
     });
-    
-    prContainer.appendChild(prContent);
-    return prContainer;
 }
+
 
 // 生成比赛记录HTML
 function generateRaceRecords() {
@@ -258,13 +253,8 @@ function generateRaceRecords() {
     const pbs = findPersonalBests(raceRecords);
     const sbs = findSeasonBests(raceRecords);
     
-    // 生成个人记录并添加到mainbox中，位于比赛记录上方
-    const prContainer = generatePersonalRecords(raceRecords);
-    const mainbox = document.querySelector('.mainbox');
-    const raceRecordsSection = document.getElementById('race-records');
-    if (mainbox && raceRecordsSection) {
-        mainbox.insertBefore(prContainer, raceRecordsSection);
-    }
+    // 生成个人记录内容
+    generatePersonalRecords(raceRecords);
     
     // 按赛季分组比赛记录
     const racesBySeason = groupRacesBySeason(raceRecords);
@@ -375,7 +365,7 @@ function generateRaceRecords() {
 // 页面加载时从外部JSON文件加载数据并生成比赛记录
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await fetch('../documents/race-records.json');
+        const response = await fetch('../JSON/race-records.json');
         raceRecords = await response.json();
         
         // 自动计算缺失的配速
@@ -386,10 +376,123 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         
         generateRaceRecords();
+        // 加载并处理完赛证书数据
+        loadCertificatesData();
     } catch (error) {
         console.error('加载比赛记录数据失败，使用模拟数据:', error);
         // 使用模拟数据
         raceRecords = mockRaceRecords;
         generateRaceRecords();
+        // 加载并处理完赛证书数据
+        loadCertificatesData();
     }
 });
+
+// 加载完赛证书数据 - 现在从raceRecords中获取信息
+function loadCertificatesData() {
+    // 从raceRecords中构建证书列表
+    const certificates = raceRecords.map(race => {
+        // 从日期字符串中提取YYYYMMDD格式的日期部分
+        const datePart = race.date.replace(/-/g, '');
+        
+        // 构建证书对象
+        return {
+            id: race.id,
+            name: race.name,
+            date: race.date,
+            datePart: datePart
+        };
+    });
+    
+    // 调用生成证书函数
+    generateCertificates(certificates);
+}
+
+// 生成完赛证书HTML
+function generateCertificates(certificates) {
+    const certificatesGrid = document.getElementById('certificates-grid');
+    if (!certificatesGrid) return;
+    
+    // 清空现有内容
+    certificatesGrid.innerHTML = '';
+    
+    // 按日期倒序排序证书
+    certificates.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+    // 定义可能的文件扩展名
+    const extensions = ['.png', '.jpg', '.jpeg'];
+    
+    certificates.forEach(certificate => {
+        const certificateItem = document.createElement('div');
+        certificateItem.className = 'certificate-item';
+        
+        // 创建证书图片链接
+        const certificateLink = document.createElement('a');
+        certificateLink.target = '_blank';
+        certificateLink.rel = 'noopener noreferrer';
+        
+        // 创建证书图片
+        const certificateImage = document.createElement('img');
+        certificateImage.alt = `${certificate.name}完赛证书`;
+        certificateImage.style.width = '100%';
+        certificateImage.style.height = 'auto';
+        
+        // 创建证书信息区域
+        const certificateInfo = document.createElement('div');
+        certificateInfo.style.padding = '1rem';
+        certificateInfo.style.background = 'var(--card-bg-color)';
+        
+        // 创建证书标题
+        const certificateTitle = document.createElement('h3');
+        certificateTitle.textContent = certificate.name;
+        certificateTitle.style.margin = '0 0 0.5rem 0';
+        certificateTitle.style.fontSize = '1.1rem';
+        
+        // 创建证书日期
+        const certificateDate = document.createElement('p');
+        certificateDate.textContent = `比赛日期: ${certificate.date}`;
+        certificateDate.style.margin = '0';
+        certificateDate.style.color = 'var(--secondary-color)';
+        certificateDate.style.fontSize = '0.9rem';
+        
+        // 组装证书信息
+        certificateInfo.appendChild(certificateTitle);
+        certificateInfo.appendChild(certificateDate);
+        
+        // 尝试不同的文件扩展名
+        let index = 0;
+        const tryNextExtension = () => {
+            if (index < extensions.length) {
+                const extension = extensions[index];
+                const filename = `${certificate.datePart}-${certificate.id}${extension}`;
+                const imagePath = `./images/finisher_certificates/${filename}`;
+                
+                certificateImage.src = imagePath;
+                certificateLink.href = imagePath;
+                index++;
+            } else {
+                // 所有扩展名都尝试过，文件不存在，隐藏此证书项
+                certificateItem.style.display = 'none';
+            }
+        };
+        
+        // 设置图片加载失败事件处理程序
+        certificateImage.onerror = tryNextExtension;
+        
+        // 设置图片加载成功事件处理程序
+        certificateImage.onload = () => {
+            // 图片加载成功，不需要隐藏
+        };
+        
+        // 开始尝试第一个扩展名
+        tryNextExtension();
+        
+        // 组装证书项
+        certificateLink.appendChild(certificateImage);
+        certificateItem.appendChild(certificateLink);
+        certificateItem.appendChild(certificateInfo);
+        
+        // 添加到证书网格
+        certificatesGrid.appendChild(certificateItem);
+    });
+}

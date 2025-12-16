@@ -30,7 +30,7 @@ class PostDetailManager {
 
     async loadPosts() {
         try {
-            const response = await fetch('../posts/posts.json');
+            const response = await fetch('../JSON/posts.json');
             if (response.ok) {
                 return await response.json();
             }
@@ -216,7 +216,7 @@ class PostDetailManager {
 <p>这是博文《${title}》的示例内容。</p>
 <p>在实际使用中，您可以在posts.json文件中为每篇博文添加content字段，以显示完整的博文内容。</p>
 <h2>如何添加完整博文内容</h2>
-<p>要添加完整的博文内容，请编辑posts/posts.json文件，为每篇博文添加content字段，格式如下：</p>
+<p>要添加完整的博文内容，请编辑JSON/posts.json文件，为每篇博文添加content字段，格式如下：</p>
 <pre>
 {
   "id": 1,

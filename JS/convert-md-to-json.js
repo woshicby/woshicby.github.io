@@ -184,5 +184,5 @@ if (typeof document !== 'undefined') {
     console.log('使用方法：');
     console.log('1. 在界面中粘贴Markdown格式的博文内容');
     console.log('2. 点击"转换"按钮生成JSON');
-    console.log('3. 将生成的JSON保存到posts.json文件中');
+    console.log('3. 将生成的JSON保存到JSON/posts.json文件中');
 }
