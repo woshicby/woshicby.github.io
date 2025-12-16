@@ -74,7 +74,7 @@
         height: 100vh;
         padding: 5rem 1rem 1rem;
         margin: 0;
-        transition: right 0.3s ease;
+        transition: var(--transition-default);
         z-index: 1000;
         overflow-y: auto;
         box-shadow: var(--shadow-heavy);
@@ -99,21 +99,21 @@
     .nav a {
         display: block;
         padding: 0.75rem 1rem;
-        border-radius: var(--border-radius-sm);
-        transition: background-color 0.3s;
+        border-radius: var(--border-radius-md);
+        transition: var(--transition-default);
     }
     
     /* 移动设备主题切换按钮对齐样式 */
     .nav .theme-toggle {
         width: 100%;
         height: auto;
-        border-radius: var(--border-radius-sm);
+        border-radius: var(--border-radius-md);
         background-color: var(--nav-a-bg-color);
         text-align: left;
         display: flex;
         align-items: center;
         margin: 0 10px;
-        transition: background-color 0.3s;
+        transition: var(--transition-default);
         /* 添加padding使按钮整体响应父容器的margin和padding */
         left: 1rem;
     }
@@ -139,7 +139,7 @@
         width: 100%; /* 完全占满屏幕 */
         margin: 0;
         padding: var(--spacing-xs);
-        border-radius: var(--border-radius-sm);
+        border-radius: var(--border-radius-md);
         box-shadow: none;
     }
 }

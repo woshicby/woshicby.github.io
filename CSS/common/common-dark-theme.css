@@ -96,7 +96,10 @@ body.dark-theme .card-container {
 }
 
 body.dark-theme .card-container:hover {
+    transform: translateY(-5px);
     box-shadow: var(--dark-shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--dark-primary-hover-color);
 }
 
 /* 按钮系统夜间模式样式 */
@@ -138,6 +141,8 @@ body.dark-theme h2 {
 body.dark-theme h3 {
     color: var(--dark-heading-color);
 }
+
+
 
 /* strong标签夜间模式样式 */
 body.dark-theme strong {
@@ -186,7 +191,10 @@ body.dark-theme section {
 }
 
 body.dark-theme section:hover {
+    transform: translateY(-5px);
     box-shadow: var(--dark-shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--dark-primary-hover-color);
 }
 
 /* 导航切换按钮夜间模式样式 */

@@ -21,11 +21,11 @@
 /* 博文内容区域样式 */
 .post-container {
     background-color: var(--bg-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     padding: 2rem;
     margin-bottom: 2rem;
     box-shadow: var(--box-shadow);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: var(--transition-default);
 }
 
 /* 博文标题样式 */
@@ -62,9 +62,9 @@
     background-color: var(--accent-color);
     color: white;
     padding: 0.25rem 0.75rem;
-    border-radius: 1rem;
+    border-radius: var(--border-radius-md);
     font-size: 0.85rem;
-    transition: background-color 0.3s ease;
+    transition: var(--transition-default);
 }
 
 /* 博文摘要样式 */
@@ -76,7 +76,7 @@
     padding: 1rem;
     background-color: var(--secondary-bg);
     border-left: 4px solid var(--accent-color);
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    border-radius: var(--border-radius-md);
 }
 
 /* 博文正文样式 */
@@ -128,7 +128,7 @@
     background-color: var(--secondary-bg);
     color: var(--secondary-text);
     font-style: italic;
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    border-radius: var(--border-radius-md);
 }
 
 /* 代码块样式 */
@@ -136,7 +136,7 @@
     margin: 1.5rem 0;
     padding: 1rem;
     background-color: var(--code-bg);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     overflow-x: auto;
     font-family: 'Courier New', monospace;
     font-size: 0.9rem;
@@ -145,7 +145,7 @@
 .post-content code {
     background-color: var(--code-bg);
     padding: 0.2rem 0.4rem;
-    border-radius: 3px;
+    border-radius: var(--border-radius-md);
     font-family: 'Courier New', monospace;
     font-size: 0.9rem;
 }
@@ -179,7 +179,7 @@
     height: auto;
     display: block;
     margin: 1.5rem auto;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
 }
 
 /* 上标样式 */
@@ -280,8 +280,8 @@ sup {
     color: var(--accent-color);
     text-decoration: none;
     padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: var(--border-radius-md);
+    transition: var(--transition-default);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -302,9 +302,9 @@ sup {
     color: var(--accent-color);
     text-decoration: none;
     padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     border: 2px solid var(--accent-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: var(--transition-default);
     font-weight: bold;
 }
 
@@ -401,7 +401,7 @@ body.dark-theme .nav-links a {
 }
 
 body.dark-theme .nav-links a:hover {
-    background-color: var(--secondary-bg);
+    background-color: var(--dark-primary-hover-color);
     color: var(--accent-hover);
 }
 
@@ -410,5 +410,5 @@ body.dark-theme .back-to-list a {
 }
 
 body.dark-theme .back-to-list a:hover {
-    background-color: var(--accent-hover);
+    background-color: var(--dark-primary-hover-color);
 }

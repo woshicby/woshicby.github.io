@@ -9,7 +9,7 @@
     padding: var(--spacing-md);
     background-color: var(--light-accent);
     border-left: 4px solid var(--accent-color);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
 }
 
 .style-tip p:first-child {
@@ -42,7 +42,7 @@
     margin-top: var(--spacing-md);
     padding: var(--spacing-md);
     background-color: var(--code-bg-color, #f5f5f5);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
     font-family: 'Courier New', monospace;
     white-space: pre-wrap;
     font-size: 0.9rem;

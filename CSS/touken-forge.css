@@ -40,7 +40,7 @@
     width: 80%;
     padding: var(--spacing-sm);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
     text-align: center;
     background-color: var(--white);
 }
@@ -73,7 +73,7 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color var(--transition-speed);
+    transition: var(--transition-default);
 }
 
 .forge-button:hover {
@@ -94,7 +94,7 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color var(--transition-speed);
+    transition: var(--transition-default);
     margin-top: var(--spacing-sm);
 }
 
@@ -149,7 +149,7 @@
 
 .rarity {
     padding: 5px 10px;
-    border-radius: 15px;
+    border-radius: var(--border-radius-md);
     font-size: 14px;
     font-weight: bold;
     width: 150px;
@@ -204,7 +204,7 @@
     background-color: var(--primary-color);
     color: var(--white);
     padding: 3px 8px;
-    border-radius: 10px;
+    border-radius: var(--border-radius-md);
     font-size: 14px;
     font-weight: 600;
 }
@@ -231,12 +231,12 @@
 
 .collection-list::-webkit-scrollbar-track {
     background: var(--light-accent);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
 }
 
 .collection-list::-webkit-scrollbar-thumb {
     background: var(--border-color);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
 }
 
 .collection-list::-webkit-scrollbar-thumb:hover {
@@ -263,7 +263,7 @@
     height: auto;
     object-fit: cover;
     border: 2px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
     margin-bottom: var(--spacing-xs);
 }
 
@@ -292,9 +292,9 @@
     padding: var(--spacing-sm) 16px;
     background: var(--light-accent);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
     cursor: pointer;
-    transition: background var(--transition-speed);
+    transition: var(--transition-default);
     color: var(--text-color);
 }
 
@@ -339,7 +339,7 @@
     border-radius: var(--border-radius-md);
     font-size: 14px;
     cursor: pointer;
-    transition: background-color var(--transition-speed);
+    transition: var(--transition-default);
 }
 
 .resources-button:hover {
@@ -510,12 +510,12 @@
 
 .log-area::-webkit-scrollbar-track {
     background: var(--light-accent);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
 }
 
 .log-area::-webkit-scrollbar-thumb {
     background: var(--border-color);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
 }
 
 .log-area::-webkit-scrollbar-thumb:hover {
@@ -589,7 +589,7 @@ body.dark-theme .data-controls button {
 }
 
 body.dark-theme .data-controls button:hover {
-    background-color: var(--hover-bg-color);
+    background-color: var(--dark-primary-hover-color);
     border-color: var(--secondary-color);
 }
 
@@ -600,7 +600,7 @@ body.dark-theme .forge-button {
 }
 
 body.dark-theme .forge-button:hover {
-    background-color: var(--primary-color); /* 与日间模式保持一致的交互效果 */
+    background-color: var(--dark-primary-hover-color); /* 与日间模式保持一致的交互效果 */
 }
 
 body.dark-theme .skip-button {
@@ -609,7 +609,7 @@ body.dark-theme .skip-button {
 }
 
 body.dark-theme .skip-button:hover {
-    background-color: var(--primary-color); /* 与日间模式保持一致的交互效果 */
+    background-color: var(--dark-primary-hover-color); /* 与日间模式保持一致的交互效果 */
 }
 
 body.dark-theme .resources-button {
@@ -618,7 +618,7 @@ body.dark-theme .resources-button {
 }
 
 body.dark-theme .resources-button:hover {
-    background-color: var(--secondary-color); /* 与日间模式保持一致的交互效果 */
+    background-color: var(--dark-primary-hover-color); /* 与日间模式保持一致的交互效果 */
 }
 
 body.dark-theme .collection-count {

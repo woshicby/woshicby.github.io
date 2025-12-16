@@ -1,101 +1,160 @@
 <!DOCTYPE html>
 <html lang="zh-CN"> <!-- 将语言设置为中文 -->
-    <!-- ==========================================
+<!-- ==========================================
          页面头部 - 元数据和样式引入
          ==========================================
          包含页面编码、视口设置、标题和CSS样式表引入
          ========================================== -->
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>首页</title> <!-- 修改标题 -->
-        <link rel="stylesheet" href="./CSS/common.css">
-        <link rel="stylesheet" href="./CSS/index.css">
-        <!-- 添加 favicon -->
-        <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-        <!-- 引入导航功能脚本 -->
-        <script src="./JS/navigation.js"></script>
-        <!-- 引入主题切换脚本 -->
-        <script src="./JS/theme-toggle.js"></script>
-    </head>
-    <body>
-        <!-- ==========================================
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title> <!-- 修改标题 -->
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/index.css">
+    <!-- 添加 favicon -->
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <!-- 引入导航功能脚本 -->
+    <script src="./JS/navigation.js"></script>
+    <!-- 引入主题切换脚本 -->
+    <script src="./JS/theme-toggle.js"></script>
+</head>
+
+<body>
+    <!-- ==========================================
              页面头部 - 网站标题和导航
              ==========================================
              包含网站标志和主导航菜单
              ========================================== -->
-        <div class="header clearfix wrapper">
-            <!-- logo/大标题区域开始 -->
-            <h1>首页</h1>
-            <!-- logo/大标题区域结束 -->
-            <!-- 导航栏开始 -->
-            <div class="nav">
-                <ul class="clearfix">
-                    <li><a href="./index.html" class="active">首页</a></li>
-                    <li><a href="./video.html">视频展示</a></li>
-                    <li><a href="./posts.html">博客文章</a></li>
-                    <li><a href="./study.html">个人成果</a></li>
-                    <li><a href="./tools.html">小工具&小游戏</a></li>
-                    <li><a href="./sports.html">体育运动</a></li>
-                    <li style="display: inline-block; vertical-align: middle;">
-                        <label class="theme-toggle">
-                            <input type="checkbox" id="themeToggle">
-                            <span class="theme-toggle-slider"></span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-            <!-- 导航栏结束 -->
+    <div class="header clearfix wrapper">
+        <!-- logo/大标题区域开始 -->
+        <h1>首页</h1>
+        <!-- logo/大标题区域结束 -->
+        <!-- 导航栏开始 -->
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="./index.html" class="active">首页</a></li>
+                <li><a href="./video.html">视频展示</a></li>
+                <li><a href="./posts.html">博客文章</a></li>
+                <li><a href="./study.html">个人成果</a></li>
+                <li><a href="./tools.html">小工具&小游戏</a></li>
+                <li><a href="./sports.html">体育运动</a></li>
+                <li style="display: inline-block; vertical-align: middle;">
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
         </div>
-        <!-- 头部外套结束 -->
-        
-        <!-- 移动导航菜单切换按钮 -->
-        <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <!-- ==========================================
-             主体内容区域
-             ==========================================
-             网站主要内容展示区域
-             ========================================== -->
-        <div class="mainbox clearfix wrapper">
-            <!-- 首页简介 -->
-            <!-- 首页简介部分 - 欢迎信息 -->
-            <section class="profile-content">
-                <p>欢迎来到我的个人网站，这里是我分享技术学习、兴趣爱好和创作作品的空间。</p>
-                <p>请通过上方导航栏浏览各个板块内容。</p>
-            </section>
-            <!-- 主体内容区域 -->
-            <section class="profile-container">
+        <!-- 导航栏结束 -->
+    </div>
+    <!-- 头部外套结束 -->
+
+    <!-- 移动导航菜单切换按钮 -->
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- ==========================================             主体内容区域             ========================================== -->
+    <div class="mainbox clearfix wrapper">
+        <!-- 欢迎区域 -->
+        <section class="welcome-section">
+            <div class="welcome-content">
+                <h2 class="section-title">欢迎来到我的个人网站</h2>
+                <p>这里是我分享技术学习、兴趣爱好和创作作品的空间</p>
+                <div class="nav-cards"> <a href="./video.html" class="nav-card">
+                        <div class="nav-icon">🎬</div>
+                        <strong>视频展示</strong>
+                        <p>查看我的视频作品</p>
+                    </a> <a href="./posts.html" class="nav-card">
+                        <div class="nav-icon">📝</div>
+                        <strong>博客文章</strong>
+                        <p>阅读我的技术博客</p>
+                    </a> <a href="./study.html" class="nav-card">
+                        <div class="nav-icon">🏆</div>
+                        <strong>个人成果</strong>
+                        <p>了解我的学习成果</p>
+                    </a> <a href="./tools.html" class="nav-card">
+                        <div class="nav-icon">🔧</div>
+                        <strong>小工具&小游戏</strong>
+                        <p>尝试我的创意项目</p>
+                    </a> <a href="./sports.html" class="nav-card">
+                        <div class="nav-icon">🏃‍♂️</div>
+                        <strong>体育运动</strong>
+                        <p>查看我的赛事记录</p>
+                    </a> </div>
+            </div>
+        </section>
+        <!-- 个人简介区域 -->
+        <section class="profile-section">
+            <h2 class="section-title">关于我</h2>
+            <div class="profile-container">
                 <img src="./images/test_image.jpg" alt="个人照片" class="profile-photo">
                 <div class="profile-content">
-                    <p>你好！我是woshicby，一名来自哈尔滨工业大学的学生，也是，一名热爱编程和技术的开发者。</p>
+                    <p>你好！我是woshicby，一名来自哈尔滨工业大学的学生，也是一名热爱编程和技术的开发者。</p>
                     <p>现有海南大学网络空间安全硕士学位，正在攻读哈尔滨工业大学电子信息博士。</p>
                     <p>我熟悉Python、HTML、CSS、JavaScript，网页、游戏开发、机器人、无人机、板子啥的都玩一点。</p>
                     <p>除了编程相关，还略懂摄影、器乐和马拉松。这个网站是我学习和分享各种东西的平台。</p>
-                    <p>欢迎在<a href="https://github.com/woshicby/woshicby.github.io/issues/new" target="_blank" class="issue github" title="GitHub">本代码库提交issue</a>或通过下方的社交链接关注我或与我联系！</p>
+                    <p>欢迎在<a href="https://github.com/woshicby/woshicby.github.io/issues/new" target="_blank"
+                            class="issue github" title="GitHub">本代码库提交issue</a>或通过下方的社交链接关注我或与我联系！</p>
                     <!-- 社交链接区域 - 外部平台链接 -->
-                    <div class="social-links">
-                        <a href="https://github.com/woshicby" target="_blank" rel="noopener noreferrer">
-                            <img src="images/github-icon.svg" alt="GitHub" class="social-icon">GitHub
-                        </a>
-                        <a href="https://weibo.com/woshicby" target="_blank" rel="noopener noreferrer">
-                            <img src="images/weibo-icon.png" alt="微博" class="social-icon">微博
-                        </a>
-                        <a href="https://space.bilibili.com/10924343" target="_blank" rel="noopener noreferrer">
-                            <img src="images/bilibili-icon.png" alt="哔哩哔哩" class="social-icon">bilibili
-                        </a>
-                    </div>
+                    <div class="social-links"> <a href="https://github.com/woshicby" target="_blank"
+                            rel="noopener noreferrer" class="social-link"> <img src="images/github-icon.svg"
+                                alt="GitHub" class="social-icon">GitHub </a> <a href="https://weibo.com/woshicby"
+                            target="_blank" rel="noopener noreferrer" class="social-link"> <img
+                                src="images/weibo-icon.png" alt="微博" class="social-icon">微博 </a> <a
+                            href="https://space.bilibili.com/10924343" target="_blank" rel="noopener noreferrer"
+                            class="social-link"> <img src="images/bilibili-icon.png" alt="哔哩哔哩"
+                                class="social-icon">bilibili </a> </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
+        <!-- 技能展示区域 -->
+        <section class="skills-section">
+            <h2 class="section-title">我的技能</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">💻</div>
+                    <strong>前端开发</strong>
+                    <p>HTML, CSS, JavaScript</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🐍</div>
+                    <strong>后端开发</strong>
+                    <p>Python</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🤖</div>
+                    <strong>机器人技术</strong>
+                    <p>ROS, 嵌入式开发</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📸</div>
+                    <strong>摄影</strong>
+                    <p>风景摄影, 航拍摄影, 视频后期</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎵</div>
+                    <strong>音乐</strong>
+                    <p>竹笛演奏, 录音, 音频后期</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🏃</div>
+                    <strong>运动</strong>
+                    <p>马拉松, 越野跑, 自行车</p>
+                </div>
+            </div>
+        </section>
 
-        <div class="foot wrapper">
-            <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
-        </div>
-    </body>
+    </div>
+
+    <div class="foot wrapper">
+        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+    </div>
+</body>
+
 </html>

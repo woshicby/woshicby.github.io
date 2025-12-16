@@ -1,40 +1,88 @@
-/* ==========================================
-   页面组件 - 个人简介
-   ==========================================
-   实现个人资料展示区域的布局和样式
-   包含头像和个人信息的排列方式
-   ========================================== */
+/* ==========================================   页面组件 - 欢迎区域   ==========================================   实现欢迎页面的布局和样式   包含标题、副标题和引导按钮   ========================================== */
+.welcome-section {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-xxl);
+    margin-bottom: var(--spacing-xxl);
+    text-align: center;
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+    border: 2px solid transparent;
+}
+
+/* 欢迎区域标题继承.section-title样式 */
+
+.welcome-content p {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-lg);
+    opacity: 1;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.welcome-content .nav-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+}
+
+.btn-primary, .btn-secondary {
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--border-radius-md);
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition-default);
+    display: inline-block;
+    border: 2px solid var(--secondary-color);
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--secondary-color);
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+/* ==========================================   页面组件 - 个人简介   ==========================================   实现个人资料展示区域的布局和样式   包含头像和个人信息的排列方式   ========================================== */
 .profile-container {
     display: flex;
-    align-items: center;
-    gap: 30px;
-    margin-bottom: 30px;
+    align-items: flex-start;
+    gap: var(--spacing-xxl);
+    margin-bottom: var(--spacing-xxl);
 }
 
 .profile-photo {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    border-radius: var(--border-radius-md);
     object-fit: cover;
-    border: 5px solid #00a4ff;
-    box-shadow: 0 5px 15px rgba(0, 164, 255, 0.3);
-    transition: transform 0.5s ease, border-color 0.3s ease;
+    border: 4px solid var(--secondary-color);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+    flex-shrink: 0;
 }
 
 .profile-photo:hover {
-    transform: scale(1.05) rotate(3deg);
-    border-color: #0078d4;
+    transform: scale(1.05) translateY(-5px);
+    border-color: var(--secondary-color);
+    box-shadow: var(--shadow-medium);
 }
 
 .profile-content {
     flex: 1;
     line-height: 1.8;
-    font-size: 17px;
+    font-size: 1rem;
     color: var(--text-color);
+    padding: 0 var(--spacing-sm);
 }
 
 .profile-content p {
-    margin-bottom: 15px;
+    margin-bottom: var(--spacing-lg);
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -50,28 +98,142 @@
 div.botton_box{
     float: left;
     margin: var(--spacing-md);
-    border-radius: 15px;
+    border-radius: var(--border-radius-md);
     padding: calc(var(--spacing-md) + 5px);
     width: auto;
     background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(240,249,255,0.8));
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: var(--transition-default);
     border-left: 3px solid var(--secondary-color);
 }
 
-div.botton_box:hover{
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
-    transform: translateY(-5px) translateX(3px);
-    border-left-color: var(--primary-color);
+div.botton_box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--background-accent);
 }
 
 
 
 /* 社交图标 */
 .social-icon {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 5px;
+    margin-right: var(--spacing-xs);
+}
+
+.social-links {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    flex-wrap: wrap;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: var(--light-accent);
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    color: var(--text-color);
+    transition: var(--transition-default);
+    font-size: 1rem;
+    border: 2px solid transparent;
+}
+
+.social-link:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+}
+
+
+
+/* ==========================================   统一卡片样式   ========================================== */
+.card, .welcome-section, .skill-card, .nav-card {
+    background-color: var(--card-bg-color);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+    border: 2px solid transparent;
+}
+
+.card:hover, .welcome-section:hover, .skill-card:hover, .nav-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--background-accent);
+}
+
+/* ==========================================   页面组件 - 技能展示   ==========================================   实现技能卡片网格布局和样式   ========================================== */
+.skills-section {
+    margin-bottom: var(--spacing-xxl);
+}
+
+
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.skill-card {
+    text-align: center;
+}
+
+.skill-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.skill-card strong {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--heading-color);
+}
+
+.skill-card p {
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+/* ==========================================   页面组件 - 网站导航卡片   ==========================================   实现网站各个页面的导航卡片布局和样式   ========================================== */
+.site-nav-section {
+    margin-bottom: var(--spacing-xxl);
+}
+
+.nav-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.nav-card {
+    text-decoration: none;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.nav-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.nav-card strong {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--heading-color);
+}
+
+.nav-card p {
+    color: var(--light-text);
+    font-size: 0.9rem;
 }

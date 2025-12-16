@@ -45,7 +45,7 @@ body {
     height: 26px;
     background-color: rgba(255, 255, 255, 0.2); /* 半透明背景与导航栏更好融合 */
     transition: var(--transition-default);
-    border-radius: 34px;
+    border-radius: var(--border-radius-md);
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -59,7 +59,7 @@ body {
     bottom: 2px;
     background-color: white;
     transition: var(--transition-default);
-    border-radius: 50%;
+    border-radius: var(--border-radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -90,14 +90,18 @@ input:checked + .theme-toggle-slider:before {
    ========================================== */
 .card-container {
     background-color: var(--background-light);
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius-md);
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
     box-shadow: var(--shadow-light);
     transition: var(--transition-default);
+    border: 2px solid transparent;
 }
 .card-container:hover {
+    transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--background-accent);
 }
 
 /* ==========================================
@@ -110,7 +114,7 @@ input:checked + .theme-toggle-slider:before {
     display: inline-block;
     padding: 8px 16px;
     margin: var(--spacing-xs);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
     border: none;
     font-size: 14px;
     font-weight: 500;
@@ -227,7 +231,7 @@ strong {
     color: var(--nav-link-color);
     text-decoration: none;
     font-weight: var(--font-weight-medium);
-    transition: color 0.3s;
+    transition: var(--transition-default);
 }
 
 .nav a:hover {
@@ -239,13 +243,13 @@ strong {
     background-color: var(--secondary-color);
     color: white;
     padding: 0.5rem 1rem;
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
 }
 
 a {
     display: inline-block;
     color: var(--text-color);
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition: var(--transition-default);
 }
 
 a:hover {
@@ -264,7 +268,7 @@ div.mainbox{
     margin: 0 auto; /* 水平居中 */
     background-color: var(--background-light);
     box-shadow: var(--shadow-heavy);
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius-md);
     padding: var(--spacing-lg);
     box-sizing: border-box;
     transition: var(--transition-default);
@@ -277,12 +281,15 @@ section {
     background-color: var(--white);
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-light);
-    transition: all var(--transition-default);
+    transition: var(--transition-default);
+    border: 2px solid transparent;
 }
 
 section:hover {
+    transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
-    transform: translateY(-2px);
+    border-color: var(--secondary-color);
+    background-color: var(--background-accent);
 }
 
 /* 导航切换按钮样式 - 桌面端默认隐藏 */
@@ -296,7 +303,7 @@ section:hover {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
     cursor: pointer;
     z-index: 1100;
     flex-direction: column;
@@ -311,8 +318,8 @@ section:hover {
     width: 25px;
     height: 3px;
     background-color: white;
-    border-radius: 2px;
-    transition: transform 0.3s, opacity 0.3s;
+    border-radius: var(--border-radius-md);
+    transition: var(--transition-default);
 }
 
 /* 汉堡菜单激活状态 - 转换为X形状 */

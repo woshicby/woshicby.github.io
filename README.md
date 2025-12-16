@@ -149,21 +149,23 @@ woshicby.github.io/
 ## 更新记录
 
 - 2023.02.22: 项目初始化
-- 更新响应式导航系统
-- 修复CSS样式错误
-- 增强用户体验和交互功能
-- 添加样式比较器工具
-- 完善项目文档结构
-- 优化图片资源管理
-- 添加主题切换功能 (theme-toggle.js)
-- 添加跑步记录功能 (sports.html)，支持赛季最佳和个人最佳标记
-- 完赛证书采用多列瀑布流布局展示，提升视觉体验和空间利用率
-- 实现博客文章功能 (posts.html, post-detail.html)
-- 添加Markdown支持和数学公式渲染
-- 实现代码高亮功能
-- 重构CSS和JS目录结构，添加子目录管理
-- 更新HTML文件位置到根目录
-- 添加Markdown转换工具 (convert-md-to-json.html)
+- 2025.07.18: 添加样式比较器工具
+- 2025.07.19: 完善项目文档结构
+- 2025.07.19: 优化图片资源管理
+- 2025.07.20: 更新响应式导航系统
+- 2025.11.20: 添加主题切换功能 (theme-toggle.js)
+- 2025.11.21: 增强用户体验和交互功能
+- 2025.11.23: 重构CSS和JS目录结构，添加子目录管理
+- 2025.11.23: 更新HTML文件位置到根目录
+- 2025.11.27: 实现博客文章功能 (posts.html, post-detail.html)
+- 2025.11.27: 添加Markdown支持和数学公式渲染
+- 2025.11.27: 实现代码高亮功能
+- 2025.11.27: 添加Markdown转换工具 (convert-md-to-json.html)
+- 2025.12.14: 添加跑步记录功能 (sports.html)，支持赛季最佳和个人最佳标记
+- 2025.12.15: 完赛证书采用多列瀑布流布局展示，提升视觉体验和空间利用率
+- 2025.12.15: 调整个人简介区域的HTML和CSS布局，优化标题和内容排列
+- 2025.12.16: 修复夜间模式下nav-card和skill-card悬停效果的不一致问题
+- 2025.12.16: 统一了夜间模式悬停效果的视觉一致性
 
 ## 使用方法
 
@@ -320,21 +322,23 @@ woshicby.github.io/
 ## Update History
 
 - 2023.02.22: Project initialization
-- Updated responsive navigation system
-- Fixed CSS styling errors
-- Enhanced user experience and interactive features
-- Added style comparator tool
-- Improved project documentation structure
-- Optimized image resource management
-- Added theme switching functionality (theme-toggle.js)
-- Added running records feature (sports.html) with SB and PB markers
-- Implemented multi-column waterfall layout for finisher certificates, improving visual experience and space utilization
-- Implemented blog article functionality (posts.html, post-detail.html)
-- Added Markdown support and mathematical formula rendering
-- Implemented code highlighting functionality
-- Refactored CSS and JS directory structure with subdirectories
-- Updated HTML file locations to root directory
-- Added Markdown to JSON converter (convert-md-to-json.html)
+- 2025.07.18: Added style comparator tool
+- 2025.07.19: Improved project documentation structure
+- 2025.07.19: Optimized image resource management
+- 2025.07.20: Updated responsive navigation system
+- 2025.11.20: Added theme switching functionality (theme-toggle.js)
+- 2025.11.21: Enhanced user experience and interactive features
+- 2025.11.23: Refactored CSS and JS directory structure with subdirectories
+- 2025.11.23: Updated HTML file locations to root directory
+- 2025.11.27: Implemented blog article functionality (posts.html, post-detail.html)
+- 2025.11.27: Added Markdown support and mathematical formula rendering
+- 2025.11.27: Implemented code highlighting functionality
+- 2025.11.27: Added Markdown to JSON converter (convert-md-to-json.html)
+- 2025.12.14: Added running records feature (sports.html) with SB and PB markers
+- 2025.12.15: Implemented multi-column waterfall layout for finisher certificates, improving visual experience and space utilization
+- 2025.12.15: Adjusted HTML and CSS layout of "About Me" section, optimizing title and content arrangement
+- 2025.12.16: Fixed inconsistent hover effects between nav-card and skill-card in dark mode
+- 2025.12.16: Unified visual consistency of hover effects in dark mode
 
 ## Usage
 
@@ -491,21 +495,23 @@ woshicby.github.io/
 ## 更新履歴
 
 - 2023.02.22: プロジェクト初期化
-- レスポンシブナビゲーションシステムの更新
-- CSSスタイリングエラーの修正
-- ユーザーエクスペリエンスとインタラクティブ機能の強化
-- スタイル比較ツールの追加
-- プロジェクトドキュメント構造の改善
-- 画像リソース管理の最適化
-- テーマ切り替え機能の追加 (theme-toggle.js)
-- ランニング記録機能 (sports.html) の追加、SBとPBのマーカーをサポート
-- 完走証明書に多列のウォーターフォールレイアウトを実装、視覚体験とスペース利用率を向上
-- ブログ記事機能 (posts.html, post-detail.html) の実装
-- Markdownサポートと数式レンダリングの追加
-- コードハイライト機能の実装
-- CSSとJSのディレクトリ構造をリファクタリング、サブディレクトリ管理を追加
-- HTMLファイルの位置をルートディレクトリに更新
-- MarkdownからJSONへの変換ツール (convert-md-to-json.html) の追加
+- 2025.07.18: スタイル比較ツールの追加
+- 2025.07.19: プロジェクトドキュメント構造の改善
+- 2025.07.19: 画像リソース管理の最適化
+- 2025.07.20: レスポンシブナビゲーションシステムの更新
+- 2025.11.20: テーマ切り替え機能の追加 (theme-toggle.js)
+- 2025.11.21: ユーザーエクスペリエンスとインタラクティブ機能の強化
+- 2025.11.23: CSSとJSのディレクトリ構造をリファクタリング、サブディレクトリ管理を追加
+- 2025.11.23: HTMLファイルの位置をルートディレクトリに更新
+- 2025.11.27: ブログ記事機能 (posts.html, post-detail.html) の実装
+- 2025.11.27: Markdownサポートと数式レンダリングの追加
+- 2025.11.27: コードハイライト機能の実装
+- 2025.11.27: MarkdownからJSONへの変換ツールの追加 (convert-md-to-json.html)
+- 2025.12.14: ランニング記録機能 (sports.html) の追加、SBとPBのマーカーをサポート
+- 2025.12.15: 完走証明書に多列のウォーターフォールレイアウトを実装、視覚体験とスペース利用率を向上
+- 2025.12.15: 「About Me」セクションのHTMLとCSSレイアウトを調整、タイトルとコンテンツの配置を最適化
+- 2025.12.16: ダークモードでのnav-cardとskill-cardのホバー効果の不一致を修正
+- 2025.12.16: ダークモードでのホバー効果の視覚的一貫性を統一
 
 ## 使用方法
 

@@ -27,7 +27,7 @@ textarea {
     height: 300px;
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: var(--border-radius-md);
     font-family: monospace;
     resize: vertical;
 }
@@ -37,7 +37,7 @@ button {
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 4px;
+    border-radius: var(--border-radius-md);
     cursor: pointer;
     font-size: 16px;
     margin-right: 10px;
@@ -54,7 +54,7 @@ button:hover {
 pre {
     background-color: #f5f5f5;
     padding: 15px;
-    border-radius: 4px;
+    border-radius: var(--border-radius-md);
     overflow-x: auto;
 }
 
@@ -75,7 +75,7 @@ pre {
 .example {
     background-color: #e9ecef;
     padding: 10px;
-    border-radius: 4px;
+    border-radius: var(--border-radius-md);
     font-family: monospace;
     font-size: 14px;
     margin: 10px 0;
@@ -106,7 +106,7 @@ pre {
 /* 使用说明区域样式 */
 .tips {
     background-color: var(--secondary-bg);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     padding: 1.5rem;
     margin-bottom: 2rem;
     border: 1px solid var(--border-color);
@@ -132,7 +132,7 @@ pre {
 /* 示例格式样式 */
 .example {
     background-color: var(--code-bg);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     padding: 1rem;
     margin-top: 1rem;
     font-family: 'Courier New', monospace;
@@ -172,11 +172,11 @@ pre {
     font-family: 'Courier New', monospace;
     line-height: 1.6;
     border: 2px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     background-color: var(--bg-color);
     color: var(--primary-text);
     resize: vertical;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+    transition: var(--transition-default);
 }
 
 #markdown-input:focus {
@@ -205,9 +205,9 @@ pre {
     color: white;
     background-color: var(--accent-color);
     border: none;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+    transition: var(--transition-default);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -246,23 +246,18 @@ pre {
 /* 结果区域样式 */
 .result {
     background-color: var(--secondary-bg);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     padding: 1.5rem;
     margin-bottom: 2rem;
     border: 1px solid var(--border-color);
 }
 
-.result h3 {
-    color: var(--primary-text);
-    margin-top: 0;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-}
+
 
 /* JSON输出区域样式 */
 #json-output {
     background-color: var(--code-bg);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     padding: 1rem;
     min-height: 200px;
     max-height: 400px;
@@ -287,9 +282,9 @@ pre {
     color: var(--accent-color);
     text-decoration: none;
     padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-md);
     border: 2px solid var(--accent-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: var(--transition-default);
     font-weight: bold;
 }
 
@@ -368,8 +363,7 @@ body.dark-theme .convert-container {
 
 body.dark-theme .convert-container h1,
 body.dark-theme .tips h4,
-body.dark-theme .input-group label,
-body.dark-theme .result h3 {
+body.dark-theme .input-group label {
     color: var(--primary-text);
 }
 
@@ -409,7 +403,7 @@ body.dark-theme .button-group button {
 }
 
 body.dark-theme .button-group button:hover {
-    background-color: var(--accent-hover);
+    background-color: var(--dark-primary-hover-color);
 }
 
 body.dark-theme .button-group button:disabled {
@@ -423,7 +417,7 @@ body.dark-theme .file-input button {
 }
 
 body.dark-theme .file-input button:hover {
-    background-color: var(--hover-bg);
+    background-color: var(--dark-primary-hover-color);
     border-color: var(--accent-color);
 }
 
@@ -439,6 +433,6 @@ body.dark-theme .back-link a {
 }
 
 body.dark-theme .back-link a:hover {
-    background-color: var(--accent-color);
+    background-color: var(--dark-primary-hover-color);
     color: white;
 }

@@ -48,14 +48,16 @@
     margin-top: var(--spacing-md);
     margin-bottom: var(--spacing-md);
     box-shadow: var(--shadow-light);
-    transition: all var(--transition-default);
+    transition: var(--transition-default);
     border-left: 4px solid var(--primary-color);
+    border: 2px solid transparent;
 }
 
 .achievement-item:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
-    border-left-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    background-color: var(--background-accent);
 }
 
 .achievement-title {
@@ -75,7 +77,7 @@
 .achievement-meta span {
     background-color: var(--light-accent);
     padding: 4px 10px;
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
     font-size: 0.9rem;
     color: var(--text-color);
 }
