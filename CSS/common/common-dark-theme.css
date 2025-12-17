@@ -95,7 +95,11 @@ body.dark-theme .card-container {
     box-shadow: var(--dark-shadow-light);
 }
 
-body.dark-theme .card-container:hover {
+body.dark-theme .card-container:hover,
+body.dark-theme .personal-record-item:hover,
+body.dark-theme .posts-container:hover,
+body.dark-theme .post-item:hover,
+body.dark-theme .sidebar:hover {
     transform: translateY(-5px);
     box-shadow: var(--dark-shadow-medium);
     border-color: var(--secondary-color);

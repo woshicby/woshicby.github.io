@@ -28,7 +28,7 @@ body.posts-page {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--primary-hover-color);
+    background-color: var(--light-accent);
 }
 
 
@@ -55,7 +55,7 @@ body.posts-page {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--primary-hover-color);
+    background-color: var(--light-accent);
 }
 
 .posts-page .post-title {
@@ -129,7 +129,7 @@ body.posts-page {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--primary-hover-color);
+    background-color: var(--light-accent);
 }
 
 /* 侧边栏搜索框样式，使用特定ID确保只应用于此页面 */
