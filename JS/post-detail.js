@@ -30,7 +30,7 @@ class PostDetailManager {
 
     async loadPosts() {
         try {
-            const response = await fetch('../JSON/posts.json');
+            const response = await fetch('JSON/posts.json');
             if (response.ok) {
                 return await response.json();
             }

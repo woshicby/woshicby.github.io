@@ -362,11 +362,11 @@
         "season": "2025秋季",
         "certification": ["B"],
         "isTrail": false
-    }
+    },
     {
         "id": 27,
         "name": "2025莆田马拉松",
-        "date": "2025-10-26",
+        "date": "2025-12-28",
         "location": "福建省莆田市",
         "event": "半程马拉松",
         "result": "1:57:23",
@@ -374,7 +374,21 @@
         "pace": "",
         "stravaLink": "https://www.strava.com/activities/16859965387",
         "season": "2025秋季",
-        "certification": ["A"],
+        "certification": ["A1"],
+        "isTrail": false
+    },
+    {
+        "id": 28,
+        "name": "2025威海迎新跑",
+        "date": "2026-01-01",
+        "location": "山东省威海市至海港湾",
+        "event": "16km",
+        "result": "1:36:39",
+        "distance": "16公里",
+        "pace": "",
+        "stravaLink": "https://www.strava.com/activities/16899593888",
+        "season": "2025秋季",
+        "certification": [],
         "isTrail": false
     }
 ]
