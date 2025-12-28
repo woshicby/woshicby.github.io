@@ -1,19 +1,29 @@
 [
-    {
-        id: 1,
-        title: "Markdown功能完整示例",
-        date: "2024-06-30",
-        content: "# Markdown功能完整示例\n\n## 1. 文本格式\n\n### 1.1 基础格式\n\n**粗体文本** 和 *斜体文本*，以及 ***粗斜体文本***。\n\n~~删除线文本~~ 和 <u>下划线文本</u>（HTML语法）。\n\n`行内代码块` 用于展示代码片段。\n\n### 1.2 特殊强调\n\n> 这是一个引用块，用于引用他人的言论或重要内容。\n\n> 嵌套引用示例：\n>> 这是嵌套的引用内容\n>>> 多层嵌套也是可以的\n\n## 2. 列表\n\n### 2.1 无序列表\n\n- 无序列表项1\n- 无序列表项2\n  - 嵌套无序列表项2.1\n  - 嵌套无序列表项2.2\n    - 深层嵌套列表项\n- 无序列表项3\n\n### 2.2 有序列表\n\n1. 有序列表项1\n2. 有序列表项2\n   1. 嵌套有序列表项2.1\n   2. 嵌套有序列表项2.2\n3. 有序列表项3\n\n### 2.3 任务列表\n\n- [x] 已完成任务\n- [ ] 未完成任务\n- [ ] 另一个未完成任务\n  - [x] 子任务已完成\n  - [ ] 子任务未完成\n\n## 3. 链接与图片\n\n### 3.1 链接\n\n[Markdown官方文档](https://daringfireball.net/projects/markdown/)\n\n[带标题的链接](https://example.com \"示例网站\")\n\n<https://example.com> 直接URL链接\n\n### 3.2 图片\n\n![示例图片描述](https://via.placeholder.com/150)\n\n![带标题的图片](https://via.placeholder.com/150 \"示例图片标题\")\n\n## 4. 代码\n\n### 4.1 行内代码\n\n使用 `console.log(\"Hello World\")` 输出信息。\n\n### 4.2 代码块\n\n```javascript\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\n// 调用函数\nconsole.log(greet(\"World\"));\n```\n\n```python\n# Python示例代码\ndef factorial(n):\n    if n <= 1:\n        return 1\n    else:\n        return n * factorial(n-1)\n\nprint(factorial(5))\n```\n\n```html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>示例HTML</title>\n</head>\n<body>\n    <h1>Hello World</h1>\n</body>\n</html>\n```\n\n## 5. 表格\n\n| 名称 | 类型 | 说明 |\n| --- | --- | --- |\n| id | 数字 | 唯一标识符 |\n| title | 文本 | 标题内容 |\n| status | 文本 | 状态信息 |\n\n### 5.1 对齐方式\n\n| 左对齐 | 居中对齐 | 右对齐 |\n| :--- | :---: | ---: |\n| 内容1 | 内容2 | 内容3 |\n| 较长内容 | 中等长度 | 简短 |\n\n## 6. 分隔线\n\n---\n\n***\n\n___\n\n## 7. 脚注\n\n这是一个带有脚注的文本[^1]。\n\n这是另一个脚注[^note]。\n\n[^1]: 这是第一个脚注的内容。\n\n[^note]: 这是第二个脚注的内容，可以包含更多详细信息。\n\n## 8. 特殊字符转义\n\n\\* 这不是斜体文本 \\\n\\` 这不是行内代码 \\\n\\# 这不是标题 \\\n\\[\\]\\(\\) 这不是链接语法\n\n## 9. 自动链接\n\n<https://example.com>\n\n<example@example.com>\n\n## 10. 文本高亮\n\n==高亮文本== (GitHub风格扩展)\n\n## 11. 数学公式\n\n行内公式：$E = mc^2$\n\n块级公式：\n\n$$\n\\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}\n$$\n\n## 12. 定义列表\n\n术语1\n: 这是术语1的定义\n: 这是术语1的另一个定义\n\n术语2\n: 这是术语2的定义\n\n## 13. HTML混合使用\n\n### 13.1 基本HTML标签\n\n<div style=\"color: blue;\">使用HTML标签设置蓝色文本</div>\n\n### 13.2 复杂HTML结构\n\n<table border=\"1\">\n  <tr>\n    <th>表头1</th>\n    <th>表头2</th>\n  </tr>\n  <tr>\n    <td>单元格1</td>\n    <td>单元格2</td>\n  </tr>\n</table>\n\n## 14. 目录\n\n[TOC]\n\n## 15. 上标与下标\n\nH~2~O 表示水分子\n\nX^2^ 表示X的平方\n\n---\n\n这个示例文件包含了几乎所有常用的Markdown语法元素，包括一些扩展功能。可以用它来全面测试Markdown到JSON的转换工具。",
-        excerpt: "这是一个包含所有常见Markdown功能的示例文件，用于测试转换工具。",
-        categories: ["技术", "教程"],
-        tags: ["Markdown", "示例", "格式"]
-    },
-    {
-        id: 2,
-        title: '现在使用的是示例内容',
-        date: '2024-01-15',
-        excerpt: '这是第二篇示例博文的摘要内容。',
-        categories: ['随笔'],
-        tags: ['生活', '感悟']
-    }
+  {
+    "title": "2025莆田马拉松赛记（还没写）",
+    "date": "2025-12-28",
+    "content": "123",
+    "excerpt": "123",
+    "categories": [],
+    "tags": [],
+    "id": 1
+  },
+  {
+    "title": "未命名博文",
+    "date": "2025-12-28",
+    "content": "56151",
+    "excerpt": "56151",
+    "categories": [],
+    "tags": [],
+    "id": 2
+  },
+  {
+    "title": "测试测试测试",
+    "date": "2025-12-28",
+    "content": "# Markdown 格式测试文档\n\n这是一个测试各种 Markdown 格式的文档，用于验证渲染器对不同语法的支持情况。\n\n## 1. 标题级别\n\n# H1 标题\n## H2 标题\n### H3 标题\n#### H4 标题\n##### H5 标题\n###### H6 标题\n\n## 2. 文本样式\n\n**粗体文本**  \n*斜体文本*  \n***粗斜体文本***  \n~~删除线文本~~  \n<u>下划线文本</u>  \n上标：E = mc^2^  \n下标：H~2~O  \n\n高亮文本：==这是高亮文本==\n\n## 3. 列表\n\n### 无序列表\n- 项目一\n- 项目二\n  - 嵌套项目一\n  - 嵌套项目二\n- 项目三\n\n### 有序列表\n1. 第一步\n2. 第二步\n   1. 子步骤一\n   2. 子步骤二\n3. 第三步\n\n### 任务列表\n- [x] 已完成任务\n- [ ] 待完成任务\n- [ ] 另一个待完成任务\n\n## 4. 链接与图片\n\n[普通链接](https://www.example.com)  \n[带标题的链接](https://www.example.com \"示例网站\")  \n<https://自动链接.com>  \n<email@example.com>\n\n![图片替代文本](https://via.placeholder.com/150x100 \"图片标题\")\n\n## 5. 代码\n\n### 行内代码\n使用 `print(\"Hello, World!\")` 函数打印消息。\n\n### 代码块（无指定语言）\n```\n这是一个普通代码块\n可以包含多行代码\n第三行代码\n```\n\n### Python 代码\n```python\ndef fibonacci(n):\n    \"\"\"计算斐波那契数列\"\"\"\n    if n <= 1:\n        return n\n    else:\n        return fibonacci(n-1) + fibonacci(n-2)\n\n# 测试函数\nfor i in range(10):\n    print(f\"fibonacci({i}) = {fibonacci(i)}\")\n```\n\n### JavaScript 代码\n```javascript\n// 异步函数示例\nasync function fetchData(url) {\n    try {\n        const response = await fetch(url);\n        const data = await response.json();\n        return data;\n    } catch (error) {\n        console.error('Error fetching data:', error);\n        throw error;\n    }\n}\n\n// 箭头函数\nconst multiply = (a, b) => a * b;\n```\n\n### HTML 代码\n```html\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>示例页面</title>\n    <style>\n        .container {\n            max-width: 800px;\n            margin: 0 auto;\n        }\n    </style>\n</head>\n<body>\n    <div class=\"container\">\n        <h1>欢迎</h1>\n        <p>这是一个示例段落。</p>\n    </div>\n</body>\n</html>\n```\n\n### CSS 代码\n```css\n/* CSS 示例 */\nbody {\n    font-family: 'Arial', sans-serif;\n    line-height: 1.6;\n    color: #333;\n    background-color: #f4f4f4;\n}\n\n.container {\n    max-width: 1200px;\n    margin: 0 auto;\n    padding: 20px;\n}\n\n.button {\n    display: inline-block;\n    padding: 10px 20px;\n    background-color: #007bff;\n    color: white;\n    border-radius: 5px;\n    text-decoration: none;\n}\n```\n\n## 6. 表格\n\n### 基本表格\n| 姓名 | 年龄 | 城市 |\n|------|------|------|\n| 张三 | 25   | 北京 |\n| 李四 | 30   | 上海 |\n| 王五 | 28   | 广州 |\n\n### 对齐表格\n| 左对齐 | 居中对齐 | 右对齐 |\n|:-------|:--------:|-------:|\n| 单元格1 | 单元格2  | 单元格3 |\n| 较长的左对齐单元格 | 居中 | 123.45 |\n\n### 复杂表格\n| 项目 | 描述 | 价格 |\n|------|------|------|\n| Markdown指南 | 完整Markdown语法指南 | $29.99 |\n| 高级技巧 | 包含扩展语法和技巧 | $49.99 |\n| **总计** | **两本书** | **$79.98** |\n\n## 7. 引用\n\n> 这是一个单行引用。\n\n> 这是一个多行引用。\n> 这是第二行。\n> 这是第三行。\n\n> ### 引用中的标题\n> 这是一个包含其他Markdown元素的引用：\n> 1. 列表项一\n> 2. 列表项二\n> \n> `代码` 和 **粗体文本**\n\n## 8. 数学公式\n\n### 行内公式\n这是行内公式：$E = mc^2$ 和 $a^2 + b^2 = c^2$。\n\n### 块级公式\n$$\n\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}\n$$\n\n$$\n\\frac{d}{dx} \\left( \\int_{a}^{x} f(t) dt \\right) = f(x)\n$$\n\n### 矩阵公式\n$$\n\\begin{bmatrix}\n1 & 2 & 3 \\\\\n4 & 5 & 6 \\\\\n7 & 8 & 9\n\\end{bmatrix}\n\\times\n\\begin{bmatrix}\na \\\\\nb \\\\\nc\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n1a + 2b + 3c \\\\\n4a + 5b + 6c \\\\\n7a + 8b + 9c\n\\end{bmatrix}\n$$\n\n### 方程组\n$$\n\\begin{cases}\nx + 2y - z = 5 \\\\\n2x - y + 3z = 7 \\\\\n3x + y - 2z = 1\n\\end{cases}\n$$\n\n## 9. 分割线\n\n---\n\n***\n\n___\n\n## 10. 脚注\n\n这是一个带有脚注的句子[^1]。这是另一个脚注[^2]。\n\n[^1]: 这是第一个脚注的内容。它可以包含多行文本和其他Markdown元素，比如**粗体**和`代码`。\n[^2]: 这是第二个脚注的内容。\n\n## 11. 定义列表\n\n术语一\n: 这是术语一的定义。\n\n术语二\n: 这是术语二的定义。\n: 这是术语二的第二个定义。\n\n## 12. 缩进和换行\n\n这是第一行，  \n这是第二行（使用两个空格加换行）。\n\n这是第一段落。\n\n    这是缩进文本（使用四个空格或一个制表符）。\n    可以用于引用代码或特殊文本。\n\n## 13. 转义字符\n\n以下是一些需要转义的字符：  \n\\* 星号  \n\\_ 下划线  \n\\# 井号  \n\\[ 左方括号  \n\\] 右方括号  \n\\( 左括号  \n\\) 右括号  \n\n## 14. HTML 混合使用\n\n<p style=\"color: blue; background-color: #f0f0f0; padding: 10px;\">\n这是一个使用HTML样式的段落，有些Markdown渲染器支持内联HTML。\n</p>\n\n<details>\n<summary>点击展开详情</summary>\n<p>这是被折叠的内容，可以使用HTML的details标签实现。</p>\n<ul>\n<li>项目一</li>\n<li>项目二</li>\n</ul>\n</details>\n\n## 15. 特殊功能（部分渲染器支持）\n\n### 上标和下标\nH~2~O 和 E = mc^2^\n\n### 标记\n这是 ==标记文本==。\n\n### 表情符号\n:smile: :rocket: :thumbsup:\n\n### 目录（部分渲染器自动生成）\n[TOC]\n\n## 16. 总结\n\n这个文档测试了多种Markdown格式，包括：\n\n1. 基本文本格式\n2. 列表和任务列表\n3. 链接和图片\n4. 代码块和语法高亮\n5. 表格\n6. 引用\n7. 数学公式\n8. 特殊元素\n\n不同的Markdown渲染器可能对这些功能的支持程度不同，特别是数学公式、定义列表和一些扩展语法。",
+    "excerpt": "Markdown 格式测试文档\n\n这是一个测试各种 Markdown 格式的文档，用于验证渲染器对不同语法的支持情况。\n\n1. 标题级别\n\nH1 标题\nH2 标题\nH3 标题\nH4 标题\nH5 标题\nH6 标题\n\n2. 文本样式\n\n粗体文本  \n斜体文本  \n粗斜体文本  \n~~删除线文本~~  \n<u>下划线文本</u>  \n上标：E = mc^2^  \n下标：H~2~O  \n\n高亮文本：==这...",
+    "categories": [],
+    "tags": [],
+    "id": 3
+  }
 ]
