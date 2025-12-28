@@ -659,7 +659,7 @@ function generateRaceRecords() {
 // 页面加载时从外部JSON文件加载数据并生成比赛记录
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await fetch('../JSON/race-records.json');
+        const response = await fetch('./JSON/race-records.json');
         if (!response.ok) {
             throw new Error(`HTTP错误! 状态码: ${response.status}`);
         }
