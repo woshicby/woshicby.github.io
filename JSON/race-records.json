@@ -376,5 +376,19 @@
         "season": "2025秋季",
         "certification": ["A1"],
         "isTrail": false
+    },
+    {
+        "id": 28,
+        "name": "2025威海迎新跑",
+        "date": "2026-01-01",
+        "location": "山东省威海市至海港湾",
+        "event": "16km",
+        "result": "1:36:39",
+        "distance": "16公里",
+        "pace": "",
+        "stravaLink": "https://www.strava.com/activities/16899593888",
+        "season": "2025秋季",
+        "certification": [],
+        "isTrail": false
     }
 ]
