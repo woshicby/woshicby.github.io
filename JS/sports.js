@@ -1,371 +1,160 @@
 // 运动比赛记录数据 - 从外部文件加载
 let raceRecords = [];
 
+// 将raceRecords暴露为全局变量，供其他脚本使用
+window.raceRecords = raceRecords;
+
 // 模拟比赛记录数据，用于在无法加载外部JSON文件时使用
 const mockRaceRecords = [
     {
         "id": 1,
-        "name": "2023年海南城市夜跑",
+        "name": "[示例] 2023年海南城市夜跑",
         "date": "2023-08-18",
         "location": "海南省海口市龙华区世纪公园(渡海路西)",
         "event": "5km",
         "result": "25:37",
         "distance": "5公里",
-        "pace": "",
-        "stravaLink": "",
+        "pace": "5'07\"/公里",
+        "stravaLink": "https://www.strava.com/activities/example1",
         "season": "2023秋季",
         "certification": [],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "海南城市夜跑"
     },
     {
         "id": 2,
-        "name": "2023海南儋州马拉松",
+        "name": "[示例] 2023海南儋州马拉松",
         "date": "2023-12-17",
         "location": "海南省儋州市那大镇",
         "event": "半程马拉松",
         "result": "1:50:40",
         "distance": "21.0975公里",
-        "pace": "",
-        "stravaLink": "",
+        "pace": "5'14\"/公里",
+        "stravaLink": "https://www.strava.com/activities/example2",
         "season": "2023秋季",
         "certification": ["A1","国际标牌"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "海南儋州马拉松"
     },
     {
         "id": 3,
-        "name": "2024茂名马拉松",
-        "date": "2024-03-24",
-        "location": "广东省茂名市中国第一滩",
-        "event": "半程马拉松",
-        "result": "1:47:22",
-        "distance": "21.0975公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024春季",
-        "certification": ["A1"],
-        "isTrail": false
-    },
-    {
-        "id": 4,
-        "name": "2024陵水半程马拉松",
-        "date": "2024-03-31",
-        "location": "海南省陵水黎族自治县英州镇清水湾",
-        "event": "半程马拉松",
-        "result": "2:13:58",
-        "distance": "21.0975公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024春季",
-        "certification": ["A1"],
-        "isTrail": false
-    },
-    {
-        "id": 5,
-        "name": "2024年海南大学第二届荧光夜跑",
-        "date": "2024-04-20",
-        "location": "海南大学海甸校区第一田径场",
-        "event": "3.4km",
-        "result": "24:19",
-        "distance": "3.4公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024春季",
-        "certification": [],
-        "isTrail": true
-    },
-    {
-        "id": 6,
-        "name": "2024海南（海口）万人健步大会",
-        "date": "2024-04-27",
-        "location": "海南省海口市白沙门公园阳光草坪",
-        "event": "8.8km",
-        "result": "51:06",
-        "distance": "8.8公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024春季",
-        "certification": [],
-        "isTrail": true
-    },
-    {
-        "id": 7,
-        "name": "2024海口湾路跑段位赛(5K)",
-        "date": "2024-05-01",
-        "location": "海南省海口市海口湾",
-        "event": "5km",
-        "result": "22:23",
-        "distance": "5公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024春季",
-        "certification": [],
-        "isTrail": false
-    },
-    {
-        "id": 8,
-        "name": "2024海南定安幸福跑",
-        "date": "2024-05-12",
-        "location": "海南省定安县",
-        "event": "10km",
-        "result": "49:45",
-        "distance": "10公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024春季",
-        "certification": [],
-        "isTrail": false
-    },
-    {
-        "id": 9,
-        "name": "2024高校百英里资格赛（海南大学）-5月",
+        "name": "[示例] 2024高校百英里资格赛",
         "date": "2024-05-18",
         "location": "海南大学海甸校区第二田径场",
         "event": "3000m",
         "result": "12:41",
         "distance": "3公里",
-        "pace": "",
-        "stravaLink": "",
+        "pace": "4'14\"/公里",
+        "stravaLink": "https://www.strava.com/activities/example3",
         "season": "2024春季",
         "certification": [],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "高校百英里资格赛"
     },
     {
-        "id": 10,
-        "name": "2024高校百英里资格赛（海南大学）-6月",
-        "date": "2024-06-10",
-        "location": "海南大学海甸校区第二田径场",
-        "event": "3000m",
-        "result": "12:46",
-        "distance": "3公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024春季",
-        "certification": [],
-        "isTrail": false
-    },
-    {
-        "id": 11,
-        "name": "2024夜跑莆田木兰溪马拉松接力赛",
-        "date": "2024-08-03",
-        "location": "福建省莆田市体育中心",
-        "event": "5200m",
-        "result": "24:31",
-        "distance": "5.20公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024春季",
-        "certification": [],
-        "isTrail": true
-    },
-    {
-        "id": 12,
-        "name": "南国食品·2024年（第二届）全民健康跑（10km段位赛）",
-        "date": "2024-10-07",
-        "location": "海南省海口市龙华区海口湾1号西北(观海路南)FUNBAY自在湾",
-        "event": "10km",
-        "result": "47:27",
-        "distance": "10公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024秋季",
-        "certification": [],
-        "isTrail": false
-    },
-    {
-        "id": 13,
-        "name": "2024澄迈半程马拉松",
-        "date": "2024-11-17",
-        "location": "海南省澄迈县",
-        "event": "半程马拉松",
-        "result": "1:41:51",
-        "distance": "21.0975公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024秋季",
-        "certification": ["A1"],
-        "isTrail": false
-    },
-    {
-        "id": 14,
-        "name": "2024海南儋州马拉松",
-        "date": "2024-12-15",
-        "location": "海南省儋州市那大镇",
-        "event": "半程马拉松",
-        "result": "1:40:53",
-        "distance": "21.0975公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024秋季",
-        "certification": ["A1","国际标牌"],
-        "isTrail": false
-    },
-    {
-        "id": 15,
-        "name": "2024莆田木兰溪马拉松",
-        "date": "2024-12-29",
-        "location": "福建省莆田市",
-        "event": "半程马拉松",
-        "result": "1:51:24",
-        "distance": "21.0975公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2024秋季",
-        "certification": ["A1"],
-        "isTrail": false
-    },
-    {
-        "id": 16,
-        "name": "2025万宁马拉松",
-        "date": "2025-03-02",
-        "location": "海南省万宁市",
-        "event": "半程马拉松",
-        "result": "2:13:07",
-        "distance": "21.0975公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2025春季",
-        "certification": ["C"],
-        "isTrail": false
-    },
-    {
-        "id": 17,
-        "name": "2025陵水半程马拉松",
-        "date": "2025-03-09",
-        "location": "海南省陵水黎族自治县",
-        "event": "半程马拉松",
-        "result": "1:48:48",
-        "distance": "21.0975公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2025春季",
-        "certification": ["C"],
-        "isTrail": false
-    },
-    {
-        "id": 18,
-        "name": "2025年海南大学第三届荧光夜跑",
-        "date": "2025-04-19",
+        "id": 4,
+        "name": "[示例] 2024海南大学荧光夜跑",
+        "date": "2024-04-20",
         "location": "海南大学海甸校区第一田径场",
         "event": "3.4km",
-        "result": "23:19",
-        "distance": "3.40公里",
-        "pace": "",
+        "result": "24:19",
+        "distance": "3.4公里",
+        "pace": "7'08\"/公里",
         "stravaLink": "",
-        "season": "2025春季",
+        "season": "2024春季",
         "certification": [],
-        "isTrail": true
+        "category": "越野跑",
+        "eventSeries": "海南大学荧光夜跑"
     },
     {
-        "id": 19,
-        "name": "2025海南定安幸福跑",
-        "date": "2025-05-11",
-        "location": "海南省定安县",
-        "event": "10km",
-        "result": "50:48",
-        "distance": "10公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2025春季",
-        "certification": [],
-        "isTrail": false
-    },
-    {
-        "id": 20,
-        "name": "2025中国(海南)热带雨林健步走公开赛(10k)",
-        "date": "2025-06-01",
-        "location": "海南省五指山市",
-        "event": "10km",
-        "result": "1:06:14",
-        "distance": "10公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2025春季",
-        "certification": ["C"],
-        "isTrail": false
-    },
-    {
-        "id": 21,
-        "name": "2025莱州（石都）半程马拉松",
-        "date": "2025-09-14",
-        "location": "山东省烟台市莱州市市民之家",
-        "event": "半程马拉松",
-        "result": "1:58:28",
-        "distance": "21.0975公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2025秋季",
-        "certification": ["C"],
-        "isTrail": false
-    },
-    {
-        "id": 22,
-        "name": "2025昆嵛50越野挑战赛",
+        "id": 5,
+        "name": "[示例] 2025昆嵛50越野挑战赛",
         "date": "2025-09-21",
         "location": "山东省威海市文登区昆嵛山",
         "event": "问水·25km",
         "result": "4:56:02",
         "distance": "28公里",
-        "pace": "",
-        "stravaLink": "",
+        "pace": "10'34\"/公里",
+        "stravaLink": "https://www.strava.com/activities/example4",
         "season": "2025秋季",
         "certification": ["ITRA 1分"],
-        "isTrail": true
+        "category": "越野跑",
+        "eventSeries": "昆嵛50越野挑战赛"
     },
     {
-        "id": 23,
-        "name": "2025烟台山星空越野赛",
-        "date": "2025-10-05",
-        "location": "山东省烟台市芝罘区滨海广场",
-        "event": "22km",
-        "result": "3:09:59",
-        "distance": "22公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2025秋季",
-        "certification": ["ITRA 1分"],
-        "isTrail": true
-    },
-    {
-        "id": 24,
-        "name": "2025栖霞环湖赛",
-        "date": "2025-10-12",
-        "location": "山东省烟台市栖霞龙腾广场",
-        "event": "20.25km",
-        "result": "1:27:30",
-        "distance": "16.68公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2025秋季",
-        "certification": ["C"],
-        "isTrail": true
-    },
-    {
-        "id": 25,
-        "name": "2025黄河口（东营）马拉松",
+        "id": 6,
+        "name": "[示例] 2025黄河口（东营）马拉松",
         "date": "2025-10-19",
         "location": "山东省东营市新世纪广场",
         "event": "半程马拉松",
         "result": "1:44:17",
         "distance": "21.0975公里",
-        "pace": "",
-        "stravaLink": "",
+        "pace": "4'58\"/公里",
+        "stravaLink": "https://www.strava.com/activities/example5",
         "season": "2025秋季",
         "certification": ["A1","国际金标"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "黄河口马拉松"
     },
     {
-        "id": 26,
-        "name": "2025日照马拉松",
+        "id": 7,
+        "name": "[示例] 2025日照马拉松",
         "date": "2025-10-26",
         "location": "山东省日照市人民广场",
         "event": "半程马拉松",
         "result": "1:49:43",
         "distance": "21.0975公里",
-        "pace": "",
+        "pace": "5'13\"/公里",
         "stravaLink": "",
         "season": "2025秋季",
-        "certification": ["A1"],
-        "isTrail": false
+        "certification": ["B"],
+        "category": "路跑",
+        "eventSeries": "日照马拉松"
+    },
+    {
+        "id": 8,
+        "name": "[示例] 2026年城市迷你跑",
+        "date": new Date().toISOString().split('T')[0],
+        "location": "市中心人民广场",
+        "event": "3km",
+        "result": "",
+        "distance": "3公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2026春季",
+        "certification": [],
+        "category": "路跑",
+        "eventSeries": "城市迷你跑"
+    },
+    {
+        "id": 9,
+        "name": "[示例] 2026海南儋州马拉松",
+        "date": "2026-05-15",
+        "location": "海南省儋州市那大镇",
+        "event": "半程马拉松",
+        "result": "",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2026春季",
+        "certification": ["A1","国际标牌"],
+        "category": "路跑",
+        "eventSeries": "海南儋州马拉松"
+    },
+    {
+        "id": 10,
+        "name": "[示例] 2026昆明国际越野挑战赛",
+        "date": "2026-08-25",
+        "location": "云南省昆明市",
+        "event": "50km",
+        "result": "",
+        "distance": "50公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2026夏季",
+        "certification": ["ITRA 3分"],
+        "category": "越野跑",
+        "eventSeries": "昆明国际越野挑战赛"
     }
 ];
 
@@ -436,8 +225,8 @@ function groupRacesBySeasonAndEvent(races) {
 
 // 找出每个项目的个人最佳(PB) - 排除越野赛
 function findPersonalBests(races) {
-    // 过滤掉越野赛
-    const nonTrailRaces = races.filter(race => !race.isTrail);
+    // 过滤掉越野赛和没有结果的赛事
+    const nonTrailRaces = races.filter(race => race.category !== "越野跑" && race.result && race.result !== '');
     
     const racesByEvent = groupRacesByEvent(nonTrailRaces);
     const pbs = {};
@@ -457,8 +246,8 @@ function findPersonalBests(races) {
 
 // 找出每个赛季每个项目的赛季最佳(SB) - 排除越野赛
 function findSeasonBests(races) {
-    // 过滤掉越野赛
-    const nonTrailRaces = races.filter(race => !race.isTrail);
+    // 过滤掉越野赛和没有结果的赛事
+    const nonTrailRaces = races.filter(race => race.category !== "越野跑" && race.result && race.result !== '');
     
     const racesBySeasonEvent = groupRacesBySeasonAndEvent(nonTrailRaces);
     const sbs = {};
@@ -504,9 +293,23 @@ function generatePersonalRecords(races) {
     // 清空容器内容
     prContent.innerHTML = '';
     
-    // 为每个项目的PB生成HTML
-    Object.keys(pbs).forEach(event => {
+    // 将事件转换为数组，并添加距离信息
+    const eventsWithDistance = Object.keys(pbs).map(event => {
         const raceId = pbs[event];
+        const race = raceMap[raceId];
+        return {
+            event: event,
+            raceId: raceId,
+            distanceKm: race ? extractDistanceInKm(race.distance) : 0
+        };
+    });
+    
+    // 按距离从小到大排序
+    eventsWithDistance.sort((a, b) => a.distanceKm - b.distanceKm);
+    
+    // 为每个项目的PB生成HTML（按距离排序后）
+    eventsWithDistance.forEach(item => {
+        const raceId = item.raceId;
         const race = raceMap[raceId];
         
         if (race) {
@@ -515,7 +318,7 @@ function generatePersonalRecords(races) {
             
             prItem.innerHTML = `
                 <div class="pr-info">
-                    <h3>${event}</h3>
+                    <h3>${item.event}</h3>
                     <span class="pr-race-name">${race.name}</span>
                     <span class="pr-date">${race.date}</span>
                 </div>
@@ -547,11 +350,14 @@ function generateRaceRecords() {
     const pbs = findPersonalBests(raceRecords);
     const sbs = findSeasonBests(raceRecords);
     
+    // 过滤掉没有结果的赛事
+    const racesWithResults = raceRecords.filter(race => race.result && race.result !== '');
+    
     // 生成个人记录内容
-    generatePersonalRecords(raceRecords);
+    generatePersonalRecords(racesWithResults);
     
     // 按赛季分组比赛记录
-    const racesBySeason = groupRacesBySeason(raceRecords);
+    const racesBySeason = groupRacesBySeason(racesWithResults);
     
     // 遍历每个赛季，生成HTML
     Object.keys(racesBySeason).forEach(season => {
@@ -672,18 +478,35 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
         
+        // 更新全局变量
+        window.raceRecords = raceRecords;
+        
         console.log('已从JSON文件加载比赛记录数据:', raceRecords.length, '条记录');
         generateRaceRecords();
         // 加载并处理完赛证书数据
         loadCertificatesData();
+        // 初始化项目成绩对比功能
+        initProjectComparison(raceRecords);
+        // 初始化同一赛事成绩变化对比功能
+        initEventSeriesComparison(raceRecords);
+        // 初始化赛事日历功能
+        initCalendar();
     } catch (error) {
         console.error('加载比赛记录数据失败，使用模拟数据:', error);
         // 使用模拟数据
         raceRecords = mockRaceRecords;
+        // 更新全局变量
+        window.raceRecords = raceRecords;
         console.log('已使用模拟数据:', raceRecords.length, '条记录');
         generateRaceRecords();
         // 加载并处理完赛证书数据
         loadCertificatesData();
+        // 初始化项目成绩对比功能
+        initProjectComparison(raceRecords);
+        // 初始化同一赛事成绩变化对比功能
+        initEventSeriesComparison(raceRecords);
+        // 初始化赛事日历功能
+        initCalendar();
     }
 });
 

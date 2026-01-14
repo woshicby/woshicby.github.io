@@ -11,7 +11,8 @@
         "stravaLink": "https://www.strava.com/activities/11265643016",
         "season": "2023秋季",
         "certification": [],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "海南城市夜跑"
     },
     {
         "id": 2,
@@ -25,7 +26,8 @@
         "stravaLink": "https://www.strava.com/activities/11279290676",
         "season": "2023秋季",
         "certification": ["A1","国际标牌"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "海南儋州马拉松"
     },
     {
         "id": 3,
@@ -39,7 +41,8 @@
         "stravaLink": "https://www.strava.com/activities/11279298542",
         "season": "2024春季",
         "certification": ["A1"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "茂名马拉松"
     },
     {
         "id": 4,
@@ -53,7 +56,8 @@
         "stravaLink": "https://www.strava.com/activities/11279298715",
         "season": "2024春季",
         "certification": ["A1"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "陵水半程马拉松"
     },
     {
         "id": 5,
@@ -67,7 +71,8 @@
         "stravaLink": "https://www.strava.com/activities/11279310709",
         "season": "2024春季",
         "certification": [],
-        "isTrail": true
+        "category": "越野跑",
+        "eventSeries": "海南大学荧光夜跑"
     },
     {
         "id": 6,
@@ -81,7 +86,8 @@
         "stravaLink": "https://www.strava.com/activities/11271847838",
         "season": "2024春季",
         "certification": [],
-        "isTrail": true
+        "category": "越野跑",
+        "eventSeries": "海南万人健步大会"
     },
     {
         "id": 7,
@@ -95,7 +101,8 @@
         "stravaLink": "https://www.strava.com/activities/11306859273",
         "season": "2024春季",
         "certification": [],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "海口湾路跑段位赛"
     },
     {
         "id": 8,
@@ -109,7 +116,8 @@
         "stravaLink": "https://www.strava.com/activities/11389396871",
         "season": "2024春季",
         "certification": [],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "海南定安幸福跑"
     },
     {
         "id": 9,
@@ -123,7 +131,8 @@
         "stravaLink": "https://www.strava.com/activities/11438665949",
         "season": "2024春季",
         "certification": [],
-        "isTrail": false
+        "category": "场地跑",
+        "eventSeries": "高校百英里资格赛"
     },
     {
         "id": 10,
@@ -137,7 +146,8 @@
         "stravaLink": "https://www.strava.com/activities/11618611141",
         "season": "2024春季",
         "certification": [],
-        "isTrail": false
+        "category": "场地跑",
+        "eventSeries": "高校百英里资格赛"
     },
     {
         "id": 11,
@@ -151,7 +161,8 @@
         "stravaLink": "https://www.strava.com/activities/12054378352",
         "season": "2024春季",
         "certification": [],
-        "isTrail": true
+        "category": "场地跑",
+        "eventSeries": "莆田木兰溪马拉松"
     },
     {
         "id": 12,
@@ -165,7 +176,8 @@
         "stravaLink": "https://www.strava.com/activities/12597128224",
         "season": "2024秋季",
         "certification": [],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "全民健康跑"
     },
     {
         "id": 13,
@@ -179,7 +191,8 @@
         "stravaLink": "https://www.strava.com/activities/12918087696",
         "season": "2024秋季",
         "certification": ["A1"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "澄迈半程马拉松"
     },
     {
         "id": 14,
@@ -193,7 +206,8 @@
         "stravaLink": "https://www.strava.com/activities/13117579225",
         "season": "2024秋季",
         "certification": ["A1","国际标牌"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "海南儋州马拉松"
     },
     {
         "id": 15,
@@ -207,7 +221,8 @@
         "stravaLink": "https://www.strava.com/activities/13212476700",
         "season": "2024秋季",
         "certification": ["A1"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "莆田木兰溪马拉松"
     },
     {
         "id": 16,
@@ -221,7 +236,8 @@
         "stravaLink": "https://www.strava.com/activities/13764193717",
         "season": "2025春季",
         "certification": ["C"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "万宁马拉松"
     },
     {
         "id": 17,
@@ -235,7 +251,8 @@
         "stravaLink": "https://www.strava.com/activities/13828591948",
         "season": "2025春季",
         "certification": ["C"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "陵水半程马拉松"
     },
     {
         "id": 18,
@@ -249,7 +266,8 @@
         "stravaLink": "https://www.strava.com/activities/14222393231",
         "season": "2025春季",
         "certification": [],
-        "isTrail": true
+        "category": "越野跑",
+        "eventSeries": "海南大学荧光夜跑"
     },
     {
         "id": 19,
@@ -263,7 +281,8 @@
         "stravaLink": "https://www.strava.com/activities/14441391354",
         "season": "2025春季",
         "certification": [],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "海南定安幸福跑"
     },
     {
         "id": 20,
@@ -277,7 +296,8 @@
         "stravaLink": "https://www.strava.com/activities/14657541285",
         "season": "2025春季",
         "certification": ["C"],
-        "isTrail": false
+        "category": "越野跑",
+        "eventSeries": "中国热带雨林健步走公开赛"
     },
     {
         "id": 21,
@@ -291,7 +311,8 @@
         "stravaLink": "https://www.strava.com/activities/15803316193",
         "season": "2025秋季",
         "certification": ["C"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "莱州半程马拉松"
     },
     {
         "id": 22,
@@ -305,7 +326,8 @@
         "stravaLink": "https://www.strava.com/activities/15883537721",
         "season": "2025秋季",
         "certification": ["ITRA 1分"],
-        "isTrail": true
+        "category": "越野跑",
+        "eventSeries": "昆嵛50越野挑战赛"
     },
     {
         "id": 23,
@@ -319,7 +341,8 @@
         "stravaLink": "https://www.strava.com/activities/16045259526",
         "season": "2025秋季",
         "certification": ["ITRA 1分"],
-        "isTrail": true
+        "category": "越野跑",
+        "eventSeries": "烟台山星空越野赛"
     },
     {
         "id": 24,
@@ -333,7 +356,8 @@
         "stravaLink": "https://www.strava.com/activities/16112670402",
         "season": "2025秋季",
         "certification": ["C"],
-        "isTrail": true
+        "category": "越野跑",
+        "eventSeries": "栖霞环湖赛"
     },
     {
         "id": 25,
@@ -347,7 +371,8 @@
         "stravaLink": "https://www.strava.com/activities/16187011185",
         "season": "2025秋季",
         "certification": ["A1","国际金标"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "黄河口马拉松"
     },
     {
         "id": 26,
@@ -361,11 +386,12 @@
         "stravaLink": "https://www.strava.com/activities/16257820365",
         "season": "2025秋季",
         "certification": ["B"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "日照马拉松"
     },
     {
         "id": 27,
-        "name": "2025莆田马拉松",
+        "name": "2025莆田木兰溪马拉松",
         "date": "2025-12-28",
         "location": "福建省莆田市",
         "event": "半程马拉松",
@@ -375,7 +401,8 @@
         "stravaLink": "https://www.strava.com/activities/16859965387",
         "season": "2025秋季",
         "certification": ["A1"],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "莆田木兰溪马拉松"
     },
     {
         "id": 28,
@@ -389,6 +416,37 @@
         "stravaLink": "https://www.strava.com/activities/16899593888",
         "season": "2025秋季",
         "certification": [],
-        "isTrail": false
+        "category": "路跑",
+        "eventSeries": "威海迎新跑"
+    },
+    {
+        "id": 29,
+        "name": "2026年荣成马拉松",
+        "date": "2026-04-19",
+        "location": "山东省威海市荣成市体育中心",
+        "event": "半程马拉松",
+        "result": "",
+        "distance": "21.0975公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2026春季",
+        "certification": ["A1"],
+        "category": "路跑",
+        "eventSeries": "荣成马拉松"
+    },
+    {
+        "id": 30,
+        "name": "2026威海100",
+        "date": "2026-05-16",
+        "location": "山东省威海市半月湾",
+        "event": "35日",
+        "result": "",
+        "distance": "35公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2026春季",
+        "certification": ["ITRA 1分"],
+        "category": "越野跑",
+        "eventSeries": "威海100"
     }
 ]

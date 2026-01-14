@@ -1,0 +1,197 @@
+/* 图表相关样式 */
+
+/* 图表容器 */
+.chart-container {
+    width: 100%;
+    height: 400px;
+    margin: var(--spacing-md) 0;
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-color);
+}
+
+/* 图表标题 */
+.chart-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--heading-color);
+    text-align: center;
+}
+
+/* 图表控制栏 */
+.chart-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+/* 选择器样式 */
+.chart-select {
+    padding: var(--spacing-md) var(--spacing-md);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background-color: var(--white);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.chart-select:hover {
+    border-color: var(--accent-color);
+}
+
+.chart-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* 夜间模式下拉框样式 */
+body.dark-theme .chart-select {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+/* 按钮样式 */
+.chart-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--border-radius-md);
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-default);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.chart-btn:hover {
+    background-color: var(--dark-accent);
+    transform: translateY(-2px);
+}
+
+/* 统计指标容器 */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+}
+
+/* 统计指标项 */
+.stat-item {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: var(--transition-default);
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+}
+
+.stat-item h4 {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-item p {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+/* 项目对比区域 */
+#project-comparison {
+    margin-bottom: var(--spacing-xl);
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-color);
+}
+
+/* 赛事系列对比区域 */
+#event-series-comparison {
+    margin-bottom: var(--spacing-xl);
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-color);
+}
+
+/* 图表行容器 */
+.chart-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+}
+
+.chart-col {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .chart-container {
+        height: 300px;
+        padding: var(--spacing-md);
+    }
+    
+    .chart-title {
+        font-size: 1.2rem;
+    }
+    
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stat-item p {
+        font-size: 1.5rem;
+    }
+    
+    .chart-row {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-container {
+        height: 250px;
+    }
+    
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .chart-select,
+    .chart-btn {
+        width: 100%;
+    }
+}

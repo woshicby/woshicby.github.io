@@ -1,118 +1,183 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <!-- ==========================================
-         体育相关页面 - 展示运动记录和个人成绩
-         ========================================== -->
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>体育运动</title>
-        <link rel="stylesheet" href="./CSS/common.css">
-        <link rel="stylesheet" href="./CSS/sports.css">
-        <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-        <!-- 引入导航功能脚本 -->
-        <script src="./JS/navigation.js"></script>
-        <!-- 引入主题切换脚本 -->
-        <script src="./JS/theme-toggle.js"></script>
-        <!-- 引入体育页面脚本 -->
-        <script src="./JS/sports.js"></script>
-    </head>
-    <!-- ==========================================
+<!-- ==========================================
+     页面头部 - 网站标题和导航    
+     ==========================================    
+     包含网站标志和主导航菜单，当前高亮"体育相关"选项    
+     ========================================== -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>体育运动</title>
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/sports.css">
+    <link rel="stylesheet" href="./CSS/charts.css">
+    <link rel="stylesheet" href="./CSS/calendar.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script> <!-- 引入Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>    <!-- 引入Chart.js缩放插件 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    <!-- 引入Font Awesome CDN -->
+    <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
+    <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
+    <script src="./JS/charts.js"></script><!-- 引入图表功能脚本 -->
+    <script src="./JS/calendar.js"></script><!-- 引入日历功能脚本 -->
+    <script src="./JS/sports.js"></script><!-- 引入体育页面脚本 -->
+</head>
+<!-- ==========================================
          页面头部 - 网站标题和导航
          ==========================================
          包含网站标志和主导航菜单，当前高亮"体育相关"选项
          ========================================== -->
-    <body>
-        <!-- 头部外套开始 -->
-        <div class="header clearfix wrapper">
-            <!-- logo/大标题区域开始 -->
-            <h1>体育运动</h1>
-            <!-- logo/大标题区域结束 -->
-            <!-- 导航栏开始 -->
-            <div class="nav">
-                <ul class="clearfix">
-                    <li><a href="./index.html">首页</a></li>
-                    <li><a href="./video.html">视频展示</a></li>
-                    <li><a href="./posts.html">博客文章</a></li>
-                    <li><a href="./study.html">个人成果</a></li>
-                    <li><a href="./tools.html">小工具&小游戏</a></li>
-                    <li><a href="./sports.html" class="active">体育运动</a></li>
-                    <li style="display: inline-block; vertical-align: middle;">
-                        <label class="theme-toggle">
-                            <input type="checkbox" id="themeToggle">
-                            <span class="theme-toggle-slider"></span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-            <!-- 导航栏结束 -->
+
+<body>
+    <!-- 头部外套开始 -->
+    <div class="header clearfix wrapper">
+        <!-- logo/大标题区域开始 -->
+        <h1>体育运动</h1>
+        <!-- logo/大标题区域结束 -->
+        <!-- 导航栏开始 -->
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./video.html">视频展示</a></li>
+                <li><a href="./posts.html">博客文章</a></li>
+                <li><a href="./study.html">个人成果</a></li>
+                <li><a href="./tools.html">小工具&小游戏</a></li>
+                <li><a href="./sports.html" class="active">体育运动</a></li>
+                <li style="display: inline-block; vertical-align: middle;">
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
         </div>
-        <!-- 头部外套结束 -->
-        
-        <!-- 移动导航菜单切换按钮 -->
-        <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <!-- 主体外套开始 -->
-        <!-- ==========================================
+        <!-- 导航栏结束 -->
+    </div>
+    <!-- 头部外套结束 -->
+
+    <!-- 移动导航菜单切换按钮 -->
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <!-- 主体外套开始 -->
+    <!-- ==========================================
              主体内容区域
              ==========================================
              展示个人运动记录和成绩
              ========================================== -->
-        <div class="mainbox clearfix wrapper">
-            <!-- 个人纪录部分 -->
-            <section class="personal-records">
-                <h2>个人最佳成绩(PB)</h2>
-                <div class="personal-records-content" id="personal-records-content">
-                    <!-- 个人最佳成绩将通过JavaScript动态生成 -->
+    <div class="mainbox clearfix wrapper">
+        <!-- 个人纪录部分 -->
+        <section class="personal-records">
+            <h2>个人最佳成绩(PB)</h2>
+            <div class="personal-records-content" id="personal-records-content">
+                <!-- 个人最佳成绩将通过JavaScript动态生成 -->
+            </div>
+        </section>
+
+        <!-- 同一项目成绩变化对比功能 -->
+        <section id="project-comparison">
+            <h2>同一项目成绩变化对比</h2>
+            <div class="chart-controls">
+                <div>
+                    <label for="project-select">选择项目：</label>
+                    <select id="project-select" class="chart-select">
+                        <!-- 项目选项将通过JavaScript动态生成 -->
+                    </select>
                 </div>
-            </section>
-            
-            <!-- 比赛信息列表 -->
-            <section id="race-records">
-                <h2>比赛记录</h2>
-                <div class="race-list">
-                    <!-- 比赛记录将通过JavaScript动态生成 -->
+                <button class="chart-btn" onclick="exportChart('project-comparison-chart', 'project-comparison.png')">
+                    <i class="fas fa-download"></i> 下载图表
+                </button>
+            </div>
+            <div class="stats-container" id="project-stats">
+                <!-- 统计指标将通过JavaScript动态生成 -->
+            </div>
+            <div class="chart-container">
+                <canvas id="project-comparison-chart"></canvas>
+            </div>
+        </section>
+
+        <!-- 同一赛事成绩变化对比功能 -->
+        <section id="event-series-comparison">
+            <h2>同一赛事成绩变化对比</h2>
+            <div class="chart-controls">
+                <div>
+                    <label for="series-select">选择赛事系列：</label>
+                    <select id="series-select" class="chart-select">
+                        <!-- 赛事系列选项将通过JavaScript动态生成 -->
+                    </select>
                 </div>
-            </section>
-            
-            <!-- 完赛证书部分 -->
-            <section id="finish-certificates">
-                <h2>完赛证书</h2>
-                <div class="certificates-container">
-                    <div class="certificates-grid" id="certificates-grid">
-                        <!-- 证书内容将通过JavaScript动态生成 -->
-                    </div>
+                <button class="chart-btn"
+                    onclick="exportChart('event-series-comparison-chart', 'event-series-comparison.png')">
+                    <i class="fas fa-download"></i> 下载图表
+                </button>
+            </div>
+            <div class="stats-container" id="event-series-stats">
+                <!-- 统计指标将通过JavaScript动态生成 -->
+            </div>
+            <div class="chart-container">
+                <canvas id="event-series-comparison-chart"></canvas>
+            </div>
+        </section>
+
+        <!-- 赛事日历功能 -->
+        <section id="calendar-section">
+            <h2>赛事日历</h2>
+            <div id="calendar">
+                <!-- 日历将通过JavaScript动态生成 -->
+            </div>
+        </section>
+
+        <!-- 比赛信息列表 -->
+        <section id="race-records">
+            <h2>比赛记录</h2>
+            <div class="race-list">
+                <!-- 比赛记录将通过JavaScript动态生成 -->
+            </div>
+        </section>
+
+        <!-- 完赛证书部分 -->
+        <section id="finish-certificates">
+            <h2>完赛证书</h2>
+            <div class="certificates-container">
+                <div class="certificates-grid" id="certificates-grid">
+                    <!-- 证书内容将通过JavaScript动态生成 -->
                 </div>
-            </section>
-            
-            <!-- Strava最近活动模块 -->
-            <section>
-                <h2>我的最近活动</h2>
-                <p>以下是我在Strava上记录的最近运动活动，包括跑步、骑行和其他户外运动的数据统计和轨迹记录：</p>
-                <div class="strava-embed-container">
-                    <!-- Strava活动iframe -->
-                    <iframe height='200' width='48%' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/136063170/activity-summary/91c522e2bd1fc757476b5585858c75a0201905ac'></iframe>
-                    <iframe height='500' width='48%' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/136063170/latest-rides/91c522e2bd1fc757476b5585858c75a0201905ac'></iframe>
-                </div>
-                <p class="strava-note">
-                    <small>查看更多活动，请访问我的 <a href="https://www.strava.com/athletes/136063170" target="_blank">Strava个人主页</a></small>
-                </p>
-            </section>
-        </div>
-        <!-- 主体外套结束 -->
-        <!-- 脚注外套开始 -->
-        <!-- ==========================================
+            </div>
+        </section>
+
+        <!-- Strava最近活动模块 -->
+        <section>
+            <h2>我的最近活动</h2>
+            <p>以下是我在Strava上记录的最近运动活动，包括跑步、骑行和其他户外运动的数据统计和轨迹记录：</p>
+            <div class="strava-embed-container">
+                <!-- Strava活动iframe -->
+                <iframe height='200' width='48%' frameborder='0' allowtransparency='true' scrolling='no'
+                    src='https://www.strava.com/athletes/136063170/activity-summary/91c522e2bd1fc757476b5585858c75a0201905ac'></iframe>
+                <iframe height='500' width='48%' frameborder='0' allowtransparency='true' scrolling='no'
+                    src='https://www.strava.com/athletes/136063170/latest-rides/91c522e2bd1fc757476b5585858c75a0201905ac'></iframe>
+            </div>
+            <p class="strava-note">
+                <small>查看更多活动，请访问我的 <a href="https://www.strava.com/athletes/136063170"
+                        target="_blank">Strava个人主页</a></small>
+            </p>
+        </section>
+    </div>
+    <!-- 主体外套结束 -->
+    <!-- 脚注外套开始 -->
+    <!-- ==========================================
              页脚区域
              ==========================================
              包含版权信息和社交链接
              ========================================== -->
-        <div class="foot wrapper">
-            <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
-        </div>
-        <!-- 脚注外套结束 -->
-    </body>
+    <div class="foot wrapper">
+        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+    </div>
+    <!-- 脚注外套结束 -->
+</body>
+
 </html>
