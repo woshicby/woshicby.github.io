@@ -909,10 +909,14 @@ function renderCurrentViewRaces() {
     divider.className = 'calendar-races-divider';
     calendarContainer.appendChild(divider);
     
-    // 直接添加每个赛事项到日历容器中
+    // 创建赛事列表容器，使用与年视图相同的网格布局
+    const racesList = document.createElement('div');
+    racesList.className = 'races-list calendar-year-view';
+    
+    // 添加每个赛事项到赛事列表容器中
     viewRaces.forEach(race => {
         const raceItem = document.createElement('div');
-        raceItem.className = 'race-item';
+        raceItem.className = 'race-item calendar-month-container';
         
         // 判断是过去赛事还是未来赛事
         const currentDate = new Date();
@@ -923,23 +927,26 @@ function renderCurrentViewRaces() {
         const displayTime = isPastRace ? (race.result || '无成绩') : (race.startTime || '待定');
         
         raceItem.innerHTML = `
-            <div class="race-item-header">
-                <div class="race-item-date">${race.date}</div>
+            <div class="race-item-header calendar-month-title">${race.date}</div>
+            <div class="race-item-content">
+                <div class="race-item-name">${race.name}</div>
                 <div class="race-item-time">${displayTime}</div>
-            </div>
-            <div class="race-item-name">${race.name}</div>
-            <div class="race-item-details">
-                <span class="race-item-location">${race.location}</span>
-                <span class="race-item-event">${race.event}</span>
-                <span class="race-item-category">${race.category}</span>
+                <div class="race-item-details">
+                    <span class="race-item-location">${race.location}</span>
+                    <span class="race-item-event">${race.event}</span>
+                    <span class="race-item-category">${race.category}</span>
+                </div>
             </div>
         `;
         
         // 添加点击事件，显示赛事详情和提醒设置
         raceItem.onclick = () => showRaceDetails(race);
         
-        calendarContainer.appendChild(raceItem);
+        racesList.appendChild(raceItem);
     });
+    
+    // 将赛事列表容器添加到日历容器中
+    calendarContainer.appendChild(racesList);
 }
 
 // 显示普通通知

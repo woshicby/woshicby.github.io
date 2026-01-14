@@ -464,11 +464,28 @@
     color: var(--text-color);
 }
 
+.race-item-content {
+    padding: 0 var(--spacing-xs);
+}
+
+.race-item-name {
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.race-item-time {
+    font-size: 0.8rem;
+    color: var(--secondary-text-color);
+    margin-bottom: var(--spacing-xs);
+}
+
 .race-item-details {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    font-size: 0.8rem;
+    gap: var(--spacing-xs);
+    font-size: 0.7rem;
     color: var(--secondary-text-color);
 }
 
