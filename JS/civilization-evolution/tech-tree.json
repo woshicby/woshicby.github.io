@@ -1,0 +1,391 @@
+{
+  "techs": [
+    {
+      "id": "fire",
+      "name": "火的使用",
+      "description": "掌握火的使用，提高食物利用率和保暖能力",
+      "era": "原始社会",
+      "cost": {
+        "food": 50,
+        "mineral": 20
+      },
+      "unlocks": [
+        "cooking",
+        "warmth"
+      ],
+      "effects": {
+        "population_growth": 0.1,
+        "food_efficiency": 0.2
+      },
+      "dependencies": []
+    },
+    {
+      "id": "agriculture",
+      "name": "农业革命",
+      "description": "开始种植作物，定居生活，人口快速增长",
+      "era": "原始社会",
+      "cost": {
+        "food": 100,
+        "mineral": 50
+      },
+      "unlocks": [
+        "farming",
+        "settlements"
+      ],
+      "effects": {
+        "food_production": 0.5,
+        "population_cap": 0.3
+      },
+      "dependencies": ["fire"]
+    },
+    {
+      "id": "metallurgy",
+      "name": "冶金术",
+      "description": "掌握金属冶炼技术，制造更先进的工具和武器",
+      "era": "古代文明",
+      "cost": {
+        "mineral": 150,
+        "energy": 30
+      },
+      "unlocks": [
+        "metal_tools",
+        "weaponry"
+      ],
+      "effects": {
+        "mineral_production": 0.4,
+        "military_strength": 0.3
+      },
+      "dependencies": ["agriculture"]
+    },
+    {
+      "id": "writing",
+      "name": "文字系统",
+      "description": "发明文字，记录知识和历史，促进文化发展",
+      "era": "古代文明",
+      "cost": {
+        "culture": 80,
+        "mineral": 60
+      },
+      "unlocks": [
+        "literature",
+        "administration"
+      ],
+      "effects": {
+        "tech_research": 0.3,
+        "culture_growth": 0.2
+      },
+      "dependencies": ["agriculture"]
+    },
+    {
+      "id": "wheel",
+      "name": "车轮",
+      "description": "发明车轮，提高运输效率，促进贸易发展",
+      "era": "古代文明",
+      "cost": {
+        "mineral": 100,
+        "energy": 40
+      },
+      "unlocks": [
+        "transportation",
+        "trade_routes"
+      ],
+      "effects": {
+        "economy_growth": 0.3,
+        "trade_efficiency": 0.4
+      },
+      "dependencies": ["metallurgy"]
+    },
+    {
+      "id": "engineering",
+      "name": "工程学",
+      "description": "掌握工程技术，建造宏伟建筑和基础设施",
+      "era": "古典时代",
+      "cost": {
+        "mineral": 200,
+        "energy": 80,
+        "culture": 60
+      },
+      "unlocks": [
+        "architecture",
+        "infrastructure"
+      ],
+      "effects": {
+        "city_defense": 0.3,
+        "population_cap": 0.2
+      },
+      "dependencies": ["wheel", "writing"]
+    },
+    {
+      "id": "astronomy",
+      "name": "天文学",
+      "description": "研究天体运行，制定历法，导航和计时",
+      "era": "古典时代",
+      "cost": {
+        "culture": 120,
+        "energy": 50
+      },
+      "unlocks": [
+        "calendar",
+        "navigation"
+      ],
+      "effects": {
+        "tech_research": 0.2,
+        "trade_efficiency": 0.3
+      },
+      "dependencies": ["writing"]
+    },
+    {
+      "id": "printing",
+      "name": "印刷术",
+      "description": "发明印刷术，知识广泛传播，文化繁荣",
+      "era": "中世纪",
+      "cost": {
+        "culture": 150,
+        "mineral": 100
+      },
+      "unlocks": [
+        "publishing",
+        "education"
+      ],
+      "effects": {
+        "culture_growth": 0.4,
+        "tech_research": 0.3
+      },
+      "dependencies": ["writing"]
+    },
+    {
+      "id": "gunpowder",
+      "name": "火药",
+      "description": "发明火药，军事技术革命，改变战争形态",
+      "era": "中世纪",
+      "cost": {
+        "mineral": 180,
+        "energy": 70
+      },
+      "unlocks": [
+        "firearms",
+        "cannons"
+      ],
+      "effects": {
+        "military_strength": 0.5
+      },
+      "dependencies": ["metallurgy"]
+    },
+    {
+      "id": "steam_power",
+      "name": "蒸汽机",
+      "description": "发明蒸汽机，开启工业革命，生产力飞跃",
+      "era": "工业时代",
+      "cost": {
+        "energy": 250,
+        "mineral": 200
+      },
+      "unlocks": [
+        "factories",
+        "railroads"
+      ],
+      "effects": {
+        "energy_production": 0.6,
+        "economy_growth": 0.4
+      },
+      "dependencies": ["engineering"]
+    },
+    {
+      "id": "electricity",
+      "name": "电力",
+      "description": "掌握电力技术，照明、通信和动力革命",
+      "era": "工业时代",
+      "cost": {
+        "energy": 300,
+        "mineral": 250
+      },
+      "unlocks": [
+        "lighting",
+        "telecommunications"
+      ],
+      "effects": {
+        "energy_efficiency": 0.5,
+        "tech_research": 0.4
+      },
+      "dependencies": ["steam_power"]
+    },
+    {
+      "id": "physics",
+      "name": "物理学",
+      "description": "研究物质和能量的基本规律，为现代科技奠定基础",
+      "era": "工业时代",
+      "cost": {
+        "energy": 350,
+        "mineral": 300
+      },
+      "unlocks": [
+        "quantum_theory",
+        "nuclear_science"
+      ],
+      "effects": {
+        "tech_research": 0.5,
+        "energy_efficiency": 0.3
+      },
+      "dependencies": ["electricity"]
+    },
+    {
+      "id": "medicine",
+      "name": "现代医学",
+      "description": "抗生素、疫苗和现代医疗技术，大幅提高人类寿命",
+      "era": "工业时代",
+      "cost": {
+        "energy": 280,
+        "rare": 80,
+        "culture": 120
+      },
+      "unlocks": [
+        "hospitals",
+        "public_health"
+      ],
+      "effects": {
+        "population_growth": 0.3,
+        "population_cap": 0.2
+      },
+      "dependencies": ["chemistry"]
+    },
+    {
+      "id": "chemistry",
+      "name": "化学",
+      "description": "研究物质的组成、结构和变化，应用于工业和医学",
+      "era": "工业时代",
+      "cost": {
+        "energy": 300,
+        "mineral": 250
+      },
+      "unlocks": [
+        "fertilizers",
+        "pharmaceuticals"
+      ],
+      "effects": {
+        "food_production": 0.3,
+        "mineral_production": 0.2
+      },
+      "dependencies": ["electricity"]
+    },
+    {
+      "id": "rocketry",
+      "name": "火箭技术",
+      "description": "发展火箭技术，为太空探索奠定基础",
+      "era": "现代",
+      "cost": {
+        "energy": 450,
+        "mineral": 350,
+        "rare": 120
+      },
+      "unlocks": [
+        "missiles",
+        "space_shuttles"
+      ],
+      "effects": {
+        "military_strength": 0.3,
+        "global_awareness": 0.2
+      },
+      "dependencies": ["physics"]
+    },
+    {
+      "id": "computers",
+      "name": "计算机",
+      "description": "发明计算机，信息时代来临，科技爆炸式发展",
+      "era": "现代",
+      "cost": {
+        "energy": 400,
+        "rare": 100,
+        "mineral": 300
+      },
+      "unlocks": [
+        "information_age",
+        "automation"
+      ],
+      "effects": {
+        "tech_research": 0.6,
+        "economy_growth": 0.5
+      },
+      "dependencies": ["electricity"]
+    },
+    {
+      "id": "nuclear_power",
+      "name": "核能",
+      "description": "掌握核能技术，提供强大能源，但伴随风险",
+      "era": "现代",
+      "cost": {
+        "energy": 500,
+        "rare": 150,
+        "mineral": 400
+      },
+      "unlocks": [
+        "nuclear_reactors",
+        "nuclear_weapons"
+      ],
+      "effects": {
+        "energy_production": 0.8,
+        "military_strength": 0.4
+      },
+      "dependencies": ["physics"]
+    },
+    {
+      "id": "space_exploration",
+      "name": "太空探索",
+      "description": "探索太空，卫星、登月和空间站建设",
+      "era": "未来",
+      "cost": {
+        "energy": 600,
+        "rare": 200,
+        "mineral": 500
+      },
+      "unlocks": [
+        "satellites",
+        "space_stations"
+      ],
+      "effects": {
+        "global_awareness": 0.3,
+        "tech_research": 0.4
+      },
+      "dependencies": ["computers", "rocketry"]
+    },
+    {
+      "id": "artificial_intelligence",
+      "name": "人工智能",
+      "description": "开发人工智能，自动化和决策支持系统",
+      "era": "未来",
+      "cost": {
+        "energy": 700,
+        "rare": 250,
+        "culture": 200
+      },
+      "unlocks": [
+        "ai_systems",
+        "automated_warfare"
+      ],
+      "effects": {
+        "tech_research": 0.7,
+        "economy_growth": 0.6
+      },
+      "dependencies": ["computers"]
+    },
+    {
+      "id": "biotechnology",
+      "name": "生物技术",
+      "description": "操纵生命基因，治疗疾病，改良作物",
+      "era": "未来",
+      "cost": {
+        "energy": 650,
+        "rare": 220,
+        "culture": 180
+      },
+      "unlocks": [
+        "genetic_engineering",
+        "biofuels"
+      ],
+      "effects": {
+        "population_growth": 0.3,
+        "food_production": 0.5
+      },
+      "dependencies": ["medicine"]
+    }
+  ]
+}
