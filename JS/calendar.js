@@ -41,9 +41,6 @@ function initCalendar() {
     // 渲染日历
     renderCalendar();
     
-    // 初始化提醒功能
-    initReminders();
-    
     // 监听窗口大小变化事件
     window.addEventListener('resize', () => {
         checkViewType();
@@ -447,8 +444,6 @@ function renderMonthView(calendarContainer) {
                     const isPastRace = dayRaces[0].result && dayRaces[0].result !== '';
                     cell.classList.add(isPastRace ? 'race-past' : 'race-future');
                     
-                    // 添加点击事件，显示赛事详情和提醒设置
-                    cell.onclick = () => showRaceDetails(dayRaces[0]);
                     
                     // 添加鼠标悬停事件，显示赛事提示框
                     const race = dayRaces[0];
@@ -657,212 +652,7 @@ function getRacesByDate(dateStr) {
     return upcomingRaces.filter(race => race.date === dateStr);
 }
 
-// 显示赛事详情和提醒设置
-function showRaceDetails(race) {
-    // 创建模态框
-    const modal = document.createElement('div');
-    modal.className = 'race-details-modal';
-    modal.innerHTML = `
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>${race.name}</h3>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="race-detail-item">
-                    <strong>日期：</strong>${race.date}
-                </div>
-                <div class="race-detail-item">
-                    <strong>时间：</strong>${race.startTime || '待定'}
-                </div>
-                <div class="race-detail-item">
-                    <strong>地点：</strong>${race.location}
-                </div>
-                <div class="race-detail-item">
-                    <strong>项目：</strong>${race.event}
-                </div>
-                <div class="race-detail-item">
-                    <strong>类型：</strong>${race.category}
-                </div>
-                <div class="race-detail-item">
-                    <strong>成绩：</strong>${race.result || '未完成'}
-                </div>
-                <div class="race-detail-item">
-                    <strong>地区：</strong>${race.region}
-                </div>
-                <div class="reminder-setting">
-                    <h4>提醒设置</h4>
-                    <div class="reminder-options">
-                        <label>
-                            <input type="checkbox" id="reminder-checkbox" ${race.reminderSet ? 'checked' : ''}>
-                            设置提醒
-                        </label>
-                        <div class="reminder-time-setting" ${!race.reminderSet ? 'style="display: none;"' : ''}>
-                            <label for="reminder-time">提醒时间：</label>
-                            <select id="reminder-time">
-                                <option value="15">提前15分钟</option>
-                                <option value="30">提前30分钟</option>
-                                <option value="60">提前1小时</option>
-                                <option value="1440">提前1天</option>
-                                <option value="10080">提前1周</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="save-btn" onclick="saveReminder(${race.id})">保存</button>
-                <button class="cancel-btn" onclick="closeModal()">取消</button>
-            </div>
-        </div>
-    `;
-    
-    // 添加到页面
-    document.body.appendChild(modal);
-    
-    // 添加关闭模态框的事件监听
-    const checkbox = modal.querySelector('#reminder-checkbox');
-    const timeSetting = modal.querySelector('.reminder-time-setting');
-    
-    checkbox.addEventListener('change', () => {
-        timeSetting.style.display = checkbox.checked ? 'block' : 'none';
-    });
-}
 
-// 关闭模态框
-function closeModal() {
-    const modal = document.querySelector('.race-details-modal');
-    if (modal) {
-        modal.remove();
-    }
-}
-
-// 初始化提醒功能
-function initReminders() {
-    // 检查浏览器是否支持通知
-    if ('Notification' in window) {
-        // 请求通知权限
-        Notification.requestPermission();
-    }
-    
-    // 定期检查是否有即将到来的提醒
-    setInterval(checkReminders, 60000); // 每分钟检查一次
-}
-
-// 保存提醒设置
-function saveReminder(raceId) {
-    const checkbox = document.querySelector('#reminder-checkbox');
-    const timeSelect = document.querySelector('#reminder-time');
-    
-    if (!checkbox || !timeSelect) {
-        return;
-    }
-    
-    const reminderSet = checkbox.checked;
-    const reminderTime = parseInt(timeSelect.value);
-    
-    // 更新赛事的提醒设置
-    const raceIndex = upcomingRaces.findIndex(race => race.id === raceId);
-    if (raceIndex !== -1) {
-        upcomingRaces[raceIndex].reminderSet = reminderSet;
-        
-        if (reminderSet) {
-            // 保存到localStorage
-            saveReminderToStorage(upcomingRaces[raceIndex], reminderTime);
-        } else {
-            // 从localStorage中删除
-            removeReminderFromStorage(raceId);
-        }
-    }
-    
-    // 关闭模态框
-    closeModal();
-    
-    // 显示保存成功提示
-    showNotification('提醒设置已保存');
-}
-
-// 保存提醒到localStorage
-function saveReminderToStorage(race, reminderTime) {
-    let reminders = JSON.parse(localStorage.getItem('raceReminders') || '[]');
-    
-    // 检查是否已存在该赛事的提醒
-    const existingIndex = reminders.findIndex(r => r.eventId === race.id);
-    
-    // 计算提醒时间
-    const raceDate = new Date(race.date);
-    if (race.startTime) {
-        const [hours, minutes] = race.startTime.split(':').map(Number);
-        raceDate.setHours(hours, minutes, 0, 0);
-    }
-    const reminderDate = new Date(raceDate.getTime() - reminderTime * 60 * 1000);
-    
-    const reminder = {
-        eventId: race.id,
-        eventName: race.name,
-        eventDate: race.date,
-        eventTime: race.startTime,
-        reminderTime: reminderTime,
-        reminderDate: reminderDate.toISOString(),
-        isEnabled: true
-    };
-    
-    if (existingIndex !== -1) {
-        // 更新现有提醒
-        reminders[existingIndex] = reminder;
-    } else {
-        // 添加新提醒
-        reminders.push(reminder);
-    }
-    
-    // 保存到localStorage
-    localStorage.setItem('raceReminders', JSON.stringify(reminders));
-}
-
-// 从localStorage中删除提醒
-function removeReminderFromStorage(raceId) {
-    let reminders = JSON.parse(localStorage.getItem('raceReminders') || '[]');
-    
-    // 过滤掉该赛事的提醒
-    reminders = reminders.filter(r => r.eventId !== raceId);
-    
-    // 保存到localStorage
-    localStorage.setItem('raceReminders', JSON.stringify(reminders));
-}
-
-// 检查提醒
-function checkReminders() {
-    const reminders = JSON.parse(localStorage.getItem('raceReminders') || '[]');
-    const now = new Date();
-    
-    reminders.forEach(reminder => {
-        if (reminder.isEnabled) {
-            const reminderDate = new Date(reminder.reminderDate);
-            
-            // 检查是否到了提醒时间（前后5分钟内）
-            if (Math.abs(now.getTime() - reminderDate.getTime()) < 5 * 60 * 1000) {
-                // 显示提醒
-                showRaceNotification(reminder);
-                
-                // 标记为已提醒
-                reminder.isEnabled = false;
-            }
-        }
-    });
-    
-    // 保存更新后的提醒列表
-    localStorage.setItem('raceReminders', JSON.stringify(reminders));
-}
-
-// 显示赛事提醒通知
-function showRaceNotification(reminder) {
-    if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification('赛事提醒', {
-            body: `${reminder.eventName}\n日期：${reminder.eventDate}\n时间：${reminder.eventTime || '待定'}`,
-            icon: './images/favicon.ico'
-        });
-    }
-}
 
 // 渲染当前视图内的赛事列表
 function renderCurrentViewRaces() {
@@ -939,8 +729,8 @@ function renderCurrentViewRaces() {
             </div>
         `;
         
-        // 添加点击事件，显示赛事详情和提醒设置
-        raceItem.onclick = () => showRaceDetails(race);
+        // 移除点击事件，不再显示赛事详情和提醒设置
+        raceItem.onclick = null;
         
         racesList.appendChild(raceItem);
     });
