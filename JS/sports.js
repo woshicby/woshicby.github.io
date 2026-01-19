@@ -229,7 +229,7 @@ function findPersonalBests(races) {
     const validRaces = races.filter(race => 
         race.category !== "越野跑" && 
         race.result && race.result !== '' && 
-        !(Array.isArray(race.certification) ? race.certification.includes("不计入PB") : race.certification === "不计入PB/SB")
+        !(Array.isArray(race.certification) ? race.certification.includes("不计入PB/SB") : race.certification === "不计入PB/SB")
     );
     
     const racesByEvent = groupRacesByEvent(validRaces);
@@ -254,7 +254,7 @@ function findSeasonBests(races) {
     const validRaces = races.filter(race => 
         race.category !== "越野跑" && 
         race.result && race.result !== '' && 
-        !(Array.isArray(race.certification) ? race.certification.includes("不计入PB") : race.certification === "不计入PB/SB")
+        !(Array.isArray(race.certification) ? race.certification.includes("不计入PB/SB") : race.certification === "不计入PB/SB")
     );
     
     const racesBySeasonEvent = groupRacesBySeasonAndEvent(validRaces);
