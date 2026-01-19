@@ -445,8 +445,23 @@
         "pace": "",
         "stravaLink": "",
         "season": "2026春季",
-        "certification": ["ITRA 1分"],
+        "certification": ["ITRA 2分"],
         "category": "越野跑",
         "eventSeries": "威海100"
+    },
+    {
+        "id": 31,
+        "name": "2026咔哒寻山群英赛",
+        "date": "2026-09-13",
+        "location": "山东省青岛市李沧区紫竹幽谷风景区",
+        "event": "寻山组24km",
+        "result": "",
+        "distance": "24公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2026秋季",
+        "certification": ["ITRA 2分"],
+        "category": "越野跑",
+        "eventSeries": "咔哒寻山群英赛"
     }
 ]
