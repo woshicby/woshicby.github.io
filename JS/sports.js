@@ -225,10 +225,14 @@ function groupRacesBySeasonAndEvent(races) {
 
 // 找出每个项目的个人最佳(PB) - 排除越野赛
 function findPersonalBests(races) {
-    // 过滤掉越野赛和没有结果的赛事
-    const nonTrailRaces = races.filter(race => race.category !== "越野跑" && race.result && race.result !== '');
+    // 过滤掉越野赛、没有结果的赛事和包含"不计入PB"认证标签的赛事
+    const validRaces = races.filter(race => 
+        race.category !== "越野跑" && 
+        race.result && race.result !== '' && 
+        !(Array.isArray(race.certification) ? race.certification.includes("不计入PB") : race.certification === "不计入PB/SB")
+    );
     
-    const racesByEvent = groupRacesByEvent(nonTrailRaces);
+    const racesByEvent = groupRacesByEvent(validRaces);
     const pbs = {};
     
     Object.keys(racesByEvent).forEach(event => {
@@ -246,10 +250,14 @@ function findPersonalBests(races) {
 
 // 找出每个赛季每个项目的赛季最佳(SB) - 排除越野赛
 function findSeasonBests(races) {
-    // 过滤掉越野赛和没有结果的赛事
-    const nonTrailRaces = races.filter(race => race.category !== "越野跑" && race.result && race.result !== '');
+    // 过滤掉越野赛、没有结果的赛事和包含"不计入PB"认证标签的赛事
+    const validRaces = races.filter(race => 
+        race.category !== "越野跑" && 
+        race.result && race.result !== '' && 
+        !(Array.isArray(race.certification) ? race.certification.includes("不计入PB") : race.certification === "不计入PB/SB")
+    );
     
-    const racesBySeasonEvent = groupRacesBySeasonAndEvent(nonTrailRaces);
+    const racesBySeasonEvent = groupRacesBySeasonAndEvent(validRaces);
     const sbs = {};
     
     Object.keys(racesBySeasonEvent).forEach(key => {

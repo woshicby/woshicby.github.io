@@ -70,8 +70,8 @@
         "pace": "",
         "stravaLink": "https://www.strava.com/activities/11279310709",
         "season": "2024春季",
-        "certification": [],
-        "category": "越野跑",
+        "certification": ["不计入PB/SB"],
+        "category": "路跑",
         "eventSeries": "海南大学荧光夜跑"
     },
     {
@@ -85,8 +85,8 @@
         "pace": "",
         "stravaLink": "https://www.strava.com/activities/11271847838",
         "season": "2024春季",
-        "certification": [],
-        "category": "越野跑",
+        "certification": ["不计入PB/SB"],
+        "category": "路跑",
         "eventSeries": "海南万人健步大会"
     },
     {
@@ -265,8 +265,8 @@
         "pace": "",
         "stravaLink": "https://www.strava.com/activities/14222393231",
         "season": "2025春季",
-        "certification": [],
-        "category": "越野跑",
+        "certification": ["不计入PB/SB"],
+        "category": "路跑",
         "eventSeries": "海南大学荧光夜跑"
     },
     {
@@ -296,7 +296,7 @@
         "stravaLink": "https://www.strava.com/activities/14657541285",
         "season": "2025春季",
         "certification": ["C"],
-        "category": "越野跑",
+        "category": "路跑",
         "eventSeries": "中国热带雨林健步走公开赛"
     },
     {
