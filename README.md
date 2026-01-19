@@ -35,6 +35,7 @@
 
 ### 4. 体育相关
 - **跑步记录** (sports.html): 展示个人跑步记录，支持赛季最佳(SB)和个人最佳(PB)标记，可折叠的赛季记录展示，完赛证书采用多列瀑布流布局展示
+- **成绩变化对比** (sports.html): 支持同一项目成绩变化对比和同一赛事成绩变化对比，显示全部平均成绩、最佳成绩、最差成绩、变化趋势和上次参赛天数
 - **赛事日历** (sports.html): 展示不同类型的跑步比赛，支持按月/年切换视图，过去赛事显示成绩，未来赛事显示起跑时间，鼠标悬停显示详情提示框，包含赛事类型图例
 
 ### 5. 学习资源
@@ -168,6 +169,7 @@ woshicby.github.io/
 - 2025.12.16: 修复夜间模式下nav-card和skill-card悬停效果的不一致问题
 - 2025.12.16: 统一了夜间模式悬停效果的视觉一致性
 - 2026.01.14: 优化赛事日历功能，添加场地跑配色支持，实现数据驱动的动态配色方案，添加赛事类型图例，实现鼠标悬停提示框，支持长赛事名称自动换行，过去赛事显示成绩，未来赛事显示起跑时间
+- 2026.01.19: 优化成绩变化对比功能，添加同一项目和同一赛事的成绩变化趋势分析，显示上次参赛多少天前
 
 ## 使用方法
 
@@ -210,6 +212,7 @@ This is a personal website built with HTML, CSS, and JavaScript, designed to dem
 
 ### 4. Sports-related
 - **Running Records** (sports.html): Displays personal running records with Season Best (SB) and Personal Best (PB) markers, featuring collapsible season records and multi-column waterfall layout for finisher certificates
+- **Race Performance Comparison** (sports.html): Supports same project performance comparison and same event series performance comparison, displays all-time average, best performance, worst performance, trend, and days since last race
 - **Race Calendar** (sports.html): Displays different types of running races, supports monthly/yearly view switching, shows results for past races and start times for future races, displays detailed tooltips on mouse hover, includes race type legend
 
 ### 5. Learning Resources
@@ -343,6 +346,7 @@ woshicby.github.io/
 - 2025.12.16: Fixed inconsistent hover effects between nav-card and skill-card in dark mode
 - 2025.12.16: Unified visual consistency of hover effects in dark mode
 - 2026.01.14: Optimized race calendar functionality, added track run color support, implemented data-driven dynamic color scheme, added race type legend, implemented mouse hover tooltips, supported auto-wrapping for long race names, showed results for past races and start times for future races
+- 2026.01.19: Optimized race performance comparison functionality, added performance trend analysis for same project and same event, displayed days since last race
 
 ## Usage
 
@@ -385,6 +389,7 @@ When adding new pages, please follow the existing file structure and naming conv
 
 ### 4. スポーツ関連
 - **ランニング記録** (sports.html): 個人のランニング記録を表示し、シーズンベスト(SB)とパーソナルベスト(PB)のマーカーをサポート、折りたたみ可能なシーズン記録機能を搭載、完走証明書は多列のウォーターフォールレイアウトで表示
+- **レース成績比較** (sports.html): 同一プロジェクトの成績変化比較と同一イベントシリーズの成績変化比較をサポート、全期間平均成績、最高成績、最低成績、傾向、および前回レースからの日数を表示
 - **レースカレンダー** (sports.html): 異なるタイプのランニングレースを表示、月/年ビュー切り替えに対応、過去のレースには結果を表示、未来のレースにはスタート時間を表示、マウスホバーで詳細ツールチップを表示、レースタイプの凡例を含む
 
 ### 5. 学習リソース
@@ -518,6 +523,7 @@ woshicby.github.io/
 - 2025.12.16: ダークモードでのnav-cardとskill-cardのホバー効果の不一致を修正
 - 2025.12.16: ダークモードでのホバー効果の視覚的一貫性を統一
 - 2026.01.14: レースカレンダー機能を最適化、トラックランの配色サポートを追加、データ駆動の動的配色スキームを実装、レースタイプ凡例を追加、マウスホバーツールチップを実装、長いレース名の自動折り返しをサポート、過去のレースには結果を表示、未来のレースにはスタート時間を表示
+- 2026.01.19: レース成績比較機能を最適化、同一プロジェクトと同一イベントの成績傾向分析を追加、前回レースからの日数を表示
 
 ## 使用方法
 

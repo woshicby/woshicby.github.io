@@ -61,7 +61,8 @@ function calculateStats(races) {
             hasOneYearData: false,
             max: 0,
             min: 0,
-            trend: 0
+            trend: 0,
+            daysSinceLastRace: 0
         };
     }
     
@@ -102,13 +103,21 @@ function calculateStats(races) {
         oneYearAverage = Math.round(recentSum / recentTimes.length);
     }
     
+    // 计算上次参赛多少天前
+    const sortedRaces = [...races].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const lastRaceDate = new Date(sortedRaces[0].date);
+    const today = new Date();
+    const timeDiff = today.getTime() - lastRaceDate.getTime();
+    const daysSinceLastRace = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    
     return {
         allTimeAverage: allTimeAverage,
         oneYearAverage: oneYearAverage,
         hasOneYearData: hasOneYearData,
         max: max,
         min: min,
-        trend: trend
+        trend: trend,
+        daysSinceLastRace: daysSinceLastRace
     };
 }
 
@@ -505,6 +514,10 @@ function updateProjectComparisonChart(races) {
                 <h4>变化趋势</h4>
                 <p>${stats.trend < 0 ? '进步' : stats.trend > 0 ? '退步' : '持平'}</p>
             </div>
+            <div class="stat-item">
+                <h4>上次参赛</h4>
+                <p>${stats.daysSinceLastRace}天前</p>
+            </div>
         `;
         
         // 条件性添加近一年平均成绩
@@ -529,6 +542,10 @@ function updateProjectComparisonChart(races) {
                 <div class="stat-item">
                     <h4>变化趋势</h4>
                     <p>${stats.trend < 0 ? '进步' : stats.trend > 0 ? '退步' : '持平'}</p>
+                </div>
+                <div class="stat-item">
+                    <h4>上次参赛</h4>
+                    <p>${stats.daysSinceLastRace}天前</p>
                 </div>
             `;
         }
@@ -607,6 +624,10 @@ function updateEventSeriesComparisonChart(races) {
             <div class="stat-item">
                 <h4>变化趋势</h4>
                 <p>${stats.trend < 0 ? '进步' : stats.trend > 0 ? '退步' : '持平'}</p>
+            </div>
+            <div class="stat-item">
+                <h4>上次参赛</h4>
+                <p>${stats.daysSinceLastRace}天前</p>
             </div>
         `;
         
