@@ -435,6 +435,9 @@ function generateRaceRecords() {
                     </div>
                 </div>
                 <div class="race-details">
+                    <div class="race-category">
+                        <strong>类型:</strong> ${race.category}
+                    </div>
                     <div class="race-event">
                         <strong>项目:</strong> ${race.event}
                     </div>
