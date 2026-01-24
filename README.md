@@ -29,6 +29,7 @@
 
 ### 2. 游戏相关
 - **刀剑乱舞锻刀模拟器** (touken-forge.html): 模拟游戏中的锻刀系统
+- **多文明演化模拟器** (civilization-evolution.html): 自动模拟多个文明的发展历程，展示文明间的交流、冲突与兴衰
 
 ### 3. 媒体展示
 - **视频播放器** (video.html): 视频内容展示和播放
@@ -88,7 +89,8 @@ woshicby.github.io/
 │   ├── github.min.css  # GitHub风格样式
 │   ├── post-detail.css  # 文章详情样式
 │   ├── posts.css       # 文章列表样式
-│   └── study.css       # 学习页面样式
+│   ├── study.css       # 学习页面样式
+│   └── civilization-evolution.css  # 多文明演化模拟器样式
 ├── JS/              # JavaScript文件目录
 │   ├── MathJax-3.2.2es5/  # MathJax数学公式库
 │   ├── markdown/     # Markdown相关功能
@@ -101,7 +103,13 @@ woshicby.github.io/
 │   ├── convert-md-to-json.js  # Markdown转换工具
 │   ├── highlight.min.js  # 代码高亮
 │   ├── post-detail.js  # 文章详情功能
-│   └── posts.js       # 文章列表功能
+│   ├── posts.js       # 文章列表功能
+│   └── civilization-evolution/  # 多文明演化模拟器
+│       ├── civilization.js
+│       ├── map.js
+│       ├── simulator.js
+│       ├── ui.js
+│       └── main.js
 ├── posts/           # 博客文章目录
 │   ├── markdown示例.md
 │   └── posts.json
@@ -136,6 +144,7 @@ woshicby.github.io/
 ├── convert-md-to-json.html  # Markdown转换工具页面
 ├── post-detail.html  # 文章详情页面
 ├── posts.html        # 文章列表页面
+├── civilization-evolution.html  # 多文明演化模拟器页面
 └── README.md        # 项目说明文档
 ```
 
@@ -152,26 +161,18 @@ woshicby.github.io/
 
 - 2023.02.22: 项目初始化
 - 2025.07.18: 添加样式比较器工具
-- 2025.07.19: 完善项目文档结构
-- 2025.07.19: 优化图片资源管理
+- 2025.07.19: 完善项目文档结构，优化图片资源管理
 - 2025.07.20: 更新响应式导航系统
 - 2025.11.20: 添加主题切换功能 (theme-toggle.js)
 - 2025.11.21: 增强用户体验和交互功能
-- 2025.11.23: 重构CSS和JS目录结构，添加子目录管理
-- 2025.11.23: 更新HTML文件位置到根目录
-- 2025.11.27: 实现博客文章功能 (posts.html, post-detail.html)
-- 2025.11.27: 添加Markdown支持和数学公式渲染
-- 2025.11.27: 实现代码高亮功能
-- 2025.11.27: 添加Markdown转换工具 (convert-md-to-json.html)
+- 2025.11.23: 重构CSS和JS目录结构，添加子目录管理，更新HTML文件位置到根目录
+- 2025.11.27: 实现博客文章功能 (posts.html, post-detail.html)，添加Markdown支持和数学公式渲染，实现代码高亮功能，添加Markdown转换工具 (convert-md-to-json.html)
 - 2025.12.14: 添加跑步记录功能 (sports.html)，支持赛季最佳和个人最佳标记
-- 2025.12.15: 完赛证书采用多列瀑布流布局展示，提升视觉体验和空间利用率
-- 2025.12.15: 调整个人简介区域的HTML和CSS布局，优化标题和内容排列
-- 2025.12.16: 修复夜间模式下nav-card和skill-card悬停效果的不一致问题
-- 2025.12.16: 统一了夜间模式悬停效果的视觉一致性
+- 2025.12.15: 完赛证书采用多列瀑布流布局展示，调整个人简介区域的HTML和CSS布局，优化标题和内容排列
+- 2025.12.16: 修复夜间模式下nav-card和skill-card悬停效果的不一致问题，统一夜间模式悬停效果的视觉一致性
 - 2026.01.14: 优化赛事日历功能，添加场地跑配色支持，实现数据驱动的动态配色方案，添加赛事类型图例，实现鼠标悬停提示框，支持长赛事名称自动换行，过去赛事显示成绩，未来赛事显示起跑时间
-- 2026.01.19: 优化成绩变化对比功能，添加同一项目和同一赛事的成绩变化趋势分析，显示上次参赛多少天前
-- 2026.01.19: 优化个人最佳成绩(PB)统计逻辑，支持在certification字段添加"不计入PB/SB"标签排除特定赛事
-- 2026.01.19: 在比赛记录中添加比赛类型显示，位于项目、成绩、距离、配速信息行的最开头
+- 2026.01.19: 优化成绩变化对比功能，添加同一项目和同一赛事的成绩变化趋势分析，显示上次参赛多少天前；优化个人最佳成绩(PB)统计逻辑，支持在certification字段添加"不计入PB/SB"标签排除特定赛事；在比赛记录中添加比赛类型显示
+- 2026.01.22-23: 实现多文明演化模拟器(civilization-evolution.html)，自动模拟多个文明的发展历程；优化模拟器性能，添加文明颜色图例和文明卡片颜色指示器，提升用户体验；将项目名称从"多文明文字演化模拟器"更改为"多文明演化模拟器"
 
 ## 使用方法
 
@@ -208,6 +209,7 @@ This is a personal website built with HTML, CSS, and JavaScript, designed to dem
 
 ### 2. Game-related
 - **Touken Ranbu Sword Forging Simulator** (touken-forge.html): Simulates the sword forging system in the game
+- **Civilization Evolution Simulator** (civilization-evolution.html): Automatically simulates the development process of multiple civilizations, showing exchanges, conflicts, and rises and falls between civilizations
 
 ### 3. Media Display
 - **Video Player** (video.html): Video content display and playback
@@ -267,7 +269,8 @@ woshicby.github.io/
 │   ├── github.min.css  # GitHub style
 │   ├── post-detail.css  # Article detail styles
 │   ├── posts.css       # Article list styles
-│   └── study.css       # Study page styles
+│   ├── study.css       # Study page styles
+│   └── civilization-evolution.css  # Civilization Evolution Simulator styles
 ├── JS/              # JavaScript files directory
 │   ├── MathJax-3.2.2es5/  # MathJax library
 │   ├── markdown/     # Markdown related functionality
@@ -280,7 +283,13 @@ woshicby.github.io/
 │   ├── convert-md-to-json.js  # Markdown converter
 │   ├── highlight.min.js  # Code highlighting
 │   ├── post-detail.js  # Article detail functionality
-│   └── posts.js       # Article list functionality
+│   ├── posts.js       # Article list functionality
+│   └── civilization-evolution/  # Civilization Evolution Simulator
+│       ├── civilization.js
+│       ├── map.js
+│       ├── simulator.js
+│       ├── ui.js
+│       └── main.js
 ├── posts/           # Blog articles directory
 │   ├── markdown示例.md
 │   └── posts.json
@@ -315,6 +324,7 @@ woshicby.github.io/
 ├── convert-md-to-json.html  # Markdown converter page
 ├── post-detail.html  # Article detail page
 ├── posts.html        # Article list page
+├── civilization-evolution.html  # Civilization Evolution Simulator page
 └── README.md        # Project documentation
 ```
 
@@ -331,26 +341,18 @@ woshicby.github.io/
 
 - 2023.02.22: Project initialization
 - 2025.07.18: Added style comparator tool
-- 2025.07.19: Improved project documentation structure
-- 2025.07.19: Optimized image resource management
+- 2025.07.19: Improved project documentation structure, optimized image resource management
 - 2025.07.20: Updated responsive navigation system
 - 2025.11.20: Added theme switching functionality (theme-toggle.js)
 - 2025.11.21: Enhanced user experience and interactive features
-- 2025.11.23: Refactored CSS and JS directory structure with subdirectories
-- 2025.11.23: Updated HTML file locations to root directory
-- 2025.11.27: Implemented blog article functionality (posts.html, post-detail.html)
-- 2025.11.27: Added Markdown support and mathematical formula rendering
-- 2025.11.27: Implemented code highlighting functionality
-- 2025.11.27: Added Markdown to JSON converter (convert-md-to-json.html)
+- 2025.11.23: Refactored CSS and JS directory structure with subdirectories, updated HTML file locations to root directory
+- 2025.11.27: Implemented blog article functionality (posts.html, post-detail.html), added Markdown support and mathematical formula rendering, implemented code highlighting functionality, added Markdown to JSON converter (convert-md-to-json.html)
 - 2025.12.14: Added running records feature (sports.html) with SB and PB markers
-- 2025.12.15: Implemented multi-column waterfall layout for finisher certificates, improving visual experience and space utilization
-- 2025.12.15: Adjusted HTML and CSS layout of "About Me" section, optimizing title and content arrangement
-- 2025.12.16: Fixed inconsistent hover effects between nav-card and skill-card in dark mode
-- 2025.12.16: Unified visual consistency of hover effects in dark mode
+- 2025.12.15: Implemented multi-column waterfall layout for finisher certificates, adjusted HTML and CSS layout of "About Me" section
+- 2025.12.16: Fixed inconsistent hover effects between nav-card and skill-card in dark mode, unified visual consistency of hover effects in dark mode
 - 2026.01.14: Optimized race calendar functionality, added track run color support, implemented data-driven dynamic color scheme, added race type legend, implemented mouse hover tooltips, supported auto-wrapping for long race names, showed results for past races and start times for future races
-- 2026.01.19: Optimized race performance comparison functionality, added performance trend analysis for same project and same event, displayed days since last race
-- 2026.01.19: Optimized Personal Best (PB) calculation logic, supported adding "不计入PB/SB" tag in certification field to exclude specific races from PB/SB calculation
-- 2026.01.19: Added race type display in race records, located at the beginning of the event, result, distance, and pace information row
+- 2026.01.19: Optimized race performance comparison functionality, added performance trend analysis for same project and same event, displayed days since last race; optimized Personal Best (PB) calculation logic, supported adding "不计入PB/SB" tag in certification field; added race type display in race records
+- 2026.01.22-23: Implemented Civilization Evolution Simulator (civilization-evolution.html), optimized simulator performance, added civilization color legend and civilization card color indicators, changed project name to "多文明演化模拟器" (Civilization Evolution Simulator)
 
 ## Usage
 
@@ -387,6 +389,7 @@ When adding new pages, please follow the existing file structure and naming conv
 
 ### 2. ゲーム関連
 - **刀剣乱舞刀鍛冶シミュレーター** (touken-forge.html): ゲーム内の刀鍛冶システムをシミュレート
+- **多文明演化シミュレーター** (civilization-evolution.html): 複数の文明の発展プロセスを自動的にシミュレートし、文明間の交流、対立、盛衰を示す
 
 ### 3. メディア表示
 - **ビデオプレイヤー** (video.html): ビデオコンテンツの表示と再生
@@ -446,7 +449,8 @@ woshicby.github.io/
 │   ├── github.min.css  # GitHubスタイル
 │   ├── post-detail.css  # 記事詳細スタイル
 │   ├── posts.css       # 記事一覧スタイル
-│   └── study.css       # 学習ページスタイル
+│   ├── study.css       # 学習ページスタイル
+│   └── civilization-evolution.css  # 多文明演化シミュレータースタイル
 ├── JS/              # JavaScriptファイルディレクトリ
 │   ├── MathJax-3.2.2es5/  # MathJaxライブラリ
 │   ├── markdown/     # Markdown関連機能
@@ -459,7 +463,13 @@ woshicby.github.io/
 │   ├── convert-md-to-json.js  # Markdown変換ツール
 │   ├── highlight.min.js  # コードハイライト
 │   ├── post-detail.js  # 記事詳細機能
-│   └── posts.js       # 記事一覧機能
+│   ├── posts.js       # 記事一覧機能
+│   └── civilization-evolution/  # 多文明演化シミュレーター
+│       ├── civilization.js
+│       ├── map.js
+│       ├── simulator.js
+│       ├── ui.js
+│       └── main.js
 ├── posts/           # ブログ記事ディレクトリ
 │   ├── markdown示例.md
 │   └── posts.json
@@ -494,6 +504,7 @@ woshicby.github.io/
 ├── convert-md-to-json.html  # Markdown変換ツールページ
 ├── post-detail.html  # 記事詳細ページ
 ├── posts.html        # 記事一覧ページ
+├── civilization-evolution.html  # 多文明演化シミュレーターページ
 └── README.md        # プロジェクトドキュメント
 ```
 
@@ -510,26 +521,18 @@ woshicby.github.io/
 
 - 2023.02.22: プロジェクト初期化
 - 2025.07.18: スタイル比較ツールの追加
-- 2025.07.19: プロジェクトドキュメント構造の改善
-- 2025.07.19: 画像リソース管理の最適化
+- 2025.07.19: プロジェクトドキュメント構造の改善、画像リソース管理の最適化
 - 2025.07.20: レスポンシブナビゲーションシステムの更新
 - 2025.11.20: テーマ切り替え機能の追加 (theme-toggle.js)
 - 2025.11.21: ユーザーエクスペリエンスとインタラクティブ機能の強化
-- 2025.11.23: CSSとJSのディレクトリ構造をリファクタリング、サブディレクトリ管理を追加
-- 2025.11.23: HTMLファイルの位置をルートディレクトリに更新
-- 2025.11.27: ブログ記事機能 (posts.html, post-detail.html) の実装
-- 2025.11.27: Markdownサポートと数式レンダリングの追加
-- 2025.11.27: コードハイライト機能の実装
-- 2025.11.27: MarkdownからJSONへの変換ツールの追加 (convert-md-to-json.html)
+- 2025.11.23: CSSとJSのディレクトリ構造をリファクタリング、サブディレクトリ管理を追加、HTMLファイルの位置をルートディレクトリに更新
+- 2025.11.27: ブログ記事機能 (posts.html, post-detail.html) の実装、Markdownサポートと数式レンダリングの追加、コードハイライト機能の実装、MarkdownからJSONへの変換ツールの追加 (convert-md-to-json.html)
 - 2025.12.14: ランニング記録機能 (sports.html) の追加、SBとPBのマーカーをサポート
-- 2025.12.15: 完走証明書に多列のウォーターフォールレイアウトを実装、視覚体験とスペース利用率を向上
-- 2025.12.15: 「About Me」セクションのHTMLとCSSレイアウトを調整、タイトルとコンテンツの配置を最適化
-- 2025.12.16: ダークモードでのnav-cardとskill-cardのホバー効果の不一致を修正
-- 2025.12.16: ダークモードでのホバー効果の視覚的一貫性を統一
+- 2025.12.15: 完走証明書に多列のウォーターフォールレイアウトを実装、「About Me」セクションのHTMLとCSSレイアウトを調整
+- 2025.12.16: ダークモードでのnav-cardとskill-cardのホバー効果の不一致を修正、ダークモードでのホバー効果の視覚的一貫性を統一
 - 2026.01.14: レースカレンダー機能を最適化、トラックランの配色サポートを追加、データ駆動の動的配色スキームを実装、レースタイプ凡例を追加、マウスホバーツールチップを実装、長いレース名の自動折り返しをサポート、過去のレースには結果を表示、未来のレースにはスタート時間を表示
-- 2026.01.19: レース成績比較機能を最適化、同一プロジェクトと同一イベントの成績傾向分析を追加、前回レースからの日数を表示
-- 2026.01.19: パーソナルベスト(PB)計算ロジックを最適化、特定のレースをPB計算から除外するためにcertificationフィールドに「不计入PB/SB」タグを追加できるようにサポート
-- 2026.01.19: レース記録にレースタイプ表示を追加、イベント、結果、距離、ペース情報行の先頭に表示
+- 2026.01.19: レース成績比較機能を最適化、同一プロジェクトと同一イベントの成績傾向分析を追加、前回レースからの日数を表示；パーソナルベスト(PB)計算ロジックを最適化、特定のレースをPB計算から除外するためにcertificationフィールドに「不计入PB/SB」タグを追加できるようにサポート；レース記録にレースタイプ表示を追加
+- 2026.01.22-23: 多文明演化シミュレーター(civilization-evolution.html)を実装、複数の文明の発展プロセスを自動的にシミュレート；多文明演化シミュレーターのパフォーマンスを最適化、文明の色の凡例と文明カードの色インジケーターを追加；プロジェクト名を「多文明文字演化シミュレーター」から「多文明演化シミュレーター」に変更
 
 ## 使用方法
 

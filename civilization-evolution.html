@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- 多文明演化模拟器页面 -->
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>多文明演化模拟器</title>
+        <link rel="stylesheet" href="./CSS/common.css">
+        <link rel="stylesheet" href="./CSS/tools-common.css">
+        <link rel="stylesheet" href="./CSS/civilization-evolution.css">
+        <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+        <!-- 引入导航功能脚本 -->
+        <script src="./JS/navigation.js"></script>
+        <!-- 引入主题切换脚本 -->
+        <script src="./JS/theme-toggle.js"></script>
+        <!-- 引入文明演化模拟器模块化脚本 -->
+        <script src="./JS/civilization-evolution/civilization.js"></script>
+        <script src="./JS/civilization-evolution/map.js"></script>
+        <script src="./JS/civilization-evolution/simulator.js"></script>
+        <script src="./JS/civilization-evolution/ui.js"></script>
+        <script src="./JS/civilization-evolution/main.js"></script>
+    </head>
+    <!-- 页面头部 - 网站标题和导航 -->
+    <body>
+        <!-- 头部外套开始 -->
+        <div class="header clearfix wrapper">
+            <!-- logo/大标题区域开始 -->
+            <h1>多文明演化模拟器</h1>
+            <!-- logo/大标题区域结束 -->
+            <!-- 导航栏开始 -->
+            <div class="nav">
+                <ul class="clearfix">
+                    <li><a href="./index.html">首页</a></li>
+                    <li><a href="./video.html">视频展示</a></li>
+                    <li><a href="./posts.html">博客文章</a></li>
+                    <li><a href="./study.html">个人成果</a></li>
+                    <li><a href="./tools.html">小工具&小游戏</a></li>
+                    <li><a href="./sports.html">体育运动</a></li>
+                    <li style="display: inline-block; vertical-align: middle;">
+                        <label class="theme-toggle">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="theme-toggle-slider"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <!-- 导航栏结束 -->
+        </div>
+        <!-- 头部外套结束 -->
+      
+        <!-- 移动导航菜单切换按钮 -->
+        <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <!-- 主体外套开始 -->
+        <div class="mainbox clearfix wrapper">
+            <!-- 返回小工具页面的链接 -->
+            <div class="back-to-tools">
+                <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
+            </div>
+            
+            <!-- 文明演化模拟器 -->
+            <div class="tool-container">
+                <h2 class="tool-page-title">多文明演化模拟器</h2>
+                <p class="tool-description">
+                    自动模拟多个文明的发展历程，展示文明间的交流、冲突与兴衰。
+                    不需要任何操作，坐下来欣赏文明的演化故事吧！
+                </p>
+                
+                <!-- 控制面板 -->
+                <div class="control-panel">
+                    <div class="speed-control">
+                        <label for="speedSelect">演化速度：</label>
+                        <select id="speedSelect">
+                            <option value="slow">慢速</option>
+                            <option value="medium" selected>中速</option>
+                            <option value="fast">快速</option>
+                        </select>
+                    </div>
+                    <div class="simulation-info">
+                        <span>当前时间：<span id="currentTime">公元前3000年</span></span>
+                        <span>已运行：<span id="runningTime">0分钟</span></span>
+                    </div>
+                </div>
+                
+                <!-- 事件时间线 -->
+                <div class="timeline-container">
+                    <h3>文明演化时间线</h3>
+                    <div class="timeline" id="timeline">
+                        <!-- 事件将通过JS动态生成 -->
+                    </div>
+                </div>
+                
+                <!-- 文明统计卡片容器 -->
+                <div class="civilizations-container" id="civilizationsContainer">
+                    <!-- 文明卡片将通过JS动态生成 -->
+                </div>
+                
+                <!-- 地图和关系图区域 -->
+                <div class="main-content-grid">
+                    <!-- 地图显示 -->
+                    <div class="map-container">
+                        <h3>文明地图</h3>
+                        <canvas id="civilizationMap" width="800" height="800"></canvas>
+                    </div>
+                    
+                    <!-- 文明关系图 -->
+                    <div class="relations-container">
+                        <h3>文明关系</h3>
+                        <div class="relations-graph" id="relationsGraph">
+                            <!-- 文明关系将通过JS动态生成 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 文明详细信息面板 -->
+                <div class="civilization-details-container">
+                    <h3>文明详细信息</h3>
+                    <div class="civilization-details" id="civilizationDetails">
+                        <!-- 文明详细信息将通过JS动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 主体外套结束 -->
+        <!-- 页脚区域 -->
+        <div class="foot wrapper">
+            <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+        </div>
+        <!-- 脚注外套结束 -->
+    </body>
+</html>
