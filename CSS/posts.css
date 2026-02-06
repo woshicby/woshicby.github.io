@@ -271,8 +271,6 @@ body.posts-page {
 
 .post-detail-page .post-detail-content h2 {
     font-size: 1.6rem;
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 1px solid var(--border-color);
 }
 
 .post-detail-page .post-detail-content p {

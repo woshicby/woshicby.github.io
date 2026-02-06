@@ -175,7 +175,7 @@ woshicby.github.io/
 - 2026.01.14: 优化赛事日历功能，添加场地跑配色支持，实现数据驱动的动态配色方案，添加赛事类型图例，实现鼠标悬停提示框，支持长赛事名称自动换行，过去赛事显示成绩，未来赛事显示起跑时间
 - 2026.01.19: 优化成绩变化对比功能，添加同一项目和同一赛事的成绩变化趋势分析，显示上次参赛多少天前；优化个人最佳成绩(PB)统计逻辑，支持在certification字段添加"不计入PB/SB"标签排除特定赛事；在比赛记录中添加比赛类型显示
 - 2026.01.22-23: 实现多文明演化模拟器(civilization-evolution.html)，自动模拟多个文明的发展历程；优化模拟器性能，添加文明颜色图例和文明卡片颜色指示器，提升用户体验；将项目名称从"多文明文字演化模拟器"更改为"多文明演化模拟器"
-- 2026.02.06: 修正运动页面赛事日历图例的显示逻辑
+- 2026.02.06: 修正运动页面赛事日历图例的显示逻辑；删除博文文章H2标题的下划线；修正博文文章中图片的显示效果
 
 ## 使用方法
 
@@ -358,7 +358,7 @@ woshicby.github.io/
 - 2026.01.14: Optimized race calendar functionality, added track run color support, implemented data-driven dynamic color scheme, added race type legend, implemented mouse hover tooltips, supported auto-wrapping for long race names, showed results for past races and start times for future races
 - 2026.01.19: Optimized race performance comparison functionality, added performance trend analysis for same project and same event, displayed days since last race; optimized Personal Best (PB) calculation logic, supported adding "不计入PB/SB" tag in certification field; added race type display in race records
 - 2026.01.22-23: Implemented Civilization Evolution Simulator (civilization-evolution.html), optimized simulator performance, added civilization color legend and civilization card color indicators, changed project name to "多文明演化模拟器" (Civilization Evolution Simulator)
-- 2026.02.06: Fixed race calendar legend display logic on sports page
+- 2026.02.06: Fixed race calendar legend display logic on sports page; removed underline from blog post H2 titles; fixed image display effects in blog posts
 
 ## Usage
 
@@ -541,7 +541,7 @@ woshicby.github.io/
 - 2026.01.14: レースカレンダー機能を最適化、トラックランの配色サポートを追加、データ駆動の動的配色スキームを実装、レースタイプ凡例を追加、マウスホバーツールチップを実装、長いレース名の自動折り返しをサポート、過去のレースには結果を表示、未来のレースにはスタート時間を表示
 - 2026.01.19: レース成績比較機能を最適化、同一プロジェクトと同一イベントの成績傾向分析を追加、前回レースからの日数を表示；パーソナルベスト(PB)計算ロジックを最適化、特定のレースをPB計算から除外するためにcertificationフィールドに「不计入PB/SB」タグを追加できるようにサポート；レース記録にレースタイプ表示を追加
 - 2026.01.22-23: 多文明演化シミュレーター(civilization-evolution.html)を実装、複数の文明の発展プロセスを自動的にシミュレート；多文明演化シミュレーターのパフォーマンスを最適化、文明の色の凡例と文明カードの色インジケーターを追加；プロジェクト名を「多文明文字演化シミュレーター」から「多文明演化シミュレーター」に変更
-- 2026.02.06: スポーツページのレースカレンダー凡例の表示ロジックを修正
+- 2026.02.06: スポーツページのレースカレンダー凡例の表示ロジックを修正；ブログ記事のH2タイトルの下線を削除；ブログ記事の画像表示効果を修正
 
 ## 使用方法
 
