@@ -76,9 +76,9 @@ class PostDetailManager {
         // 渲染博文标题
         document.getElementById('post-title').textContent = post.title;
         
-        // 渲染博文元信息
-        const metaElement = document.getElementById('post-meta');
-        metaElement.innerHTML = `<span class="post-date">${this.formatDate(post.date)}</span>`;
+        // 渲染博文日期
+        const dateElement = document.getElementById('post-date');
+        dateElement.innerHTML = `${this.formatDate(post.date)}`;
         
         // 渲染分类
         const categoriesElement = document.getElementById('post-categories');
@@ -91,6 +91,8 @@ class PostDetailManager {
                     return `<a href="index.html?category=${encodeURIComponent(cleanCat)}" class="category-badge">${cleanCat}</a>`;
                 }).join('')}
             `;
+        } else {
+            categoriesElement.innerHTML = '';
         }
         
         // 渲染标签
@@ -104,6 +106,8 @@ class PostDetailManager {
                     return `<a href="index.html?tag=${encodeURIComponent(cleanTag)}" class="tag-badge">${cleanTag}</a>`;
                 }).join('')}
             `;
+        } else {
+            tagsElement.innerHTML = '';
         }
         
         // 渲染博文内容

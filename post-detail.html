@@ -73,19 +73,26 @@
             <div class="post-nav">
                 <a href="./posts.html" class="back-to-list">返回博文列表</a>
             </div>
-            <h2 class="post-title" id="post-title">加载中...</h2>
-            <div class="post-meta" id="post-meta">
-                <!-- 博文元信息将通过JavaScript动态加载 -->
+            <div class="post-header">
+                <h2 class="post-title" id="post-title">加载中...</h2>
+                <div class="post-meta" id="post-meta">
+                    <!-- 博文元信息将通过JavaScript动态加载 -->
+                    <div class="post-date" id="post-date">
+                        <!-- 博文日期将通过JavaScript动态加载 -->
+                    </div>
+                    <div class="post-categories" id="post-categories">
+                        <!-- 博文分类将通过JavaScript动态加载 -->
+                    </div>
+                    <div class="post-tags" id="post-tags">
+                        <!-- 博文标签将通过JavaScript动态加载 -->
+                    </div>
+                </div>
             </div>
-            <div class="post-categories" id="post-categories">
-                <!-- 博文分类将通过JavaScript动态加载 -->
-            </div>
-            <div class="post-tags" id="post-tags">
-                <!-- 博文标签将通过JavaScript动态加载 -->
-            </div>
-            <div class="post-content" id="post-content">
-                <!-- 博文内容将通过JavaScript动态加载 -->
-                <div class="loading">加载中...</div>
+            <div class="post-content-container">
+                <div class="post-content" id="post-content">
+                    <!-- 博文内容将通过JavaScript动态加载 -->
+                    <div class="loading">加载中...</div>
+                </div>
             </div>
         </div>
     </div>
