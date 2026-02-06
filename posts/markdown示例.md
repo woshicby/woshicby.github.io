@@ -1,9 +1,8 @@
 ---
 title: 'Markdown功能完整示例'
 date: '2024-06-30'
-author: '示例作者'
-categories: ['技术', '教程']
-tags: ['Markdown', '示例', '格式']
+categories: [技术,教程]
+tags: [Markdown,示例,格式]
 excerpt: '这是一个包含所有常见Markdown功能的示例文件，用于测试转换工具。'
 ---
 
