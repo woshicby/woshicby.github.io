@@ -287,10 +287,7 @@ function renderLegend(calendarContainer) {
     legendContainer.appendChild(legendTitle);
     
     // 遍历赛事类型配置，生成图例项
-    Object.entries(raceTypeConfig).forEach(([type, config]) => {
-        // 跳过默认类型
-        if (type === 'other') return;
-        
+    Object.entries(raceTypeConfig).forEach(([type, config]) => {        
         // 创建图例项
         const legendItem = document.createElement('div');
         legendItem.className = 'legend-item';
