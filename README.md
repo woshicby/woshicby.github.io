@@ -176,6 +176,8 @@ woshicby.github.io/
 - 2026.01.19: 优化成绩变化对比功能，添加同一项目和同一赛事的成绩变化趋势分析，显示上次参赛多少天前；优化个人最佳成绩(PB)统计逻辑，支持在certification字段添加"不计入PB/SB"标签排除特定赛事；在比赛记录中添加比赛类型显示
 - 2026.01.22-23: 实现多文明演化模拟器(civilization-evolution.html)，自动模拟多个文明的发展历程；优化模拟器性能，添加文明颜色图例和文明卡片颜色指示器，提升用户体验；将项目名称从"多文明文字演化模拟器"更改为"多文明演化模拟器"
 - 2026.02.06: 修正运动页面赛事日历图例的显示逻辑；删除博文文章H2标题的下划线；修正博文文章中图片的显示效果
+- 2026.02.06: 修正博文详情页面中分类和标签的链接（从index.html改为posts.html）；博文列表页面分类和标签使用统一的badge样式；添加过滤信息显示和"清除所有"按钮；支持同时筛选多个分类和多个标签（OR逻辑）；支持单独移除过滤条件；文章列表中的分类和标签也支持多选逻辑；博文详情页面分类和标签使用badge样式，在日期前添加"日期："标签
+- 2026.02.06: 优化跑步记录功能，为越野跑添加raceScore字段；修改同一项目成绩变化对比，支持越野跑的raceScore变化和ITRA表现分显示；修复越野跑PB/SB标签的显示问题；更新赛事日历图例的显示逻辑，根据当前视图动态显示相关赛事类型；修改越野跑PB卡片，将配速替换为ITRA表现分；确保ITRA表现分数字的样式一致性
 
 ## 使用方法
 
@@ -359,6 +361,8 @@ woshicby.github.io/
 - 2026.01.19: Optimized race performance comparison functionality, added performance trend analysis for same project and same event, displayed days since last race; optimized Personal Best (PB) calculation logic, supported adding "不计入PB/SB" tag in certification field; added race type display in race records
 - 2026.01.22-23: Implemented Civilization Evolution Simulator (civilization-evolution.html), optimized simulator performance, added civilization color legend and civilization card color indicators, changed project name to "多文明演化模拟器" (Civilization Evolution Simulator)
 - 2026.02.06: Fixed race calendar legend display logic on sports page; removed underline from blog post H2 titles; fixed image display effects in blog posts
+- 2026.02.06: Fixed category and tag links in blog detail page (changed from index.html to posts.html); unified badge style for categories and tags in blog list page; added filter info display and "Clear All" button; supported filtering multiple categories and tags simultaneously (OR logic); supported removing individual filter conditions; categories and tags in article list also support multi-select logic; blog detail page categories and tags use badge style, added "Date:" label before date
+- 2026.02.06: Optimized running records functionality, added raceScore field for trail running; modified same project performance comparison to support trail running raceScore changes and ITRA performance score display; fixed trail running PB/SB label display issues; updated race calendar legend display logic to dynamically show relevant race types based on current view; modified trail running PB cards to replace pace with ITRA performance score; ensured consistent styling for ITRA performance score numbers
 
 ## Usage
 
@@ -542,6 +546,8 @@ woshicby.github.io/
 - 2026.01.19: レース成績比較機能を最適化、同一プロジェクトと同一イベントの成績傾向分析を追加、前回レースからの日数を表示；パーソナルベスト(PB)計算ロジックを最適化、特定のレースをPB計算から除外するためにcertificationフィールドに「不计入PB/SB」タグを追加できるようにサポート；レース記録にレースタイプ表示を追加
 - 2026.01.22-23: 多文明演化シミュレーター(civilization-evolution.html)を実装、複数の文明の発展プロセスを自動的にシミュレート；多文明演化シミュレーターのパフォーマンスを最適化、文明の色の凡例と文明カードの色インジケーターを追加；プロジェクト名を「多文明文字演化シミュレーター」から「多文明演化シミュレーター」に変更
 - 2026.02.06: スポーツページのレースカレンダー凡例の表示ロジックを修正；ブログ記事のH2タイトルの下線を削除；ブログ記事の画像表示効果を修正
+- 2026.02.06: ブログ詳細ページのカテゴリとタグのリンクを修正（index.htmlからposts.htmlへ変更）；ブログ一覧ページのカテゴリとタグを統一されたbadgeスタイルに変更；フィルター情報表示と「すべてクリア」ボタンを追加；複数のカテゴリとタグを同時にフィルタリング可能に（OR論理）；個別のフィルター条件を削除可能に；記事一覧のカテゴリとタグも複数選択ロジックをサポート；ブログ詳細ページのカテゴリとタグはbadgeスタイルを使用、日付の前に「日付：」ラベルを追加
+- 2026.02.06: ランニング記録機能を最適化、トレイルランにraceScoreフィールドを追加；同一プロジェクトの成績比較を変更し、トレイルランのraceScore変化とITRAパフォーマンススコアの表示をサポート；トレイルランのPB/SBラベルの表示問題を修正；レースカレンダーの凡例の表示ロジックを更新、現在のビューに基づいて関連するレースタイプを動的に表示；トレイルランのPBカードを変更、ペースをITRAパフォーマンススコアに置き換え；ITRAパフォーマンススコアの数値のスタイルの一貫性を確保
 
 ## 使用方法
 

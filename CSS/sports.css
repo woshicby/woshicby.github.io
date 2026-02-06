@@ -1,13 +1,57 @@
-/* ==========================================
-   体育运动页面样式
-   ==========================================
-   包含体育运动页面特定的样式
-   ========================================== */
+/* ==========================================   体育运动页面样式   ==========================================   包含体育运动页面特定的样式   ========================================== */
 
 /* 通用部分样式 */
 
 
 
+
+/* ITRA表现分样式 */
+.itra-score {
+    margin-bottom: var(--spacing-lg);
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-light);
+    padding: var(--spacing-lg);
+}
+
+.itra-score h2 {
+    color: var(--heading-color);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.itra-score-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.score-display {
+    background-color: var(--background-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    border-left: 4px solid var(--accent-color);
+}
+
+.score-display h3 {
+    color: var(--heading-color);
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: 1.2rem;
+}
+
+.score-display #current-itra-score {
+    color: var(--accent-color);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.score-display p {
+    color: var(--secondary-color);
+    margin: 0;
+    font-size: 0.9rem;
+}
 
 /* 个人运动记录表格样式 */
 #personal-records table {

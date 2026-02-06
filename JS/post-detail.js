@@ -78,7 +78,7 @@ class PostDetailManager {
         
         // 渲染博文日期
         const dateElement = document.getElementById('post-date');
-        dateElement.innerHTML = `${this.formatDate(post.date)}`;
+        dateElement.innerHTML = `<strong>日期：</strong>${this.formatDate(post.date)}`;
         
         // 渲染分类
         const categoriesElement = document.getElementById('post-categories');
@@ -88,7 +88,7 @@ class PostDetailManager {
                 ${post.categories.map(cat => {
                     // 清理分类名称中的额外引号
                     const cleanCat = cat.replace(/^['"']|['"']$/g, '');
-                    return `<a href="index.html?category=${encodeURIComponent(cleanCat)}" class="category-badge">${cleanCat}</a>`;
+                    return `<a href="posts.html?category=${encodeURIComponent(cleanCat)}" class="category-badge">${cleanCat}</a>`;
                 }).join('')}
             `;
         } else {
@@ -103,7 +103,7 @@ class PostDetailManager {
                 ${post.tags.map(tag => {
                     // 清理标签名称中的额外引号
                     const cleanTag = tag.replace(/^['"']|['"']$/g, '');
-                    return `<a href="index.html?tag=${encodeURIComponent(cleanTag)}" class="tag-badge">${cleanTag}</a>`;
+                    return `<a href="posts.html?tag=${encodeURIComponent(cleanTag)}" class="tag-badge">${cleanTag}</a>`;
                 }).join('')}
             `;
         } else {

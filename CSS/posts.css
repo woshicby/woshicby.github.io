@@ -103,6 +103,7 @@ body.posts-page {
     font-size: 0.8rem;
     transition: var(--transition-default);
     border: 2px solid transparent;
+    cursor: pointer;
 }
 
 .posts-page .category-badge:hover, .posts-page .tag-badge:hover {
@@ -111,6 +112,13 @@ body.posts-page {
     border-color: var(--secondary-color);
     background-color: var(--secondary-color);
     color: white;
+}
+
+.posts-page .category-badge.active, .posts-page .tag-badge.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    box-shadow: var(--shadow-medium);
 }
 
 .posts-page .sidebar {
@@ -159,24 +167,39 @@ body.posts-page {
 
 /* 为分类列表添加ID选择器样式 */
 .posts-page #categories-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.posts-page #categories-list li {}
-
-.posts-page #categories-list a {
-    color: var(--text-color);
-    text-decoration: none;
-    transition: var(--transition-default);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+    padding: 0;
 }
 
-.posts-page #categories-list a:hover {
+.posts-page #categories-list .category-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: var(--background-accent);
     color: var(--secondary-color);
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: var(--transition-default);
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.posts-page #categories-list .category-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.posts-page #categories-list .category-badge.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    box-shadow: var(--shadow-medium);
 }
 
 /* 为标签容器添加ID选择器样式 */
@@ -186,6 +209,34 @@ body.posts-page {
     gap: var(--spacing-xs);
     margin-top: var(--spacing-sm);
     padding: 0;
+}
+
+.posts-page #tags-container .tag-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: var(--background-accent);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: var(--transition-default);
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.posts-page #tags-container .tag-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.posts-page #tags-container .tag-badge.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    box-shadow: var(--shadow-medium);
 }
 
 .posts-page .count {
@@ -348,5 +399,93 @@ body.posts-page {
     text-align: center;
     padding: 50px;
     color: var(--light-text);
+}
+
+/* 过滤信息区域样式 */
+.posts-page .filter-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--background-accent);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    border: 2px solid var(--border-color);
+    transition: var(--transition-default);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.posts-page .filter-info:hover {
+    border-color: var(--secondary-color);
+    box-shadow: var(--shadow-light);
+}
+
+.posts-page .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    align-items: center;
+    flex: 1;
+}
+
+.posts-page .filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 6px 12px;
+    border-radius: var(--border-radius-md);
+    font-size: 0.9rem;
+    transition: var(--transition-default);
+}
+
+.posts-page .filter-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.posts-page .filter-tag-remove {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition-default);
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.posts-page .filter-tag-remove:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.posts-page .clear-filter-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition-default);
+    white-space: nowrap;
+}
+
+.posts-page .clear-filter-btn:hover {
+    background-color: var(--primary-hover-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.posts-page .clear-filter-btn:active {
+    transform: translateY(0);
 }
 

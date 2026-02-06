@@ -79,7 +79,9 @@ const mockRaceRecords = [
         "season": "2025秋季",
         "certification": ["ITRA 1分"],
         "category": "越野跑",
-        "eventSeries": "昆嵛50越野挑战赛"
+        "eventSeries": "昆嵛50越野挑战赛",
+        "raceScore": "335",
+        "itraPerformanceScore": "324"
     },
     {
         "id": 6,
@@ -154,7 +156,9 @@ const mockRaceRecords = [
         "season": "2026夏季",
         "certification": ["ITRA 3分"],
         "category": "越野跑",
-        "eventSeries": "昆明国际越野挑战赛"
+        "eventSeries": "昆明国际越野挑战赛",
+        "raceScore": "375",
+        "itraPerformanceScore": "362"
     }
 ];
 
@@ -223,18 +227,20 @@ function groupRacesBySeasonAndEvent(races) {
     return grouped;
 }
 
-// 找出每个项目的个人最佳(PB) - 排除越野赛
+// 找出每个项目的个人最佳(PB) - 包含越野跑
 function findPersonalBests(races) {
-    // 过滤掉越野赛、没有结果的赛事和包含"不计入PB"认证标签的赛事
+    // 过滤掉没有结果的赛事和包含"不计入PB"认证标签的赛事
     const validRaces = races.filter(race => 
-        race.category !== "越野跑" && 
         race.result && race.result !== '' && 
         !(Array.isArray(race.certification) ? race.certification.includes("不计入PB/SB") : race.certification === "不计入PB/SB")
     );
     
-    const racesByEvent = groupRacesByEvent(validRaces);
+    // 路跑：按项目分组
+    const roadRaces = validRaces.filter(race => race.category !== "越野跑");
+    const racesByEvent = groupRacesByEvent(roadRaces);
     const pbs = {};
     
+    // 路跑PB
     Object.keys(racesByEvent).forEach(event => {
         const eventRaces = racesByEvent[event];
         // 按成绩排序（升序，时间越短越好）
@@ -245,21 +251,32 @@ function findPersonalBests(races) {
         }
     });
     
+    // 越野跑：找出raceScore最高的
+    const trailRaces = validRaces.filter(race => race.category === "越野跑" && race.raceScore);
+    if (trailRaces.length > 0) {
+        // 按raceScore排序（降序，分数越高越好）
+        trailRaces.sort((a, b) => parseInt(b.raceScore) - parseInt(a.raceScore));
+        // 最佳成绩是第一个
+        pbs["越野跑"] = trailRaces[0].id;
+    }
+    
     return pbs;
 }
 
-// 找出每个赛季每个项目的赛季最佳(SB) - 排除越野赛
+// 找出每个赛季每个项目的赛季最佳(SB) - 包含越野跑
 function findSeasonBests(races) {
-    // 过滤掉越野赛、没有结果的赛事和包含"不计入PB"认证标签的赛事
+    // 过滤掉没有结果的赛事和包含"不计入PB"认证标签的赛事
     const validRaces = races.filter(race => 
-        race.category !== "越野跑" && 
         race.result && race.result !== '' && 
         !(Array.isArray(race.certification) ? race.certification.includes("不计入PB/SB") : race.certification === "不计入PB/SB")
     );
     
-    const racesBySeasonEvent = groupRacesBySeasonAndEvent(validRaces);
+    // 路跑：按赛季和项目分组
+    const roadRaces = validRaces.filter(race => race.category !== "越野跑");
+    const racesBySeasonEvent = groupRacesBySeasonAndEvent(roadRaces);
     const sbs = {};
     
+    // 路跑SB
     Object.keys(racesBySeasonEvent).forEach(key => {
         const seasonEventRaces = racesBySeasonEvent[key];
         // 按成绩排序（升序，时间越短越好）
@@ -267,6 +284,29 @@ function findSeasonBests(races) {
         // 最佳成绩是第一个
         if (seasonEventRaces.length > 0) {
             sbs[seasonEventRaces[0].id] = true;
+        }
+    });
+    
+    // 越野跑：按赛季分组，找出每个赛季raceScore最高的
+    const trailRaces = validRaces.filter(race => race.category === "越野跑" && race.raceScore);
+    const trailRacesBySeason = {};
+    
+    // 按赛季分组
+    trailRaces.forEach(race => {
+        if (!trailRacesBySeason[race.season]) {
+            trailRacesBySeason[race.season] = [];
+        }
+        trailRacesBySeason[race.season].push(race);
+    });
+    
+    // 越野跑SB
+    Object.keys(trailRacesBySeason).forEach(season => {
+        const seasonRaces = trailRacesBySeason[season];
+        // 按raceScore排序（降序，分数越高越好）
+        seasonRaces.sort((a, b) => parseInt(b.raceScore) - parseInt(a.raceScore));
+        // 最佳成绩是第一个
+        if (seasonRaces.length > 0) {
+            sbs[seasonRaces[0].id] = true;
         }
     });
     
@@ -324,26 +364,51 @@ function generatePersonalRecords(races) {
             const prItem = document.createElement('div');
             prItem.className = 'personal-record-item';
             
-            prItem.innerHTML = `
-                <div class="pr-info">
-                    <h3>${item.event}</h3>
-                    <span class="pr-race-name">${race.name}</span>
-                    <span class="pr-date">${race.date}</span>
-                </div>
-                <div class="pr-details">
-                    <div class="pr-result">
-                        <strong>最佳成绩:</strong> <span class="race-time">${race.result}</span>
+            // 根据赛事类型生成不同的内容
+            if (race.category === '越野跑') {
+                // 越野跑：显示raceScore和ITRA表现分
+                // 获取最新的ITRA表现分
+                const latestItraScore = race.itraPerformanceScore || 0;
+                prItem.innerHTML = `
+                    <div class="pr-info">
+                        <h3>${item.event}</h3>
+                        <span class="pr-race-name">${race.name}</span>
+                        <span class="pr-date">${race.date}</span>
                     </div>
-                    <div class="pr-pace">
-                        <strong>配速:</strong> ${race.pace}
+                    <div class="pr-details">
+                        <div class="pr-result">
+                            <strong>最佳比赛分:</strong> <span class="race-time">${race.raceScore}</span>
+                        </div>
+                        <div class="pr-pace">
+                            <strong>ITRA表现分:</strong> <span class="race-time">${latestItraScore}</span>
+                        </div>
                     </div>
-                </div>
-            `;
+                `;
+            } else {
+                // 路跑：显示时间成绩
+                prItem.innerHTML = `
+                    <div class="pr-info">
+                        <h3>${item.event}</h3>
+                        <span class="pr-race-name">${race.name}</span>
+                        <span class="pr-date">${race.date}</span>
+                    </div>
+                    <div class="pr-details">
+                        <div class="pr-result">
+                            <strong>最佳成绩:</strong> <span class="race-time">${race.result}</span>
+                        </div>
+                        <div class="pr-pace">
+                            <strong>配速:</strong> ${race.pace}
+                        </div>
+                    </div>
+                `;
+            }
             
             prContent.appendChild(prItem);
         }
     });
 }
+
+
 
 
 // 生成比赛记录HTML
@@ -381,8 +446,16 @@ function generateRaceRecords() {
         const currentSeasonRaces = racesBySeason[season];
         const pbEventsInSeason = [...new Set(
             currentSeasonRaces
-                .filter(race => pbs[race.event] === race.id)
-                .map(race => race.event)
+                .filter(race => {
+                    if (race.category === '越野跑') {
+                        // 越野跑：检查是否是越野跑PB
+                        return pbs["越野跑"] === race.id;
+                    } else {
+                        // 路跑：检查是否是对应项目PB
+                        return pbs[race.event] === race.id;
+                    }
+                })
+                .map(race => race.category === '越野跑' ? '越野跑' : race.event)
         )];
         
         // 为每个PB项目生成标签HTML
@@ -403,7 +476,14 @@ function generateRaceRecords() {
         // 为该赛季的所有比赛生成HTML
         racesBySeason[season].forEach(race => {
             // 检查是否为PB或SB
-            const isPB = pbs[race.event] === race.id;
+            let isPB = false;
+            if (race.category === '越野跑') {
+                // 越野跑：检查是否是越野跑PB
+                isPB = pbs["越野跑"] === race.id;
+            } else {
+                // 路跑：检查是否是对应项目PB
+                isPB = pbs[race.event] === race.id;
+            }
             const isSB = sbs[race.id];
             
             // 生成认证标记HTML
@@ -419,8 +499,20 @@ function generateRaceRecords() {
             
             // 生成最佳成绩标记HTML
             let markers = '';
-            if (isPB) markers += `<span class="race-marker pb">${race.event}-PB</span>`;
-            if (isSB) markers += `<span class="race-marker sb">${race.event}-SB</span>`;
+            if (isPB) {
+                if (race.category === '越野跑') {
+                    markers += `<span class="race-marker pb">越野跑-PB</span>`;
+                } else {
+                    markers += `<span class="race-marker pb">${race.event}-PB</span>`;
+                }
+            }
+            if (isSB) {
+                if (race.category === '越野跑') {
+                    markers += `<span class="race-marker sb">越野跑-SB</span>`;
+                } else {
+                    markers += `<span class="race-marker sb">${race.event}-SB</span>`;
+                }
+            }
             
             const raceItem = document.createElement('div');
             raceItem.className = 'race-item';

@@ -327,7 +327,9 @@
         "season": "2025秋季",
         "certification": ["ITRA 1分"],
         "category": "越野跑",
-        "eventSeries": "昆嵛50越野挑战赛"
+        "eventSeries": "昆嵛50越野挑战赛",
+        "raceScore": "335",
+        "itraPerformanceScore": "324"
     },
     {
         "id": 23,
@@ -342,7 +344,9 @@
         "season": "2025秋季",
         "certification": ["ITRA 1分"],
         "category": "越野跑",
-        "eventSeries": "烟台山星空越野赛"
+        "eventSeries": "烟台山星空越野赛",
+        "raceScore": "374",
+        "itraPerformanceScore": "362"
     },
     {
         "id": 24,
@@ -447,7 +451,8 @@
         "season": "2026春季",
         "certification": ["ITRA 2分"],
         "category": "越野跑",
-        "eventSeries": "威海100"
+        "eventSeries": "威海100",
+        "raceScore": ""
     },
     {
         "id": 31,
@@ -462,7 +467,8 @@
         "season": "2026秋季",
         "certification": ["ITRA 2分"],
         "category": "越野跑",
-        "eventSeries": "咔哒寻山群英赛"
+        "eventSeries": "咔哒寻山群英赛",
+        "raceScore": ""
     },
     {
         "id": 32,
