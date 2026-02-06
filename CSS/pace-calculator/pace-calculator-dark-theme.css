@@ -115,10 +115,6 @@ body.dark-theme .reference-table td {
     border-bottom: 1px solid var(--dark-border-color);
 }
 
-body.dark-theme .reference-table tbody tr:nth-child(even) {
-    background-color: var(--light-accent);
-}
-
 body.dark-theme .reference-table tbody tr:hover {
     background-color: var(--dark-primary-hover-color);
     opacity: 0.8;

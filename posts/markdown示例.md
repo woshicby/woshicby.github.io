@@ -1,9 +1,8 @@
 ---
 title: 'Markdown功能完整示例'
 date: '2024-06-30'
-author: '示例作者'
-categories: ['技术', '教程']
-tags: ['Markdown', '示例', '格式']
+categories: [教程]
+tags: [Markdown, 示例]
 excerpt: '这是一个包含所有常见Markdown功能的示例文件，用于测试转换工具。'
 ---
 
@@ -67,9 +66,9 @@ excerpt: '这是一个包含所有常见Markdown功能的示例文件，用于�
 
 ### 3.2 图片
 
-![示例图片描述](https://via.placeholder.com/150)
+![示例图片描述](https://placehold.co/150)
 
-![带标题的图片](https://via.placeholder.com/150 "示例图片标题")
+![带标题的图片](https://placehold.co/150 "示例图片标题")
 
 ## 4. 代码
 

@@ -1,0 +1,92 @@
+{
+    "academicProfiles": [
+        {
+            "name": "ORCID",
+            "id": "0009-0007-2429-6431",
+            "url": "https://orcid.org/0009-0007-2429-6431"
+        },
+        {
+            "name": "Scopus Author ID",
+            "id": "58478874500",
+            "url": "https://www.scopus.com/authid/detail.uri?authorId=58478874500"
+        },
+        {
+            "name": "ResearcherID",
+            "id": "OEO-7872-2025",
+            "url": "https://www.webofscience.com/wos/author/record/OEO-7872-2025"
+        },
+        {
+            "name": "SciProfiles Author ID",
+            "id": "4205685",
+            "url": "https://sciprofiles.com/profile/4205685"
+        },
+        {
+            "name": "Google Scholar",
+            "id": "PSp23QgAAAAJ",
+            "url": "https://scholar.google.com/citations?user=PSp23QgAAAAJ"
+        },
+        {
+            "name": "IEEE Author ID",
+            "id": "3708987888",
+            "url": "https://ieeexplore.ieee.org/author/37089878886"
+        }
+    ],
+    "publications": [
+        {
+            "id": 1,
+            "title": "Fusex: A privacy-preserving data fusion framework for encrypted distance computation with offline users",
+            "journal": "Information Fusion",
+            "date": "2026-03",
+            "type": "journal",
+            "typeName": "期刊论文",
+            "authors": "Jun Ye; Bangyan Chen; Fanglin An",
+            "url": "https://www.sciencedirect.com/science/article/abs/pii/S1566253525009479",
+            "tags": ["隐私保护", "数据融合", "加密计算", "离线用户", "距离计算"]
+        },
+        {
+            "id": 2,
+            "title": "Privacy-Preserving Data Sharing and Computing for Outsourced Policy Iteration with Attempt Records from Multiple Users",
+            "journal": "Applied Sciences",
+            "date": "2025-02-28",
+            "type": "journal",
+            "typeName": "期刊论文",
+            "authors": "Bangyan Chen; Jun Ye",
+            "url": "https://www.mdpi.com/2076-3417/15/5/2624",
+            "tags": ["隐私保护", "数据共享", "策略迭代", "多用户", "外包计算"]
+        },
+        {
+            "id": 3,
+            "title": "A safe parameter aggregation method under encrypted state for federated learning",
+            "journal": "Procedia Computer Science",
+            "date": "2024",
+            "type": "conference",
+            "typeName": "会议论文",
+            "authors": "Bangyan Chen; Jun Ye",
+            "url": "https://www.sciencedirect.com/science/article/pii/S187705092402951X",
+            "tags": ["联邦学习", "安全聚合", "参数聚合", "加密状态", "机器学习"]
+        },
+        {
+            "id": 4,
+            "title": "Advancements and Applications of Blind Channel Decoding Techniques",
+            "journal": "2nd IEEE International Conference on Distributed Computing and Electrical Circuits and Electronics, ICDCECE 2023",
+            "date": "2023",
+            "type": "conference",
+            "typeName": "会议论文",
+            "authors": "Chen, B.; Ye, J.",
+            "url": "https://ieeexplore.ieee.org/document/10151222",
+            "tags": ["信道编码", "盲解码", "信道解码", "分布式计算"]
+        }
+    ],
+    "reviews": [
+        {
+            "id": 1,
+            "journal": "Information fusion",
+            "count": 2
+        },
+        {
+            "id": 2,
+            "journal": "Technology and health care",
+            "count": 1
+        }
+    ]
+}

@@ -2,7 +2,7 @@
 
 /* 响应式布局 - 首页适配 */
 @media (max-width: 768px) {
-    .botton_box {
+    .button_box {
         float: none;
         margin: 10px auto;
         width: 90%;

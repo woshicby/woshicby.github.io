@@ -132,7 +132,8 @@ woshicby.github.io/
 │   ├── resized_files_list.txt
 │   └── 时间距离配速距离计算逻辑.txt
 ├── JSON/              # JSON数据文件目录
-│   ├── posts.json     # 博客文章数据
+│   ├── posts.json     # 博客文章数据（已废弃，向后兼容）
+│   ├── posts-list.json  # 博客文章列表配置文件
 │   └── race-records.json  # 跑步记录数据
 ├── templates/       # 模板文件目录
 ├── index.html       # 网站首页
@@ -175,7 +176,13 @@ woshicby.github.io/
 - 2026.01.14: 优化赛事日历功能，添加场地跑配色支持，实现数据驱动的动态配色方案，添加赛事类型图例，实现鼠标悬停提示框，支持长赛事名称自动换行，过去赛事显示成绩，未来赛事显示起跑时间
 - 2026.01.19: 优化成绩变化对比功能，添加同一项目和同一赛事的成绩变化趋势分析，显示上次参赛多少天前；优化个人最佳成绩(PB)统计逻辑，支持在certification字段添加"不计入PB/SB"标签排除特定赛事；在比赛记录中添加比赛类型显示
 - 2026.01.22-23: 实现多文明演化模拟器(civilization-evolution.html)，自动模拟多个文明的发展历程；优化模拟器性能，添加文明颜色图例和文明卡片颜色指示器，提升用户体验；将项目名称从"多文明文字演化模拟器"更改为"多文明演化模拟器"
-- 2026.02.06: 修正运动页面赛事日历图例的显示逻辑
+- 2026.02.06: 修正运动页面赛事日历图例的显示逻辑；删除博文文章H2标题的下划线；修正博文文章中图片的显示效果
+- 2026.02.06: 修正博文详情页面中分类和标签的链接（从index.html改为posts.html）；博文列表页面分类和标签使用统一的badge样式；添加过滤信息显示和"清除所有"按钮；支持同时筛选多个分类和多个标签（OR逻辑）；支持单独移除过滤条件；文章列表中的分类和标签也支持多选逻辑；博文详情页面分类和标签使用badge样式，在日期前添加"日期："标签
+- 2026.02.06: 优化跑步记录功能，为越野跑添加raceScore字段；修改同一项目成绩变化对比，支持越野跑的raceScore变化和ITRA表现分显示；修复越野跑PB/SB标签的显示问题；更新赛事日历图例的显示逻辑，根据当前视图动态显示相关赛事类型；修改越野跑PB卡片，将配速替换为ITRA表现分；确保ITRA表现分数字的样式一致性
+- 2026.02.20: 实现博文自动化系统，支持直接读取Markdown文件并自动渲染，无需手动转换JSON；添加posts-list.json配置文件管理博文列表；修改JS/posts.js和JS/post-detail.js实现Markdown文件加载和解析功能；创建博文自动化系统上线.md作为更新日志
+- 2026.02.20-21: 修复posts.html页面响应式问题；整理和统一各篇博文的categories和tags；更新posts-list.json；优化表格斑马纹效果，使日间和夜间模式视觉差异更一致；修复图片404错误，更换可靠图床；调整页面元素间距，包括h2标题、导航元素、section等；给blockquote添加边框样式；修复日间模式代码块背景色缺失问题；给代码块添加行号显示，同时保留语法高亮；添加脚注功能支持，使用markdown-it-footnote插件；优化脚注区域的间距和样式，移除悬停位移效果
+- 2026.02.24: 实现study.html页面的动态加载和筛选功能；优化全站动画性能，将transition: all改为只对必要属性设置过渡效果，减少不必要的重绘；统一全站标题样式(h2, h3)，优化段落间距和行高，提升阅读体验；统一各页面的内边距和外边距
+- 2026.02.25: 修复B站API CORS问题，替换为静态用户数据；更新B站用户头像为本地图片；添加获赞数和播放数到用户统计信息；优化用户卡片布局，修复头像显示尺寸过大问题；更新用户统计信息图标（关注用眼睛，获赞用爱心，播放用播放图标）；重构用户卡片HTML结构，移除嵌套的div层，简化为单一层级的section
 
 ## 使用方法
 
@@ -315,7 +322,8 @@ woshicby.github.io/
 │   ├── resized_files_list.txt
 │   └── 时间距离配速距离计算逻辑.txt (Time-Distance-Pace Calculation Logic)
 ├── JSON/              # JSON data files directory
-│   ├── posts.json     # Blog posts data
+│   ├── posts.json     # Blog posts data (deprecated, backward compatible)
+│   ├── posts-list.json  # Blog posts list configuration file
 │   └── race-records.json  # Running records data
 ├── templates/       # Template files directory
 ├── index.html       # Website homepage
@@ -358,7 +366,13 @@ woshicby.github.io/
 - 2026.01.14: Optimized race calendar functionality, added track run color support, implemented data-driven dynamic color scheme, added race type legend, implemented mouse hover tooltips, supported auto-wrapping for long race names, showed results for past races and start times for future races
 - 2026.01.19: Optimized race performance comparison functionality, added performance trend analysis for same project and same event, displayed days since last race; optimized Personal Best (PB) calculation logic, supported adding "不计入PB/SB" tag in certification field; added race type display in race records
 - 2026.01.22-23: Implemented Civilization Evolution Simulator (civilization-evolution.html), optimized simulator performance, added civilization color legend and civilization card color indicators, changed project name to "多文明演化模拟器" (Civilization Evolution Simulator)
-- 2026.02.06: Fixed race calendar legend display logic on sports page
+- 2026.02.06: Fixed race calendar legend display logic on sports page; removed underline from blog post H2 titles; fixed image display effects in blog posts
+- 2026.02.06: Fixed category and tag links in blog detail page (changed from index.html to posts.html); unified badge style for categories and tags in blog list page; added filter info display and "Clear All" button; supported filtering multiple categories and tags simultaneously (OR logic); supported removing individual filter conditions; categories and tags in article list also support multi-select logic; blog detail page categories and tags use badge style, added "Date:" label before date
+- 2026.02.06: Optimized running records functionality, added raceScore field for trail running; modified same project performance comparison to support trail running raceScore changes and ITRA performance score display; fixed trail running PB/SB label display issues; updated race calendar legend display logic to dynamically show relevant race types based on current view; modified trail running PB cards to replace pace with ITRA performance score; ensured consistent styling for ITRA performance score numbers
+- 2026.02.20: Implemented blog automation system, supports direct reading of Markdown files and automatic rendering without manual JSON conversion; added posts-list.json configuration file to manage blog post list; modified JS/posts.js and JS/post-detail.js to implement Markdown file loading and parsing functionality; created 博文自动化系统上线.md as update log
+- 2026.02.20-21: Fixed posts.html page responsiveness issue; organized and unified categories and tags across blog posts; updated posts-list.json; optimized table zebra stripe effect to make visual difference between day and night modes more consistent; fixed image 404 errors by switching to reliable image host; adjusted page element spacing including h2 titles, navigation elements, sections, etc.; added border styles to blockquote; fixed missing code block background color in day mode; added line number display to code blocks while preserving syntax highlighting; added footnote functionality support using markdown-it-footnote plugin; optimized footnote area spacing and styles, removed hover displacement effect
+- 2026.02.24: Implemented dynamic loading and filtering functionality for study.html page; optimized site-wide animation performance by changing transition: all to only apply to necessary properties, reducing unnecessary repaints; unified site-wide title styles (h2, h3), optimized paragraph spacing and line height to improve reading experience; unified padding and margins across all pages
+- 2026.02.25: Fixed Bilibili API CORS issues, replaced with static user data; updated Bilibili user avatar to local image; added likes and plays counts to user statistics; optimized user card layout, fixed avatar display size issue; updated user statistics icons (eye for following, heart for likes, play icon for plays); refactored user card HTML structure, removed nested div layers, simplified to single-level section
 
 ## Usage
 
@@ -498,7 +512,8 @@ woshicby.github.io/
 │   ├── resized_files_list.txt
 │   └── 时间距离配速距离计算逻辑.txt (時間-距離-ペース計算ロジック)
 ├── JSON/              # JSONデータファイルディレクトリ
-│   ├── posts.json     # ブログ記事データ
+│   ├── posts.json     # ブログ記事データ（非推奨、後方互換）
+│   ├── posts-list.json  # ブログ記事リスト設定ファイル
 │   └── race-records.json  # ランニング記録データ
 ├── templates/       # テンプレートファイルディレクトリ
 ├── index.html       # ウェブサイトホームページ
@@ -541,7 +556,13 @@ woshicby.github.io/
 - 2026.01.14: レースカレンダー機能を最適化、トラックランの配色サポートを追加、データ駆動の動的配色スキームを実装、レースタイプ凡例を追加、マウスホバーツールチップを実装、長いレース名の自動折り返しをサポート、過去のレースには結果を表示、未来のレースにはスタート時間を表示
 - 2026.01.19: レース成績比較機能を最適化、同一プロジェクトと同一イベントの成績傾向分析を追加、前回レースからの日数を表示；パーソナルベスト(PB)計算ロジックを最適化、特定のレースをPB計算から除外するためにcertificationフィールドに「不计入PB/SB」タグを追加できるようにサポート；レース記録にレースタイプ表示を追加
 - 2026.01.22-23: 多文明演化シミュレーター(civilization-evolution.html)を実装、複数の文明の発展プロセスを自動的にシミュレート；多文明演化シミュレーターのパフォーマンスを最適化、文明の色の凡例と文明カードの色インジケーターを追加；プロジェクト名を「多文明文字演化シミュレーター」から「多文明演化シミュレーター」に変更
-- 2026.02.06: スポーツページのレースカレンダー凡例の表示ロジックを修正
+- 2026.02.06: スポーツページのレースカレンダー凡例の表示ロジックを修正；ブログ記事のH2タイトルの下線を削除；ブログ記事の画像表示効果を修正
+- 2026.02.06: ブログ詳細ページのカテゴリとタグのリンクを修正（index.htmlからposts.htmlへ変更）；ブログ一覧ページのカテゴリとタグを統一されたbadgeスタイルに変更；フィルター情報表示と「すべてクリア」ボタンを追加；複数のカテゴリとタグを同時にフィルタリング可能に（OR論理）；個別のフィルター条件を削除可能に；記事一覧のカテゴリとタグも複数選択ロジックをサポート；ブログ詳細ページのカテゴリとタグはbadgeスタイルを使用、日付の前に「日付：」ラベルを追加
+- 2026.02.06: ランニング記録機能を最適化、トレイルランにraceScoreフィールドを追加；同一プロジェクトの成績比較を変更し、トレイルランのraceScore変化とITRAパフォーマンススコアの表示をサポート；トレイルランのPB/SBラベルの表示問題を修正；レースカレンダーの凡例の表示ロジックを更新、現在のビューに基づいて関連するレースタイプを動的に表示；トレイルランのPBカードを変更、ペースをITRAパフォーマンススコアに置き換え；ITRAパフォーマンススコアの数値のスタイルの一貫性を確保
+- 2026.02.20: ブログ自動化システムを実装、Markdownファイルを直接読み込み自動レンダリングをサポート、手動JSON変換が不要；posts-list.json設定ファイルを追加してブログ記事リストを管理；JS/posts.jsとJS/post-detail.jsを変更してMarkdownファイルの読み込みと解析機能を実装；博文自动化系统上线.mdを更新ログとして作成
+- 2026.02.20-21: posts.htmlページのレスポンシブ問題を修正；各ブログ記事のcategoriesとtagsを整理して統一；posts-list.jsonを更新；テーブルのゼブラストライプ効果を最適化し、デイモードとナイトモードの視覚的な違いをより一致させる；信頼できる画像ホストに切り替えて画像404エラーを修正；h2タイトル、ナビゲーション要素、セクションなどのページ要素の間隔を調整；blockquoteにボーダースタイルを追加；デイモードでのコードブロック背景色の欠落を修正；構文ハイライトを保持したままコードブロックに行番号表示を追加；markdown-it-footnoteプラグインを使用して脚注機能サポートを追加；脚注領域の間隔とスタイルを最適化、ホバー変位効果を削除
+- 2026.02.24: study.htmlページの動的読み込みとフィルタリング機能を実装；transition: allを必要なプロパティにのみ適用するように変更し、不要な再描画を削減してサイト全体のアニメーションパフォーマンスを最適化；サイト全体のタイトルスタイル(h2, h3)を統一し、段落の間隔と行間を最適化して読書体験を向上；全ページのパディングとマージンを統一
+- 2026.02.25: Bilibili API CORS問題を修正し、静的ユーザーデータに置き換え；Bilibiliユーザーアバターをローカル画像に更新；ユーザー統計情報にいいね数と再生数を追加；ユーザーカードレイアウトを最適化し、アバター表示サイズの問題を修正；ユーザー統計情報アイコンを更新（フォローに目、いいねにハート、再生に再生アイコン）；ユーザーカードHTML構造をリファクタリングし、ネストされたdivレイヤーを削除し、単一レベルのsectionに簡素化
 
 ## 使用方法
 

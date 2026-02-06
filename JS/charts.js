@@ -30,10 +30,15 @@ function convertSecondsToTime(seconds) {
 function groupRacesByEvent(races) {
     const grouped = {};
     races.forEach(race => {
-        if (!grouped[race.event]) {
-            grouped[race.event] = [];
+        let eventKey = race.event;
+        // 如果是越野跑，统一使用"越野跑"作为项目名称
+        if (race.category === '越野跑') {
+            eventKey = '越野跑';
         }
-        grouped[race.event].push(race);
+        if (!grouped[eventKey]) {
+            grouped[eventKey] = [];
+        }
+        grouped[eventKey].push(race);
     });
     return grouped;
 }
@@ -62,7 +67,11 @@ function calculateStats(races) {
             max: 0,
             min: 0,
             trend: 0,
-            daysSinceLastRace: 0
+            daysSinceLastRace: 0,
+            averageRaceScore: 0,
+            maxRaceScore: 0,
+            minRaceScore: 0,
+            raceScoreTrend: 0
         };
     }
     
@@ -110,6 +119,58 @@ function calculateStats(races) {
     const timeDiff = today.getTime() - lastRaceDate.getTime();
     const daysSinceLastRace = Math.ceil(timeDiff / (1000 * 3600 * 24));
     
+    // 计算ITRA表现分相关统计
+    const raceScores = races.map(race => race.raceScore ? parseInt(race.raceScore) : 0);
+    const validRaceScores = raceScores.filter(score => score > 0);
+    
+    let averageRaceScore = 0;
+    let maxRaceScore = 0;
+    let minRaceScore = 0;
+    let raceScoreTrend = 0;
+    
+    if (validRaceScores.length > 0) {
+        const raceScoreSum = validRaceScores.reduce((a, b) => a + b, 0);
+        averageRaceScore = Math.round(raceScoreSum / validRaceScores.length);
+        maxRaceScore = Math.max(...validRaceScores);
+        minRaceScore = Math.min(...validRaceScores);
+        
+        // 计算raceScore趋势
+        if (validRaceScores.length > 1) {
+            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+            validRaceScores.forEach((score, index) => {
+                sumX += index;
+                sumY += score;
+                sumXY += index * score;
+                sumX2 += index * index;
+            });
+            const n = validRaceScores.length;
+            const denominator = n * sumX2 - sumX * sumX;
+            if (denominator !== 0) {
+                raceScoreTrend = (n * sumXY - sumX * sumY) / denominator;
+            }
+        }
+    }
+    
+    // 计算ITRA表现分趋势
+    const itraPerformanceScores = races.map(race => race.itraPerformanceScore ? parseInt(race.itraPerformanceScore) : 0);
+    const validItraPerformanceScores = itraPerformanceScores.filter(score => score > 0);
+    let itraPerformanceScoreTrend = 0;
+    
+    if (validItraPerformanceScores.length > 1) {
+        let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+        validItraPerformanceScores.forEach((score, index) => {
+            sumX += index;
+            sumY += score;
+            sumXY += index * score;
+            sumX2 += index * index;
+        });
+        const n = validItraPerformanceScores.length;
+        const denominator = n * sumX2 - sumX * sumX;
+        if (denominator !== 0) {
+            itraPerformanceScoreTrend = (n * sumXY - sumX * sumY) / denominator;
+        }
+    }
+    
     return {
         allTimeAverage: allTimeAverage,
         oneYearAverage: oneYearAverage,
@@ -117,12 +178,17 @@ function calculateStats(races) {
         max: max,
         min: min,
         trend: trend,
-        daysSinceLastRace: daysSinceLastRace
+        daysSinceLastRace: daysSinceLastRace,
+        averageRaceScore: averageRaceScore,
+        maxRaceScore: maxRaceScore,
+        minRaceScore: minRaceScore,
+        raceScoreTrend: raceScoreTrend,
+        itraPerformanceScoreTrend: itraPerformanceScoreTrend
     };
 }
 
 // 创建时间序列图表（项目成绩变化对比）
-function createTimeSeriesChart(canvasId, data, stats, hideOneYearAverage = false) {
+function createTimeSeriesChart(canvasId, data, stats, isTrailRun = false) {
     const ctx = document.getElementById(canvasId).getContext('2d');
     
     // 销毁已存在的图表实例
@@ -134,7 +200,53 @@ function createTimeSeriesChart(canvasId, data, stats, hideOneYearAverage = false
     // 准备图表数据
     const chartData = {
         labels: data.map(item => item.date),
-        datasets: [{
+        datasets: []
+    };
+    
+    if (isTrailRun) {
+        // 越野跑：显示ITRA表现分
+        chartData.datasets.push({
+            label: '比赛表现分',
+            data: data.map(item => ({
+                x: item.date,
+                y: item.raceScore ? parseInt(item.raceScore) : 0,
+                name: item.name,
+                raceScore: item.raceScore
+            })),
+            borderColor: '#ff6b6b',
+            backgroundColor: 'rgba(255, 107, 107, 0.1)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#ff6b6b',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 7
+        },
+        // ITRA表现分变化曲线
+        {
+            label: 'ITRA表现分',
+            data: data.map(item => ({
+                x: item.date,
+                y: item.itraPerformanceScore ? parseInt(item.itraPerformanceScore) : 0,
+                name: item.name,
+                itraPerformanceScore: item.itraPerformanceScore
+            })),
+            borderColor: '#4ecdc4',
+            backgroundColor: 'transparent',
+            borderWidth: 2,
+            fill: false,
+            tension: 0.4,
+            pointBackgroundColor: '#4ecdc4',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 7
+        });
+    } else {
+        // 路跑：显示成绩
+        chartData.datasets.push({
             label: '成绩 (分:秒)',
             data: data.map(item => ({
                 x: item.date,
@@ -167,25 +279,25 @@ function createTimeSeriesChart(canvasId, data, stats, hideOneYearAverage = false
             fill: false,
             pointRadius: 0,
             pointHoverRadius: 0
-        }]
-    };
-    
-    // 条件性添加近一年平均成绩水平线（只有在不是赛事成绩对比图表且有近一年数据时添加）
-    if (!hideOneYearAverage && stats.hasOneYearData) {
-        chartData.datasets.push({
-            label: `近一年平均成绩: ${convertSecondsToTime(stats.oneYearAverage)}`,
-            data: data.map(item => ({
-                x: item.date,
-                y: stats.oneYearAverage
-            })),
-            borderColor: '#45b7d1',
-            backgroundColor: 'transparent',
-            borderWidth: 2,
-            borderDash: [5, 5],
-            fill: false,
-            pointRadius: 0,
-            pointHoverRadius: 0
         });
+        
+        // 条件性添加近一年平均成绩水平线（只有在不是赛事成绩对比图表且有近一年数据时添加）
+        if (stats.hasOneYearData) {
+            chartData.datasets.push({
+                label: `近一年平均成绩: ${convertSecondsToTime(stats.oneYearAverage)}`,
+                data: data.map(item => ({
+                    x: item.date,
+                    y: stats.oneYearAverage
+                })),
+                borderColor: '#45b7d1',
+                backgroundColor: 'transparent',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                fill: false,
+                pointRadius: 0,
+                pointHoverRadius: 0
+            });
+        }
     }
     
     // 配置图表选项
@@ -197,11 +309,11 @@ function createTimeSeriesChart(canvasId, data, stats, hideOneYearAverage = false
                     beginAtZero: false,
                     title: {
                         display: true,
-                        text: '成绩 (秒)'
+                        text: isTrailRun ? 'ITRA表现分' : '成绩 (秒)'
                     },
                     ticks: {
                         callback: function(value) {
-                            return convertSecondsToTime(value);
+                            return isTrailRun ? value : convertSecondsToTime(value);
                         }
                     }
                 },
@@ -224,8 +336,19 @@ function createTimeSeriesChart(canvasId, data, stats, hideOneYearAverage = false
                             return `${data.name}\n${data.x}`;
                         },
                         label: function(context) {
-                            const data = context.raw;
-                            return `成绩: ${data.result}`;
+                            if (isTrailRun) {
+                                const raceScore = context.raw.raceScore;
+                                const itraPerformanceScore = context.raw.itraPerformanceScore;
+                                if (raceScore) {
+                                    return `比赛表现分: ${raceScore}`;
+                                } else if (itraPerformanceScore) {
+                                    return `ITRA表现分: ${itraPerformanceScore}`;
+                                }
+                                return '';
+                            } else {
+                                const result = context.raw.result;
+                                return `成绩: ${result}`;
+                            }
                         }
                     }
                 },
@@ -454,6 +577,12 @@ function initProjectComparison(races) {
     // 按项目分组
     const racesByEvent = groupRacesByEvent(races);
     
+    // 特殊处理：将所有越野跑归为一个项目
+    const trailRuns = races.filter(race => race.category === '越野跑');
+    if (trailRuns.length >= 2) {
+        racesByEvent['越野跑'] = trailRuns;
+    }
+    
     // 填充项目选择下拉框（只显示有多次记录的项目）
     const validEvents = Object.keys(racesByEvent).filter(event => racesByEvent[event].length >= 2);
     
@@ -481,6 +610,9 @@ function initProjectComparison(races) {
 function updateProjectComparisonChart(races) {
     if (!races || races.length === 0) return;
     
+    // 判断是否是越野跑
+    const isTrailRun = races[0] && races[0].category === '越野跑';
+    
     // 过滤掉未来赛事（没有结果的赛事）
     const pastRaces = races.filter(race => race.result && race.result !== '');
     if (pastRaces.length === 0) return;
@@ -492,44 +624,48 @@ function updateProjectComparisonChart(races) {
     const stats = calculateStats(sortedRaces);
     
     // 创建时间序列图表
-    createTimeSeriesChart('project-comparison-chart', sortedRaces, stats);
+    createTimeSeriesChart('project-comparison-chart', sortedRaces, stats, isTrailRun);
     
     // 更新统计指标显示
     const statsContainer = document.getElementById('project-stats');
     if (statsContainer) {
-        let statsHtml = `
-            <div class="stat-item">
-                <h4>全部平均成绩</h4>
-                <p>${convertSecondsToTime(stats.allTimeAverage)}</p>
-            </div>
-            <div class="stat-item">
-                <h4>最佳成绩</h4>
-                <p>${convertSecondsToTime(stats.min)}</p>
-            </div>
-            <div class="stat-item">
-                <h4>最差成绩</h4>
-                <p>${convertSecondsToTime(stats.max)}</p>
-            </div>
-            <div class="stat-item">
-                <h4>变化趋势</h4>
-                <p>${stats.trend < 0 ? '进步' : stats.trend > 0 ? '退步' : '持平'}</p>
-            </div>
-            <div class="stat-item">
-                <h4>上次参赛</h4>
-                <p>${stats.daysSinceLastRace}天前</p>
-            </div>
-        `;
+        let statsHtml = '';
         
-        // 条件性添加近一年平均成绩
-        if (stats.hasOneYearData) {
+        if (isTrailRun) {
+            // 越野跑：显示ITRA表现分，不显示平均成绩和近一年平均成绩
+            // 获取最新的ITRA表现分
+            const latestItraScore = sortedRaces.length > 0 
+                ? (sortedRaces[sortedRaces.length - 1].itraPerformanceScore || 0)
+                : 0;
+            
+            statsHtml = `
+                <div class="stat-item">
+                    <h4>当前ITRA表现分</h4>
+                    <p>${latestItraScore}</p>
+                </div>
+                <div class="stat-item">
+                    <h4>最佳比赛表现分</h4>
+                    <p>${stats.maxRaceScore || '-'}</p>
+                </div>
+                <div class="stat-item">
+                    <h4>最差比赛表现分</h4>
+                    <p>${stats.minRaceScore || '-'}</p>
+                </div>
+                <div class="stat-item">
+                    <h4>表现分趋势</h4>
+                    <p>${stats.itraPerformanceScoreTrend > 0 ? '进步' : stats.itraPerformanceScoreTrend < 0 ? '退步' : '持平'}</p>
+                </div>
+                <div class="stat-item">
+                    <h4>上次参赛</h4>
+                    <p>${stats.daysSinceLastRace}天前</p>
+                </div>
+            `;
+        } else {
+            // 路跑：显示平均成绩等
             statsHtml = `
                 <div class="stat-item">
                     <h4>全部平均成绩</h4>
                     <p>${convertSecondsToTime(stats.allTimeAverage)}</p>
-                </div>
-                <div class="stat-item">
-                    <h4>近一年平均成绩</h4>
-                    <p>${convertSecondsToTime(stats.oneYearAverage)}</p>
                 </div>
                 <div class="stat-item">
                     <h4>最佳成绩</h4>
@@ -548,6 +684,36 @@ function updateProjectComparisonChart(races) {
                     <p>${stats.daysSinceLastRace}天前</p>
                 </div>
             `;
+            
+            // 条件性添加近一年平均成绩
+            if (stats.hasOneYearData) {
+                statsHtml = `
+                    <div class="stat-item">
+                        <h4>全部平均成绩</h4>
+                        <p>${convertSecondsToTime(stats.allTimeAverage)}</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>近一年平均成绩</h4>
+                        <p>${convertSecondsToTime(stats.oneYearAverage)}</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>最佳成绩</h4>
+                        <p>${convertSecondsToTime(stats.min)}</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>最差成绩</h4>
+                        <p>${convertSecondsToTime(stats.max)}</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>变化趋势</h4>
+                        <p>${stats.trend < 0 ? '进步' : stats.trend > 0 ? '退步' : '持平'}</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>上次参赛</h4>
+                        <p>${stats.daysSinceLastRace}天前</p>
+                    </div>
+                `;
+            }
         }
         
         statsContainer.innerHTML = statsHtml;
@@ -592,6 +758,9 @@ function initEventSeriesComparison(races) {
 function updateEventSeriesComparisonChart(races) {
     if (!races || races.length === 0) return;
     
+    // 判断是否是越野跑
+    const isTrailRun = races[0] && races[0].category === '越野跑';
+    
     // 过滤掉未来赛事（没有结果的赛事）
     const pastRaces = races.filter(race => race.result && race.result !== '');
     if (pastRaces.length === 0) return;
@@ -603,7 +772,7 @@ function updateEventSeriesComparisonChart(races) {
     const stats = calculateStats(sortedRaces);
     
     // 创建时间序列图表（传递第四个参数表示不添加近一年平均成绩水平线）
-    createTimeSeriesChart('event-series-comparison-chart', sortedRaces, stats, true);
+    createTimeSeriesChart('event-series-comparison-chart', sortedRaces, stats, isTrailRun);
     
     // 更新统计指标显示
     const statsContainer = document.getElementById('event-series-stats');

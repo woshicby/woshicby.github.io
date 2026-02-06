@@ -30,17 +30,112 @@ class PostDetailManager {
 
     async loadPosts() {
         try {
-            const response = await fetch('JSON/posts.json');
-            if (response.ok) {
-                return await response.json();
+            // 首先尝试从 posts-list.json 加载文件列表
+            const listResponse = await fetch('JSON/posts-list.json');
+            
+            if (listResponse.ok) {
+                const postsList = await listResponse.json();
+                console.log('成功加载posts-list.json，文件数量:', postsList.length);
+                
+                // 找到对应的文件
+                const postInfo = postsList.find(p => p.id.toString() === this.postId.toString());
+                
+                if (postInfo) {
+                    const mdResponse = await fetch(`posts/${postInfo.file}`);
+                    if (mdResponse.ok) {
+                        const mdContent = await mdResponse.text();
+                        const parsedPost = this.parseMarkdown(mdContent);
+                        parsedPost.id = postInfo.id;
+                        return [parsedPost];
+                    }
+                }
+                
+                // 如果找不到指定文件，返回空数组
+                console.warn('找不到指定的博文文件');
+                return [];
+            } else {
+                // 如果没有 posts-list.json，尝试从 posts.json 加载
+                console.log('posts-list.json 不存在，尝试从 posts.json 加载');
+                const response = await fetch('JSON/posts.json');
+                if (response.ok) {
+                    return await response.json();
+                }
+                console.warn('posts.json 也不存在，使用示例数据');
+                return this.getSamplePosts();
             }
-            console.warn('无法从posts.json获取数据，使用示例数据');
-            return this.getSamplePosts();
         } catch (error) {
             console.warn('使用示例博文数据:', error);
-            // 直接返回示例数据，不抛出错误
             return this.getSamplePosts();
         }
+    }
+
+    parseMarkdown(content) {
+        const frontmatterRegex = /^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/;
+        const match = content.match(frontmatterRegex);
+        
+        if (!match) {
+            return {
+                title: '未命名博文',
+                date: new Date().toISOString().split('T')[0],
+                content: content,
+                excerpt: this.extractExcerpt(content),
+                categories: [],
+                tags: []
+            };
+        }
+
+        const frontmatter = match[1];
+        const markdownContent = match[2];
+        const metadata = this.parseFrontmatter(frontmatter);
+
+        return {
+            title: metadata.title || '未命名博文',
+            date: metadata.date || new Date().toISOString().split('T')[0],
+            content: markdownContent,
+            excerpt: metadata.excerpt || this.extractExcerpt(markdownContent),
+            categories: metadata.categories || [],
+            tags: metadata.tags || []
+        };
+    }
+
+    parseFrontmatter(frontmatter) {
+        const metadata = {};
+        const lines = frontmatter.split('\n');
+        
+        lines.forEach(line => {
+            line = line.trim();
+            if (!line || line.startsWith('#')) return;
+            const [key, ...valueParts] = line.split(':');
+            const cleanKey = key.trim();
+            let cleanValue = valueParts.join(':').trim();
+            
+            if (cleanValue.startsWith('[') && cleanValue.endsWith(']')) {
+                cleanValue = cleanValue.substring(1, cleanValue.length - 1)
+                    .split(',')
+                    .map(item => item.trim().replace(/^['"']|['"']$/g, ''));
+            } else if ((cleanValue.startsWith('"') && cleanValue.endsWith('"')) || 
+                       (cleanValue.startsWith("'") && cleanValue.endsWith("'"))) {
+                cleanValue = cleanValue.substring(1, cleanValue.length - 1);
+            }
+            
+            metadata[cleanKey] = cleanValue;
+        });
+        
+        return metadata;
+    }
+
+    extractExcerpt(content) {
+        const plainText = content
+            .replace(/#{1,6}\s+/g, '')
+            .replace(/\*\*(.*?)\*\*/g, '$1')
+            .replace(/\*(.*?)\*/g, '$1')
+            .replace(/`(.*?)`/g, '$1')
+            .replace(/```[\s\S]*?```/g, '[代码块]')
+            .replace(/!?\[([^\]]+)\]\([^)]+\)/g, '$1')
+            .replace(/^>\s+/gm, '')
+            .trim();
+        
+        return plainText.length > 200 ? plainText.substring(0, 200) + '...' : plainText;
     }
 
     findPostById(posts, id) {
@@ -76,9 +171,9 @@ class PostDetailManager {
         // 渲染博文标题
         document.getElementById('post-title').textContent = post.title;
         
-        // 渲染博文元信息
-        const metaElement = document.getElementById('post-meta');
-        metaElement.innerHTML = `<span class="post-date">${this.formatDate(post.date)}</span>`;
+        // 渲染博文日期
+        const dateElement = document.getElementById('post-date');
+        dateElement.innerHTML = `<strong>日期：</strong>${this.formatDate(post.date)}`;
         
         // 渲染分类
         const categoriesElement = document.getElementById('post-categories');
@@ -88,9 +183,11 @@ class PostDetailManager {
                 ${post.categories.map(cat => {
                     // 清理分类名称中的额外引号
                     const cleanCat = cat.replace(/^['"']|['"']$/g, '');
-                    return `<a href="index.html?category=${encodeURIComponent(cleanCat)}" class="category-badge">${cleanCat}</a>`;
+                    return `<a href="posts.html?category=${encodeURIComponent(cleanCat)}" class="category-badge">${cleanCat}</a>`;
                 }).join('')}
             `;
+        } else {
+            categoriesElement.innerHTML = '';
         }
         
         // 渲染标签
@@ -101,9 +198,11 @@ class PostDetailManager {
                 ${post.tags.map(tag => {
                     // 清理标签名称中的额外引号
                     const cleanTag = tag.replace(/^['"']|['"']$/g, '');
-                    return `<a href="index.html?tag=${encodeURIComponent(cleanTag)}" class="tag-badge">${cleanTag}</a>`;
+                    return `<a href="posts.html?tag=${encodeURIComponent(cleanTag)}" class="tag-badge">${cleanTag}</a>`;
                 }).join('')}
             `;
+        } else {
+            tagsElement.innerHTML = '';
         }
         
         // 渲染博文内容
@@ -123,14 +222,8 @@ class PostDetailManager {
                     xhtmlOut: true,    // 生成闭合的HTML标签
                     quotes: '""\'\'', // 设置引号字符
                     highlight: function (str, lang) {
-                        // 使用highlight.js进行代码高亮
-                        if (lang && window.hljs && typeof hljs.highlight === 'function') {
-                            try {
-                                return hljs.highlight(str, { language: lang }).value;
-                            } catch (__) {}
-                        }
-                        // 如果高亮失败或未指定语言，返回原始代码
-                        return ''; // 使用默认转义
+                        // 不在这里做高亮，我们之后自己处理
+                        return '';
                     }
                 });
                 
@@ -163,6 +256,9 @@ class PostDetailManager {
         }
         
         contentElement.innerHTML = postContent;
+        
+        // 给代码块添加行号
+        this.addLineNumbersToCodeBlocks(contentElement);
         
         // 触发MathJax渲染数学公式
         if (window.MathJax) {
@@ -207,6 +303,64 @@ class PostDetailManager {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
+        });
+    }
+
+    // 给代码块添加行号
+    addLineNumbersToCodeBlocks(container) {
+        const preElements = container.querySelectorAll('pre');
+        
+        preElements.forEach(pre => {
+            const codeElement = pre.querySelector('code');
+            if (!codeElement) return;
+            
+            // 获取原始代码文本
+            const originalCode = codeElement.textContent;
+            
+            // 尝试获取语言类型（从class中获取，如 language-javascript）
+            let lang = '';
+            const classList = codeElement.className.split(' ');
+            for (const cls of classList) {
+                if (cls.startsWith('language-')) {
+                    lang = cls.replace('language-', '');
+                    break;
+                }
+            }
+            
+            // 使用highlight.js进行语法高亮
+            let highlightedCode = originalCode;
+            if (lang && window.hljs && typeof hljs.highlight === 'function') {
+                try {
+                    highlightedCode = hljs.highlight(originalCode, { language: lang }).value;
+                } catch (__) {}
+            }
+            
+            // 将高亮后的代码按行分割
+            const lines = originalCode.split('\n');
+            // 移除最后一个空行
+            if (lines.length > 0 && lines[lines.length - 1] === '') {
+                lines.pop();
+            }
+            
+            // 现在我们需要重新构建带行号的HTML
+            // 我们把每一行包裹在一个span中，并在前面添加行号
+            const highlightedLines = highlightedCode.split('\n');
+            if (highlightedLines.length > 0 && highlightedLines[highlightedLines.length - 1] === '') {
+                highlightedLines.pop();
+            }
+            
+            // 构建新的HTML
+            let newHTML = '';
+            for (let i = 0; i < lines.length; i++) {
+                const lineContent = highlightedLines[i] || '';
+                newHTML += `<span class="code-line"><span class="line-number">${i + 1}</span>${lineContent}</span>`;
+            }
+            
+            // 替换code元素的内容
+            codeElement.innerHTML = newHTML;
+            
+            // 给pre添加类名
+            pre.classList.add('code-with-line-numbers');
         });
     }
 

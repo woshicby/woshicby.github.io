@@ -1,30 +1,22 @@
 /* 博文详情页专用样式 */
 
-/* 夜间模式样式支持 */
-@media (prefers-color-scheme: dark) {
-    body.dark-theme {
-        --bg-color: var(--dark-bg-color, #1a1a1a);
-        --primary-text: var(--dark-primary-text, #e0e0e0);
-        --secondary-text: var(--dark-secondary-text, #b0b0b0);
-        --border-color: var(--dark-border-color, #333333);
-        --accent-color: var(--dark-accent-color, #4a9eff);
-        --accent-hover: var(--dark-accent-hover, #357abd);
-        --code-bg: var(--dark-code-bg, #2d2d2d);
-        --secondary-bg: var(--dark-secondary-bg, #252525);
-        --hover-bg: var(--dark-hover-bg, #2a2a2a);
-        --disabled-color: var(--dark-disabled-color, #555555);
-        --placeholder-color: var(--dark-placeholder-color, #777777);
-        --box-shadow: var(--dark-box-shadow, 0 4px 8px rgba(0, 0, 0, 0.3));
-    }
+/* 博文头部区域样式 */
+.post-header {
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    border: 2px solid transparent;
+    box-shadow: var(--shadow-heavy);
+    margin-top: 1.5rem;
+    transition: var(--transition-default);
 }
 
-/* 博文内容区域样式 */
-.post-container {
-    background-color: var(--bg-color);
+/* 博文正文容器样式 */
+.post-content-container {
     border-radius: var(--border-radius-md);
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: var(--box-shadow);
+    padding: var(--spacing-lg);
+    border: 2px solid transparent;
+    box-shadow: var(--shadow-heavy);
+    margin-top: 1.5rem;
     transition: var(--transition-default);
 }
 
@@ -33,7 +25,6 @@
     font-size: 2.2rem;
     font-weight: bold;
     color: var(--primary-text);
-    margin-bottom: 1.5rem;
     line-height: 1.3;
 }
 
@@ -41,30 +32,48 @@
 .post-meta {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
+    margin-top: 1rem;
     color: var(--secondary-text);
     font-size: 0.9rem;
 }
 
 /* 分类和标签样式 */
-.post-categories,
-.post-tags {
+.post-meta .post-categories,
+.post-meta .post-tags {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
-.post-categories span,
-.post-tags span {
-    background-color: var(--accent-color);
-    color: white;
-    padding: 0.25rem 0.75rem;
+/* 日期样式 */
+.post-date {
+    white-space: nowrap;
+}
+
+/* 分类和标签的badge样式 */
+.post-meta .category-badge,
+.post-meta .tag-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: var(--light-accent);
+    color: var(--secondary-color);
     border-radius: var(--border-radius-md);
-    font-size: 0.85rem;
+    text-decoration: none;
+    font-size: 0.8rem;
     transition: var(--transition-default);
+    border: 2px solid transparent;
+}
+
+.post-meta .category-badge:hover,
+.post-meta .tag-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);
+    color: white;
 }
 
 /* 博文摘要样式 */
@@ -105,7 +114,11 @@
 }
 
 .post-content h1 { font-size: 1.8rem; }
-.post-content h2 { font-size: 1.6rem; }
+.post-content h2 { 
+    font-size: 1.6rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
 .post-content h3 { font-size: 1.4rem; }
 .post-content h4 { font-size: 1.2rem; }
 .post-content h5, .post-content h6 { font-size: 1.1rem; }
@@ -125,6 +138,9 @@
     margin: 1.5rem 0;
     padding: 1rem 1.5rem;
     border-left: 4px solid var(--accent-color);
+    border-top: 1px solid var(--accent-color);
+    border-right: 1px solid var(--accent-color);
+    border-bottom: 1px solid var(--accent-color);
     background-color: var(--secondary-bg);
     color: var(--secondary-text);
     font-style: italic;
@@ -142,6 +158,26 @@
     font-size: 0.9rem;
 }
 
+.post-content pre.code-with-line-numbers {
+    padding: 1rem 0;
+}
+
+.post-content pre.code-with-line-numbers .code-line {
+    display: block;
+    padding: 0 1rem;
+}
+
+.post-content pre.code-with-line-numbers .line-number {
+    display: inline-block;
+    width: 2.5rem;
+    text-align: right;
+    margin-right: 1rem;
+    color: var(--light-text);
+    user-select: none;
+    border-right: 1px solid var(--border-color);
+    padding-right: 0.5rem;
+}
+
 .post-content code {
     background-color: var(--code-bg);
     padding: 0.2rem 0.4rem;
@@ -153,29 +189,59 @@
 /* 表格样式 */
 .post-content table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
 }
 
 .post-content th,
 .post-content td {
     padding: 0.75rem;
     text-align: left;
-    border: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+}
+
+.post-content td {
+    border-bottom: 1px solid var(--border-color);
 }
 
 .post-content th {
-    background-color: var(--secondary-bg);
+    border-bottom: 2px solid var(--border-color);
+    background-color: var(--light-accent);
     font-weight: bold;
 }
 
-.post-content tr:nth-child(even) {
-    background-color: var(--secondary-bg);
+.post-content th:last-child,
+.post-content td:last-child {
+    border-right: none;
+}
+
+.post-content tr:last-child td {
+    border-bottom: none;
+}
+
+.post-content th:first-child {
+    border-top-left-radius: var(--border-radius-md);
+}
+
+.post-content th:last-child {
+    border-top-right-radius: var(--border-radius-md);
+}
+
+.post-content tr:last-child td:first-child {
+    border-bottom-left-radius: var(--border-radius-md);
+}
+
+.post-content tr:last-child td:last-child {
+    border-bottom-right-radius: var(--border-radius-md);
 }
 
 /* 图片样式 */
 .post-content img {
-    max-width: 100%;
+    max-width: 80%;
+    max-height: 70vh;
     height: auto;
     display: block;
     margin: 1.5rem auto;
@@ -238,14 +304,52 @@ sup {
 }
 
 .footnote-definition {
-    margin: 1em 0;
-    padding-left: 1.5em;
+    margin: 0.5rem 0;
     border-left: 2px solid var(--border-color);
     font-size: 0.9em;
 }
 
 .footnote-definition p {
-    margin: 0.5em 0;
+    margin: 0.25rem 0;
+}
+
+/* markdown-it-footnote 插件生成的样式 */
+.footnotes {
+    margin: 2rem 0 0 0;
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    background-color: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+.footnotes:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+.footnotes-list {
+    margin: 0;
+    padding: 0;
+    list-style-position: inside;
+}
+
+.footnote-item {
+    margin: 0 0 1.5rem 0;
+    padding: 0;
+    font-size: 0.9em;
+}
+
+.footnote-item:last-child {
+    margin-bottom: 0;
+}
+
+.footnote-item p {
+    margin: 0;
+    padding: 0;
+    display: inline;
 }
 
 /* 定义列表样式 */
@@ -294,7 +398,10 @@ sup {
 
 /* 返回列表按钮样式 */
 .post-nav {
-    margin-top: 2rem;
+    margin-top: 0;
+    /* 不设置 margin-top，让按钮直接与 .mainbox 的 padding 对齐
+       目的是让 .post-nav 与 .post-header、.post-content-container 之间的间距一致
+       都是通过 .post-header 和 .post-content-container 的 margin-top: 1.5rem 来控制间距 */
 }
 
 .back-to-list {
@@ -316,7 +423,8 @@ sup {
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-    .post-container {
+    .post-header,
+    .post-content-container {
         padding: 1.5rem;
     }
     
@@ -327,7 +435,13 @@ sup {
     .post-meta {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.5rem;
+        gap: 0.75rem;
+    }
+    
+    .post-meta .post-categories,
+    .post-meta .post-tags {
+        width: 100%;
+        flex-wrap: wrap;
     }
     
     .nav-links {
@@ -341,7 +455,8 @@ sup {
 }
 
 @media (max-width: 480px) {
-    .post-container {
+    .post-header,
+    .post-content-container {
         padding: 1rem;
     }
     
@@ -355,7 +470,8 @@ sup {
 }
 
 /* 夜间模式主题切换支持 */
-body.dark-theme .post-container {
+body.dark-theme .post-header,
+body.dark-theme .post-content-container {
     background-color: var(--bg-color);
     box-shadow: var(--box-shadow);
 }
@@ -380,9 +496,17 @@ body.dark-theme .post-content {
     color: var(--primary-text);
 }
 
-body.dark-theme .post-categories span,
-body.dark-theme .post-tags span {
-    background-color: var(--accent-color);
+body.dark-theme .post-meta .category-badge,
+body.dark-theme .post-meta .tag-badge {
+    background-color: var(--light-accent);
+    color: var(--secondary-color);
+}
+
+body.dark-theme .post-meta .category-badge:hover,
+body.dark-theme .post-meta .tag-badge:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
 }
 
 body.dark-theme .post-content pre,
@@ -391,8 +515,7 @@ body.dark-theme .post-content code {
     color: var(--primary-text);
 }
 
-body.dark-theme .post-content table th,
-body.dark-theme .post-content table tr:nth-child(even) {
+body.dark-theme .post-content table th {
     background-color: var(--secondary-bg);
 }
 

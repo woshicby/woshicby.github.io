@@ -18,7 +18,7 @@ const raceTypeConfig = {
     '路跑': { color: '#ff6b6b', class: 'race-road-run' },
     '越野跑': { color: '#4bc0c0', class: 'race-trail-run' },
     '场地跑': { color: '#36a2eb', class: 'race-track-run' },
-    'other': { color: '#ffcd56', class: 'race-other' }
+    '其他': { color: '#ffcd56', class: 'race-other' }
 };
 
 // 兼容旧代码的映射，确保现有功能正常工作
@@ -275,7 +275,7 @@ function hideRaceTooltip() {
 }
 
 // 渲染赛事图例
-function renderLegend(calendarContainer) {
+function renderLegend(calendarContainer, viewRaces) {
     // 创建图例容器
     const legendContainer = document.createElement('div');
     legendContainer.className = 'calendar-legend';
@@ -286,33 +286,41 @@ function renderLegend(calendarContainer) {
     legendTitle.textContent = '赛事类型图例：';
     legendContainer.appendChild(legendTitle);
     
+    // 获取当前视图中存在的赛事类型
+    const existingRaceTypes = new Set(
+        viewRaces.map(race => race.category)
+    );
+    
     // 遍历赛事类型配置，生成图例项
-    Object.entries(raceTypeConfig).forEach(([type, config]) => {        
-        // 创建图例项
-        const legendItem = document.createElement('div');
-        legendItem.className = 'legend-item';
-        
-        // 创建颜色方块
-        const colorSquare = document.createElement('span');
-        colorSquare.className = 'legend-color';
-        // 使用与日历中相同的rgba格式，确保颜色一致
-        const hexToRgba = (hex, alpha = 0.8) => {
-            const r = parseInt(hex.slice(1, 3), 16);
-            const g = parseInt(hex.slice(3, 5), 16);
-            const b = parseInt(hex.slice(5, 7), 16);
-            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        };
-        colorSquare.style.backgroundColor = hexToRgba(config.color);
-        legendItem.appendChild(colorSquare);
-        
-        // 创建类型名称
-        const typeName = document.createElement('span');
-        typeName.className = 'legend-text';
-        typeName.textContent = type;
-        legendItem.appendChild(typeName);
-        
-        // 添加到图例容器
-        legendContainer.appendChild(legendItem);
+    Object.entries(raceTypeConfig).forEach(([type, config]) => {
+        // 只显示当前视图中存在的赛事类型
+        if (existingRaceTypes.has(type) || type === 'other') {
+            // 创建图例项
+            const legendItem = document.createElement('div');
+            legendItem.className = 'legend-item';
+            
+            // 创建颜色方块
+            const colorSquare = document.createElement('span');
+            colorSquare.className = 'legend-color';
+            // 使用与日历中相同的rgba格式，确保颜色一致
+            const hexToRgba = (hex, alpha = 0.8) => {
+                const r = parseInt(hex.slice(1, 3), 16);
+                const g = parseInt(hex.slice(3, 5), 16);
+                const b = parseInt(hex.slice(5, 7), 16);
+                return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            };
+            colorSquare.style.backgroundColor = hexToRgba(config.color);
+            legendItem.appendChild(colorSquare);
+            
+            // 创建类型名称
+            const typeName = document.createElement('span');
+            typeName.className = 'legend-text';
+            typeName.textContent = type;
+            legendItem.appendChild(typeName);
+            
+            // 添加到图例容器
+            legendContainer.appendChild(legendItem);
+        }
     });
     
     // 添加到日历容器顶部
@@ -327,8 +335,26 @@ function renderCalendar() {
     // 清空日历容器
     calendarContainer.innerHTML = '';
     
+    // 根据当前视图类型筛选赛事
+    let viewRaces = [];
+    
+    if (currentView === 'month') {
+        // 月视图：筛选当前月份的赛事
+        viewRaces = upcomingRaces.filter(race => {
+            const raceDate = new Date(race.date);
+            return raceDate.getFullYear() === currentYear && 
+                   raceDate.getMonth() === currentMonth;
+        });
+    } else {
+        // 年视图：筛选当前年份的赛事
+        viewRaces = upcomingRaces.filter(race => {
+            const raceDate = new Date(race.date);
+            return raceDate.getFullYear() === currentYear;
+        });
+    }
+    
     // 渲染图例
-    renderLegend(calendarContainer);
+    renderLegend(calendarContainer, viewRaces);
     
     // 根据当前视图类型渲染不同的内容
     if (currentView === 'month') {
@@ -338,7 +364,7 @@ function renderCalendar() {
     }
     
     // 渲染当前视图内的赛事列表
-    renderCurrentViewRaces();
+    renderCurrentViewRaces(viewRaces);
 }
 
 // 渲染月视图

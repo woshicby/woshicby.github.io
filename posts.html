@@ -30,7 +30,7 @@
                     <li><a href="./study.html">个人成果</a></li>
                     <li><a href="./tools.html">小工具&小游戏</a></li>
                     <li><a href="./sports.html">体育运动</a></li>
-                <li style="display: inline-block; vertical-align: middle;">
+                <li>
                     <label class="theme-toggle">
                         <input type="checkbox" id="themeToggle">
                         <span class="theme-toggle-slider"></span>
@@ -51,7 +51,11 @@
     <div class="mainbox clearfix wrapper">
 
         <section class="posts-container">
-            <h2 class="section-title">博文列表</h2>
+            <h2>博文列表</h2>
+            <div id="filter-info" class="filter-info" style="display: none;">
+                <div id="filter-tags" class="filter-tags"></div>
+                <button id="clear-filter" class="clear-filter-btn">清除所有</button>
+            </div>
             <div id="posts-list" class="posts-list">
                 <!-- 博文列表将通过JavaScript动态加载 -->
                 <div class="loading">加载中...</div>
@@ -64,7 +68,7 @@
             </div>
             <div class="categories-list">
                 <h3>分类</h3>
-                <ul id="categories-list"></ul>
+                <div id="categories-list"></div>
             </div>
             <div class="tags-list">
                 <h3>标签</h3>

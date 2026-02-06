@@ -23,6 +23,8 @@ class PostManager {
             this.renderTags();
             // 绑定搜索事件
             this.bindSearch();
+            // 绑定清除过滤按钮事件
+            this.bindClearFilter();
             // 检查URL参数
             this.checkUrlParams();
         } catch (error) {
@@ -33,29 +35,123 @@ class PostManager {
 
     async loadPosts() {
         try {
-            // 尝试从posts.json加载数据，使用正确的相对路径
-        const response = await fetch('JSON/posts.json');
-        console.log('尝试加载posts.json，URL:', 'JSON/posts.json');
+            // 首先尝试从 posts-list.json 加载文件列表
+            const listResponse = await fetch('JSON/posts-list.json');
             
-            if (response.ok) {
-                // 确保加载posts.json中的所有文章数据
-                this.posts = await response.json();
-                console.log('成功加载posts.json，文章数量:', this.posts.length);
-                // 显示前几篇文章的标题以便验证
-                console.log('文章列表预览:', this.posts.slice(0, 3).map(p => p.title));
+            if (listResponse.ok) {
+                const postsList = await listResponse.json();
+                console.log('成功加载posts-list.json，文件数量:', postsList.length);
+                
+                // 逐个读取 md 文件并解析
+                const postsPromises = postsList.map(async (postInfo) => {
+                    try {
+                        console.log(`正在加载文件: ${postInfo.file}`);
+                        const mdResponse = await fetch(`posts/${postInfo.file}`);
+                        if (mdResponse.ok) {
+                            const mdContent = await mdResponse.text();
+                            console.log(`文件 ${postInfo.file} 内容长度: ${mdContent.length}`);
+                            const parsedPost = this.parseMarkdown(mdContent);
+                            console.log(`文件 ${postInfo.file} 解析结果:`, parsedPost);
+                            parsedPost.id = postInfo.id;
+                            return parsedPost;
+                        } else {
+                            console.error(`文件 ${postInfo.file} 加载失败，状态码: ${mdResponse.status}`);
+                        }
+                    } catch (error) {
+                        console.error(`加载文件 ${postInfo.file} 失败:`, error);
+                        return null;
+                    }
+                });
+                
+                this.posts = (await Promise.all(postsPromises)).filter(post => post !== null);
+                console.log('成功加载所有md文件，文章数量:', this.posts.length);
+                console.log('文章列表预览:', this.posts.map(p => p.title));
             } else {
-                // 如果没有posts.json，使用示例数据
-                console.warn('posts.json响应状态错误:', response.status, '，将使用示例数据');
-                this.posts = this.getSamplePosts();
-                console.log('使用示例数据，文章数量:', this.posts.length);
+                // 如果没有 posts-list.json，尝试从 posts.json 加载
+                console.log('posts-list.json 不存在，尝试从 posts.json 加载');
+                const response = await fetch('JSON/posts.json');
+                if (response.ok) {
+                    this.posts = await response.json();
+                    console.log('成功加载posts.json，文章数量:', this.posts.length);
+                } else {
+                    console.warn('posts.json 也不存在，使用示例数据');
+                    this.posts = this.getSamplePosts();
+                }
             }
         } catch (error) {
-            // 如果fetch失败，使用示例数据
-            console.error('加载posts.json失败:', error.message);
+            console.error('加载博文数据失败:', error.message);
             console.warn('将使用示例博文数据');
             this.posts = this.getSamplePosts();
-            console.log('使用示例数据，文章数量:', this.posts.length);
         }
+    }
+
+    parseMarkdown(content) {
+        const frontmatterRegex = /^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/;
+        const match = content.match(frontmatterRegex);
+        
+        if (!match) {
+            return {
+                title: '未命名博文',
+                date: new Date().toISOString().split('T')[0],
+                content: content,
+                excerpt: this.extractExcerpt(content),
+                categories: [],
+                tags: []
+            };
+        }
+
+        const frontmatter = match[1];
+        const markdownContent = match[2];
+        const metadata = this.parseFrontmatter(frontmatter);
+
+        return {
+            title: metadata.title || '未命名博文',
+            date: metadata.date || new Date().toISOString().split('T')[0],
+            content: markdownContent,
+            excerpt: metadata.excerpt || this.extractExcerpt(markdownContent),
+            categories: metadata.categories || [],
+            tags: metadata.tags || []
+        };
+    }
+
+    parseFrontmatter(frontmatter) {
+        const metadata = {};
+        const lines = frontmatter.split('\n');
+        
+        lines.forEach(line => {
+            line = line.trim();
+            if (!line || line.startsWith('#')) return;
+            const [key, ...valueParts] = line.split(':');
+            const cleanKey = key.trim();
+            let cleanValue = valueParts.join(':').trim();
+            
+            if (cleanValue.startsWith('[') && cleanValue.endsWith(']')) {
+                cleanValue = cleanValue.substring(1, cleanValue.length - 1)
+                    .split(',')
+                    .map(item => item.trim().replace(/^['"']|['"']$/g, ''));
+            } else if ((cleanValue.startsWith('"') && cleanValue.endsWith('"')) || 
+                       (cleanValue.startsWith("'") && cleanValue.endsWith("'"))) {
+                cleanValue = cleanValue.substring(1, cleanValue.length - 1);
+            }
+            
+            metadata[cleanKey] = cleanValue;
+        });
+        
+        return metadata;
+    }
+
+    extractExcerpt(content) {
+        const plainText = content
+            .replace(/#{1,6}\s+/g, '')
+            .replace(/\*\*(.*?)\*\*/g, '$1')
+            .replace(/\*(.*?)\*/g, '$1')
+            .replace(/`(.*?)`/g, '$1')
+            .replace(/```[\s\S]*?```/g, '[代码块]')
+            .replace(/!?\[([^\]]+)\]\([^)]+\)/g, '$1')
+            .replace(/^>\s+/gm, '')
+            .trim();
+        
+        return plainText.length > 200 ? plainText.substring(0, 200) + '...' : plainText;
     }
 
     extractCategoriesAndTags() {
@@ -88,6 +184,9 @@ class PostManager {
         // 渲染所有文章
         const postsHTML = postsToRender.map(post => this.createPostHTML(post)).join('');
         postsListElement.innerHTML = postsHTML;
+
+        // 绑定文章列表中的分类和标签点击事件
+        this.bindPostFilterEvents();
     }
 
     createPostHTML(post) {
@@ -117,14 +216,15 @@ class PostManager {
     renderCategories() {
         const categoriesElement = document.getElementById('categories-list');
         categoriesElement.innerHTML = this.categories.map(category => 
-            `<li><a href="?category=${encodeURIComponent(category)}" data-category="${category}">${category}</a></li>`
+            `<a href="?category=${encodeURIComponent(category)}" class="category-badge" data-category="${category}">${category}</a>`
         ).join('');
 
         // 绑定分类点击事件
         document.querySelectorAll('[data-category]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const category = e.target.getAttribute('data-category');
+                const target = e.target.closest('[data-category]');
+                const category = target.getAttribute('data-category');
                 this.filterByCategory(category);
             });
         });
@@ -140,7 +240,8 @@ class PostManager {
         document.querySelectorAll('[data-tag]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const tag = e.target.getAttribute('data-tag');
+                const target = e.target.closest('[data-tag]');
+                const tag = target.getAttribute('data-tag');
                 this.filterByTag(tag);
             });
         });
@@ -149,85 +250,97 @@ class PostManager {
     bindSearch() {
         const searchInput = document.getElementById('search-input');
         searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
+            const searchTerm = e.target.value;
             this.searchPosts(searchTerm);
-            
-            // 更新URL参数
-            const urlParams = new URLSearchParams(window.location.search);
-            if (searchTerm) {
-                urlParams.set('search', searchTerm);
-                // 移除其他过滤参数
-                urlParams.delete('category');
-                urlParams.delete('tag');
-            } else {
-                urlParams.delete('search');
-            }
-            window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
+        });
+    }
+
+    bindPostFilterEvents() {
+        const postsList = document.getElementById('posts-list');
+        
+        postsList.querySelectorAll('[data-category]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = e.target.closest('[data-category]');
+                const category = target.getAttribute('data-category');
+                this.filterByCategory(category);
+            });
+        });
+
+        postsList.querySelectorAll('[data-tag]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = e.target.closest('[data-tag]');
+                const tag = target.getAttribute('data-tag');
+                this.filterByTag(tag);
+            });
         });
     }
 
     filterByCategory(category) {
-        const filteredPosts = this.posts.filter(post => 
-            post.categories && post.categories.includes(category)
-        );
-        this.renderPostsList(filteredPosts);
-        
-        // 更新URL参数
         const urlParams = new URLSearchParams(window.location.search);
-        urlParams.set('category', category);
-        // 移除其他过滤参数
+        const categories = urlParams.getAll('category');
+        
+        if (categories.includes(category)) {
+            const newCategories = categories.filter(c => c !== category);
+            urlParams.delete('category');
+            newCategories.forEach(c => urlParams.append('category', c));
+        } else {
+            urlParams.append('category', category);
+        }
+        
         urlParams.delete('search');
-        urlParams.delete('tag');
         window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+        
+        this.applyFilters();
     }
 
     filterByTag(tag) {
-        const filteredPosts = this.posts.filter(post => 
-            post.tags && post.tags.includes(tag)
-        );
-        this.renderPostsList(filteredPosts);
-        
-        // 更新URL参数
         const urlParams = new URLSearchParams(window.location.search);
-        urlParams.set('tag', tag);
-        // 移除其他过滤参数
+        const tags = urlParams.getAll('tag');
+        
+        if (tags.includes(tag)) {
+            const newTags = tags.filter(t => t !== tag);
+            urlParams.delete('tag');
+            newTags.forEach(t => urlParams.append('tag', t));
+        } else {
+            urlParams.append('tag', tag);
+        }
+        
         urlParams.delete('search');
-        urlParams.delete('category');
         window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+        
+        this.applyFilters();
     }
 
     searchPosts(searchTerm) {
+        const urlParams = new URLSearchParams(window.location.search);
+        
         if (!searchTerm.trim()) {
-            this.renderPostsList();
+            urlParams.delete('search');
+            window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
+            this.applyFilters();
             return;
         }
 
-        const filteredPosts = this.posts.filter(post => 
-            post.title.toLowerCase().includes(searchTerm) ||
-            (post.excerpt && post.excerpt.toLowerCase().includes(searchTerm)) ||
-            (post.categories && post.categories.some(cat => cat.toLowerCase().includes(searchTerm))) ||
-            (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
-        );
-
-        this.renderPostsList(filteredPosts);
+        urlParams.set('search', searchTerm);
+        // 移除分类和标签参数，因为搜索是独立的过滤方式
+        urlParams.delete('category');
+        urlParams.delete('tag');
+        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+        
+        this.applyFilters();
     }
 
     checkUrlParams() {
         const urlParams = new URLSearchParams(window.location.search);
-        const category = urlParams.get('category');
-        const tag = urlParams.get('tag');
         const search = urlParams.get('search');
-
-        if (category) {
-            this.filterByCategory(category);
-            document.getElementById('search-input').value = '';
-        } else if (tag) {
-            this.filterByTag(tag);
-            document.getElementById('search-input').value = '';
-        } else if (search) {
+        
+        if (search) {
             document.getElementById('search-input').value = search;
-            this.searchPosts(search);
         }
+        
+        this.applyFilters();
     }
 
     formatDate(dateString) {
@@ -236,6 +349,148 @@ class PostManager {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
+        });
+    }
+
+    applyFilters() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const categories = urlParams.getAll('category');
+        const tags = urlParams.getAll('tag');
+        const search = urlParams.get('search');
+
+        let filteredPosts = this.posts;
+
+        // 应用分类过滤（OR逻辑：匹配任意一个选中的分类）
+        if (categories.length > 0) {
+            filteredPosts = filteredPosts.filter(post => 
+                post.categories && post.categories.some(cat => categories.includes(cat))
+            );
+        }
+
+        // 应用标签过滤（OR逻辑：匹配任意一个选中的标签）
+        if (tags.length > 0) {
+            filteredPosts = filteredPosts.filter(post => 
+                post.tags && post.tags.some(tag => tags.includes(tag))
+            );
+        }
+
+        // 应用搜索过滤
+        if (search) {
+            const searchTerm = search.toLowerCase();
+            filteredPosts = filteredPosts.filter(post => 
+                post.title.toLowerCase().includes(searchTerm) ||
+                (post.excerpt && post.excerpt.toLowerCase().includes(searchTerm)) ||
+                (post.categories && post.categories.some(cat => cat.toLowerCase().includes(searchTerm))) ||
+                (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
+            );
+        }
+
+        this.renderPostsList(filteredPosts);
+        this.updateFilterInfo(categories, tags, search);
+        this.updateActiveStates(categories, tags);
+    }
+
+    updateFilterInfo(categories, tags, search) {
+        const filterInfo = document.getElementById('filter-info');
+        const filterTags = document.getElementById('filter-tags');
+        
+        if (!filterInfo || !filterTags) {
+            return;
+        }
+
+        filterTags.innerHTML = '';
+
+        categories.forEach(category => {
+            const tagElement = this.createFilterTag('分类', category, 'category');
+            filterTags.appendChild(tagElement);
+        });
+
+        tags.forEach(tag => {
+            const tagElement = this.createFilterTag('标签', tag, 'tag');
+            filterTags.appendChild(tagElement);
+        });
+
+        if (search) {
+            const tagElement = this.createFilterTag('搜索', search, 'search');
+            filterTags.appendChild(tagElement);
+        }
+
+        if (filterTags.children.length > 0) {
+            filterInfo.style.display = 'flex';
+        } else {
+            filterInfo.style.display = 'none';
+        }
+    }
+
+    createFilterTag(type, value, paramType) {
+        const tag = document.createElement('div');
+        tag.className = 'filter-tag';
+        tag.innerHTML = `
+            <span>${type}: ${value}</span>
+            <button class="filter-tag-remove" data-type="${paramType}" data-value="${value}" title="移除此过滤条件">×</button>
+        `;
+        
+        tag.querySelector('.filter-tag-remove').addEventListener('click', () => {
+            this.removeFilter(paramType, value);
+        });
+        
+        return tag;
+    }
+
+    removeFilter(paramType, value = null) {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        if (value) {
+            const values = urlParams.getAll(paramType);
+            const newValues = values.filter(v => v !== value);
+            urlParams.delete(paramType);
+            newValues.forEach(v => urlParams.append(paramType, v));
+        } else {
+            urlParams.delete(paramType);
+        }
+        
+        window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
+        
+        this.applyFilters();
+    }
+
+    bindClearFilter() {
+        const clearFilterBtn = document.getElementById('clear-filter');
+        if (clearFilterBtn) {
+            clearFilterBtn.addEventListener('click', () => {
+                this.clearFilter();
+            });
+        }
+    }
+
+    clearFilter() {
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.delete('category');
+        urlParams.delete('tag');
+        urlParams.delete('search');
+        window.history.replaceState({}, '', window.location.pathname);
+        
+        this.applyFilters();
+        document.getElementById('search-input').value = '';
+    }
+
+    updateActiveStates(categories, tags) {
+        document.querySelectorAll('[data-category]').forEach(link => {
+            const category = link.getAttribute('data-category');
+            if (categories.includes(category)) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        document.querySelectorAll('[data-tag]').forEach(link => {
+            const tag = link.getAttribute('data-tag');
+            if (tags.includes(tag)) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
         });
     }
 
