@@ -4,26 +4,26 @@
     "date": "2025-12-28",
     "content": "123",
     "excerpt": "123",
-    "categories": [],
-    "tags": [],
+    "categories": ["杂记"],
+    "tags": ["运动","跑步"],
     "id": 1
   },
   {
-    "title": "未命名博文",
+    "title": "首次攀岩记录——青岛猫王攀岩",
     "date": "2025-12-28",
-    "content": "56151",
-    "excerpt": "56151",
-    "categories": [],
-    "tags": [],
+    "content": "本社恐亲测！！绝对i人也友好可冲～人少安静（并不保证什么时候都人少）➕白胡子店主超耐心指点了很多\n# 📍位置指南：\n就在路口超好找～\n![定位](./images/post.2.20260131/位置.jpg)\n导航偶尔飘到隔壁C座，不要再往前走了\n认准路口边上回头就能找到！\n最后致敬我牺牲的手皮👐\n![手皮祭天](./images/post.2.20260131/手皮.jpg)\n下周末如果有空还来！！\n# ✨准备Tips：\n▫️穿方便活动的衣服就好\n▫️带个人就行，入场费包含租鞋子\n▫️建议预留2-3小时（包含休息时间）手臂真的会罢工！\nps.官方时间是周末2小时，人少的话愿意可以接着爬。工作日整天算一次，体验区价格108，包含装备租赁，专业区价格118\n# 💦今日战况：\n✔️强行搞定一条墙角“上床线”（？）←没专门拍那里的照片\n✔️幼儿园级别梯子线get（这个应该确实都行）\n✖️这里松不了手……\n![这里松不了手……](./images/post.2.20260131/数字线.jpg)\n✖️这里试多了累了……\n![这里试多了累了……](./images/post.2.20260131/红色线.jpg)\n✖️这里三角起步完全不行，屁股焊在地上😅\n![这里三角起步完全不行，屁股焊在地上](./images/post.2.20260131/全景.jpg)\n重心控制完全没上道的程度，脑子懂了身体不懂…（体验区已经很有得折腾了）\n# ⚠️血泪总结（倒也不至于）：\n跑步人大概都是\n腿：无事发生 手臂：瑟瑟发抖\n也包含有些手劲可能用错了地方的因素吧…\n但就算纯挂着其实也有在持续消耗（大体重的话消耗更大了……）。\n到后期手臂手指都没劲了，所以第一次不用太久，真的抓不住了（不过像今天这种人少的情况你要愿意试也可以继续……）\n# 🔔后续反应：\n第二天（2026年2月1日）：手、手臂、肩、胸、背、腰都非常酸痛的程度，起床费劲，开矿泉水也费劲；腿稍微酸\n第三天（2026年2月2日）：跑步了，翅根和大臂依旧很爽，起床有点费劲，好很多了\n第四天（2026年2月3日）：基本恢复正常。\n第五天（2026年2月4日）：跑了阈值，基本没有影响了，阈值跑到课程要求。\n![阈值跑到课程要求](./images/post.2.20260131/后续跑步-阈值.jpg)",
+    "excerpt": "首次攀岩记录",
+    "categories": ["杂记"],
+    "tags": ["运动","攀岩"],
     "id": 2
   },
   {
-    "title": "测试测试测试",
+    "title": "格式测试",
     "date": "2025-12-28",
     "content": "# Markdown 格式测试文档\n\n这是一个测试各种 Markdown 格式的文档，用于验证渲染器对不同语法的支持情况。\n\n## 1. 标题级别\n\n# H1 标题\n## H2 标题\n### H3 标题\n#### H4 标题\n##### H5 标题\n###### H6 标题\n\n## 2. 文本样式\n\n**粗体文本**  \n*斜体文本*  \n***粗斜体文本***  \n~~删除线文本~~  \n<u>下划线文本</u>  \n上标：E = mc^2^  \n下标：H~2~O  \n\n高亮文本：==这是高亮文本==\n\n## 3. 列表\n\n### 无序列表\n- 项目一\n- 项目二\n  - 嵌套项目一\n  - 嵌套项目二\n- 项目三\n\n### 有序列表\n1. 第一步\n2. 第二步\n   1. 子步骤一\n   2. 子步骤二\n3. 第三步\n\n### 任务列表\n- [x] 已完成任务\n- [ ] 待完成任务\n- [ ] 另一个待完成任务\n\n## 4. 链接与图片\n\n[普通链接](https://www.example.com)  \n[带标题的链接](https://www.example.com \"示例网站\")  \n<https://自动链接.com>  \n<email@example.com>\n\n![图片替代文本](https://via.placeholder.com/150x100 \"图片标题\")\n\n## 5. 代码\n\n### 行内代码\n使用 `print(\"Hello, World!\")` 函数打印消息。\n\n### 代码块（无指定语言）\n```\n这是一个普通代码块\n可以包含多行代码\n第三行代码\n```\n\n### Python 代码\n```python\ndef fibonacci(n):\n    \"\"\"计算斐波那契数列\"\"\"\n    if n <= 1:\n        return n\n    else:\n        return fibonacci(n-1) + fibonacci(n-2)\n\n# 测试函数\nfor i in range(10):\n    print(f\"fibonacci({i}) = {fibonacci(i)}\")\n```\n\n### JavaScript 代码\n```javascript\n// 异步函数示例\nasync function fetchData(url) {\n    try {\n        const response = await fetch(url);\n        const data = await response.json();\n        return data;\n    } catch (error) {\n        console.error('Error fetching data:', error);\n        throw error;\n    }\n}\n\n// 箭头函数\nconst multiply = (a, b) => a * b;\n```\n\n### HTML 代码\n```html\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>示例页面</title>\n    <style>\n        .container {\n            max-width: 800px;\n            margin: 0 auto;\n        }\n    </style>\n</head>\n<body>\n    <div class=\"container\">\n        <h1>欢迎</h1>\n        <p>这是一个示例段落。</p>\n    </div>\n</body>\n</html>\n```\n\n### CSS 代码\n```css\n/* CSS 示例 */\nbody {\n    font-family: 'Arial', sans-serif;\n    line-height: 1.6;\n    color: #333;\n    background-color: #f4f4f4;\n}\n\n.container {\n    max-width: 1200px;\n    margin: 0 auto;\n    padding: 20px;\n}\n\n.button {\n    display: inline-block;\n    padding: 10px 20px;\n    background-color: #007bff;\n    color: white;\n    border-radius: 5px;\n    text-decoration: none;\n}\n```\n\n## 6. 表格\n\n### 基本表格\n| 姓名 | 年龄 | 城市 |\n|------|------|------|\n| 张三 | 25   | 北京 |\n| 李四 | 30   | 上海 |\n| 王五 | 28   | 广州 |\n\n### 对齐表格\n| 左对齐 | 居中对齐 | 右对齐 |\n|:-------|:--------:|-------:|\n| 单元格1 | 单元格2  | 单元格3 |\n| 较长的左对齐单元格 | 居中 | 123.45 |\n\n### 复杂表格\n| 项目 | 描述 | 价格 |\n|------|------|------|\n| Markdown指南 | 完整Markdown语法指南 | $29.99 |\n| 高级技巧 | 包含扩展语法和技巧 | $49.99 |\n| **总计** | **两本书** | **$79.98** |\n\n## 7. 引用\n\n> 这是一个单行引用。\n\n> 这是一个多行引用。\n> 这是第二行。\n> 这是第三行。\n\n> ### 引用中的标题\n> 这是一个包含其他Markdown元素的引用：\n> 1. 列表项一\n> 2. 列表项二\n> \n> `代码` 和 **粗体文本**\n\n## 8. 数学公式\n\n### 行内公式\n这是行内公式：$E = mc^2$ 和 $a^2 + b^2 = c^2$。\n\n### 块级公式\n$$\n\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}\n$$\n\n$$\n\\frac{d}{dx} \\left( \\int_{a}^{x} f(t) dt \\right) = f(x)\n$$\n\n### 矩阵公式\n$$\n\\begin{bmatrix}\n1 & 2 & 3 \\\\\n4 & 5 & 6 \\\\\n7 & 8 & 9\n\\end{bmatrix}\n\\times\n\\begin{bmatrix}\na \\\\\nb \\\\\nc\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n1a + 2b + 3c \\\\\n4a + 5b + 6c \\\\\n7a + 8b + 9c\n\\end{bmatrix}\n$$\n\n### 方程组\n$$\n\\begin{cases}\nx + 2y - z = 5 \\\\\n2x - y + 3z = 7 \\\\\n3x + y - 2z = 1\n\\end{cases}\n$$\n\n## 9. 分割线\n\n---\n\n***\n\n___\n\n## 10. 脚注\n\n这是一个带有脚注的句子[^1]。这是另一个脚注[^2]。\n\n[^1]: 这是第一个脚注的内容。它可以包含多行文本和其他Markdown元素，比如**粗体**和`代码`。\n[^2]: 这是第二个脚注的内容。\n\n## 11. 定义列表\n\n术语一\n: 这是术语一的定义。\n\n术语二\n: 这是术语二的定义。\n: 这是术语二的第二个定义。\n\n## 12. 缩进和换行\n\n这是第一行，  \n这是第二行（使用两个空格加换行）。\n\n这是第一段落。\n\n    这是缩进文本（使用四个空格或一个制表符）。\n    可以用于引用代码或特殊文本。\n\n## 13. 转义字符\n\n以下是一些需要转义的字符：  \n\\* 星号  \n\\_ 下划线  \n\\# 井号  \n\\[ 左方括号  \n\\] 右方括号  \n\\( 左括号  \n\\) 右括号  \n\n## 14. HTML 混合使用\n\n<p style=\"color: blue; background-color: #f0f0f0; padding: 10px;\">\n这是一个使用HTML样式的段落，有些Markdown渲染器支持内联HTML。\n</p>\n\n<details>\n<summary>点击展开详情</summary>\n<p>这是被折叠的内容，可以使用HTML的details标签实现。</p>\n<ul>\n<li>项目一</li>\n<li>项目二</li>\n</ul>\n</details>\n\n## 15. 特殊功能（部分渲染器支持）\n\n### 上标和下标\nH~2~O 和 E = mc^2^\n\n### 标记\n这是 ==标记文本==。\n\n### 表情符号\n:smile: :rocket: :thumbsup:\n\n### 目录（部分渲染器自动生成）\n[TOC]\n\n## 16. 总结\n\n这个文档测试了多种Markdown格式，包括：\n\n1. 基本文本格式\n2. 列表和任务列表\n3. 链接和图片\n4. 代码块和语法高亮\n5. 表格\n6. 引用\n7. 数学公式\n8. 特殊元素\n\n不同的Markdown渲染器可能对这些功能的支持程度不同，特别是数学公式、定义列表和一些扩展语法。",
     "excerpt": "Markdown 格式测试文档\n\n这是一个测试各种 Markdown 格式的文档，用于验证渲染器对不同语法的支持情况。\n\n1. 标题级别\n\nH1 标题\nH2 标题\nH3 标题\nH4 标题\nH5 标题\nH6 标题\n\n2. 文本样式\n\n粗体文本  \n斜体文本  \n粗斜体文本  \n~~删除线文本~~  \n<u>下划线文本</u>  \n上标：E = mc^2^  \n下标：H~2~O  \n\n高亮文本：==这...",
-    "categories": [],
-    "tags": [],
+    "categories": ["测试"],
+    "tags": ["技术","Markdown"],
     "id": 3
   }
 ]
