@@ -175,11 +175,73 @@
 
 /* 图片样式 */
 .post-content img {
-    max-width: 100%;
+    max-width: 80%;
     height: auto;
     display: block;
     margin: 1.5rem auto;
     border-radius: var(--border-radius-md);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 图片容器样式 */
+.post-content .image-container {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.post-content .image-container img {
+    max-width: 80%;
+    height: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: var(--border-radius-md);
+}
+
+.post-content .image-caption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    font-style: italic;
+}
+
+/* 响应式图片尺寸 */
+@media (min-width: 1200px) {
+    .post-content img {
+        max-width: 70%;
+    }
+    
+    .post-content .image-container img {
+        max-width: 70%;
+    }
+}
+
+@media (max-width: 768px) {
+    .post-content img {
+        max-width: 90%;
+    }
+    
+    .post-content .image-container img {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .post-content img {
+        max-width: 95%;
+    }
+    
+    .post-content .image-container img {
+        max-width: 95%;
+    }
+}
+
+/* 考虑图片比例的处理 */
+.post-content img.landscape {
+    max-width: 80%;
+}
+
+.post-content img.portrait {
+    max-height: 600px;
+    width: auto;
 }
 
 /* 上标样式 */
