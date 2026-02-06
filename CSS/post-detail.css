@@ -120,7 +120,11 @@
 }
 
 .post-content h1 { font-size: 1.8rem; }
-.post-content h2 { font-size: 1.6rem; }
+.post-content h2 { 
+    font-size: 1.6rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
 .post-content h3 { font-size: 1.4rem; }
 .post-content h4 { font-size: 1.2rem; }
 .post-content h5, .post-content h6 { font-size: 1.1rem; }
