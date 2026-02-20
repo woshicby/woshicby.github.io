@@ -132,7 +132,8 @@ woshicby.github.io/
 │   ├── resized_files_list.txt
 │   └── 时间距离配速距离计算逻辑.txt
 ├── JSON/              # JSON数据文件目录
-│   ├── posts.json     # 博客文章数据
+│   ├── posts.json     # 博客文章数据（已废弃，向后兼容）
+│   ├── posts-list.json  # 博客文章列表配置文件
 │   └── race-records.json  # 跑步记录数据
 ├── templates/       # 模板文件目录
 ├── index.html       # 网站首页
@@ -178,6 +179,7 @@ woshicby.github.io/
 - 2026.02.06: 修正运动页面赛事日历图例的显示逻辑；删除博文文章H2标题的下划线；修正博文文章中图片的显示效果
 - 2026.02.06: 修正博文详情页面中分类和标签的链接（从index.html改为posts.html）；博文列表页面分类和标签使用统一的badge样式；添加过滤信息显示和"清除所有"按钮；支持同时筛选多个分类和多个标签（OR逻辑）；支持单独移除过滤条件；文章列表中的分类和标签也支持多选逻辑；博文详情页面分类和标签使用badge样式，在日期前添加"日期："标签
 - 2026.02.06: 优化跑步记录功能，为越野跑添加raceScore字段；修改同一项目成绩变化对比，支持越野跑的raceScore变化和ITRA表现分显示；修复越野跑PB/SB标签的显示问题；更新赛事日历图例的显示逻辑，根据当前视图动态显示相关赛事类型；修改越野跑PB卡片，将配速替换为ITRA表现分；确保ITRA表现分数字的样式一致性
+- 2026.02.20: 实现博文自动化系统，支持直接读取Markdown文件并自动渲染，无需手动转换JSON；添加posts-list.json配置文件管理博文列表；修改JS/posts.js和JS/post-detail.js实现Markdown文件加载和解析功能；创建博文自动化系统上线.md作为更新日志
 
 ## 使用方法
 
@@ -317,7 +319,8 @@ woshicby.github.io/
 │   ├── resized_files_list.txt
 │   └── 时间距离配速距离计算逻辑.txt (Time-Distance-Pace Calculation Logic)
 ├── JSON/              # JSON data files directory
-│   ├── posts.json     # Blog posts data
+│   ├── posts.json     # Blog posts data (deprecated, backward compatible)
+│   ├── posts-list.json  # Blog posts list configuration file
 │   └── race-records.json  # Running records data
 ├── templates/       # Template files directory
 ├── index.html       # Website homepage
@@ -363,6 +366,7 @@ woshicby.github.io/
 - 2026.02.06: Fixed race calendar legend display logic on sports page; removed underline from blog post H2 titles; fixed image display effects in blog posts
 - 2026.02.06: Fixed category and tag links in blog detail page (changed from index.html to posts.html); unified badge style for categories and tags in blog list page; added filter info display and "Clear All" button; supported filtering multiple categories and tags simultaneously (OR logic); supported removing individual filter conditions; categories and tags in article list also support multi-select logic; blog detail page categories and tags use badge style, added "Date:" label before date
 - 2026.02.06: Optimized running records functionality, added raceScore field for trail running; modified same project performance comparison to support trail running raceScore changes and ITRA performance score display; fixed trail running PB/SB label display issues; updated race calendar legend display logic to dynamically show relevant race types based on current view; modified trail running PB cards to replace pace with ITRA performance score; ensured consistent styling for ITRA performance score numbers
+- 2026.02.20: Implemented blog automation system, supports direct reading of Markdown files and automatic rendering without manual JSON conversion; added posts-list.json configuration file to manage blog post list; modified JS/posts.js and JS/post-detail.js to implement Markdown file loading and parsing functionality; created 博文自动化系统上线.md as update log
 
 ## Usage
 
@@ -502,7 +506,8 @@ woshicby.github.io/
 │   ├── resized_files_list.txt
 │   └── 时间距离配速距离计算逻辑.txt (時間-距離-ペース計算ロジック)
 ├── JSON/              # JSONデータファイルディレクトリ
-│   ├── posts.json     # ブログ記事データ
+│   ├── posts.json     # ブログ記事データ（非推奨、後方互換）
+│   ├── posts-list.json  # ブログ記事リスト設定ファイル
 │   └── race-records.json  # ランニング記録データ
 ├── templates/       # テンプレートファイルディレクトリ
 ├── index.html       # ウェブサイトホームページ
@@ -548,6 +553,7 @@ woshicby.github.io/
 - 2026.02.06: スポーツページのレースカレンダー凡例の表示ロジックを修正；ブログ記事のH2タイトルの下線を削除；ブログ記事の画像表示効果を修正
 - 2026.02.06: ブログ詳細ページのカテゴリとタグのリンクを修正（index.htmlからposts.htmlへ変更）；ブログ一覧ページのカテゴリとタグを統一されたbadgeスタイルに変更；フィルター情報表示と「すべてクリア」ボタンを追加；複数のカテゴリとタグを同時にフィルタリング可能に（OR論理）；個別のフィルター条件を削除可能に；記事一覧のカテゴリとタグも複数選択ロジックをサポート；ブログ詳細ページのカテゴリとタグはbadgeスタイルを使用、日付の前に「日付：」ラベルを追加
 - 2026.02.06: ランニング記録機能を最適化、トレイルランにraceScoreフィールドを追加；同一プロジェクトの成績比較を変更し、トレイルランのraceScore変化とITRAパフォーマンススコアの表示をサポート；トレイルランのPB/SBラベルの表示問題を修正；レースカレンダーの凡例の表示ロジックを更新、現在のビューに基づいて関連するレースタイプを動的に表示；トレイルランのPBカードを変更、ペースをITRAパフォーマンススコアに置き換え；ITRAパフォーマンススコアの数値のスタイルの一貫性を確保
+- 2026.02.20: ブログ自動化システムを実装、Markdownファイルを直接読み込み自動レンダリングをサポート、手動JSON変換が不要；posts-list.json設定ファイルを追加してブログ記事リストを管理；JS/posts.jsとJS/post-detail.jsを変更してMarkdownファイルの読み込みと解析機能を実装；博文自动化系统上线.mdを更新ログとして作成
 
 ## 使用方法
 

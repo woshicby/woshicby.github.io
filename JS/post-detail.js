@@ -30,17 +30,112 @@ class PostDetailManager {
 
     async loadPosts() {
         try {
-            const response = await fetch('JSON/posts.json');
-            if (response.ok) {
-                return await response.json();
+            // 首先尝试从 posts-list.json 加载文件列表
+            const listResponse = await fetch('JSON/posts-list.json');
+            
+            if (listResponse.ok) {
+                const postsList = await listResponse.json();
+                console.log('成功加载posts-list.json，文件数量:', postsList.length);
+                
+                // 找到对应的文件
+                const postInfo = postsList.find(p => p.id.toString() === this.postId.toString());
+                
+                if (postInfo) {
+                    const mdResponse = await fetch(`posts/${postInfo.file}`);
+                    if (mdResponse.ok) {
+                        const mdContent = await mdResponse.text();
+                        const parsedPost = this.parseMarkdown(mdContent);
+                        parsedPost.id = postInfo.id;
+                        return [parsedPost];
+                    }
+                }
+                
+                // 如果找不到指定文件，返回空数组
+                console.warn('找不到指定的博文文件');
+                return [];
+            } else {
+                // 如果没有 posts-list.json，尝试从 posts.json 加载
+                console.log('posts-list.json 不存在，尝试从 posts.json 加载');
+                const response = await fetch('JSON/posts.json');
+                if (response.ok) {
+                    return await response.json();
+                }
+                console.warn('posts.json 也不存在，使用示例数据');
+                return this.getSamplePosts();
             }
-            console.warn('无法从posts.json获取数据，使用示例数据');
-            return this.getSamplePosts();
         } catch (error) {
             console.warn('使用示例博文数据:', error);
-            // 直接返回示例数据，不抛出错误
             return this.getSamplePosts();
         }
+    }
+
+    parseMarkdown(content) {
+        const frontmatterRegex = /^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/;
+        const match = content.match(frontmatterRegex);
+        
+        if (!match) {
+            return {
+                title: '未命名博文',
+                date: new Date().toISOString().split('T')[0],
+                content: content,
+                excerpt: this.extractExcerpt(content),
+                categories: [],
+                tags: []
+            };
+        }
+
+        const frontmatter = match[1];
+        const markdownContent = match[2];
+        const metadata = this.parseFrontmatter(frontmatter);
+
+        return {
+            title: metadata.title || '未命名博文',
+            date: metadata.date || new Date().toISOString().split('T')[0],
+            content: markdownContent,
+            excerpt: metadata.excerpt || this.extractExcerpt(markdownContent),
+            categories: metadata.categories || [],
+            tags: metadata.tags || []
+        };
+    }
+
+    parseFrontmatter(frontmatter) {
+        const metadata = {};
+        const lines = frontmatter.split('\n');
+        
+        lines.forEach(line => {
+            line = line.trim();
+            if (!line || line.startsWith('#')) return;
+            const [key, ...valueParts] = line.split(':');
+            const cleanKey = key.trim();
+            let cleanValue = valueParts.join(':').trim();
+            
+            if (cleanValue.startsWith('[') && cleanValue.endsWith(']')) {
+                cleanValue = cleanValue.substring(1, cleanValue.length - 1)
+                    .split(',')
+                    .map(item => item.trim().replace(/^['"']|['"']$/g, ''));
+            } else if ((cleanValue.startsWith('"') && cleanValue.endsWith('"')) || 
+                       (cleanValue.startsWith("'") && cleanValue.endsWith("'"))) {
+                cleanValue = cleanValue.substring(1, cleanValue.length - 1);
+            }
+            
+            metadata[cleanKey] = cleanValue;
+        });
+        
+        return metadata;
+    }
+
+    extractExcerpt(content) {
+        const plainText = content
+            .replace(/#{1,6}\s+/g, '')
+            .replace(/\*\*(.*?)\*\*/g, '$1')
+            .replace(/\*(.*?)\*/g, '$1')
+            .replace(/`(.*?)`/g, '$1')
+            .replace(/```[\s\S]*?```/g, '[代码块]')
+            .replace(/!?\[([^\]]+)\]\([^)]+\)/g, '$1')
+            .replace(/^>\s+/gm, '')
+            .trim();
+        
+        return plainText.length > 200 ? plainText.substring(0, 200) + '...' : plainText;
     }
 
     findPostById(posts, id) {

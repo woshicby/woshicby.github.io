@@ -35,29 +35,118 @@ class PostManager {
 
     async loadPosts() {
         try {
-            // 尝试从posts.json加载数据，使用正确的相对路径
-        const response = await fetch('JSON/posts.json');
-        console.log('尝试加载posts.json，URL:', 'JSON/posts.json');
+            // 首先尝试从 posts-list.json 加载文件列表
+            const listResponse = await fetch('JSON/posts-list.json');
             
-            if (response.ok) {
-                // 确保加载posts.json中的所有文章数据
-                this.posts = await response.json();
-                console.log('成功加载posts.json，文章数量:', this.posts.length);
-                // 显示前几篇文章的标题以便验证
+            if (listResponse.ok) {
+                const postsList = await listResponse.json();
+                console.log('成功加载posts-list.json，文件数量:', postsList.length);
+                
+                // 逐个读取 md 文件并解析
+                const postsPromises = postsList.map(async (postInfo) => {
+                    try {
+                        const mdResponse = await fetch(`posts/${postInfo.file}`);
+                        if (mdResponse.ok) {
+                            const mdContent = await mdResponse.text();
+                            const parsedPost = this.parseMarkdown(mdContent);
+                            parsedPost.id = postInfo.id;
+                            return parsedPost;
+                        }
+                    } catch (error) {
+                        console.error(`加载文件 ${postInfo.file} 失败:`, error);
+                        return null;
+                    }
+                });
+                
+                this.posts = (await Promise.all(postsPromises)).filter(post => post !== null);
+                console.log('成功加载所有md文件，文章数量:', this.posts.length);
                 console.log('文章列表预览:', this.posts.slice(0, 3).map(p => p.title));
             } else {
-                // 如果没有posts.json，使用示例数据
-                console.warn('posts.json响应状态错误:', response.status, '，将使用示例数据');
-                this.posts = this.getSamplePosts();
-                console.log('使用示例数据，文章数量:', this.posts.length);
+                // 如果没有 posts-list.json，尝试从 posts.json 加载
+                console.log('posts-list.json 不存在，尝试从 posts.json 加载');
+                const response = await fetch('JSON/posts.json');
+                if (response.ok) {
+                    this.posts = await response.json();
+                    console.log('成功加载posts.json，文章数量:', this.posts.length);
+                } else {
+                    console.warn('posts.json 也不存在，使用示例数据');
+                    this.posts = this.getSamplePosts();
+                }
             }
         } catch (error) {
-            // 如果fetch失败，使用示例数据
-            console.error('加载posts.json失败:', error.message);
+            console.error('加载博文数据失败:', error.message);
             console.warn('将使用示例博文数据');
             this.posts = this.getSamplePosts();
-            console.log('使用示例数据，文章数量:', this.posts.length);
         }
+    }
+
+    parseMarkdown(content) {
+        const frontmatterRegex = /^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/;
+        const match = content.match(frontmatterRegex);
+        
+        if (!match) {
+            return {
+                title: '未命名博文',
+                date: new Date().toISOString().split('T')[0],
+                content: content,
+                excerpt: this.extractExcerpt(content),
+                categories: [],
+                tags: []
+            };
+        }
+
+        const frontmatter = match[1];
+        const markdownContent = match[2];
+        const metadata = this.parseFrontmatter(frontmatter);
+
+        return {
+            title: metadata.title || '未命名博文',
+            date: metadata.date || new Date().toISOString().split('T')[0],
+            content: markdownContent,
+            excerpt: metadata.excerpt || this.extractExcerpt(markdownContent),
+            categories: metadata.categories || [],
+            tags: metadata.tags || []
+        };
+    }
+
+    parseFrontmatter(frontmatter) {
+        const metadata = {};
+        const lines = frontmatter.split('\n');
+        
+        lines.forEach(line => {
+            line = line.trim();
+            if (!line || line.startsWith('#')) return;
+            const [key, ...valueParts] = line.split(':');
+            const cleanKey = key.trim();
+            let cleanValue = valueParts.join(':').trim();
+            
+            if (cleanValue.startsWith('[') && cleanValue.endsWith(']')) {
+                cleanValue = cleanValue.substring(1, cleanValue.length - 1)
+                    .split(',')
+                    .map(item => item.trim().replace(/^['"']|['"']$/g, ''));
+            } else if ((cleanValue.startsWith('"') && cleanValue.endsWith('"')) || 
+                       (cleanValue.startsWith("'") && cleanValue.endsWith("'"))) {
+                cleanValue = cleanValue.substring(1, cleanValue.length - 1);
+            }
+            
+            metadata[cleanKey] = cleanValue;
+        });
+        
+        return metadata;
+    }
+
+    extractExcerpt(content) {
+        const plainText = content
+            .replace(/#{1,6}\s+/g, '')
+            .replace(/\*\*(.*?)\*\*/g, '$1')
+            .replace(/\*(.*?)\*/g, '$1')
+            .replace(/`(.*?)`/g, '$1')
+            .replace(/```[\s\S]*?```/g, '[代码块]')
+            .replace(/!?\[([^\]]+)\]\([^)]+\)/g, '$1')
+            .replace(/^>\s+/gm, '')
+            .trim();
+        
+        return plainText.length > 200 ? plainText.substring(0, 200) + '...' : plainText;
     }
 
     extractCategoriesAndTags() {
