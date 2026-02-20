@@ -45,7 +45,7 @@ class PostManager {
                 // 逐个读取 md 文件并解析
                 const postsPromises = postsList.map(async (postInfo) => {
                     try {
-                        const mdResponse = await fetch(`posts/${encodeURIComponent(postInfo.file)}`);
+                        const mdResponse = await fetch(`posts/${postInfo.file}`);
                         if (mdResponse.ok) {
                             const mdContent = await mdResponse.text();
                             const parsedPost = this.parseMarkdown(mdContent);

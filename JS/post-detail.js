@@ -41,7 +41,7 @@ class PostDetailManager {
                 const postInfo = postsList.find(p => p.id.toString() === this.postId.toString());
                 
                 if (postInfo) {
-                    const mdResponse = await fetch(`posts/${encodeURIComponent(postInfo.file)}`);
+                    const mdResponse = await fetch(`posts/${postInfo.file}`);
                     if (mdResponse.ok) {
                         const mdContent = await mdResponse.text();
                         const parsedPost = this.parseMarkdown(mdContent);
