@@ -8,7 +8,6 @@ body.posts-page {
 
 /* 主内容区 - 添加页面特定前缀 */
 .posts-page .mainbox {
-    max-width: 1200px;
     margin: 30px auto;
     padding: 0 20px;
     display: grid;
