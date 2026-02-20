@@ -45,12 +45,17 @@ class PostManager {
                 // 逐个读取 md 文件并解析
                 const postsPromises = postsList.map(async (postInfo) => {
                     try {
+                        console.log(`正在加载文件: ${postInfo.file}`);
                         const mdResponse = await fetch(`posts/${postInfo.file}`);
                         if (mdResponse.ok) {
                             const mdContent = await mdResponse.text();
+                            console.log(`文件 ${postInfo.file} 内容长度: ${mdContent.length}`);
                             const parsedPost = this.parseMarkdown(mdContent);
+                            console.log(`文件 ${postInfo.file} 解析结果:`, parsedPost);
                             parsedPost.id = postInfo.id;
                             return parsedPost;
+                        } else {
+                            console.error(`文件 ${postInfo.file} 加载失败，状态码: ${mdResponse.status}`);
                         }
                     } catch (error) {
                         console.error(`加载文件 ${postInfo.file} 失败:`, error);
@@ -60,7 +65,7 @@ class PostManager {
                 
                 this.posts = (await Promise.all(postsPromises)).filter(post => post !== null);
                 console.log('成功加载所有md文件，文章数量:', this.posts.length);
-                console.log('文章列表预览:', this.posts.slice(0, 3).map(p => p.title));
+                console.log('文章列表预览:', this.posts.map(p => p.title));
             } else {
                 // 如果没有 posts-list.json，尝试从 posts.json 加载
                 console.log('posts-list.json 不存在，尝试从 posts.json 加载');
