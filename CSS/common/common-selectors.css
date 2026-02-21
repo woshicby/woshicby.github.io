@@ -180,13 +180,14 @@ input:checked + .theme-toggle-slider:before {
     font-size: 1.8rem;
     margin-right: 2rem;
     margin-left: 2rem;
+    line-height: 1;
 }
 
 /* ==========================================   全局标题样式 - 全站统一   ==========================================   基于tools.css的标题样式，确保全站标题视觉一致性   ========================================= */
 
 h2 {
     color: var(--primary-color);
-    margin-top: 2rem;
+    margin-top: 0rem; /* 不需要额外的间距 */
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--accent-color);
@@ -214,7 +215,6 @@ strong {
    ========================================== */
 .nav {
     float: right;
-    padding-top: 0.5rem;
     padding-right: 2rem;
 }
 
@@ -225,6 +225,7 @@ strong {
 .nav li {
     display: inline-block;
     margin-left: 2rem;
+    vertical-align: middle;
 }
 
 .nav a {
@@ -232,6 +233,7 @@ strong {
     text-decoration: none;
     font-weight: var(--font-weight-medium);
     transition: var(--transition-default);
+    line-height: 1;
 }
 
 .nav a:hover {

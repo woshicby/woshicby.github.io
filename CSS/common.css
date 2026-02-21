@@ -46,10 +46,11 @@
     --light-light-text: #7f8c8d;
     --light-white: #ffffff;
     --light-background-light: rgba(255, 255, 255, 0.7);
-    --light-background-accent: rgba(52, 152, 219, 0.3);
+    --light-background-accent: rgba(52, 152, 219, 0.15);
     --light-card-bg-color: #f8f9fa;
     --light-heading-color: #34495e;
     --light-border-color: #e0e0e0;
+    --light-code-bg-color: #f5f5f5;
     --light-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
     --light-shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.15);
     --light-shadow-heavy: 0px 0px 20px rgba(35, 35, 35, 0.9);
@@ -75,6 +76,7 @@
     --dark-card-bg-color: #2c3e50;
     --dark-heading-color: #ecf0f1;
     --dark-border-color: #34495e;
+    --dark-code-bg-color: #1a252f;
     --dark-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.3);
     --dark-shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.4);
     --dark-shadow-heavy: 0px 0px 20px rgba(0, 0, 0, 0.8);
@@ -100,6 +102,7 @@
     --card-bg-color: var(--light-card-bg-color);
     --heading-color: var(--light-heading-color);
     --border-color: var(--light-border-color);
+    --code-bg: var(--light-code-bg-color);
     --shadow-light: var(--light-shadow-light);
     --shadow-medium: var(--light-shadow-medium);
     --shadow-heavy: var(--light-shadow-heavy);

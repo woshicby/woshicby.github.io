@@ -222,14 +222,8 @@ class PostDetailManager {
                     xhtmlOut: true,    // 生成闭合的HTML标签
                     quotes: '""\'\'', // 设置引号字符
                     highlight: function (str, lang) {
-                        // 使用highlight.js进行代码高亮
-                        if (lang && window.hljs && typeof hljs.highlight === 'function') {
-                            try {
-                                return hljs.highlight(str, { language: lang }).value;
-                            } catch (__) {}
-                        }
-                        // 如果高亮失败或未指定语言，返回原始代码
-                        return ''; // 使用默认转义
+                        // 不在这里做高亮，我们之后自己处理
+                        return '';
                     }
                 });
                 
@@ -262,6 +256,9 @@ class PostDetailManager {
         }
         
         contentElement.innerHTML = postContent;
+        
+        // 给代码块添加行号
+        this.addLineNumbersToCodeBlocks(contentElement);
         
         // 触发MathJax渲染数学公式
         if (window.MathJax) {
@@ -306,6 +303,64 @@ class PostDetailManager {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
+        });
+    }
+
+    // 给代码块添加行号
+    addLineNumbersToCodeBlocks(container) {
+        const preElements = container.querySelectorAll('pre');
+        
+        preElements.forEach(pre => {
+            const codeElement = pre.querySelector('code');
+            if (!codeElement) return;
+            
+            // 获取原始代码文本
+            const originalCode = codeElement.textContent;
+            
+            // 尝试获取语言类型（从class中获取，如 language-javascript）
+            let lang = '';
+            const classList = codeElement.className.split(' ');
+            for (const cls of classList) {
+                if (cls.startsWith('language-')) {
+                    lang = cls.replace('language-', '');
+                    break;
+                }
+            }
+            
+            // 使用highlight.js进行语法高亮
+            let highlightedCode = originalCode;
+            if (lang && window.hljs && typeof hljs.highlight === 'function') {
+                try {
+                    highlightedCode = hljs.highlight(originalCode, { language: lang }).value;
+                } catch (__) {}
+            }
+            
+            // 将高亮后的代码按行分割
+            const lines = originalCode.split('\n');
+            // 移除最后一个空行
+            if (lines.length > 0 && lines[lines.length - 1] === '') {
+                lines.pop();
+            }
+            
+            // 现在我们需要重新构建带行号的HTML
+            // 我们把每一行包裹在一个span中，并在前面添加行号
+            const highlightedLines = highlightedCode.split('\n');
+            if (highlightedLines.length > 0 && highlightedLines[highlightedLines.length - 1] === '') {
+                highlightedLines.pop();
+            }
+            
+            // 构建新的HTML
+            let newHTML = '';
+            for (let i = 0; i < lines.length; i++) {
+                const lineContent = highlightedLines[i] || '';
+                newHTML += `<span class="code-line"><span class="line-number">${i + 1}</span>${lineContent}</span>`;
+            }
+            
+            // 替换code元素的内容
+            codeElement.innerHTML = newHTML;
+            
+            // 给pre添加类名
+            pre.classList.add('code-with-line-numbers');
         });
     }
 

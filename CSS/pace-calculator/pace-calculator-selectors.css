@@ -271,7 +271,7 @@
 }
 
 .reference-table tbody tr:nth-child(even) {
-    background-color: var(--light-accent);
+    background-color: var(--background-accent);
 }
 
 .reference-table tbody tr:hover {

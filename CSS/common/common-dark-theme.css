@@ -19,6 +19,7 @@ body.dark-theme {
     --card-bg-color: var(--dark-card-bg-color);
     --heading-color: var(--dark-heading-color);
     --border-color: var(--dark-border-color);
+    --code-bg: var(--dark-code-bg-color);
     --shadow-light: var(--dark-shadow-light);
     --shadow-medium: var(--dark-shadow-medium);
     --shadow-heavy: var(--dark-shadow-heavy);
@@ -51,6 +52,7 @@ body.dark-theme {
         --card-bg-color: var(--dark-card-bg-color);
         --heading-color: var(--dark-heading-color);
         --border-color: var(--dark-border-color);
+        --code-bg: var(--dark-code-bg-color);
         --shadow-light: var(--dark-shadow-light);
         --shadow-medium: var(--dark-shadow-medium);
         --shadow-heavy: var(--dark-shadow-heavy);

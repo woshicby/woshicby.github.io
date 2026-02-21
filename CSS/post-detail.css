@@ -158,6 +158,9 @@
     margin: 1.5rem 0;
     padding: 1rem 1.5rem;
     border-left: 4px solid var(--accent-color);
+    border-top: 1px solid var(--accent-color);
+    border-right: 1px solid var(--accent-color);
+    border-bottom: 1px solid var(--accent-color);
     background-color: var(--secondary-bg);
     color: var(--secondary-text);
     font-style: italic;
@@ -173,6 +176,26 @@
     overflow-x: auto;
     font-family: 'Courier New', monospace;
     font-size: 0.9rem;
+}
+
+.post-content pre.code-with-line-numbers {
+    padding: 1rem 0;
+}
+
+.post-content pre.code-with-line-numbers .code-line {
+    display: block;
+    padding: 0 1rem;
+}
+
+.post-content pre.code-with-line-numbers .line-number {
+    display: inline-block;
+    width: 2.5rem;
+    text-align: right;
+    margin-right: 1rem;
+    color: var(--light-text);
+    user-select: none;
+    border-right: 1px solid var(--border-color);
+    padding-right: 0.5rem;
 }
 
 .post-content code {
@@ -198,12 +221,12 @@
 }
 
 .post-content th {
-    background-color: var(--secondary-bg);
+    background-color: var(--background-accent);
     font-weight: bold;
 }
 
 .post-content tr:nth-child(even) {
-    background-color: var(--secondary-bg);
+    background-color: var(--background-accent);
 }
 
 /* 图片样式 */
@@ -272,14 +295,52 @@ sup {
 }
 
 .footnote-definition {
-    margin: 1em 0;
-    padding-left: 1.5em;
+    margin: 0.5rem 0;
     border-left: 2px solid var(--border-color);
     font-size: 0.9em;
 }
 
 .footnote-definition p {
-    margin: 0.5em 0;
+    margin: 0.25rem 0;
+}
+
+/* markdown-it-footnote 插件生成的样式 */
+.footnotes {
+    margin: 2rem 0 0 0;
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    background-color: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+.footnotes:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+.footnotes-list {
+    margin: 0;
+    padding: 0;
+    list-style-position: inside;
+}
+
+.footnote-item {
+    margin: 0 0 1.5rem 0;
+    padding: 0;
+    font-size: 0.9em;
+}
+
+.footnote-item:last-child {
+    margin-bottom: 0;
+}
+
+.footnote-item p {
+    margin: 0;
+    padding: 0;
+    display: inline;
 }
 
 /* 定义列表样式 */
@@ -328,7 +389,10 @@ sup {
 
 /* 返回列表按钮样式 */
 .post-nav {
-    margin-top: 2rem;
+    margin-top: 0;
+    /* 不设置 margin-top，让按钮直接与 .mainbox 的 padding 对齐
+       目的是让 .post-nav 与 .post-header、.post-content-container 之间的间距一致
+       都是通过 .post-header 和 .post-content-container 的 margin-top: 1.5rem 来控制间距 */
 }
 
 .back-to-list {
