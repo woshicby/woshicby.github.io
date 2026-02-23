@@ -59,13 +59,13 @@ body.dark-theme .profile-content p {
 }
 
 /* 夜间模式 - 按钮容器样式 */
-body.dark-theme div.botton_box {
+body.dark-theme div.button_box {
     background-color: var(--dark-card-bg-color);
     box-shadow: var(--dark-shadow-light);
     border-left-color: var(--secondary-color);
 }
 
-body.dark-theme div.botton_box:hover {
+body.dark-theme div.button_box:hover {
     transform: translateY(-5px);
     box-shadow: var(--dark-shadow-medium);
     border-color: var(--secondary-color);

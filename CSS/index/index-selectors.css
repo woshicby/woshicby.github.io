@@ -10,8 +10,6 @@
     border: 2px solid transparent;
 }
 
-/* 欢迎区域标题继承.section-title样式 */
-
 .welcome-content p {
     font-size: 1rem;
     margin-bottom: var(--spacing-lg);
@@ -82,7 +80,7 @@
 }
 
 .profile-content p {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: 1rem;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -95,7 +93,7 @@
    定制按钮容器的布局和交互效果
    包含悬停状态的样式变化
    ========================================== */
-div.botton_box{
+div.button_box{
     float: left;
     margin: var(--spacing-md);
     border-radius: var(--border-radius-md);
@@ -107,11 +105,11 @@ div.botton_box{
     border-left: 3px solid var(--secondary-color);
 }
 
-div.botton_box:hover {
+div.button_box:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 
@@ -169,7 +167,7 @@ div.botton_box:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 /* ==========================================   页面组件 - 技能展示   ==========================================   实现技能卡片网格布局和样式   ========================================== */

@@ -8,15 +8,16 @@
 body {
     /* 修复语法错误并标准化背景样式 */
     background-image: url("../../images/body_backgrond.jpg");
-    background-size: 100%;
+    background-size: cover;
+    background-position: center;
     background-attachment: fixed;
     color: var(--text-color);
     font-family: 'Segoe UI', Arial, sans-serif;
-    line-height: 1.6;
+    line-height: 1.8;
     font-size: 16px;
     margin: 0;
     padding: 0;
-    transition: var(--transition-default);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* 主题切换按钮样式 - 集成到导航栏 */
@@ -89,7 +90,7 @@ input:checked + .theme-toggle-slider:before {
    应用于需要突出显示的内容区块
    ========================================== */
 .card-container {
-    background-color: var(--background-light);
+    background-color: var(--card-bg-color);
     border-radius: var(--border-radius-md);
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
@@ -101,7 +102,7 @@ input:checked + .theme-toggle-slider:before {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 /* ==========================================
@@ -187,18 +188,25 @@ input:checked + .theme-toggle-slider:before {
 
 h2 {
     color: var(--primary-color);
-    margin-top: 0rem; /* 不需要额外的间距 */
+    margin-top: 0;
     margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.75rem;
     border-bottom: 2px solid var(--accent-color);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    line-height: 1.4;
 }
 
 h3 {
     margin-top: 0;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
     color: var(--heading-color);
-    font-size: 1.25rem;
+    font-size: 1.3rem;
+    line-height: 1.4;
+}
+
+p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
 }
 
 /* 基础strong标签样式 */
@@ -268,7 +276,7 @@ a:hover {
 div.mainbox{
     width: 90%; /* 使用百分比宽度，确保不会超出屏幕 */
     margin: 0 auto; /* 水平居中 */
-    background-color: var(--background-light);
+    background-color: var(--card-bg-color);
     box-shadow: var(--shadow-heavy);
     border-radius: var(--border-radius-md);
     padding: var(--spacing-lg);
@@ -279,7 +287,7 @@ div.mainbox{
 
 section {
     margin: var(--spacing-xl) 0;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     background-color: var(--white);
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-light);
@@ -291,7 +299,7 @@ section:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 /* 导航切换按钮样式 - 桌面端默认隐藏 */

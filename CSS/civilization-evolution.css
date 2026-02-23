@@ -94,7 +94,7 @@
     color: var(--text-secondary-color);
     font-size: 0.9rem;
     text-align: center;
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
     padding: 0.25rem 0.75rem;
     border-radius: var(--border-radius-full);
     display: inline-block;
@@ -126,7 +126,7 @@
     align-items: center;
     gap: 0.5rem;
     height: 20px;
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
     border-radius: var(--border-radius-sm);
     overflow: hidden;
 }
@@ -173,7 +173,7 @@
     max-width: 100%;
     height: auto;
     object-fit: contain;
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
     border-radius: var(--border-radius-sm);
     box-shadow: var(--shadow-inset);
     image-rendering: pixelated;
@@ -202,7 +202,7 @@
     align-items: center;
     min-height: 200px;
     position: relative;
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
     border-radius: var(--border-radius-sm);
     padding: 2rem;
 }
@@ -230,7 +230,7 @@
 }
 
 .civ-detail-card {
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
     border-radius: var(--border-radius-sm);
     padding: 1rem;
     border-left: 4px solid var(--primary-color);
@@ -359,7 +359,7 @@
 }
 
 .timeline::-webkit-scrollbar-track {
-    background: var(--background-accent);
+    background: var(--light-accent);
     border-radius: var(--border-radius-sm);
 }
 
@@ -374,7 +374,7 @@
 
 /* 时间线事件样式 */
 .timeline-item {
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
     border-radius: var(--border-radius-sm);
     padding: 1rem;
     border-left: 4px solid var(--primary-color);
@@ -404,7 +404,7 @@
 
 /* 事件卡片样式 */
 .event-card {
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
     border-radius: var(--border-radius-sm);
     padding: 1rem;
     border-left: 4px solid var(--primary-color);
@@ -493,7 +493,7 @@
     width: 100%;
     border-collapse: collapse;
     font-size: 0.9rem;
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
     border-radius: var(--border-radius-sm);
     overflow: hidden;
     box-shadow: var(--shadow-inset);
@@ -512,7 +512,7 @@
 }
 
 .relations-matrix tr:nth-child(even) {
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 .relations-matrix .civ-header {
@@ -781,7 +781,7 @@ body.dark-theme .speed-control select {
 
 body.dark-theme .relations-graph,
 body.dark-theme .event-card {
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 body.dark-theme .relation-line {

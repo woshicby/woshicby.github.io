@@ -15,6 +15,8 @@
         <script src="./JS/navigation.js"></script>
         <!-- 引入主题切换脚本 -->
         <script src="./JS/theme-toggle.js"></script>
+        <!-- 引入个人成果页面脚本 -->
+        <script src="./JS/study.js"></script>
     </head>
     <!-- ==========================================
          页面头部 - 网站标题和导航
@@ -61,138 +63,68 @@
              ========================================== -->
         <div class="mainbox clearfix wrapper">
             <!-- 个人信息部分 -->
-            <section>
+            <section id="personal-info">
                 <h2>学术主页</h2>
-                <div class="personal-details">
-                    <div class="detail-item">
-                        <strong>ORCID：</strong>
-                        <a href="https://orcid.org/0009-0007-2429-6431" target="_blank" rel="noopener noreferrer">0009-0007-2429-6431</a>
-                    </div>
-                    <div class="detail-item">
-                        <strong>Scopus Author ID：</strong>
-                        <a href="https://www.scopus.com/authid/detail.uri?authorId=58478874500" target="_blank" rel="noopener noreferrer">58478874500</a>
-                    </div>
-                    <div class="detail-item">
-                        <strong>ResearcherID：</strong>
-                        <a href="https://www.webofscience.com/wos/author/record/OEO-7872-2025" target="_blank" rel="noopener noreferrer">OEO-7872-2025</a>
-                    </div>
-                    <div class="detail-item">
-                        <strong>SciProfiles Author ID：</strong>
-                        <a href="https://sciprofiles.com/profile/4205685" target="_blank" rel="noopener noreferrer">4205685</a>
-                    </div>
-                    <div class="detail-item">
-                        <strong>Google Scholar：</strong>
-                        <a href="https://scholar.google.com/citations?user=PSp23QgAAAAJ" target="_blank" rel="noopener noreferrer">PSp23QgAAAAJ</a>
-                    </div>
+                <div class="personal-details" id="personal-details">
+                    <!-- 学术主页信息将通过JavaScript动态生成 -->
                 </div>
             </section>
 
             <!-- 研究成果部分 -->
-            <section>
+            <section id="research">
                 <h2>研究成果</h2>
-                <p>展示发表的学术论文和研究项目。</p>
-                <div class="achievements-list">
-                    <!-- 论文 1 -->
-                    <div class="achievement-item">
-                        <div class="achievement-title">
-                            <strong><a href="https://www.sciencedirect.com/science/article/abs/pii/S1566253525009479" target="_blank" rel="noopener noreferrer">Fusex: A privacy-preserving data fusion framework for encrypted distance computation with offline users</a></strong>
-                        </div>
-                        <div class="achievement-meta">
-                            <span class="journal">Information Fusion</span>
-                            <span class="date">2026-03</span>
-                            <span class="type">期刊论文</span>
-                        </div>
-                        <div class="achievement-authors">
-                            <strong>作者：</strong>
-                            <span>Jun Ye; Bangyan Chen; Fanglin An</span>
-                        </div>
-                        <div class="achievement-source">
-                            <strong>来源：</strong>
-                            <span>Crossref</span>
+                
+                <!-- 筛选信息显示 -->
+                <div id="filter-info" class="filter-info" style="display: none;">
+                    <div id="filter-tags" class="filter-tags"></div>
+                    <button id="clear-filter" class="clear-filter-btn">清除所有</button>
+                </div>
+                
+                <!-- 搜索框 -->
+                <div class="filter-section">
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="搜索论文...">
+                    </div>
+                </div>
+                
+                <!-- 分类和标签 -->
+                <div class="sidebar-section">
+                    <div class="categories-list">
+                        <h3>分类</h3>
+                        <div id="categories-list">
+                            <a href="?type=all" class="category-badge active" data-type="all">全部</a>
+                            <a href="?type=journal" class="category-badge" data-type="journal">期刊论文</a>
+                            <a href="?type=conference" class="category-badge" data-type="conference">会议论文</a>
                         </div>
                     </div>
-
-                    <!-- 论文 2 -->
-                    <div class="achievement-item">
-                        <div class="achievement-title">
-                            <strong><a href="https://www.mdpi.com/2076-3417/15/5/2624" target="_blank" rel="noopener noreferrer">Privacy-Preserving Data Sharing and Computing for Outsourced Policy Iteration with Attempt Records from Multiple Users</a></strong>
-                        </div>
-                        <div class="achievement-meta">
-                            <span class="journal">Applied Sciences</span>
-                            <span class="date">2025-02-28</span>
-                            <span class="type">期刊论文</span>
-                        </div>
-                        <div class="achievement-authors">
-                            <strong>作者：</strong>
-                            <span>Bangyan Chen; Jun Ye</span>
-                        </div>
-                        <div class="achievement-source">
-                            <strong>来源：</strong>
-                            <span>Crossref</span>
-                        </div>
+                    <div class="tags-list">
+                        <h3>标签</h3>
+                        <div id="tags-container"></div>
                     </div>
-
-                    <!-- 论文 3 -->
-                    <div class="achievement-item">
-                        <div class="achievement-title">
-                            <strong><a href="https://www.sciencedirect.com/science/article/pii/S187705092402951X" target="_blank" rel="noopener noreferrer">A safe parameter aggregation method under encrypted state for federated learning</a></strong>
-                        </div>
-                        <div class="achievement-meta">
-                            <span class="journal">Procedia Computer Science</span>
-                            <span class="date">2024</span>
-                            <span class="type">会议论文</span>
-                        </div>
-                        <div class="achievement-authors">
-                            <strong>作者：</strong>
-                            <span>Bangyan Chen; Jun Ye</span>
-                        </div>
-                        <div class="achievement-source">
-                            <strong>来源：</strong>
-                            <span>Bangyan Chen</span>
-                        </div>
-                    </div>
-
-                    <!-- 论文 4 -->
-                    <div class="achievement-item">
-                        <div class="achievement-title">
-                            <strong><a href="https://ieeexplore.ieee.org/document/10151222" target="_blank" rel="noopener noreferrer">Advancements and Applications of Blind Channel Decoding Techniques</a></strong>
-                        </div>
-                        <div class="achievement-meta">
-                            <span class="journal">2nd IEEE International Conference on Distributed Computing and Electrical Circuits and Electronics, ICDCECE 2023</span>
-                            <span class="date">2023</span>
-                            <span class="type">会议论文</span>
-                        </div>
-                        <div class="achievement-authors">
-                            <strong>作者：</strong>
-                            <span>Chen, B.; Ye, J.</span>
-                        </div>
-                        <div class="achievement-source">
-                            <strong>来源：</strong>
-                            <span>Bangyan Chen via Scopus - Elsevier</span>
-                        </div>
-                    </div>
+                </div>
+                
+                <!-- 论文列表 -->
+                <div class="achievements-list" id="achievements-list">
+                    <!-- 论文列表将通过JavaScript动态生成 -->
+                    <div class="loading">加载中...</div>
                 </div>
             </section>
 
             <!-- 同行评审活动 -->
-            <section>
+            <section id="peer-review">
                 <h2>同行评审活动</h2>
-                <div class="review-activity">
-                    <div class="review-item">
-                        <div class="review-title">
-                            <strong>评审活动：</strong>
-                            <span>Information fusion</span>
-                        </div>
-                        <div class="review-count">
-                            <strong>评审数量：</strong>
-                            <span>2 篇</span>
-                        </div>
-                    </div>
+                <div class="review-activity" id="review-activity">
+                    <!-- 同行评审活动将通过JavaScript动态生成 -->
                 </div>
             </section>
         </div>
         <!-- 主体外套结束 -->
         <!-- 脚注外套开始 -->
+        <!-- ==========================================
+             页脚区域
+             ==========================================
+             包含版权信息和社交链接
+             ========================================== -->
         <div class="foot wrapper">
             <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
         </div>

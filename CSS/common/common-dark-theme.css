@@ -14,8 +14,6 @@ body.dark-theme {
     --text-color: var(--dark-text-color);
     --light-text: var(--dark-light-text);
     --white: var(--dark-white);
-    --background-light: var(--dark-background-light);
-    --background-accent: var(--dark-background-accent);
     --card-bg-color: var(--dark-card-bg-color);
     --heading-color: var(--dark-heading-color);
     --border-color: var(--dark-border-color);
@@ -34,6 +32,12 @@ body.dark-theme {
     --nav-a-hover-bg-color: var(--dark-nav-a-hover-bg-color);
     --footer-bg-color: var(--dark-footer-bg-color);
     --footer-text-color: var(--dark-footer-text-color);
+    /* 补充变量 */
+    --background-color: var(--dark-background-color);
+    --card-background: var(--dark-card-background);
+    --hover-background: var(--dark-hover-background);
+    --primary-text-color: var(--dark-primary-text-color);
+    --secondary-text-color: var(--dark-secondary-text-color);
 }
 
 /* 检测系统深色模式偏好 */
@@ -47,8 +51,6 @@ body.dark-theme {
         --text-color: var(--dark-text-color);
         --light-text: var(--dark-light-text);
         --white: var(--dark-white);
-        --background-light: var(--dark-background-light);
-        --background-accent: var(--dark-background-accent);
         --card-bg-color: var(--dark-card-bg-color);
         --heading-color: var(--dark-heading-color);
         --border-color: var(--dark-border-color);
@@ -93,7 +95,7 @@ body.dark-theme .theme-container {
 
 /* 卡片容器夜间模式样式 */
 body.dark-theme .card-container {
-    background-color: var(--dark-background-light);
+    background-color: var(--dark-card-bg-color);
     box-shadow: var(--dark-shadow-light);
 }
 
@@ -118,7 +120,7 @@ body.dark-theme .btn:hover {
 }
 
 body.dark-theme .btn-secondary {
-    background-color: var(--dark-background-accent);
+    background-color: var(--dark-light-accent);
     color: var(--dark-text-color);
 }
 
@@ -186,13 +188,13 @@ body.dark-theme a:hover {
 
 /* 主内容盒子夜间模式样式 */
 body.dark-theme div.mainbox {
-    background-color: var(--dark-background-light);
+    background-color: var(--dark-card-bg-color);
     box-shadow: var(--dark-shadow-heavy);
 }
 
 /* section夜间模式样式 */
 body.dark-theme section {
-    background-color: var(--dark-background-light);
+    background-color: var(--dark-card-bg-color);
     box-shadow: var(--dark-shadow-light);
 }
 

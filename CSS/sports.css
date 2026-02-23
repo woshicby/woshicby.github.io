@@ -87,7 +87,7 @@
 }
 
 #personal-records tr:nth-child(even) {
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 #personal-records tr:last-child {
@@ -302,7 +302,7 @@
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 .race-info {
@@ -536,7 +536,7 @@ body.dark-theme .race-item:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 .certificate-placeholder {

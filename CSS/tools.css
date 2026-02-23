@@ -22,7 +22,7 @@
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 /* 游戏卡片图片 */
@@ -73,7 +73,7 @@
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 /* 工具卡片图标区域 - 替代图片位置 */

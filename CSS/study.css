@@ -8,33 +8,75 @@
     margin-bottom: var(--spacing-lg);
 }
 
-
-
 /* 个人信息部分样式 */
 #personal-info .personal-details {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--spacing-md);
-    background-color: var(--background-light);
-    padding: var(--spacing-lg);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-light);
 }
 
 #personal-info .detail-item {
-    flex: 1 1 200px;
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+    border: 2px solid transparent;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: var(--spacing-sm);
 }
 
-#personal-info .detail-item strong {
-    min-width: 60px;
+#personal-info .detail-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--light-accent);
 }
 
-/* 链接样式已删除，使用common-selectors.css中的统一样式 */
+#personal-info .detail-item strong {
+    font-size: 1.1rem;
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+#personal-info .detail-item a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+    word-break: break-all;
+    transition: var(--transition-default);
+}
+
+#personal-info .detail-item a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
 
 /* 研究成果部分样式 */
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--primary-color);
+    background-color: transparent;
+    color: var(--primary-color);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: var(--transition-default);
+    font-size: 0.95rem;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
 #research .achievements-list {
     display: flex;
     flex-direction: column;
@@ -42,14 +84,11 @@
 }
 
 .achievement-item {
-    background-color: var(--background-light);
+    background-color: var(--card-bg-color);
     border-radius: var(--border-radius-md);
     padding: var(--spacing-lg);
-    margin-top: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
     box-shadow: var(--shadow-light);
     transition: var(--transition-default);
-    border-left: 4px solid var(--primary-color);
     border: 2px solid transparent;
 }
 
@@ -57,7 +96,7 @@
     transform: translateY(-5px);
     box-shadow: var(--shadow-medium);
     border-color: var(--secondary-color);
-    background-color: var(--background-accent);
+    background-color: var(--light-accent);
 }
 
 .achievement-title {
@@ -89,69 +128,266 @@
     color: var(--text-color);
 }
 
-
-
 /* 同行评审活动样式 */
 #peer-review .review-activity {
-    background-color: var(--background-light);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-lg);
-    box-shadow: var(--shadow-light);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
 }
 
 .review-item {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+    border: 2px solid transparent;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: var(--spacing-md);
-    align-items: center;
+}
+
+.review-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--light-accent);
 }
 
 .review-title,
 .review-count {
-    flex: 1 1 200px;
     font-size: 0.95rem;
     color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
-
-
-/* 响应式样式 - 统一管理 */
-/* 平板及以下设备 */
-@media (max-width: 768px) {
-    #study li {
-        padding: var(--spacing-sm) var(--spacing-md);
-    }
+.review-title strong,
+.review-count strong {
+    color: var(--heading-color);
+    font-weight: 600;
+    min-width: 80px;
 }
 
-/* 手机设备 */
-@media (max-width: 480px) {
-    #study {
-        padding: var(--spacing-sm) 0;
-    }
-    
-    /* 移除对p标签的字体大小覆盖 */
+.review-count span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--secondary-color);
 }
 
-/* 夜间模式样式 - 统一管理 */
+/* 筛选区域样式 */
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
 
-/* 夜间模式下特定容器样式，保留容器特定样式但不覆盖内部元素的全局样式 */
-body.dark-theme #personal-info .personal-details,
-body.dark-theme .achievement-item,
-body.dark-theme #peer-review .review-activity {
-    background-color: var(--background-light);
+.filter-section .search-box {
+    width: 100%;
+}
+
+.filter-section #search-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: 1rem;
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    box-sizing: border-box;
+}
+
+.filter-section #search-input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.filter-section .filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.sidebar-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.sidebar-section .categories-list,
+.sidebar-section .tags-list {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    padding: 15px;
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+}
+
+.sidebar-section .categories-list:hover,
+.sidebar-section .tags-list:hover {
+    box-shadow: var(--shadow-medium);
+}
+
+.sidebar-section .categories-list h3,
+.sidebar-section .tags-list h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: var(--heading-color);
+}
+
+.sidebar-section #categories-list,
+.sidebar-section #tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* 分类和标签徽章样式 */
+.category-badge,
+.tag-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: var(--light-accent);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: var(--transition-default);
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.category-badge:hover,
+.tag-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.category-badge.active,
+.tag-badge.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    box-shadow: var(--shadow-medium);
+}
+
+/* 论文卡片中的分类和标签 */
+.achievement-item .post-categories,
+.achievement-item .post-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+/* 过滤信息区域样式 */
+.filter-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--light-accent);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    border: 2px solid var(--border-color);
+    transition: var(--transition-default);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.filter-info:hover {
+    border-color: var(--secondary-color);
     box-shadow: var(--shadow-light);
 }
 
-/* 保留特定的容器边框和阴影样式，但不覆盖内部文本元素样式 */
-body.dark-theme .achievement-item {
-    border-left-color: var(--secondary-color);
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    align-items: center;
+    flex: 1;
 }
 
-body.dark-theme .highlight {
+.filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 6px 12px;
+    border-radius: var(--border-radius-md);
+    font-size: 0.9rem;
+    transition: var(--transition-default);
+}
+
+.filter-tag:hover {
+    transform: translateY(-2px);
     box-shadow: var(--shadow-medium);
-    border-left-color: var(--accent-color);
 }
 
-body.dark-theme .achievement-meta span {
-    background-color: var(--light-accent);
+.filter-tag-remove {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition-default);
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.filter-tag-remove:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.clear-filter-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition-default);
+    white-space: nowrap;
+}
+
+.clear-filter-btn:hover {
+    background-color: var(--primary-hover-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.clear-filter-btn:active {
+    transform: translateY(0);
+}
+
+/* 加载和空状态样式 */
+.loading,
+.no-posts,
+.error {
+    text-align: center;
+    padding: 50px;
+    color: var(--light-text);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .sidebar-section {
+        grid-template-columns: 1fr;
+    }
 }

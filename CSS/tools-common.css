@@ -94,6 +94,6 @@ body.dark-theme .tool-page-title {
 }
 
 body.dark-theme .tool-container {
-    background-color: var(--background-light);
+    background-color: var(--card-bg-color);
     border: 1px solid var(--border-color);
 }

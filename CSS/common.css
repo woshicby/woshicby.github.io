@@ -31,12 +31,21 @@
     --spacing-md: 15px;
     --spacing-lg: 20px;
     --spacing-xl: 30px;
+    --spacing-xxl: 40px;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-size-xs: 0.8rem;
+    --font-size-sm: 0.9rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.1rem;
     --border-radius-sm: 4px;
     --border-radius-md: 6px;
     --border-radius-lg: 8px;
     --border-radius: var(--border-radius-md);
-    --transition-default: all 0.3s ease;
-    --transition-fast: all 0.2s ease-in-out;
+    --transition-default: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+    --transition-fast: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
     
     /* 日间模式颜色 */
     --light-primary-color: #2c3e50;
@@ -63,6 +72,11 @@
     --light-nav-a-hover-bg-color: rgba(52, 152, 219, 0.3);
     --light-footer-bg-color: #2c3e50;
     --light-footer-text-color: #ffffff;
+    --light-background-color: #ffffff;
+    --light-card-background: #f8f9fa;
+    --light-hover-background: rgba(52, 152, 219, 0.1);
+    --light-primary-text-color: #333;
+    --light-secondary-text-color: #7f8c8d;
     
     /* 夜间模式颜色 */
     --dark-primary-color: #1a252f;
@@ -89,6 +103,11 @@
     --dark-nav-a-hover-bg-color: rgba(52, 152, 219, 0.3);
     --dark-footer-bg-color: #1a252f;
     --dark-footer-text-color: #ecf0f1;
+    --dark-background-color: #1a252f;
+    --dark-card-background: #2c3e50;
+    --dark-hover-background: #2c3e50;
+    --dark-primary-text-color: #ecf0f1;
+    --dark-secondary-text-color: #bdc3c7;
     
     /* 默认使用日间模式 */
     --primary-color: var(--light-primary-color);
@@ -97,8 +116,6 @@
     --text-color: var(--light-text-color);
     --light-text: var(--light-light-text);
     --white: var(--light-white);
-    --background-light: var(--light-background-light);
-    --background-accent: var(--light-background-accent);
     --card-bg-color: var(--light-card-bg-color);
     --heading-color: var(--light-heading-color);
     --border-color: var(--light-border-color);
@@ -116,10 +133,16 @@
     --nav-a-hover-bg-color: var(--light-nav-a-hover-bg-color);
     --footer-bg-color: var(--light-footer-bg-color);
     --footer-text-color: var(--light-footer-text-color);
+    --background-color: var(--light-background-color);
+    --card-background: var(--light-card-background);
+    --hover-background: var(--light-hover-background);
+    --primary-text-color: var(--light-primary-text-color);
+    --secondary-text-color: var(--light-secondary-text-color);
+    --accent-hover: #2980b9;
+    --dark-accent: #8e44ad;
     /* 夜间模式对应变量 */
     --heading-dark-color: var(--dark-heading-color);
     --text-dark-color: var(--dark-text-color);
-    --background-dark-light: var(--dark-background-light);
     --border-dark-color: var(--dark-border-color);
     --shadow-dark-light: var(--dark-shadow-light);
     --shadow-dark-medium: var(--dark-shadow-medium);
