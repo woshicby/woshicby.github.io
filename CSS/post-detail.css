@@ -189,24 +189,53 @@
 /* 表格样式 */
 .post-content table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
 }
 
 .post-content th,
 .post-content td {
     padding: 0.75rem;
     text-align: left;
-    border: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+}
+
+.post-content td {
+    border-bottom: 1px solid var(--border-color);
 }
 
 .post-content th {
+    border-bottom: 2px solid var(--border-color);
     background-color: var(--light-accent);
     font-weight: bold;
 }
 
-.post-content tr:nth-child(even) {
-    background-color: var(--light-accent);
+.post-content th:last-child,
+.post-content td:last-child {
+    border-right: none;
+}
+
+.post-content tr:last-child td {
+    border-bottom: none;
+}
+
+.post-content th:first-child {
+    border-top-left-radius: var(--border-radius-md);
+}
+
+.post-content th:last-child {
+    border-top-right-radius: var(--border-radius-md);
+}
+
+.post-content tr:last-child td:first-child {
+    border-bottom-left-radius: var(--border-radius-md);
+}
+
+.post-content tr:last-child td:last-child {
+    border-bottom-right-radius: var(--border-radius-md);
 }
 
 /* 图片样式 */
@@ -486,8 +515,7 @@ body.dark-theme .post-content code {
     color: var(--primary-text);
 }
 
-body.dark-theme .post-content table th,
-body.dark-theme .post-content table tr:nth-child(even) {
+body.dark-theme .post-content table th {
     background-color: var(--secondary-bg);
 }
 

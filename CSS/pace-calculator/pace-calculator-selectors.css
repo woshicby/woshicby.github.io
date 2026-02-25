@@ -270,10 +270,6 @@
     border-bottom: 2px solid var(--primary-dark);
 }
 
-.reference-table tbody tr:nth-child(even) {
-    background-color: var(--light-accent);
-}
-
 .reference-table tbody tr:hover {
     background-color: var(--hover-color);
 }

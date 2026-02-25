@@ -511,10 +511,6 @@
     position: relative;
 }
 
-.relations-matrix tr:nth-child(even) {
-    background-color: var(--light-accent);
-}
-
 .relations-matrix .civ-header {
     writing-mode: vertical-rl;
     text-orientation: mixed;

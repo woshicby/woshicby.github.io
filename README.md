@@ -182,6 +182,7 @@ woshicby.github.io/
 - 2026.02.20: 实现博文自动化系统，支持直接读取Markdown文件并自动渲染，无需手动转换JSON；添加posts-list.json配置文件管理博文列表；修改JS/posts.js和JS/post-detail.js实现Markdown文件加载和解析功能；创建博文自动化系统上线.md作为更新日志
 - 2026.02.20-21: 修复posts.html页面响应式问题；整理和统一各篇博文的categories和tags；更新posts-list.json；优化表格斑马纹效果，使日间和夜间模式视觉差异更一致；修复图片404错误，更换可靠图床；调整页面元素间距，包括h2标题、导航元素、section等；给blockquote添加边框样式；修复日间模式代码块背景色缺失问题；给代码块添加行号显示，同时保留语法高亮；添加脚注功能支持，使用markdown-it-footnote插件；优化脚注区域的间距和样式，移除悬停位移效果
 - 2026.02.24: 实现study.html页面的动态加载和筛选功能；优化全站动画性能，将transition: all改为只对必要属性设置过渡效果，减少不必要的重绘；统一全站标题样式(h2, h3)，优化段落间距和行高，提升阅读体验；统一各页面的内边距和外边距
+- 2026.02.25: 修复B站API CORS问题，替换为静态用户数据；更新B站用户头像为本地图片；添加获赞数和播放数到用户统计信息；优化用户卡片布局，修复头像显示尺寸过大问题；更新用户统计信息图标（关注用眼睛，获赞用爱心，播放用播放图标）；重构用户卡片HTML结构，移除嵌套的div层，简化为单一层级的section
 
 ## 使用方法
 
@@ -371,6 +372,7 @@ woshicby.github.io/
 - 2026.02.20: Implemented blog automation system, supports direct reading of Markdown files and automatic rendering without manual JSON conversion; added posts-list.json configuration file to manage blog post list; modified JS/posts.js and JS/post-detail.js to implement Markdown file loading and parsing functionality; created 博文自动化系统上线.md as update log
 - 2026.02.20-21: Fixed posts.html page responsiveness issue; organized and unified categories and tags across blog posts; updated posts-list.json; optimized table zebra stripe effect to make visual difference between day and night modes more consistent; fixed image 404 errors by switching to reliable image host; adjusted page element spacing including h2 titles, navigation elements, sections, etc.; added border styles to blockquote; fixed missing code block background color in day mode; added line number display to code blocks while preserving syntax highlighting; added footnote functionality support using markdown-it-footnote plugin; optimized footnote area spacing and styles, removed hover displacement effect
 - 2026.02.24: Implemented dynamic loading and filtering functionality for study.html page; optimized site-wide animation performance by changing transition: all to only apply to necessary properties, reducing unnecessary repaints; unified site-wide title styles (h2, h3), optimized paragraph spacing and line height to improve reading experience; unified padding and margins across all pages
+- 2026.02.25: Fixed Bilibili API CORS issues, replaced with static user data; updated Bilibili user avatar to local image; added likes and plays counts to user statistics; optimized user card layout, fixed avatar display size issue; updated user statistics icons (eye for following, heart for likes, play icon for plays); refactored user card HTML structure, removed nested div layers, simplified to single-level section
 
 ## Usage
 
@@ -560,6 +562,7 @@ woshicby.github.io/
 - 2026.02.20: ブログ自動化システムを実装、Markdownファイルを直接読み込み自動レンダリングをサポート、手動JSON変換が不要；posts-list.json設定ファイルを追加してブログ記事リストを管理；JS/posts.jsとJS/post-detail.jsを変更してMarkdownファイルの読み込みと解析機能を実装；博文自动化系统上线.mdを更新ログとして作成
 - 2026.02.20-21: posts.htmlページのレスポンシブ問題を修正；各ブログ記事のcategoriesとtagsを整理して統一；posts-list.jsonを更新；テーブルのゼブラストライプ効果を最適化し、デイモードとナイトモードの視覚的な違いをより一致させる；信頼できる画像ホストに切り替えて画像404エラーを修正；h2タイトル、ナビゲーション要素、セクションなどのページ要素の間隔を調整；blockquoteにボーダースタイルを追加；デイモードでのコードブロック背景色の欠落を修正；構文ハイライトを保持したままコードブロックに行番号表示を追加；markdown-it-footnoteプラグインを使用して脚注機能サポートを追加；脚注領域の間隔とスタイルを最適化、ホバー変位効果を削除
 - 2026.02.24: study.htmlページの動的読み込みとフィルタリング機能を実装；transition: allを必要なプロパティにのみ適用するように変更し、不要な再描画を削減してサイト全体のアニメーションパフォーマンスを最適化；サイト全体のタイトルスタイル(h2, h3)を統一し、段落の間隔と行間を最適化して読書体験を向上；全ページのパディングとマージンを統一
+- 2026.02.25: Bilibili API CORS問題を修正し、静的ユーザーデータに置き換え；Bilibiliユーザーアバターをローカル画像に更新；ユーザー統計情報にいいね数と再生数を追加；ユーザーカードレイアウトを最適化し、アバター表示サイズの問題を修正；ユーザー統計情報アイコンを更新（フォローに目、いいねにハート、再生に再生アイコン）；ユーザーカードHTML構造をリファクタリングし、ネストされたdivレイヤーを削除し、単一レベルのsectionに簡素化
 
 ## 使用方法
 

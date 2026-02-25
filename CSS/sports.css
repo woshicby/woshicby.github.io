@@ -86,10 +86,6 @@
     transition: var(--transition-default);
 }
 
-#personal-records tr:nth-child(even) {
-    background-color: var(--light-accent);
-}
-
 #personal-records tr:last-child {
     border-bottom: none;
 }

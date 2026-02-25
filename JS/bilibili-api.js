@@ -19,6 +19,8 @@ const BILIBILI_CONFIG = {
     userContainer: '#bilibili-user-card', // 用户信息容器选择器
     videos: [
         // 要展示的B站视频BV号列表
+        'BV1dSvXBaEeq',
+        'BV1onigBLEK3',
         'BV1YPuLzMEpB',
         'BV1zKT3zYEL8',
         'BV1VA72zUEmA',
@@ -68,7 +70,7 @@ function initBilibiliVideos() {
     // 渲染嵌入式视频播放器
     renderEmbeddedVideos();
     
-    // 设置窗口大小变化事件监听器，用于响应式调整","}]}}}
+    // 设置窗口大小变化事件监听器，用于响应式调整
     window.addEventListener('resize', handleResize);
 }
 
@@ -182,31 +184,17 @@ function showError(message) {
  * @returns {void}
  */
 function fetchBilibiliUserInfo(uid, callback) {
-    // 配置CORS代理和API地址
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const apiUrl = `https://api.bilibili.com/x/space/wbi/acc/info?mid=${uid}`;
+    const staticUserData = {
+        name: '一条咸鱼by菌',
+        face: 'images/b站头像.gif',
+        sign: '竹笛/跑步/游戏/日常/动态UP是也~哈工大读博中~催更唠嗑取谱群：629521223',
+        follower: 1539,
+        following: 2369,
+        likes: '1.3万',
+        plays: '18.0万'
+    };
     
-    // 发起跨域请求获取用户信息
-    fetch(proxyUrl + apiUrl)
-        .then(response => {
-            // 检查HTTP响应状态
-            if (!response.ok) throw new Error('请求失败');
-            return response.json();
-        })
-        .then(data => {
-            // 检查API响应状态码
-            if (data.code === 0) {
-                // 成功获取数据，调用回调返回用户信息
-                callback(null, data.data);
-            } else {
-                // API返回错误，返回具体错误信息
-                callback(new Error(data.message || '获取用户信息失败'));
-            }
-        })
-        .catch(error => {
-            // 网络请求或其他错误处理
-            callback(new Error(error.message || '请求失败'));
-        });
+    callback(null, staticUserData);
 }
 
 /**
@@ -238,17 +226,17 @@ function renderUserCard(userInfo) {
     }
     
     container.innerHTML = `
-        <div class="user-card">
-            <div class="user-avatar">
-                <img src="${userInfo.face}" alt="${userInfo.name}" onerror="this.src='default-avatar.jpg'">
-            </div>
-            <div class="user-details">
-                <h3>${userInfo.name}</h3>
-                <p class="user-sign">${userInfo.sign || '暂无签名'}</p>
-                <div class="user-stats">
-                    <span>粉丝: ${userInfo.follower}</span>
-                    <span>关注: ${userInfo.following}</span>
-                </div>
+        <div class="user-avatar">
+            <img src="${userInfo.face}" alt="${userInfo.name}" onerror="this.src='default-avatar.jpg'">
+        </div>
+        <div class="user-details">
+            <h3>${userInfo.name}</h3>
+            <p class="user-sign">${userInfo.sign || '暂无签名'}</p>
+            <div class="user-stats">
+                <span>粉丝: ${userInfo.follower}</span>
+                <span>关注: ${userInfo.following}</span>
+                <span>获赞: ${userInfo.likes}</span>
+                <span>播放: ${userInfo.plays}</span>
             </div>
         </div>
     `;
