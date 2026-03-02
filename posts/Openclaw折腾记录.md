@@ -8,6 +8,8 @@
 
 最近在折腾Openclaw，把遇到的问题和解决方案都记录下来，免得以后忘了～
 
+**说明**：这篇博文主要记录使用Openclaw过程中遇到困难的几个配置点，而不是全部配置。很多基础配置可以通过`openclaw onboard`命令自动设置。
+
 # 🚀 初识Openclaw
 
 Openclaw是一个很棒的工具，刚开始使用时遇到了不少问题，不过慢慢都解决了。
@@ -77,6 +79,62 @@ Openclaw的配置文件位置：
   ```
 - 重启后再测试配置是否正确应用
 
+# 🔐 使用环境变量管理API密钥
+
+Openclaw支持使用环境变量替换配置文件中的明文API密钥，提高安全性。
+
+## 配置步骤
+
+1. **创建环境变量文件**：
+   在`~/.openclaw`目录中创建`.env`文件，添加API密钥：
+   ```bash
+   # ~/.openclaw/.env
+   DEEPSEEK_API_KEY=sk-********************************
+   LM_STUDIO_API_KEY=your-api-key
+   ```
+
+2. **修改配置文件**：
+   有两种方式修改配置文件：
+
+   **方式一：手动修改**
+   将`openclaw.json`中的明文API密钥替换为环境变量引用：
+   ```json
+   "apiKey": {
+     "source": "env",
+     "provider": "default", 
+     "id": "DEEPSEEK_API_KEY"//此处使用的是哪个环境变量就填哪个
+   }
+   ```
+
+   **方式二：自动配置**
+   运行以下命令自动审计和配置：
+   ```bash
+   # 审计配置文件中的明文API密钥
+   openclaw secrets audit
+   
+   # 自动修复配置，使用环境变量
+   openclaw secrets configure
+   ```
+   
+   **交互式配置步骤**：
+   1. **provider source**：选择 `env`
+   2. **provider alias**：选择 `default`
+   3. **env allowlist**：不填写，直接回车
+   4. 按照提示完成配置
+
+## 优势
+
+- **提高安全性**：API密钥不再以明文形式存储在配置文件中
+- **便于管理**：可以在一个地方集中管理所有API密钥
+- **环境隔离**：不同环境可以使用不同的API密钥
+- **避免泄露**：配置文件可以安全地提交到版本控制系统
+
+## 注意事项
+
+- 确保`.env`文件权限设置正确，避免被其他用户访问
+- 不要将`.env`文件提交到版本控制系统
+- 确保环境变量名称与配置文件中的引用一致
+
 # 🌐 局域网lm-studio配置
 
 如果要在局域网中使用lm-studio，需要进行以下配置。
@@ -93,8 +151,8 @@ Openclaw的配置文件位置：
         "api": "openai-completions",
         "models": [
           {
-            "id": "your-model-id",
-            "name": "your-model-name",
+            "id": "your-model-id", // 记得替换
+            "name": "your-model-name", // 记得替换
             // "reasoning": true // 这三行是可选配置项，根据实际需求添加
             // "contextWindow": 262144,
             // "maxTokens": 100000
@@ -254,78 +312,6 @@ Openclaw的配置文件位置：
 - **本地模型**：自定义本地模型名称
   - **优点**：完全离线，隐私性好；无使用费用；可根据需要定制
 
-# 📋 完整配置示例
-
-结合前面的所有配置，一个完整的配置文件示例：
-
-```json
-{
-  "models": {
-    "providers": {
-      "deepseek": {
-        "baseUrl": "https://api.deepseek.com/v1", // ⚠️ baseUrl必须使用https协议
-        "apiKey": "sk-your-actual-api-key-here", // ⚠️ apiKey必须保持"sk-"前缀格式
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "deepseek-reasoner",
-            "name": "DeepSeek Reasoner",
-            "reasoning": true
-          },
-          {
-            "id": "deepseek-chat",
-            "name": "DeepSeek Chat",
-            "reasoning": false
-          }
-        ]
-      },
-      "lm-studio": {
-        "baseUrl": "http://your-lm-studio-server:port/v1",
-        "apiKey": "your-api-key",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "qwen/qwen3.5-35b-a3b",
-            "name": "Qwen 3.5 35B",
-            "reasoning": true // contextWindow和maxTokens是可选配置项
-            // "contextWindow": 262144,
-            // "maxTokens": 100000
-          }
-        ]
-      }
-    }
-  },
-  "agents": {
-    "defaults": {
-      "model": {
-        "primary": "deepseek/deepseek-reasoner",
-        "fallbacks": [
-          "deepseek/deepseek-chat",
-          "lm-studio/qwen/qwen3.5-35b-a3b"
-        ]
-      }
-    },
-    "models": {
-      "lm-studio/qwen/qwen3.5-35b-a3b": {},
-      "deepseek/deepseek-reasoner": {},
-      "deepseek/deepseek-chat": {}
-    },
-    "memorySearch": {
-      "provider": "openai",
-      "remote": {
-        "baseUrl": "http://your-embedding-server:port/v1", // 注意：向量化服务可能使用http协议
-        "apiKey": "your-api-key" // 如果使用lm-studio服务器，这里apiKey随便填都行
-      },
-      "model": "text-embedding-nomic-embed-text-v1.5", // 推荐使用这个模型，很小一个不吃性能
-      "cache": {
-        "enabled": true,
-        "maxEntries": 50000
-      }
-    }
-  }
-}
-```
-
 # 🔧 常见问题解决
 
 ## 问题1：SSH连接GitHub被拒绝
@@ -420,17 +406,14 @@ Openclaw的配置文件位置：
 1. **版本很重要**：尽量使用官方版本，避免使用过时的国内版
 2. **安装方式选择**：npm安装比官方的一句代码安装更可靠
 3. **网络配置是关键**：SSH连接GitHub时，代理和端口配置很重要
-4. **局域网配置很实用**：通过lm-studio可以在局域网中使用大模型，提高效率
-5. **DeepSeek配置细节**：baseUrl必须使用https协议，apiKey必须保持"sk-"前缀格式，不要添加"Bearer"
-6. **多模型配置提升可靠性**：设置主模型和备用模型，实现自动故障转移和负载均衡
-7. **向量化配置支持搜索**：配置memorySearch启用记忆搜索功能，注意向量化服务可能使用http协议
-8. **耐心解决问题**：遇到问题不要急，一步步排查总能找到解决方案
+4. **环境变量管理API密钥**：使用环境变量替换明文API密钥，提高安全性
+5. **局域网配置很实用**：通过lm-studio可以在局域网中使用大模型，提高效率
+6. **DeepSeek配置细节**：baseUrl必须使用https协议，apiKey必须保持"sk-"前缀格式，不要添加"Bearer"
+7. **多模型配置提升可靠性**：设置主模型和备用模型，实现自动故障转移和负载均衡
+8. **向量化配置支持搜索**：配置memorySearch启用记忆搜索功能，注意向量化服务可能使用http协议
+9. **耐心解决问题**：遇到问题不要急，一步步排查总能找到解决方案
 
-# 🔄 持续更新
-
-这篇博文会持续更新，记录更多使用Openclaw过程中的经验和技巧。
-
-## 🚀 性能优化建议
+# 🚀 性能优化建议
 
 1. **启用缓存**：在向量化配置中启用缓存，提高搜索速度
 2. **合理配置模型**：根据硬件资源选择合适的模型，避免过度消耗资源
@@ -438,13 +421,17 @@ Openclaw的配置文件位置：
 4. **定期清理缓存**：避免缓存过大影响性能
 5. **使用本地模型**：对于频繁使用的功能，考虑使用本地模型减少网络延迟
 
-## 🔒 安全建议
+# 🔒 安全建议
 
-1. **API密钥管理**：不要在配置文件中硬编码API密钥，考虑使用环境变量
+1. **API密钥管理**：不要在配置文件中硬编码API密钥，使用环境变量管理
 2. **网络安全**：使用HTTPS协议保护网络传输
 3. **访问控制**：设置适当的访问权限，避免未授权访问
 4. **定期更新**：及时更新Openclaw和相关依赖，修复安全漏洞
 5. **日志管理**：定期清理日志，避免敏感信息泄露
+
+# 🔄 持续更新
+
+这篇博文会持续更新，记录更多使用Openclaw过程中的经验和技巧。
 
 ---
 
