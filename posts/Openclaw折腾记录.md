@@ -1,7 +1,7 @@
 ---
     title: Openclaw折腾记录
-    date: 2026-02-06
-    categories: [技术, 工具]
+    date: 2026-03-02
+    categories: [技术]
     tags: [Openclaw, 折腾, 配置]
     excerpt: 记录一下使用Openclaw过程中的各种配置和问题解决，方便以后查阅~
 ---
