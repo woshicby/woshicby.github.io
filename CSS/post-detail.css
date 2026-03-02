@@ -1,5 +1,14 @@
 /* 博文详情页专用样式 */
 
+.lazy-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+.lazy-image.loaded {
+    opacity: 1;
+}
+
 /* 博文头部区域样式 */
 .post-header {
     border-radius: var(--border-radius-md);
@@ -52,6 +61,34 @@
 .post-date {
     white-space: nowrap;
 }
+
+.post-update-date {
+    white-space: nowrap;
+}
+
+/* 博文详情页日期容器 */
+#post-date {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.post-date-item,
+.post-update-date-item,
+.reading-time-item {
+    white-space: nowrap;
+} 
+
+.post-reading-time {
+    white-space: nowrap;
+}
+
+.reading-time-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+} 
 
 /* 分类和标签的badge样式 */
 .post-meta .category-badge,
@@ -192,7 +229,7 @@
     border-collapse: separate;
     border-spacing: 0;
     margin: 1.5rem 0;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--table-border-color);
     border-radius: var(--border-radius-md);
 }
 
@@ -200,15 +237,15 @@
 .post-content td {
     padding: 0.75rem;
     text-align: left;
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid var(--table-border-color);
 }
 
 .post-content td {
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--table-border-color);
 }
 
 .post-content th {
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 1px solid var(--table-border-color);
     background-color: var(--light-accent);
     font-weight: bold;
 }
@@ -444,6 +481,11 @@ sup {
         flex-wrap: wrap;
     }
     
+    .post-date,
+    .post-update-date {
+        white-space: normal;
+    }
+    
     .nav-links {
         flex-direction: column;
         gap: 1rem;
@@ -516,7 +558,7 @@ body.dark-theme .post-content code {
 }
 
 body.dark-theme .post-content table th {
-    background-color: var(--secondary-bg);
+    background-color: var(--light-accent);
 }
 
 body.dark-theme .nav-links a {
@@ -534,4 +576,50 @@ body.dark-theme .back-to-list a {
 
 body.dark-theme .back-to-list a:hover {
     background-color: var(--dark-primary-hover-color);
+}
+
+/* 错误页面样式 */
+.post-content .error {
+    text-align: center;
+    padding: 3rem 2rem;
+    margin: 2rem 0;
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius-md);
+    border: 2px solid var(--border-color);
+}
+
+.post-content .error-type {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.post-content .error-message {
+    font-size: 1.1rem;
+    color: var(--primary-text);
+    margin-bottom: 0.5rem;
+}
+
+.post-content .error-detail {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius-sm);
+    font-family: monospace;
+}
+
+.post-content .error .back-to-list {
+    margin-top: 1rem;
+}
+
+body.dark-theme .post-content .error {
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .post-content .error-detail {
+    background-color: var(--secondary-bg);
 }

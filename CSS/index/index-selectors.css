@@ -185,6 +185,8 @@ div.button_box:hover {
 
 .skill-card {
     text-align: center;
+    text-decoration: none;
+    color: inherit;
 }
 
 .skill-icon {

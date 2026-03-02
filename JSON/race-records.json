@@ -429,10 +429,10 @@
         "date": "2026-04-19",
         "location": "山东省威海市荣成市体育中心",
         "event": "半程马拉松",
-        "result": "",
+        "result": "1:57:30",
         "distance": "21.0975公里",
         "pace": "",
-        "stravaLink": "",
+        "stravaLink": "https://www.strava.com/activities/18166038150",
         "season": "2026春季",
         "certification": ["A1"],
         "category": "路跑",
@@ -452,10 +452,28 @@
         "certification": ["ITRA 2分"],
         "category": "越野跑",
         "eventSeries": "威海100",
-        "raceScore": ""
+        "raceScore": "",
+        "itraPerformanceScore": ""
     },
     {
         "id": 31,
+        "name": "2026珠山越野精英赛",
+        "date": "2026-05-31",
+        "location": "山东省青岛市黄岛区大珠山风景区",
+        "event": "ZSTJ30（珠山探境30km）",
+        "result": "",
+        "distance": "30公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2026春季",
+        "certification": ["ITRA 1分"],
+        "category": "越野跑",
+        "eventSeries": "珠山越野精英赛",
+        "raceScore": "",
+        "itraPerformanceScore": ""
+    },
+    {
+        "id": 32,
         "name": "2026咔哒寻山群英赛",
         "date": "2026-09-13",
         "location": "山东省青岛市李沧区紫竹幽谷风景区",
@@ -471,7 +489,7 @@
         "raceScore": ""
     },
     {
-        "id": 32,
+        "id": 33,
         "name": "2026莆田木兰溪马拉松",
         "date": "2026-12-27",
         "location": "福建省莆田市荔城区木兰溪治理展览馆",

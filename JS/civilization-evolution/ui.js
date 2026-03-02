@@ -231,7 +231,7 @@ class UISystem {
                     cell.className = 'relation-cell self';
                 } else {
                     // 与其他文明的关系
-                    const relation = Math.round(civ1.relations[civ2.id]);
+                    const relation = Math.round(civ1.relations[civ2.id] !== undefined ? civ1.relations[civ2.id] : 0);
                     cell.textContent = relation > 0 ? `+${relation}` : relation;
                     
                     // 根据关系值设置样式
@@ -459,26 +459,61 @@ class UISystem {
                 collapse: '文明灭亡',
                 revival: '文明复兴',
                 merge: '文明合并',
-                split: '文明分裂'
+                split: '文明分裂',
+                balance_break: '打破平衡',
+                tech_breakthrough: '技术突破',
+                cultural_revolution: '文化革命',
+                economic_boom: '经济繁荣',
+                military_innovation: '军事革新',
+                disaster: '灾难发生',
+                disaster_end: '灾难结束',
+                flood: '洪水',
+            earthquake: '地震',
+            drought: '干旱',
+            plague: '瘟疫',
+            volcanicEruption: '火山喷发',
+            expand: '扩张',
+            develop: '发展'
+        };
+            
+            // 获取文明名称的辅助函数
+            const getCivName = (civId) => {
+                const civ = this.simulator.civilizations.find(c => c.id === civId);
+                return civ ? civ.name : '未知文明';
             };
             
             // 事件影响描述
             let impactDesc = '';
             if (event.impact && Object.keys(event.impact).length > 0) {
                 if (event.type === 'war') {
-                    impactDesc = `<div class="event-impact">影响：${event.impact.civilization1}与${event.impact.civilization2}发生战争，${event.impact.winner}获胜！</div>`;
+                    const civ1Name = event.affectedCivs && event.affectedCivs[0] ? getCivName(event.affectedCivs[0]) : '未知';
+                    const civ2Name = event.affectedCivs && event.affectedCivs[1] ? getCivName(event.affectedCivs[1]) : '未知';
+                    impactDesc = `<div class="event-impact">影响：${civ1Name}与${civ2Name}发生战争，双方关系恶化！</div>`;
                 } else if (event.type === 'trade') {
-                    impactDesc = `<div class="event-impact">影响：${event.impact.civilization1}与${event.impact.civilization2}开展贸易，经济和文化得到提升！</div>`;
+                    const civ1Name = event.affectedCivs && event.affectedCivs[0] ? getCivName(event.affectedCivs[0]) : '未知';
+                    const civ2Name = event.affectedCivs && event.affectedCivs[1] ? getCivName(event.affectedCivs[1]) : '未知';
+                    impactDesc = `<div class="event-impact">影响：${civ1Name}与${civ2Name}开展贸易，经济和文化得到提升！</div>`;
                 } else if (event.type === 'diplomatic') {
-                    impactDesc = `<div class="event-impact">影响：${event.impact.civilization1}与${event.impact.civilization2}的关系${event.impact.relationChange > 0 ? '改善' : '恶化'}了${Math.abs(event.impact.relationChange)}点！</div>`;
+                    const civ1Name = event.affectedCivs && event.affectedCivs[0] ? getCivName(event.affectedCivs[0]) : '未知';
+                    const civ2Name = event.affectedCivs && event.affectedCivs[1] ? getCivName(event.affectedCivs[1]) : '未知';
+                    impactDesc = `<div class="event-impact">影响：${civ1Name}与${civ2Name}的关系${event.impact.relationChange > 0 ? '改善' : '恶化'}了${Math.abs(event.impact.relationChange)}点！</div>`;
                 } else if (event.type === 'internal') {
-                    impactDesc = `<div class="event-impact">影响：${event.impact.civilization}进行了内部资源调度！</div>`;
+                    const civName = event.affectedCivs && event.affectedCivs[0] ? getCivName(event.affectedCivs[0]) : '未知';
+                    impactDesc = `<div class="event-impact">影响：${civName}进行了内部调整！</div>`;
+                } else if (event.type === 'expand') {
+                    const civName = event.affectedCivs && event.affectedCivs[0] ? getCivName(event.affectedCivs[0]) : '未知';
+                    impactDesc = `<div class="event-impact">影响：${civName}进行了扩张行动！</div>`;
+                } else if (event.type === 'develop') {
+                    const civName = event.affectedCivs && event.affectedCivs[0] ? getCivName(event.affectedCivs[0]) : '未知';
+                    impactDesc = `<div class="event-impact">影响：${civName}进行了发展建设！</div>`;
                 } else if (event.type === 'global') {
                     impactDesc = `<div class="event-impact">影响：全球${event.impact.globalEffect > 0 ? '增长' : '衰退'}了${Math.abs(event.impact.globalEffect)}%，影响了${event.impact.affectedCivilizations}个文明！</div>`;
                 } else if (event.type === 'collapse') {
-                    impactDesc = `<div class="event-impact">影响：${event.impact.civilization}灭亡了！</div>`;
+                    const civName = event.impact.civilization || (event.affectedCivs && event.affectedCivs[0] ? getCivName(event.affectedCivs[0]) : '未知');
+                    impactDesc = `<div class="event-impact">影响：${civName}灭亡了！</div>`;
                 } else if (event.type === 'revival') {
-                    impactDesc = `<div class="event-impact">影响：${event.impact.civilization}复兴了！</div>`;
+                    const civName = event.impact.civilization || (event.affectedCivs && event.affectedCivs[0] ? getCivName(event.affectedCivs[0]) : '未知');
+                    impactDesc = `<div class="event-impact">影响：${civName}复兴了！</div>`;
                 } else if (event.type === 'merge') {
                     impactDesc = `<div class="event-impact">影响：两个文明合并为${event.impact.civilization}！</div>`;
                 } else if (event.type === 'split') {

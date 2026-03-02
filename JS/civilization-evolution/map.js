@@ -225,9 +225,9 @@ class MapSystem {
         const width = canvas.width;
         const height = canvas.height;
         
-        // 固定格子数量（100x100）
-        const gridCols = 100;
-        const gridRows = 100;
+        // 固定格子数量（使用实际的地图尺寸）
+        const gridCols = this.cols;
+        const gridRows = this.rows;
         
         // 计算每个格子的实际大小
         const cellSize = Math.min(width / gridCols, height / gridRows);

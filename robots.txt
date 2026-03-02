@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# 禁止索引JSON数据文件
+Disallow: /JSON/
+
+# 禁止索引文档文件夹
+Disallow: /documents/
+
+# 禁止索引音频文件夹
+Disallow: /audios/
+
+# Sitemap位置
+Sitemap: https://woshicby.github.io/sitemap.xml

@@ -82,7 +82,7 @@
 }
 
 #personal-records tr {
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--table-border-color);
     transition: var(--transition-default);
 }
 

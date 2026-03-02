@@ -98,7 +98,7 @@ function renderEmbeddedVideos() {
         
         videoWrapper.innerHTML = `
             <div class="bilibili-player-container">
-                <iframe src="//player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&danmaku=0"
+                <iframe src="//player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&danmaku=0&autoplay=0&muted=1"
                     allowfullscreen="allowfullscreen" width="100%" height="${height}" 
                     scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
             </div>
@@ -147,7 +147,7 @@ function handleResize() {
             
             videoWrapper.innerHTML = `
                 <div class="bilibili-player-container">
-                    <iframe src="//player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&danmaku=0"
+                    <iframe src="//player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&danmaku=0&autoplay=0&muted=1"
                         allowfullscreen="allowfullscreen" width="100%" height="${height}" 
                         scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
                 </div>
@@ -188,8 +188,8 @@ function fetchBilibiliUserInfo(uid, callback) {
         name: '一条咸鱼by菌',
         face: 'images/b站头像.gif',
         sign: '竹笛/跑步/游戏/日常/动态UP是也~哈工大读博中~催更唠嗑取谱群：629521223',
-        follower: 1539,
-        following: 2369,
+        follower: 1550,
+        following: 2367,
         likes: '1.3万',
         plays: '18.0万'
     };
@@ -227,7 +227,7 @@ function renderUserCard(userInfo) {
     
     container.innerHTML = `
         <div class="user-avatar">
-            <img src="${userInfo.face}" alt="${userInfo.name}" onerror="this.src='default-avatar.jpg'">
+            <img src="${userInfo.face}" alt="${userInfo.name}" onerror="this.src='images/b站头像.gif'">
         </div>
         <div class="user-details">
             <h3>${userInfo.name}</h3>

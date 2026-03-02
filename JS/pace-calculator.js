@@ -1096,7 +1096,7 @@ const SPLIT_DISTANCES_MILE_PER_1 = (endPoint = 'marathon') => {
 
 // 更新分段时间表格
   function updateSplitTimeTable(paceMinutes, paceSeconds, paceUnit, kmGranularity = '5', mileGranularity = '5', kmEndPoint = null, mileEndPoint = null, originalDistance = null, originalUnit = null) {
-      const paceReferenceElement = document.querySelector('.pace-reference');
+      const paceReferenceElement = document.querySelector('.reference-section');
       if (!paceReferenceElement) return;
       
       // 获取全局控件引用

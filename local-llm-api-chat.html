@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>本地大模型API对话工具 - BY的个人网站</title>
+    
+    <meta name="description" content="与本地局域网下的LM Studio服务器进行对话的工具，支持自定义服务器地址。">
+    <meta name="keywords" content="LM Studio,AI对话,本地服务器,局域网">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="本地大模型API对话工具 - BY的个人网站">
+    <meta property="og:description" content="与本地局域网下的LM Studio服务器进行对话的工具，支持自定义服务器地址。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/local-llm-api-chat.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="本地大模型API对话工具 - BY的个人网站">
+    <meta name="twitter:description" content="与本地局域网下的LM Studio服务器进行对话的工具，支持自定义服务器地址。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+    
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/tools-common.css">
+    <link rel="stylesheet" href="./CSS/local-llm-api-chat.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/local-llm-api-chat.html">
+    
+    <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
+    <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
+    <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
+    <script src="./JS/tool-tabs.js"></script><!-- 引入工具标签动态加载脚本 -->
+    <script src="./JS/markdown/markdown-it.min.js"></script><!-- 引入Markdown解析库 -->
+    <script src="./JS/markdown/markdown-it-mark.min.js"></script><!-- 引入Markdown高亮扩展 -->
+    <script src="./JS/markdown/markdown-it-sub.min.js"></script><!-- 引入Markdown下标扩展 -->
+    <script src="./JS/markdown/markdown-it-sup.min.js"></script><!-- 引入Markdown上标扩展 -->
+    <script src="./JS/markdown/markdown-it-footnote.min.js"></script><!-- 引入Markdown脚注扩展 -->
+    <script src="./JS/markdown/markdown-utils.js"></script><!-- 引入Markdown工具函数 -->
+    <script src="./JS/highlight.min.js"></script><!-- 引入highlight.js用于代码高亮 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="./JS/MathJax-3.2.2es5/tex-mml-chtml.js" async></script><!-- 引入MathJax库用于渲染数学公式 -->
+    <script src="./JS/local-llm-api-chat.js"></script><!-- 引入本地大模型API对话工具脚本 -->
+</head>
+    <!-- ==========================================
+         页面头部 - 网站标题和导航
+         ==========================================
+         包含网站标志和主导航菜单，当前高亮"小工具&小游戏"选项
+         ========================================== -->
+    <body>
+        <div class="header clearfix wrapper">
+            <!-- logo/大标题区域开始 -->
+            <h1>本地大模型API对话工具</h1>
+            <!-- logo/大标题区域结束 -->
+            <!-- 导航栏开始 -->
+            <div class="nav">
+                <ul class="clearfix">
+                    <li><a href="./index.html">首页</a></li>
+                    <li><a href="./video.html">视频展示</a></li>
+                    <li><a href="./posts.html">博客文章</a></li>
+                    <li><a href="./moments.html">灵感碎片</a></li>
+                    <li><a href="./study.html">个人成果</a></li>
+                    <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
+                    <li><a href="./sports.html">体育运动</a></li>
+                    <li>
+                        <label class="theme-toggle">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="theme-toggle-slider"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <!-- 导航栏结束 -->
+        </div>
+        <!-- 头部外套结束 -->
+     
+        <!-- 移动导航菜单切换按钮 -->
+        <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <!-- 主体外套开始 -->
+        <!-- ========================================== 
+             主体内容区域
+             ==========================================
+             包含本地大模型API对话工具的主要功能
+             ========================================== -->
+        <div class="mainbox clearfix wrapper">
+            <!-- 小工具返回链接 -->
+            <div class="back-to-tools">
+                <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
+            </div>
+            
+            <div class="tool-container">
+                <h2 class="tool-page-title">本地大模型API对话工具</h2>
+                <p class="tool-description">
+                    与本地局域网下的LM Studio服务器进行对话的工具，支持实时交互和思考过程显示。
+                </p>
+
+                <div class="tabs">
+                    <!-- 标签按钮由JS动态生成 -->
+                </div>
+
+                <!-- 服务器配置区域 -->
+                <div class="server-config-section">
+                    <h3>服务器配置</h3>
+                    <div class="form-group">
+                        <label for="serverUrl">服务器地址:</label>
+                        <input type="text" id="serverUrl" value="http://10.244.166.147:1234/v1">
+                        <button id="testConnection" class="test-button">测试连接</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="modelSelect">选择模型:</label>
+                        <select id="modelSelect" disabled>
+                            <option value="">请先测试连接</option>
+                        </select>
+                    </div>
+                    <div id="connectionStatus" class="status-message"></div>
+                </div>
+
+                <!-- 对话管理区域 -->
+                <div class="chat-management-section">
+                    <h3>对话管理</h3>
+                    <div class="chat-tabs">
+                        <div id="chatTabs" class="chat-tabs-container">
+                        </div>
+                    </div>
+                    <div class="data-management">
+                        <button id="newChat" class="action-btn secondary">新对话</button>
+                        <button id="exportChat" class="action-btn secondary">📤 导出对话</button>
+                        <button id="importChat" class="action-btn secondary">📥 导入对话</button>
+                        <input type="file" id="importFile" style="display: none;" accept=".json">
+                    </div>
+                </div>
+
+                <!-- 对话区域 -->
+                <div class="chat-container">
+                    <h3>对话内容</h3>
+                    <div id="chatMessages" class="chat-messages"></div>
+                    <div class="chat-input">
+                        <input type="text" id="userInput" placeholder="输入消息...">
+                        <button id="sendMessage" class="send-button">发送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 主体外套结束 -->
+        <!-- 脚注外套开始 -->
+        <!-- ==========================================
+             页脚区域
+             ==========================================
+             包含版权信息和社交链接
+             ========================================== -->
+        <div class="foot wrapper">
+            <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+        </div>
+        <!-- 脚注外套结束 -->
+    </body>
+</html>

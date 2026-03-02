@@ -55,6 +55,9 @@ class Civilization {
         this.maxStability = 100;
         this.minStability = 0;
         
+        // 稳定性修正值（由行为产生，会逐渐衰减）
+        this.stabilityModifier = 0;
+        
         // 巅峰数据记录
         this.peakTech = this.tech;
         this.peakCulture = this.culture;
@@ -235,34 +238,44 @@ class Civilization {
         if (this.population > this.peakPopulation) this.peakPopulation = this.population;
         
         // 检查衰退状态
-        // 如果主要属性连续下降，标记为衰退
+        // 如果主要属性连续下降，标记为衰退（需要更多连续下降次数）
         const isDecliningNow = this.tech < oldTech && this.culture < oldCulture && this.economy < oldEconomy && this.military < oldMilitary;
         
         if (isDecliningNow) {
             this.declineYears++;
-            this.isDeclining = this.declineYears >= 3;
+            this.isDeclining = this.declineYears >= 5;
         } else {
-            this.declineYears = 0;
-            this.isDeclining = false;
+            this.declineYears = Math.max(0, this.declineYears - 1);
+            this.isDeclining = this.declineYears >= 5;
         }
         
         // 检查不稳定状态（用于分裂）
-        // 当人口超过一定规模且各项属性差距较大时，标记为不稳定
+        // 多种条件可触发不稳定状态
         const totalAttribute = this.tech + this.culture + this.economy + this.military;
         const avgAttribute = totalAttribute / 4;
         const attributeVariance = Math.abs(this.tech - avgAttribute) + Math.abs(this.culture - avgAttribute) + Math.abs(this.economy - avgAttribute) + Math.abs(this.military - avgAttribute);
         
-        this.isUnstable = this.population > 50000 && attributeVariance > 100;
+        // 不稳定条件（满足任一即可）
+        // 1. 人口过多且属性不平衡
+        const populationUnstable = this.population > 30000 && attributeVariance > 50;
+        // 2. 人口严重过剩（超过10万）
+        const overpopulationUnstable = this.population > 100000;
+        // 3. 稳定性极低
+        const lowStabilityUnstable = this.stability < 25;
+        
+        this.isUnstable = populationUnstable || overpopulationUnstable || lowStabilityUnstable;
         
         if (this.isUnstable) {
             this.unstableYears++;
         } else {
-            this.unstableYears = 0;
+            this.unstableYears = Math.max(0, this.unstableYears - 1);
         }
         
         // 计算文明稳定性 - 新增
         // 1. 基础稳定性：受文明规模影响，规模越大稳定性越低
-        const sizePenalty = Math.min(50, Math.floor(this.population / 10000)); // 每10000人口降低最多50点稳定性
+        // 注意：这里需要从simulator获取格子数量，暂时使用人口估算
+        // 实际的格子数量会在simulator中更新
+        const sizePenalty = Math.min(60, Math.floor(this.population / 8000)); // 每8000人口降低最多60点稳定性
         
         // 2. 属性平衡度影响：属性越不平衡稳定性越低
         const balancePenalty = Math.min(30, Math.floor(attributeVariance / 10)); // 属性方差越大，稳定性越低
@@ -281,6 +294,77 @@ class Civilization {
         
         // 确保稳定性在合理范围内
         this.stability = Math.max(this.minStability, Math.min(this.maxStability, this.stability));
+    }
+    
+    // 更新基于格子数量的稳定性（由simulator调用）
+    updateStabilityByCells(cellCount) {
+        // 规模惩罚：格子越多，稳定性越低
+        // 使用分段惩罚，避免直接降到最低
+        let sizePenalty = 0;
+        if (cellCount > 500) {
+            sizePenalty = Math.min(15, Math.floor((cellCount - 500) / 200));
+        }
+        if (cellCount > 2000) {
+            sizePenalty += Math.min(20, Math.floor((cellCount - 2000) / 150));
+        }
+        if (cellCount > 5000) {
+            sizePenalty += Math.min(25, Math.floor((cellCount - 5000) / 100));
+        }
+        
+        // 属性平衡度影响
+        const totalAttribute = this.tech + this.culture + this.economy + this.military;
+        const avgAttribute = totalAttribute / 4;
+        const attributeVariance = Math.abs(this.tech - avgAttribute) + Math.abs(this.culture - avgAttribute) + Math.abs(this.economy - avgAttribute) + Math.abs(this.military - avgAttribute);
+        const balancePenalty = Math.min(15, Math.floor(attributeVariance / 15));
+        
+        // 衰退状态影响
+        const declinePenalty = this.isDeclining ? 12 : 0;
+        
+        // 迁移状态影响
+        const migrationPenalty = this.migrationCooldown > 0 ? 5 : 0;
+        
+        // 不稳定状态额外惩罚
+        const unstablePenalty = this.isUnstable ? 10 : 0;
+        
+        // ===== 稳定性恢复机制 =====
+        
+        // 1. 基础稳定性加成
+        let baseBonus = 10;
+        
+        // 2. 属性综合实力加成：实力越强越稳定
+        const strengthBonus = Math.min(15, Math.floor(totalAttribute / 300));
+        
+        // 3. 人口规模加成：适度人口带来稳定
+        const populationBonus = Math.min(8, Math.floor(Math.sqrt(this.population / 3000)));
+        
+        // 4. 领土完整度加成（小领土有加成）
+        const territoryBonus = cellCount < 300 ? Math.min(12, Math.floor(cellCount / 25)) : 0;
+        
+        // 5. 随机波动
+        const randomFluctuation = Math.floor(Math.random() * 8) - 4;
+        
+        // 计算基础稳定性
+        const totalPenalty = sizePenalty + balancePenalty + declinePenalty + migrationPenalty + unstablePenalty;
+        const totalBonus = baseBonus + strengthBonus + populationBonus + territoryBonus;
+        const baseStability = 100 - totalPenalty + totalBonus + randomFluctuation;
+        
+        // 应用稳定性修正值（由行为产生）
+        this.stability = baseStability + this.stabilityModifier;
+        
+        // 稳定性修正值衰减（每次衰减25%，最低为0）
+        if (this.stabilityModifier > 0) {
+            this.stabilityModifier = Math.floor(this.stabilityModifier * 0.75);
+        } else if (this.stabilityModifier < 0) {
+            this.stabilityModifier = Math.ceil(this.stabilityModifier * 0.75);
+        }
+        
+        // 确保稳定性在合理范围内（最低20）
+        this.stability = Math.max(20, Math.min(this.maxStability, this.stability));
+    }
+    
+    // 添加稳定性修正值（由行为调用）
+    addStabilityModifier(value) {
+        this.stabilityModifier += value;
     }
     
     // 文明内资源调度方法
