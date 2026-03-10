@@ -107,6 +107,7 @@ class PostManager {
         return {
             title: metadata.title || '未命名博文',
             date: metadata.date || new Date().toISOString().split('T')[0],
+            update_date: metadata.update_date || null,
             content: markdownContent,
             excerpt: metadata.excerpt || this.extractExcerpt(markdownContent),
             categories: metadata.categories || [],
@@ -200,11 +201,16 @@ class PostManager {
                 `<a href="?tag=${encodeURIComponent(tag)}" class="tag-badge" data-tag="${tag}">${tag}</a>`
             ).join('')}</div>` : '';
 
+        let dateHTML = `<span class="post-date">${this.formatDate(post.date)}</span>`;
+        if (post.update_date) {
+            dateHTML += `<span class="post-update-date">（更新于 ${this.formatDate(post.update_date)}）</span>`;
+        }
+
         return `
             <article class="post-item">
                 <h3 class="post-title"><a href="post-detail.html?id=${post.id}">${post.title}</a></h3>
                 <div class="post-meta">
-                    <span class="post-date">${this.formatDate(post.date)}</span>
+                    ${dateHTML}
                 </div>
                 <div class="post-excerpt">${post.excerpt || '阅读全文...'}</div>
                 ${categoriesHTML}

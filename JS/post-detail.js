@@ -91,6 +91,7 @@ class PostDetailManager {
         return {
             title: metadata.title || '未命名博文',
             date: metadata.date || new Date().toISOString().split('T')[0],
+            update_date: metadata.update_date || null,
             content: markdownContent,
             excerpt: metadata.excerpt || this.extractExcerpt(markdownContent),
             categories: metadata.categories || [],
@@ -173,7 +174,11 @@ class PostDetailManager {
         
         // 渲染博文日期
         const dateElement = document.getElementById('post-date');
-        dateElement.innerHTML = `<strong>日期：</strong>${this.formatDate(post.date)}`;
+        let dateHTML = `<span class="post-date-item"><strong>发布日期：</strong>${this.formatDate(post.date)}</span>`;
+        if (post.update_date) {
+            dateHTML += `<span class="post-update-date-item"><strong>更新日期：</strong>${this.formatDate(post.update_date)}</span>`;
+        }
+        dateElement.innerHTML = dateHTML;
         
         // 渲染分类
         const categoriesElement = document.getElementById('post-categories');

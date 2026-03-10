@@ -53,6 +53,23 @@
     white-space: nowrap;
 }
 
+.post-update-date {
+    white-space: nowrap;
+}
+
+/* 博文详情页日期容器 */
+#post-date {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.post-date-item,
+.post-update-date-item {
+    white-space: nowrap;
+} 
+
 /* 分类和标签的badge样式 */
 .post-meta .category-badge,
 .post-meta .tag-badge {
@@ -442,6 +459,11 @@ sup {
     .post-meta .post-tags {
         width: 100%;
         flex-wrap: wrap;
+    }
+    
+    .post-date,
+    .post-update-date {
+        white-space: normal;
     }
     
     .nav-links {
