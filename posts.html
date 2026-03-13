@@ -1,20 +1,53 @@
 <!DOCTYPE html>
-<html lang="zh-CN"> <!-- 将语言设置为中文 -->
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>博文列表</title>
-        <link rel="stylesheet" href="./CSS/common.css">
-        <link rel="stylesheet" href="./CSS/posts.css">
-        <!-- 添加 favicon -->
-        <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-        <!-- 引入导航功能脚本 -->
-        <script src="./JS/navigation.js"></script>
-        <!-- 引入主题切换脚本 -->
-        <script src="./JS/theme-toggle.js"></script>
-        <script src="./JS/posts.js"></script>
-    </head>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客文章 - BY的个人网站</title>
+    
+    <meta name="description" content="BY的博客文章列表，包含技术学习、生活记录、运动心得等各类文章。涵盖编程、攀岩、马拉松、摄影等主题。">
+    <meta name="keywords" content="博客,技术文章,攀岩记录,马拉松,生活记录,编程学习">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="博客文章 - BY的个人网站">
+    <meta property="og:description" content="BY的博客文章列表，包含技术学习、生活记录、运动心得等各类文章。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/posts.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="博客文章 - BY的个人网站">
+    <meta name="twitter:description" content="BY的博客文章列表，包含技术学习、生活记录、运动心得等各类文章。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "BY的博客",
+        "url": "https://woshicby.github.io/posts.html",
+        "description": "包含技术学习、生活记录、运动心得等各类文章",
+        "author": {
+            "@type": "Person",
+            "name": "woshicby"
+        }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/posts.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/posts.html">
+    
+    <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
+    <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
+    <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
+    <script src="./JS/posts.js"></script><!-- 引入博文列表脚本 -->
+</head>
     <body class="posts-page">
         <!-- 页面头部 - 网站标题和导航 -->
         <div class="header clearfix wrapper">

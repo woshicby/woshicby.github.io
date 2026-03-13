@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机决策器 - BY的个人网站</title>
+
+    <meta name="description" content="随机决策器，帮助解决选择困难，支持快速模板和多种动画效果，让决策变得简单有趣。">
+    <meta name="keywords" content="随机决策器,随机选择,决策工具,选择困难,决策辅助,快速决策">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="随机决策器 - BY的个人网站">
+    <meta property="og:description" content="随机决策器，帮助解决选择困难，支持快速模板和多种动画效果，让决策变得简单有趣。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/random-decision.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="随机决策器 - BY的个人网站">
+    <meta name="twitter:description" content="随机决策器，帮助解决选择困难，支持快速模板和多种动画效果，让决策变得简单有趣。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/tools-common.css">
+    <link rel="stylesheet" href="./CSS/random-decision.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/random-decision.html">
+
+    <script src="./JS/navigation.js"></script>
+    <script src="./JS/theme-toggle.js"></script>
+    <script src="./JS/background-lazy-load.js"></script>
+    <script src="./JS/tool-tabs.js"></script><!-- 引入工具标签动态加载脚本 -->
+</head>
+
+<body>
+    <div class="header clearfix wrapper">
+        <h1>随机决策器</h1>
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./video.html">视频展示</a></li>
+                <li><a href="./posts.html">博客文章</a></li>
+                <li><a href="./study.html">个人成果</a></li>
+                <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
+                <li><a href="./sports.html">体育运动</a></li>
+                <li>
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="mainbox clearfix wrapper">
+        <div class="back-to-tools">
+            <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
+        </div>
+
+        <div class="tool-container">
+            <h2 class="tool-page-title">随机决策器</h2>
+            <p class="tool-description">
+                帮助解决选择困难症，支持快速模板和多种动画效果，让决策变得简单有趣。
+            </p>
+
+            <div class="tabs">
+                <!-- 标签按钮由JS动态生成 -->
+            </div>
+
+            <div class="settings-section">
+                <label class="animation-select-label">动画效果：</label>
+                <select id="animationType" class="animation-select" onchange="changeAnimationType()">
+                    <option value="none">无动画</option>
+                    <option value="scroll" selected>滚动效果</option>
+                    <option value="bounce">弹跳效果</option>
+                    <option value="rotate">旋转效果</option>
+                    <option value="fade">淡入淡出</option>
+                    <option value="scale">缩放效果</option>
+                    <option value="shake">抖动效果</option>
+                </select>
+            </div>
+
+            <div class="decision-section">
+                <div class="input-section">
+                    <h3>输入选项</h3>
+                    <textarea id="options-input" placeholder="每行输入一个选项&#10;例如：&#10;火锅&#10;烧烤&#10;日料&#10;川菜&#10;西餐"
+                        rows="6"></textarea>
+
+                    <div class="button-group">
+                        <button class="action-btn" onclick="addOption()">➕ 添加选项</button>
+                        <button class="action-btn secondary" onclick="clearOptions()">🗑️ 清空</button>
+                    </div>
+
+                    <div class="data-management">
+                        <button class="action-btn secondary" onclick="exportOptions()">📤 导出选项</button>
+                        <button class="action-btn secondary" onclick="importOptions()">📥 导入选项</button>
+                        <input type="file" id="importOptionsFile" accept=".json" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h3>决策结果</h3>
+                    <div id="decision-result" class="result-box">
+                        <div class="placeholder-text">输入选项后点击按钮开始决策</div>
+                    </div>
+                    <button class="decision-btn" onclick="makeDecision()" id="decision-button">
+                        🎲 开始随机选择
+                    </button>
+                </div>
+            </div>
+
+            <div class="templates-section">
+                <h3>快速模板</h3>
+                <div class="template-buttons">
+                    <button class="template-btn" onclick="loadTemplate('food')">🍜 今天吃什么</button>
+                    <button class="template-btn" onclick="loadTemplate('exercise')">🏃 今天练什么</button>
+                    <button class="template-btn" onclick="loadTemplate('study')">📚 学习什么</button>
+                    <button class="template-btn" onclick="loadTemplate('movie')">🎬 看什么电影</button>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <h3>历史记录</h3>
+                <div id="decision-history" class="history-list">
+                    <div class="empty-history">暂无历史记录</div>
+                </div>
+                <div class="data-management">
+                    <button class="action-btn secondary" onclick="clearHistory()">🗑️ 清空历史</button>
+                    <button class="action-btn secondary" onclick="exportHistory()">📤 导出历史</button>
+                    <button class="action-btn secondary" onclick="importHistory()">📥 导入历史</button>
+                    <input type="file" id="importHistoryFile" accept=".json" style="display: none;">
+                </div>
+            </div>
+
+            <!-- 整体数据管理 -->
+            <div class="data-controls">
+                <button class="action-btn secondary" onclick="resetAllData()">🔄 重置所有数据</button>
+                <button class="action-btn secondary" onclick="exportAllData()">📤 导出所有数据</button>
+                <button class="action-btn secondary" onclick="importAllData()">📥 导入所有数据</button>
+                <input type="file" id="importAllFile" accept=".json" style="display: none;">
+            </div>
+        </div>
+    </div>
+
+    <div class="foot wrapper">
+        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+    </div>
+
+    <script src="./JS/random-decision.js"></script>
+</body>
+
+</html>

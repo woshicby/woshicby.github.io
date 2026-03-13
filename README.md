@@ -184,6 +184,9 @@ woshicby.github.io/
 - 2026.02.24: 实现study.html页面的动态加载和筛选功能；优化全站动画性能，将transition: all改为只对必要属性设置过渡效果，减少不必要的重绘；统一全站标题样式(h2, h3)，优化段落间距和行高，提升阅读体验；统一各页面的内边距和外边距
 - 2026.02.25: 修复B站API CORS问题，替换为静态用户数据；更新B站用户头像为本地图片；添加获赞数和播放数到用户统计信息；优化用户卡片布局，修复头像显示尺寸过大问题；更新用户统计信息图标（关注用眼睛，获赞用爱心，播放用播放图标）；重构用户卡片HTML结构，移除嵌套的div层，简化为单一层级的section
 - 2026.03.10: 为博客系统添加update_date字段支持，在文章元数据中新增更新日期字段；修改posts.js和post-detail.js实现update_date的解析和显示逻辑（仅显示date时只显示发布日期，同时有date和update_date时显示两者）；为所有博文添加update_date字段；为发布日期和更新日期添加响应式样式支持；修改首页技能卡片，添加链接引导到对应页面
+- 2026.03.13: 新增SEO元数据检查工具(seo-checker.html)，自动扫描网站页面SEO元数据完整性；新增随机决策器(random-decision.html)，支持多种动画效果和快速模板；新增骰子工具(dice-tool.html)，支持多种骰子组合、特殊规则和自定义预设
+- 2026.03.14: 统一所有工具页面的section类名命名规范（改为-section结尾）；合并配速计算器的分模块CSS文件；统一配速计算器表格样式为博客文章表格样式；修复相关JS选择器错误
+- 2026.03.14: 为所有工具页面添加动态tabs导航模块，从JSON文件读取数据；统一tabs样式到tools-common.css；删除tools-common文件夹中的分模块CSS文件；修复锻刀模拟器锻造结果模块初始显示问题；优化SEO元数据检查工具，自动显示结果并移除results-section包裹层；修复SEO元数据显示不完整的问题
 
 ## 使用方法
 
@@ -375,6 +378,9 @@ woshicby.github.io/
 - 2026.02.24: Implemented dynamic loading and filtering functionality for study.html page; optimized site-wide animation performance by changing transition: all to only apply to necessary properties, reducing unnecessary repaints; unified site-wide title styles (h2, h3), optimized paragraph spacing and line height to improve reading experience; unified padding and margins across all pages
 - 2026.02.25: Fixed Bilibili API CORS issues, replaced with static user data; updated Bilibili user avatar to local image; added likes and plays counts to user statistics; optimized user card layout, fixed avatar display size issue; updated user statistics icons (eye for following, heart for likes, play icon for plays); refactored user card HTML structure, removed nested div layers, simplified to single-level section
 - 2026.03.10: Added update_date field support to the blog system, added update date field in article metadata; modified posts.js and post-detail.js to implement update_date parsing and display logic (only show publish date when only date exists, show both when both date and update_date exist); added update_date field to all blog posts; added responsive style support for publish date and update date; modified homepage skill cards, added links to corresponding pages
+- 2026.03.13: Added SEO metadata checker tool (seo-checker.html), automatically scans website pages for SEO metadata completeness; added random decision maker (random-decision.html), supports multiple animation effects and quick templates; added dice tool (dice-tool.html), supports multiple dice combinations, special rules and custom presets
+- 2026.03.14: Unified section class naming convention across all tool pages (changed to -section suffix); merged pace calculator modular CSS files; unified pace calculator table styles to match blog article table styles; fixed related JS selector errors
+- 2026.03.14: Added dynamic tabs navigation module to all tool pages, reading data from JSON files; unified tabs styles in tools-common.css; deleted modular CSS files in tools-common folder; fixed sword forging simulator result section initial display issue; optimized SEO metadata checker to auto-display results and removed results-section wrapper; fixed incomplete SEO metadata display issue
 
 ## Usage
 
@@ -566,6 +572,9 @@ woshicby.github.io/
 - 2026.02.24: study.htmlページの動的読み込みとフィルタリング機能を実装；transition: allを必要なプロパティにのみ適用するように変更し、不要な再描画を削減してサイト全体のアニメーションパフォーマンスを最適化；サイト全体のタイトルスタイル(h2, h3)を統一し、段落の間隔と行間を最適化して読書体験を向上；全ページのパディングとマージンを統一
 - 2026.02.25: Bilibili API CORS問題を修正し、静的ユーザーデータに置き換え；Bilibiliユーザーアバターをローカル画像に更新；ユーザー統計情報にいいね数と再生数を追加；ユーザーカードレイアウトを最適化し、アバター表示サイズの問題を修正；ユーザー統計情報アイコンを更新（フォローに目、いいねにハート、再生に再生アイコン）；ユーザーカードHTML構造をリファクタリングし、ネストされたdivレイヤーを削除し、単一レベルのsectionに簡素化
 - 2026.03.10: ブログシステムにupdate_dateフィールドサポートを追加、記事メタデータに更新日フィールドを新規追加；posts.jsとpost-detail.jsを変更してupdate_dateの解析と表示ロジックを実装（dateのみの場合は公開日のみ表示、dateとupdate_dateの両方がある場合は両方表示）；すべてのブログ記事にupdate_dateフィールドを追加；公開日と更新日にレスポンシブスタイルサポートを追加；ホームページのスキルカードを変更し、対応するページへのリンクを追加
+- 2026.03.13: SEOメタデータチェッカーツール(seo-checker.html)を追加、ウェブサイトページのSEOメタデータ完全性を自動スキャン；ランダム決定メーカー(random-decision.html)を追加、複数のアニメーション効果とクイックテンプレートをサポート；ダイスツール(dice-tool.html)を追加、複数のダイス組み合わせ、特別ルール、カスタムプリセットをサポート
+- 2026.03.14: すべてのツールページのセクションクラス命名規則を統一（-sectionサフィックスに変更）；ペース計算機のモジュラーCSSファイルを統合；ペース計算機のテーブルスタイルをブログ記事のテーブルスタイルに統一；関連するJSセレクターエラーを修正
+- 2026.03.14: すべてのツールページに動的タブナビゲーションモジュールを追加、JSONファイルからデータを読み込み；タブスタイルをtools-common.cssに統一；tools-commonフォルダーのモジュラーCSSファイルを削除；刀鍛造シミュレーターの結果セクションの初期表示問題を修正；SEOメタデータチェッカーを最適化、結果を自動表示しresults-sectionラッパーを削除；SEOメタデータの不完全な表示問題を修正
 
 ## 使用方法
 

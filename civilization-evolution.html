@@ -1,26 +1,45 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <!-- 多文明演化模拟器页面 -->
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>多文明演化模拟器</title>
-        <link rel="stylesheet" href="./CSS/common.css">
-        <link rel="stylesheet" href="./CSS/tools-common.css">
-        <link rel="stylesheet" href="./CSS/civilization-evolution.css">
-        <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-        <!-- 引入导航功能脚本 -->
-        <script src="./JS/navigation.js"></script>
-        <!-- 引入主题切换脚本 -->
-        <script src="./JS/theme-toggle.js"></script>
-        <!-- 引入文明演化模拟器模块化脚本 -->
-        <script src="./JS/civilization-evolution/civilization.js"></script>
-        <script src="./JS/civilization-evolution/map.js"></script>
-        <script src="./JS/civilization-evolution/simulator.js"></script>
-        <script src="./JS/civilization-evolution/ui.js"></script>
-        <script src="./JS/civilization-evolution/main.js"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文明演化模拟器 - BY的个人网站</title>
+    
+    <meta name="description" content="文明演化模拟器，模拟文明从原始社会到现代的发展过程，包含资源管理、科技发展、战争征服等元素。">
+    <meta name="keywords" content="文明演化,模拟器,策略游戏,文明发展,科技树,战争策略">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="文明演化模拟器 - BY的个人网站">
+    <meta property="og:description" content="文明演化模拟器，模拟文明从原始社会到现代的发展过程，包含资源管理、科技发展、战争征服等元素。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/civilization-evolution.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="文明演化模拟器 - BY的个人网站">
+    <meta name="twitter:description" content="文明演化模拟器，模拟文明从原始社会到现代的发展过程，包含资源管理、科技发展、战争征服等元素。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+    
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/tools-common.css">
+    <link rel="stylesheet" href="./CSS/civilization-evolution.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/civilization-evolution.html">
+    
+    <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
+    <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
+    <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
+    <script src="./JS/tool-tabs.js"></script><!-- 引入工具标签动态加载脚本 -->
+    <script src="./JS/civilization-evolution/civilization.js"></script><!-- 引入文明演化模拟器文明模块脚本 -->
+    <script src="./JS/civilization-evolution/map.js"></script><!-- 引入文明演化模拟器地图模块脚本 -->
+    <script src="./JS/civilization-evolution/simulator.js"></script><!-- 引入文明演化模拟器模拟模块脚本 -->
+    <script src="./JS/civilization-evolution/ui.js"></script><!-- 引入文明演化模拟器用户界面模块脚本 -->
+    <script src="./JS/civilization-evolution/main.js"></script><!-- 引入文明演化模拟器主模块脚本 -->
+</head>
     <!-- 页面头部 - 网站标题和导航 -->
     <body>
         <!-- 头部外套开始 -->
@@ -69,9 +88,13 @@
                     自动模拟多个文明的发展历程，展示文明间的交流、冲突与兴衰。
                     不需要任何操作，坐下来欣赏文明的演化故事吧！
                 </p>
+
+                <div class="tabs">
+                    <!-- 标签按钮由JS动态生成 -->
+                </div>
                 
                 <!-- 控制面板 -->
-                <div class="control-panel">
+                <div class="control-section">
                     <div class="speed-control">
                         <label for="speedSelect">演化速度：</label>
                         <select id="speedSelect">
@@ -87,7 +110,7 @@
                 </div>
                 
                 <!-- 事件时间线 -->
-                <div class="timeline-container">
+                <div class="timeline-section">
                     <h3>文明演化时间线</h3>
                     <div class="timeline" id="timeline">
                         <!-- 事件将通过JS动态生成 -->
@@ -95,20 +118,20 @@
                 </div>
                 
                 <!-- 文明统计卡片容器 -->
-                <div class="civilizations-container" id="civilizationsContainer">
+                <div class="civilizations-section" id="civilizationsContainer">
                     <!-- 文明卡片将通过JS动态生成 -->
                 </div>
                 
                 <!-- 地图和关系图区域 -->
                 <div class="main-content-grid">
                     <!-- 地图显示 -->
-                    <div class="map-container">
+                    <div class="map-section">
                         <h3>文明地图</h3>
                         <canvas id="civilizationMap" width="800" height="800"></canvas>
                     </div>
                     
                     <!-- 文明关系图 -->
-                    <div class="relations-container">
+                    <div class="relations-section">
                         <h3>文明关系</h3>
                         <div class="relations-graph" id="relationsGraph">
                             <!-- 文明关系将通过JS动态生成 -->
@@ -117,7 +140,7 @@
                 </div>
                 
                 <!-- 文明详细信息面板 -->
-                <div class="civilization-details-container">
+                <div class="details-section">
                     <h3>文明详细信息</h3>
                     <div class="civilization-details" id="civilizationDetails">
                         <!-- 文明详细信息将通过JS动态生成 -->

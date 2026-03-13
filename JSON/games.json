@@ -1,0 +1,18 @@
+[
+    {
+        "id": "touken-forge",
+        "icon": "⚔️",
+        "title": "锻刀模拟器",
+        "description": "模拟《刀剑乱舞online》中的锻刀功能，通过不同的资源配比来锻造各种稀有度的刀剑。",
+        "link": "touken-forge.html",
+        "buttonText": "开始游戏"
+    },
+    {
+        "id": "civilization-evolution",
+        "icon": "🌍",
+        "title": "多文明演化模拟器",
+        "description": "自动模拟多个文明的发展历程，展示文明间的交流、冲突与兴衰，不需要任何操作，坐下来欣赏文明的演化故事吧！",
+        "link": "civilization-evolution.html",
+        "buttonText": "开始游戏"
+    }
+]

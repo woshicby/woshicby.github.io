@@ -6,8 +6,7 @@
 }
 
 body {
-    /* 修复语法错误并标准化背景样式 */
-    background-image: url("../../images/body_backgrond.jpg");
+    background-color: var(--bg-color);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -18,6 +17,10 @@ body {
     margin: 0;
     padding: 0;
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.background-loaded {
+    background-image: url("../../images/body_backgrond.jpg");
 }
 
 /* 主题切换按钮样式 - 集成到导航栏 */

@@ -2,28 +2,43 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>博文详情</title>
-    <!-- 通过相对路径引入公共样式 -->
+    <title>博文详情 - BY的个人网站</title>
+    
+    <meta name="description" content="BY的博客文章详情页">
+    <meta name="keywords" content="博客,技术文章">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="博文详情 - BY的个人网站">
+    <meta property="og:description" content="BY的博客文章详情页">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://woshicby.github.io/post-detail.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="博文详情 - BY的个人网站">
+    <meta name="twitter:description" content="BY的博客文章详情页">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+    
     <link rel="stylesheet" href="./CSS/common.css">
-    <!-- 引入博文详情页专用样式 -->
     <link rel="stylesheet" href="./CSS/post-detail.css">
-    <!-- 引入highlight.js用于代码高亮 -->
     <link rel="stylesheet" href="./CSS/github.min.css">
-    <!-- 引入导航功能脚本 -->
-    <script src="./JS/navigation.js"></script>
-    <!-- 引入主题切换脚本 -->
-    <script src="./JS/theme-toggle.js"></script>
-    <!-- 引入Markdown解析库 -->
-    <script src="./JS/markdown/markdown-it.min.js"></script>
-    <script src="./JS/markdown/markdown-it-mark.min.js"></script>
-    <script src="./JS/markdown/markdown-it-sub.min.js"></script>
-    <script src="./JS/markdown/markdown-it-sup.min.js"></script>
-    <script src="./JS/markdown/markdown-it-footnote.min.js"></script>
-    <!-- 引入highlight.js用于代码高亮 -->
-    <script src="./JS/highlight.min.js"></script>
-    <!-- 引入MathJax库用于渲染数学公式 -->
-    <script src="./JS/MathJax-3.2.2es5/tex-mml-chtml.js" async></script>
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    
+    <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
+    <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
+    <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
+    <script src="./JS/markdown/markdown-it.min.js"></script><!-- 引入Markdown解析库 -->
+    <script src="./JS/markdown/markdown-it-mark.min.js"></script><!-- 引入Markdown高亮扩展 -->
+    <script src="./JS/markdown/markdown-it-sub.min.js"></script><!-- 引入Markdown下标扩展 -->
+    <script src="./JS/markdown/markdown-it-sup.min.js"></script><!-- 引入Markdown上标扩展 -->
+    <script src="./JS/markdown/markdown-it-footnote.min.js"></script><!-- 引入Markdown脚注扩展 -->
+    <script src="./JS/highlight.min.js"></script><!-- 引入highlight.js用于代码高亮 -->
+    <script src="./JS/MathJax-3.2.2es5/tex-mml-chtml.js" async></script><!-- 引入MathJax库用于渲染数学公式 -->
     <script>
         MathJax = {
             tex: {
@@ -32,8 +47,7 @@
             }
         };
     </script>
-    <!-- 引入博文详情脚本 -->
-    <script src="./JS/post-detail.js"></script>
+    <script src="./JS/post-detail.js"></script><!-- 引入博文详情脚本 -->
 </head>
 <body class="post-detail-page">
     <!-- 页面头部 - 网站标题和导航 -->
@@ -79,6 +93,9 @@
                     <!-- 博文元信息将通过JavaScript动态加载 -->
                     <div class="post-date" id="post-date">
                         <!-- 博文日期将通过JavaScript动态加载 -->
+                    </div>
+                    <div class="post-reading-time" id="post-reading-time">
+                        <!-- 阅读时间将通过JavaScript动态加载 -->
                     </div>
                     <div class="post-categories" id="post-categories">
                         <!-- 博文分类将通过JavaScript动态加载 -->

@@ -11,7 +11,154 @@
  * @returns {void}
  */
 function initDataManagement() {
-    // 重置本地存储的数据功能
+    // 清空刀剑收藏
+    document.getElementById('clearSwordsBtn')?.addEventListener('click', () => {
+        if(confirm('确定要清空所有刀剑吗？此操作不可恢复！')) {
+            collection = {};
+            localStorage.removeItem('toukenCollection');
+            updateCollectionDisplay();
+            alert('刀剑已清空！');
+        }
+    });
+    
+    // 导出刀剑收藏
+    document.getElementById('exportSwordsBtn')?.addEventListener('click', () => {
+        if (Object.keys(collection).length === 0) {
+            alert('没有可导出的刀剑！');
+            return;
+        }
+        
+        const data = {
+            collection: collection,
+            exportDate: new Date().toISOString()
+        };
+        
+        const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `touken-swords_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+        
+        URL.revokeObjectURL(url);
+    });
+    
+    // 导入刀剑收藏
+    document.getElementById('importSwordsBtn')?.addEventListener('click', () => {
+        document.getElementById('importSwordsFile')?.click();
+    });
+    
+    document.getElementById('importSwordsFile')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const data = JSON.parse(event.target.result);
+                if (!data.collection) {
+                    alert('无效的刀剑文件格式！');
+                    return;
+                }
+                
+                if(!confirm('确定要导入刀剑吗？当前刀剑将被覆盖！')) return;
+                
+                collection = data.collection;
+                localStorage.setItem('toukenCollection', JSON.stringify(collection));
+                updateCollectionDisplay();
+                alert('刀剑导入成功！');
+            } catch (error) {
+                alert('刀剑导入失败！请确保上传的是有效的JSON文件。');
+                console.error('导入错误:', error);
+            }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+    });
+    
+    // 清空日志
+    document.getElementById('clearLogBtn')?.addEventListener('click', () => {
+        if(confirm('确定要清空所有日志吗？此操作不可恢复！')) {
+            const logArea = document.getElementById('logArea');
+            if (logArea) {
+                logArea.innerHTML = '';
+            }
+            localStorage.removeItem('toukenLog');
+            alert('日志已清空！');
+        }
+    });
+    
+    // 导出日志
+    document.getElementById('exportLogBtn')?.addEventListener('click', () => {
+        const logArea = document.getElementById('logArea');
+        if (!logArea || logArea.children.length === 0) {
+            alert('没有可导出的日志！');
+            return;
+        }
+        
+        const logs = [];
+        logArea.querySelectorAll('.log-entry').forEach(entry => {
+            logs.push(entry.textContent);
+        });
+        
+        const data = {
+            logs: logs,
+            exportDate: new Date().toISOString()
+        };
+        
+        const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `touken-log_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+        
+        URL.revokeObjectURL(url);
+    });
+    
+    // 导入日志
+    document.getElementById('importLogBtn')?.addEventListener('click', () => {
+        document.getElementById('importLogFile')?.click();
+    });
+    
+    document.getElementById('importLogFile')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const data = JSON.parse(event.target.result);
+                if (!data.logs || !Array.isArray(data.logs)) {
+                    alert('无效的日志文件格式！');
+                    return;
+                }
+                
+                if(!confirm('确定要导入日志吗？当前日志将被覆盖！')) return;
+                
+                const logArea = document.getElementById('logArea');
+                if (logArea) {
+                    logArea.innerHTML = '';
+                    data.logs.forEach(logText => {
+                        const logEntry = document.createElement('div');
+                        logEntry.className = 'log-entry';
+                        logEntry.textContent = logText;
+                        logArea.appendChild(logEntry);
+                    });
+                }
+                alert('日志导入成功！');
+            } catch (error) {
+                alert('日志导入失败！请确保上传的是有效的JSON文件。');
+                console.error('导入错误:', error);
+            }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+    });
+    
+    // 重置所有本地存储的数据功能
     document.getElementById('resetBtn')?.addEventListener('click', () => {
         if(confirm('确定要重置所有本地数据吗？此操作不可恢复！')) {
             // 只清除锻刀模拟器相关的数据（以touken开头的键）
@@ -33,6 +180,16 @@ function initDataManagement() {
             if (key.startsWith('touken')) {
                 data[key] = localStorage.getItem(key);
             }
+        }
+        
+        // 添加日志数据
+        const logArea = document.getElementById('logArea');
+        if (logArea) {
+            const logs = [];
+            logArea.querySelectorAll('.log-entry').forEach(entry => {
+                logs.push(entry.textContent);
+            });
+            data['toukenLog'] = JSON.stringify(logs);
         }
         
         // 创建JSON blob并生成下载URL
@@ -67,7 +224,7 @@ function initDataManagement() {
                 // 解析JSON数据
                 const data = JSON.parse(event.target.result);
                 // 确认是否覆盖现有数据
-                if(!confirm('确定要导入数据吗？当前数据将被覆盖！')) return;
+                if(!confirm('确定要导入所有数据吗？当前数据将被覆盖！')) return;
                 
                 // 只导入锻刀模拟器相关的数据（以touken开头的键）
                 for (const key in data) {
@@ -75,6 +232,22 @@ function initDataManagement() {
                         localStorage.setItem(key, data[key]);
                     }
                 }
+                
+                // 导入日志数据
+                if (data['toukenLog']) {
+                    const logs = JSON.parse(data['toukenLog']);
+                    const logArea = document.getElementById('logArea');
+                    if (logArea && Array.isArray(logs)) {
+                        logArea.innerHTML = '';
+                        logs.forEach(logText => {
+                            const logEntry = document.createElement('div');
+                            logEntry.className = 'log-entry';
+                            logEntry.textContent = logText;
+                            logArea.appendChild(logEntry);
+                        });
+                    }
+                }
+                
                 // 显示成功提示
                 alert('数据导入成功！');
                 // 导入完成后重新加载页面以应用新数据

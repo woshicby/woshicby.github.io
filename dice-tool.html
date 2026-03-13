@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>骰子工具 - BY的个人网站</title>
+
+    <meta name="description" content="多功能骰子投掷工具，支持常用骰子、自定义投掷、混合骰子和特殊规则，适合桌游和角色扮演游戏。">
+    <meta name="keywords" content="骰子,桌游工具,随机选择,D20,D6,骰子投掷,角色扮演,RPG工具,混合骰子,投掷规则">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="骰子工具 - BY的个人网站">
+    <meta property="og:description" content="多功能骰子投掷工具，支持常用骰子、自定义投掷、混合骰子和特殊规则，适合桌游和角色扮演游戏。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/dice-tool.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="骰子工具 - BY的个人网站">
+    <meta name="twitter:description" content="多功能骰子投掷工具，支持常用骰子、自定义投掷、混合骰子和特殊规则，适合桌游和角色扮演游戏。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/tools-common.css">
+    <link rel="stylesheet" href="./CSS/dice-tool.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/dice-tool.html">
+
+    <script src="./JS/navigation.js"></script>
+    <script src="./JS/theme-toggle.js"></script>
+    <script src="./JS/background-lazy-load.js"></script>
+    <script src="./JS/tool-tabs.js"></script><!-- 引入工具标签动态加载脚本 -->
+</head>
+
+<body>
+    <div class="header clearfix wrapper">
+        <h1>骰子工具</h1>
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./video.html">视频展示</a></li>
+                <li><a href="./posts.html">博客文章</a></li>
+                <li><a href="./study.html">个人成果</a></li>
+                <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
+                <li><a href="./sports.html">体育运动</a></li>
+                <li>
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="mainbox clearfix wrapper">
+        <div class="back-to-tools">
+            <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
+        </div>
+
+        <div class="tool-container">
+            <h2 class="tool-page-title">骰子工具</h2>
+            <p class="tool-description">
+                多功能骰子投掷工具，支持常用骰子、自定义投掷、混合骰子和特殊规则，适合桌游和角色扮演游戏。
+            </p>
+
+            <div class="tabs">
+                <!-- 标签按钮由JS动态生成 -->
+            </div>
+
+            <div class="settings-section">
+                <label class="animation-select-label">动画效果：</label>
+                <select id="animationType" class="animation-select" onchange="changeAnimationType()">
+                    <option value="none">无动画</option>
+                    <option value="scroll" selected>滚动效果</option>
+                    <option value="bounce">弹跳效果</option>
+                    <option value="rotate">旋转效果</option>
+                    <option value="fade">淡入淡出</option>
+                    <option value="scale">缩放效果</option>
+                    <option value="shake">抖动效果</option>
+                </select>
+            </div>
+
+            <div class="dice-section">
+                <h3>常用骰子</h3>
+                <div class="dice-grid">
+                    <button class="dice-btn" onclick="rollDice(4)">D4<br><span>四面骰</span></button>
+                    <button class="dice-btn" onclick="rollDice(6)">D6<br><span>六面骰</span></button>
+                    <button class="dice-btn" onclick="rollDice(8)">D8<br><span>八面骰</span></button>
+                    <button class="dice-btn" onclick="rollDice(10)">D10<br><span>十面骰</span></button>
+                    <button class="dice-btn" onclick="rollDice(12)">D12<br><span>十二面骰</span></button>
+                    <button class="dice-btn" onclick="rollDice(20)">D20<br><span>二十面骰</span></button>
+                    <button class="dice-btn" onclick="rollDice(100)">D100<br><span>百面骰</span></button>
+                </div>
+            </div>
+
+            <div class="custom-dice-section">
+                <h3>自定义投掷</h3>
+                <div class="custom-input">
+                    <input type="number" id="dice-count" min="1" value="1" placeholder="数量">
+                    <span>×</span>
+                    <select id="dice-type">
+                        <option value="4">D4</option>
+                        <option value="6" selected>D6</option>
+                        <option value="8">D8</option>
+                        <option value="10">D10</option>
+                        <option value="12">D12</option>
+                        <option value="20">D20</option>
+                        <option value="100">D100</option>
+                    </select>
+                    <select id="dice-rule" onchange="toggleCustomRuleAmount()">
+                        <option value="sum" selected>直接求和</option>
+                        <option value="keep-highest">取最大X个</option>
+                        <option value="keep-lowest">取最小X个</option>
+                        <option value="drop-highest">去除最大X个</option>
+                        <option value="drop-lowest">去除最小X个</option>
+                    </select>
+                    <input type="number" id="dice-rule-amount" min="0" step="1" value="1" style="display: none;"
+                        placeholder="X值">
+                    <button class="action-btn" onclick="rollCustomDice()">🎲 投掷</button>
+                </div>
+            </div>
+
+            <div class="mixed-dice-section">
+                <h3>混合骰子投掷</h3>
+                <div class="mixed-dice-input">
+                    <div id="mixed-dice-list" class="mixed-dice-list">
+                        <div class="dice-card">
+                            <div class="dice-card-header">
+                                <span class="dice-card-label">骰子 #1</span>
+                                <button class="dice-card-remove" onclick="removeMixedDice(this)">✕</button>
+                            </div>
+                            <div class="dice-card-body">
+                                <div class="dice-card-row">
+                                    <label>数量:</label>
+                                    <input type="number" class="dice-count-input" min="1" value="1">
+                                </div>
+                                <div class="dice-card-row">
+                                    <label>类型:</label>
+                                    <select class="dice-type-select">
+                                        <option value="4">D4</option>
+                                        <option value="6" selected>D6</option>
+                                        <option value="8">D8</option>
+                                        <option value="10">D10</option>
+                                        <option value="12">D12</option>
+                                        <option value="20">D20</option>
+                                        <option value="100">D100</option>
+                                    </select>
+                                </div>
+                                <div class="dice-card-row">
+                                    <label>规则:</label>
+                                    <select class="dice-rule-select" onchange="toggleRuleAmount(this)">
+                                        <option value="sum" selected>直接求和</option>
+                                        <option value="keep-highest">取最大X个</option>
+                                        <option value="keep-lowest">取最小X个</option>
+                                        <option value="drop-highest">去除最大X个</option>
+                                        <option value="drop-lowest">去除最小X个</option>
+                                    </select>
+                                </div>
+                                <div class="dice-card-row dice-rule-amount-row" style="display: none;">
+                                    <label>X值:</label>
+                                    <input type="number" class="dice-rule-amount" min="0" step="1" value="1">
+                                </div>
+                                <div class="dice-card-result">
+                                    <div class="dice-result-label">结果:</div>
+                                    <div class="dice-result-value">-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mixed-dice-controls">
+                        <div class="total-rule-section">
+                            <label>总规则:</label>
+                            <select id="total-rule-select" onchange="toggleTotalRuleAmount()">
+                                <option value="sum" selected>直接求和</option>
+                                <option value="keep-highest">取最大X个</option>
+                                <option value="keep-lowest">取最小X个</option>
+                                <option value="drop-highest">去除最大X个</option>
+                                <option value="drop-lowest">去除最小X个</option>
+                            </select>
+                            <input type="number" id="total-rule-amount" min="0" step="1" value="1"
+                                style="display: none;" placeholder="X值">
+                        </div>
+                        <div class="mixed-dice-buttons">
+                            <button class="action-btn secondary" onclick="addMixedDice()">➕ 添加骰子</button>
+                            <button class="action-btn" onclick="rollMixedDice()">🎲 投掷混合骰子</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="presets-section">
+                <h3>常用组合</h3>
+                <div class="presets-grid" id="presets-grid">
+                    <button class="preset-btn" onclick="loadPreset('dnd-attack')">
+                        <div class="preset-name">D&D 攻击</div>
+                        <div class="preset-desc">1D20 + 1D6</div>
+                    </button>
+                    <button class="preset-btn" onclick="loadPreset('dnd-damage')">
+                        <div class="preset-name">D&D 伤害</div>
+                        <div class="preset-desc">2D6 + 1D4</div>
+                    </button>
+                    <button class="preset-btn" onclick="loadPreset('ability-scores')">
+                        <div class="preset-name">属性检定</div>
+                        <div class="preset-desc">4D6 取最小</div>
+                    </button>
+                    <button class="preset-btn" onclick="loadPreset('advantage')">
+                        <div class="preset-name">优势</div>
+                        <div class="preset-desc">2D20 取最大</div>
+                    </button>
+                    <button class="preset-btn" onclick="loadPreset('disadvantage')">
+                        <div class="preset-name">劣势</div>
+                        <div class="preset-desc">2D20 取最小</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="custom-presets-section">
+                <div class="custom-presets-controls">
+                    <input type="text" id="preset-name-input" placeholder="投掷事项" maxlength="20">
+                    <button class="action-btn secondary" onclick="saveCurrentPreset()">💾 保存当前组合</button>
+                </div>
+                <h3>自定义组合</h3>
+                <div id="custom-presets-list" class="custom-presets-list"></div>
+                <div class="data-management">
+                    <button class="action-btn secondary" onclick="clearCustomPresets()">🗑️ 清空组合</button>
+                    <button class="action-btn secondary" onclick="exportPresets()">📤 导出组合</button>
+                    <button class="action-btn secondary" onclick="importPresets()">📥 导入组合</button>
+                    <input type="file" id="importPresetsFile" accept=".json" style="display: none;">
+                </div>
+            </div>
+
+            <h3 class="section-title">投掷结果</h3>
+            <div class="dice-result-section">
+                <div id="dice-result" class="dice-result-box">
+                    <div class="placeholder-text">点击骰子或自定义投掷</div>
+                </div>
+            </div>
+
+            <div class="dice-history-section">
+                <h3>投掷历史</h3>
+                <div id="dice-history" class="history-list">
+                    <div class="empty-history">暂无历史记录</div>
+                </div>
+                <div class="data-management">
+                    <button class="action-btn secondary" onclick="clearDiceHistory()">🗑️ 清空历史</button>
+                    <button class="action-btn secondary" onclick="exportDiceHistory()">📤 导出历史</button>
+                    <button class="action-btn secondary" onclick="importDiceHistory()">📥 导入历史</button>
+                    <input type="file" id="importDiceHistoryFile" accept=".json" style="display: none;">
+                </div>
+            </div>
+
+            <!-- 整体数据管理 -->
+            <div class="data-controls">
+                <button class="action-btn secondary" onclick="resetAllData()">🔄 重置所有数据</button>
+                <button class="action-btn secondary" onclick="exportAllData()">📤 导出所有数据</button>
+                <button class="action-btn secondary" onclick="importAllData()">📥 导入所有数据</button>
+                <input type="file" id="importAllFile" accept=".json" style="display: none;">
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="foot wrapper">
+        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+    </div>
+
+    <script src="./JS/dice-tool.js"></script>
+</body>
+
+</html>

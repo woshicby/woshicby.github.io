@@ -166,13 +166,12 @@ class PostDetailManager {
     }
 
     renderPostDetail(post) {
-        // 设置页面标题
         document.title = `${post.title} - BY的博客文章`;
         
-        // 渲染博文标题
+        this.updateSEO(post);
+        
         document.getElementById('post-title').textContent = post.title;
         
-        // 渲染博文日期
         const dateElement = document.getElementById('post-date');
         let dateHTML = `<span class="post-date-item"><strong>发布日期：</strong>${this.formatDate(post.date)}</span>`;
         if (post.update_date) {
@@ -180,7 +179,10 @@ class PostDetailManager {
         }
         dateElement.innerHTML = dateHTML;
         
-        // 渲染分类
+        const readingTimeElement = document.getElementById('post-reading-time');
+        const readingTime = this.calculateReadingTime(post.content || '');
+        readingTimeElement.innerHTML = `<span class="reading-time-item"><strong>预计阅读：</strong>${readingTime} 分钟</span>`;
+        
         const categoriesElement = document.getElementById('post-categories');
         if (post.categories && post.categories.length > 0) {
             categoriesElement.innerHTML = `
@@ -262,6 +264,8 @@ class PostDetailManager {
         
         contentElement.innerHTML = postContent;
         
+        this.setupLazyLoading(contentElement);
+        
         // 给代码块添加行号
         this.addLineNumbersToCodeBlocks(contentElement);
         
@@ -309,6 +313,112 @@ class PostDetailManager {
             month: 'long',
             day: 'numeric'
         });
+    }
+
+    updateSEO(post) {
+        const description = post.excerpt || `${post.title} - BY的博客文章`;
+        const keywords = post.tags && post.tags.length > 0 
+            ? post.tags.join(',') 
+            : '博客,技术文章';
+        const url = `https://woshicby.github.io/post-detail.html?id=${post.id}`;
+        
+        document.querySelector('meta[name="description"]').setAttribute('content', description);
+        document.querySelector('meta[name="keywords"]').setAttribute('content', keywords);
+        
+        document.querySelector('meta[property="og:title"]').setAttribute('content', post.title);
+        document.querySelector('meta[property="og:description"]').setAttribute('content', description);
+        document.querySelector('meta[property="og:url"]').setAttribute('content', url);
+        
+        document.querySelector('meta[name="twitter:title"]').setAttribute('content', post.title);
+        document.querySelector('meta[name="twitter:description"]').setAttribute('content', description);
+        
+        const existingLD = document.querySelector('script[type="application/ld+json"]');
+        if (existingLD) {
+            existingLD.remove();
+        }
+        
+        const ldJson = document.createElement('script');
+        ldJson.type = 'application/ld+json';
+        ldJson.textContent = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": post.title,
+            "datePublished": post.date,
+            "dateModified": post.update_date || post.date,
+            "author": {
+                "@type": "Person",
+                "name": "woshicby"
+            },
+            "description": description,
+            "keywords": keywords,
+            "url": url
+        });
+        document.head.appendChild(ldJson);
+        
+        const canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) {
+            canonical.setAttribute('href', url);
+        } else {
+            const link = document.createElement('link');
+            link.rel = 'canonical';
+            link.href = url;
+            document.head.appendChild(link);
+        }
+    }
+
+    calculateReadingTime(content) {
+        const plainText = content
+            .replace(/<[^>]*>/g, '')
+            .replace(/[#*`_~\[\]()]/g, '')
+            .replace(/!\[.*?\]\(.*?\)/g, '')
+            .replace(/\[.*?\]\(.*?\)/g, '')
+            .trim();
+        
+        const chineseChars = plainText.match(/[\u4e00-\u9fa5]/g) || [];
+        const englishWords = plainText.match(/[a-zA-Z]+/g) || [];
+        const totalWords = chineseChars.length + englishWords.length;
+        
+        const readingTime = Math.ceil(totalWords / 250);
+        
+        return readingTime < 1 ? 1 : readingTime;
+    }
+
+    setupLazyLoading(container) {
+        const images = container.querySelectorAll('img');
+        
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                        }
+                        observer.unobserve(img);
+                    }
+                });
+            }, {
+                rootMargin: '50px 0px',
+                threshold: 0.01
+            });
+
+            images.forEach(img => {
+                if (img.src && !img.dataset.src) {
+                    img.dataset.src = img.src;
+                    img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f0f0f0" width="400" height="300"/%3E%3Ctext fill="%23999" font-family="sans-serif" font-size="20" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3E加载中...%3C/text%3E%3C/svg%3E';
+                    img.classList.add('lazy-image');
+                    img.onload = () => img.classList.add('loaded');
+                    imageObserver.observe(img);
+                }
+            });
+        } else {
+            images.forEach(img => {
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                }
+            });
+        }
     }
 
     // 给代码块添加行号

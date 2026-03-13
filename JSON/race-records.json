@@ -425,23 +425,6 @@
     },
     {
         "id": 29,
-        "name": "2026珠山越野精英赛",
-        "date": "2026-03-22",
-        "location": "山东省青岛市黄岛区大珠山风景区",
-        "event": "ZSTJ30（珠山探境30km）",
-        "result": "",
-        "distance": "30公里",
-        "pace": "",
-        "stravaLink": "",
-        "season": "2026春季",
-        "certification": ["ITRA 1分"],
-        "category": "越野跑",
-        "eventSeries": "珠山越野精英赛",
-        "raceScore": "",
-        "itraPerformanceScore": ""
-    },
-    {
-        "id": 30,
         "name": "2026荣成马拉松",
         "date": "2026-04-19",
         "location": "山东省威海市荣成市体育中心",
@@ -456,7 +439,7 @@
         "eventSeries": "荣成马拉松"
     },
     {
-        "id": 31,
+        "id": 30,
         "name": "2026威海100",
         "date": "2026-05-16",
         "location": "山东省威海市半月湾",
@@ -469,6 +452,23 @@
         "certification": ["ITRA 2分"],
         "category": "越野跑",
         "eventSeries": "威海100",
+        "raceScore": "",
+        "itraPerformanceScore": ""
+    },
+    {
+        "id": 31,
+        "name": "2026珠山越野精英赛",
+        "date": "2026-05-31",
+        "location": "山东省青岛市黄岛区大珠山风景区",
+        "event": "ZSTJ30（珠山探境30km）",
+        "result": "",
+        "distance": "30公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2026春季",
+        "certification": ["ITRA 1分"],
+        "category": "越野跑",
+        "eventSeries": "珠山越野精英赛",
         "raceScore": "",
         "itraPerformanceScore": ""
     },

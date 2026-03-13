@@ -1,5 +1,14 @@
 /* 博文详情页专用样式 */
 
+.lazy-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+.lazy-image.loaded {
+    opacity: 1;
+}
+
 /* 博文头部区域样式 */
 .post-header {
     border-radius: var(--border-radius-md);
@@ -66,8 +75,19 @@
 }
 
 .post-date-item,
-.post-update-date-item {
+.post-update-date-item,
+.reading-time-item {
     white-space: nowrap;
+} 
+
+.post-reading-time {
+    white-space: nowrap;
+}
+
+.reading-time-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
 } 
 
 /* 分类和标签的badge样式 */

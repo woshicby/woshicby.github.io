@@ -1,0 +1,42 @@
+[
+    {
+        "id": "pace-calculator",
+        "icon": "⚡",
+        "title": "配速计算器",
+        "description": "计算跑步、骑行等运动的配速，支持距离、时间和配速的相互转换，帮助您更好地规划训练。",
+        "link": "pace-calculator.html",
+        "buttonText": "使用工具"
+    },
+    {
+        "id": "style-comparison",
+        "icon": "🎨",
+        "title": "样式对比页面",
+        "description": "在这个页面中展示网站中各个页面出现的各种不同样式，帮助理解不同样式的实际效果，方便进行选择。",
+        "link": "style-comparison.html",
+        "buttonText": "查看对比"
+    },
+    {
+        "id": "seo-checker",
+        "icon": "🔍",
+        "title": "SEO元数据检查工具",
+        "description": "自动检查网站所有页面的SEO元数据，包括Meta标签、Open Graph、Twitter Card等，帮助优化搜索引擎排名。",
+        "link": "seo-checker.html",
+        "buttonText": "开始检查"
+    },
+    {
+        "id": "random-decision",
+        "icon": "🎯",
+        "title": "随机决策器",
+        "description": "帮助解决选择困难症，支持多种快速模板，随机选择最佳方案。",
+        "link": "random-decision.html",
+        "buttonText": "开始使用"
+    },
+    {
+        "id": "dice-tool",
+        "icon": "🎲",
+        "title": "骰子工具",
+        "description": "多功能骰子投掷工具，支持多种骰子类型（D4/D6/D8/D10/D12/D20/D100），适合桌游和日常决策。",
+        "link": "dice-tool.html",
+        "buttonText": "开始使用"
+    }
+]

@@ -1,21 +1,39 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <!-- ==========================================
-         小工具&小游戏页面 - 集中展示各种小工具和游戏
-         ========================================== -->
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>小工具&小游戏</title>
-        <link rel="stylesheet" href="./CSS/common.css">
-        <link rel="stylesheet" href="./CSS/tools.css">
-        <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-        <!-- 引入导航功能脚本 -->
-        <script src="./JS/navigation.js"></script>
-        <!-- 引入主题切换脚本 -->
-        <script src="./JS/theme-toggle.js"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小工具&小游戏 - BY的个人网站</title>
+    
+    <meta name="description" content="BY开发的实用小工具和趣味小游戏，包含配速计算器、文明演化模拟器、锻刀模拟器等。">
+    <meta name="keywords" content="小工具,小游戏,配速计算器,文明演化,锻刀模拟器,在线工具">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="小工具&小游戏 - BY的个人网站">
+    <meta property="og:description" content="BY开发的实用小工具和趣味小游戏，包含配速计算器、文明演化模拟器、锻刀模拟器等。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/tools.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="小工具&小游戏 - BY的个人网站">
+    <meta name="twitter:description" content="BY开发的实用小工具和趣味小游戏，包含配速计算器、文明演化模拟器、锻刀模拟器等。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+    
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/tools.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/tools.html">
+    
+    <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
+    <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
+    <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
+    <script src="./JS/tools.js"></script><!-- 引入工具页面动态加载脚本 -->
+</head>
     <!-- ==========================================
          页面头部 - 网站标题和导航
          ==========================================
@@ -64,30 +82,7 @@
             <section>
                 <h2>小工具</h2>
                 <div class="tools-grid">
-                    <!-- 配速计算器工具卡片 -->
-                    <div class="tool-card">
-                        <!-- 图片替代方案（当前未使用，如需使用可取消下面图片标签的注释，并注释掉图标） -->
-                        <!-- <img src="图片路径" alt="配速计算器" class="tool-card-image"> -->
-                        <!-- 图标方案（当前使用） -->
-                        <div class="tool-card-icon">⚡</div>
-                        <div class="tool-card-content">
-                            <h3>配速计算器</h3>
-                            <p>计算跑步、骑行等运动的配速，支持距离、时间和配速的相互转换，帮助您更好地规划训练。</p>
-                            <a href="pace-calculator.html" class="tool-card-button">使用工具</a>
-                        </div>
-                    </div>
-                    
-                    <!-- 样式对比工具卡片 -->
-                    <div class="tool-card">
-                        <div class="tool-card-icon">🎨</div>
-                        <div class="tool-card-content">
-                            <h3>样式对比页面</h3>
-                            <p>在这个页面中展示网站中各个页面出现的各种不同样式，帮助理解不同样式的实际效果，方便进行选择。</p>
-                            <a href="style-comparison.html" class="tool-card-button">查看对比</a>
-                        </div>
-                    </div>
-                    
-                    <!-- 这里可以添加其他小工具 -->
+                    <!-- 工具卡片由JS动态生成 -->
                 </div>
             </section>
             
@@ -95,29 +90,7 @@
             <section>
                 <h2>小游戏</h2>
                 <div class="games-grid">
-                    <!-- 锻刀模拟器游戏卡片 -->
-                    <div class="game-card">
-                        <!-- 图标替代方案（当前使用，如需使用图片可取消下面图片标签的注释） -->
-                        <div class="tool-card-icon">⚔️</div>
-                        <!-- <img src="./images/touken/default_sword.jpg" alt="刀剑乱舞锻刀模拟器" class="game-card-image"> -->
-                        <div class="game-card-content">
-                            <h3>锻刀模拟器</h3>
-                            <p>模拟《刀剑乱舞online》中的锻刀功能，通过不同的资源配比来锻造各种稀有度的刀剑。</p>
-                            <a href="touken-forge.html" class="game-card-button">开始游戏</a>
-                        </div>
-                    </div>
-                    
-                    <!-- 多文明演化模拟器游戏卡片 -->
-                    <div class="game-card">
-                        <div class="tool-card-icon">🌍</div>
-                        <div class="game-card-content">
-                            <h3>多文明演化模拟器</h3>
-                            <p>自动模拟多个文明的发展历程，展示文明间的交流、冲突与兴衰，不需要任何操作，坐下来欣赏文明的演化故事吧！</p>
-                            <a href="civilization-evolution.html" class="game-card-button">开始游戏</a>
-                        </div>
-                    </div>
-                    
-                    <!-- 这里可以添加其他小游戏 -->
+                    <!-- 游戏卡片由JS动态生成 -->
                 </div>
             </section>
         </div>

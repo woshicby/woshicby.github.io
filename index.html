@@ -1,24 +1,57 @@
 <!DOCTYPE html>
-<html lang="zh-CN"> <!-- 将语言设置为中文 -->
-<!-- ==========================================
-         页面头部 - 元数据和样式引入
-         ==========================================
-         包含页面编码、视口设置、标题和CSS样式表引入
-         ========================================== -->
-
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页</title> <!-- 修改标题 -->
+    <title>BY的个人网站 - 技术学习与创作分享</title>
+    
+    <meta name="description" content="BY的个人网站，分享技术学习、兴趣爱好和创作作品。包含博客文章、视频展示、个人成果、小工具和体育运动记录。">
+    <meta name="keywords" content="个人博客,技术分享,编程,马拉松,攀岩,摄影,音乐,前端开发,Python">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="BY的个人网站 - 技术学习与创作分享">
+    <meta property="og:description" content="分享技术学习、兴趣爱好和创作作品。包含博客文章、视频展示、个人成果、小工具和体育运动记录。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BY的个人网站 - 技术学习与创作分享">
+    <meta name="twitter:description" content="分享技术学习、兴趣爱好和创作作品。包含博客文章、视频展示、个人成果、小工具和体育运动记录。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "BY的个人网站",
+        "url": "https://woshicby.github.io/",
+        "description": "分享技术学习、兴趣爱好和创作作品",
+        "author": {
+            "@type": "Person",
+            "name": "woshicby",
+            "url": "https://woshicby.github.io/"
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://woshicby.github.io/posts.html?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
     <link rel="stylesheet" href="./CSS/common.css">
     <link rel="stylesheet" href="./CSS/index.css">
-    <!-- 添加 favicon -->
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-    <!-- 引入导航功能脚本 -->
-    <script src="./JS/navigation.js"></script>
-    <!-- 引入主题切换脚本 -->
-    <script src="./JS/theme-toggle.js"></script>
+    <link rel="canonical" href="https://woshicby.github.io/">
+    
+    <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
+    <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
+    <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
 </head>
 
 <body>
