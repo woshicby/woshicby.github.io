@@ -187,6 +187,7 @@ woshicby.github.io/
 - 2026.03.13: 新增SEO元数据检查工具(seo-checker.html)，自动扫描网站页面SEO元数据完整性；新增随机决策器(random-decision.html)，支持多种动画效果和快速模板；新增骰子工具(dice-tool.html)，支持多种骰子组合、特殊规则和自定义预设
 - 2026.03.14: 统一所有工具页面的section类名命名规范（改为-section结尾）；合并配速计算器的分模块CSS文件；统一配速计算器表格样式为博客文章表格样式；修复相关JS选择器错误
 - 2026.03.14: 为所有工具页面添加动态tabs导航模块，从JSON文件读取数据；统一tabs样式到tools-common.css；删除tools-common文件夹中的分模块CSS文件；修复锻刀模拟器锻造结果模块初始显示问题；优化SEO元数据检查工具，自动显示结果并移除results-section包裹层；修复SEO元数据显示不完整的问题
+- 2026.03.14: 完善sitemap.xml，添加所有工具和游戏页面，添加lastmod时间戳；优化robots.txt，禁止索引JSON、文档和音频文件夹
 
 ## 使用方法
 
@@ -381,6 +382,7 @@ woshicby.github.io/
 - 2026.03.13: Added SEO metadata checker tool (seo-checker.html), automatically scans website pages for SEO metadata completeness; added random decision maker (random-decision.html), supports multiple animation effects and quick templates; added dice tool (dice-tool.html), supports multiple dice combinations, special rules and custom presets
 - 2026.03.14: Unified section class naming convention across all tool pages (changed to -section suffix); merged pace calculator modular CSS files; unified pace calculator table styles to match blog article table styles; fixed related JS selector errors
 - 2026.03.14: Added dynamic tabs navigation module to all tool pages, reading data from JSON files; unified tabs styles in tools-common.css; deleted modular CSS files in tools-common folder; fixed sword forging simulator result section initial display issue; optimized SEO metadata checker to auto-display results and removed results-section wrapper; fixed incomplete SEO metadata display issue
+- 2026.03.14: Enhanced sitemap.xml with all tools and games pages, added lastmod timestamps; optimized robots.txt to disallow indexing of JSON, documents, and audios folders
 
 ## Usage
 
@@ -575,6 +577,7 @@ woshicby.github.io/
 - 2026.03.13: SEOメタデータチェッカーツール(seo-checker.html)を追加、ウェブサイトページのSEOメタデータ完全性を自動スキャン；ランダム決定メーカー(random-decision.html)を追加、複数のアニメーション効果とクイックテンプレートをサポート；ダイスツール(dice-tool.html)を追加、複数のダイス組み合わせ、特別ルール、カスタムプリセットをサポート
 - 2026.03.14: すべてのツールページのセクションクラス命名規則を統一（-sectionサフィックスに変更）；ペース計算機のモジュラーCSSファイルを統合；ペース計算機のテーブルスタイルをブログ記事のテーブルスタイルに統一；関連するJSセレクターエラーを修正
 - 2026.03.14: すべてのツールページに動的タブナビゲーションモジュールを追加、JSONファイルからデータを読み込み；タブスタイルをtools-common.cssに統一；tools-commonフォルダーのモジュラーCSSファイルを削除；刀鍛造シミュレーターの結果セクションの初期表示問題を修正；SEOメタデータチェッカーを最適化、結果を自動表示しresults-sectionラッパーを削除；SEOメタデータの不完全な表示問題を修正
+- 2026.03.14: sitemap.xmlを強化、すべてのツールとゲームページを追加、lastmodタイムスタンプを追加；robots.txtを最適化、JSON、ドキュメント、オーディオフォルダのインデックスを禁止
 
 ## 使用方法
 
