@@ -77,16 +77,6 @@
     flex-wrap: wrap;
 }
 
-.custom-input input,
-.custom-input select {
-    padding: 10px;
-    border: 2px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
-    font-size: 16px;
-    background: var(--card-bg-color);
-    color: var(--text-color);
-}
-
 .custom-input input {
     width: 80px;
 }
@@ -209,28 +199,23 @@
 }
 
 .dice-card-result {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 2px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 10px;
 }
 
 .dice-result-label {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-muted);
-    font-weight: 500;
-    margin-bottom: 8px;
 }
 
 .dice-result-value {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-align: center;
-    padding: 10px;
-    background: var(--bg-color);
-    border-radius: var(--border-radius-sm);
-    min-height: 24px;
-    word-wrap: break-word;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
 }
 
 .dice-result-value small {
@@ -317,6 +302,7 @@
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 5px;
+    color: var(--text-color);
 }
 
 .preset-desc {
@@ -326,6 +312,16 @@
 
 .preset-btn:hover .preset-desc {
     color: rgba(255, 255, 255, 0.8);
+}
+
+/* 夜间模式样式 */
+body.dark-theme .preset-name {
+    color: var(--text-color);
+}
+
+body.dark-theme .preset-desc,
+body.dark-theme .placeholder-text {
+    color: var(--text-muted);
 }
 
 .custom-presets-controls {
@@ -432,14 +428,8 @@
 .custom-preset-total-rule {
     margin-top: 8px;
     font-size: 13px;
-    color: var(--primary-color);
+    color: var(--text-muted);
     font-weight: 500;
-}
-
-.section-title {
-    color: var(--heading-color);
-    margin-bottom: 15px;
-    font-size: 18px;
 }
 
 .dice-result-section {
@@ -590,6 +580,7 @@
 
 .animation-scroll {
     animation: scrollText 0.15s ease-out;
+    color: var(--text-color);
 }
 
 @keyframes scrollText {

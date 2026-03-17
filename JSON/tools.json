@@ -24,6 +24,14 @@
         "buttonText": "开始检查"
     },
     {
+        "id": "convert-md-to-json",
+        "icon": "📝",
+        "title": "Markdown转JSON工具",
+        "description": "将Markdown格式的博文转换为JSON格式，支持YAML frontmatter解析，方便博客文章管理。",
+        "link": "convert-md-to-json.html",
+        "buttonText": "开始转换"
+    },
+    {
         "id": "random-decision",
         "icon": "🎯",
         "title": "随机决策器",

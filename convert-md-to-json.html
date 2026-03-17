@@ -33,6 +33,7 @@
     <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
     <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
     <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
+    <script src="./JS/tool-tabs.js"></script><!-- 引入工具标签动态加载脚本 -->
     <script src="./JS/convert-md-to-json.js"></script><!-- 引入Markdown转换脚本 -->
 </head>
 <body>
@@ -46,9 +47,9 @@
             <ul class="clearfix">
                 <li><a href="./index.html">首页</a></li>
                 <li><a href="./video.html">视频展示</a></li>
-                <li><a href="./posts.html" class="active">博客文章</a></li>
+                <li><a href="./posts.html">博客文章</a></li>
                 <li><a href="./study.html">个人成果</a></li>
-                <li><a href="./tools.html">小工具&小游戏</a></li>
+                <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
                 <li><a href="./sports.html">体育运动</a></li>
                 <li>
                     <label class="theme-toggle">
@@ -70,16 +71,24 @@
     </button>
     
     <!-- 主要内容区域 -->
-    <div class="mainbox wrapper">
-        <div class="convert-container">
-            <div class="back-link">
-                <a href="./posts.html">返回博文列表</a>
-            </div>
+    <div class="mainbox clearfix wrapper">
+        <div class="back-to-tools">
+            <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
+            <a href="posts.html" class="back-button back-button-right">返回博客文章 →</a>
+        </div>
 
-            <h1>Markdown到JSON转换工具</h1>
+        <div class="tool-container">
+            <h2 class="tool-page-title">Markdown到JSON转换工具</h2>
+            <p class="tool-description">
+                将Markdown格式的博文转换为JSON格式，支持YAML frontmatter解析，方便博客文章管理。
+            </p>
+
+            <div class="tabs">
+                <!-- 标签按钮由JS动态生成 -->
+            </div>
             
-            <div class="tips">
-                <h4>使用说明：</h4>
+            <div class="tips-section">
+                <h3>使用说明</h3>
                 <p>1. 在下方文本框中粘贴Markdown格式的博文内容，或上传Markdown文件</p>
                 <p>2. 点击"转换"按钮生成JSON格式</p>
                 <p>3. 将生成的JSON内容保存到JSON/posts.json文件中</p>
@@ -110,8 +119,8 @@
                 <button id="generate-btn">生成完整JSON</button>
             </div>
             
-            <div class="result">
-                <h3>转换结果：</h3>
+            <div class="result-section">
+                <h3>转换结果</h3>
                 <pre id="json-output"></pre>
             </div>
         </div>

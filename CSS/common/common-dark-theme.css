@@ -13,10 +13,12 @@ body.dark-theme {
     --light-accent: var(--dark-light-accent);
     --text-color: var(--dark-text-color);
     --light-text: var(--dark-light-text);
+    --text-muted: var(--dark-text-muted);
     --white: var(--dark-white);
     --card-bg-color: var(--dark-card-bg-color);
     --heading-color: var(--dark-heading-color);
     --border-color: var(--dark-border-color);
+    --table-border-color: var(--dark-table-border-color);
     --code-bg: var(--dark-code-bg-color);
     --shadow-light: var(--dark-shadow-light);
     --shadow-medium: var(--dark-shadow-medium);
@@ -50,10 +52,12 @@ body.dark-theme {
         --light-accent: var(--dark-light-accent);
         --text-color: var(--dark-text-color);
         --light-text: var(--dark-light-text);
+        --text-muted: var(--dark-text-muted);
         --white: var(--dark-white);
         --card-bg-color: var(--dark-card-bg-color);
         --heading-color: var(--dark-heading-color);
         --border-color: var(--dark-border-color);
+        --table-border-color: var(--dark-table-border-color);
         --code-bg: var(--dark-code-bg-color);
         --shadow-light: var(--dark-shadow-light);
         --shadow-medium: var(--dark-shadow-medium);

@@ -1,7 +1,21 @@
 // 模拟器核心逻辑模块
 class Simulator {
     constructor() {
-        // 文明名称列表
+        // 汉字库（用于生成文明名称）
+        this.chineseCharacters = [
+            '炎', '黄', '华', '夏', '商', '周', '秦', '汉', '唐', '宋',
+            '元', '明', '清', '龙', '凤', '虎', '豹', '狼', '鹰', '狮',
+            '云', '雷', '电', '风', '雨', '雪', '冰', '霜', '露', '雾',
+            '山', '川', '江', '河', '海', '湖', '池', '泉', '溪', '潭',
+            '金', '银', '铜', '铁', '玉', '珠', '宝', '石', '晶', '钻',
+            '春', '夏', '秋', '冬', '晨', '暮', '星', '月', '日', '光',
+            '东', '西', '南', '北', '中', '上', '下', '左', '右', '前',
+            '天', '地', '人', '王', '帝', '皇', '君', '臣', '民', '士',
+            '文', '武', '仁', '义', '礼', '智', '信', '勇', '忠', '孝',
+            '和', '平', '安', '宁', '福', '禄', '寿', '喜', '财', '运'
+        ];
+        
+        // 文明名称列表（初始文明）
         this.civilizationNames = ['炎黄文明', '爱琴文明', '尼罗文明', '玛雅文明', '印加文明'];
         
         // 随机生成2-5个文明
@@ -28,6 +42,22 @@ class Simulator {
         this.intervalId = null;
         this.events = [];
         
+        // 运行日志记录系统
+        this.simulationLog = {
+            startTime: null,
+            endTime: null,
+            records: [],
+            summary: {
+                totalYears: 0,
+                totalEvents: 0,
+                civilizationHistory: [],
+                splitEvents: 0,
+                mergeEvents: 0,
+                warEvents: 0,
+                deathEvents: 0
+            }
+        };
+        
         // 灭亡文明历史记录
         this.deadCivilizations = [];
         
@@ -37,7 +67,7 @@ class Simulator {
                 flood: { 
                     name: '洪水', 
                     description: '大规模洪水淹没了低洼地区，破坏了农田和城市。',
-                    probability: 0.05,
+                    probability: 0.03, // 降低到3%
                     duration: 3,
                     impact: {
                         population: -0.2,
@@ -50,7 +80,7 @@ class Simulator {
                 earthquake: {
                     name: '地震',
                     description: '强烈地震破坏了建筑物和基础设施。',
-                    probability: 0.03,
+                    probability: 0.02, // 降低到2%
                     duration: 2,
                     impact: {
                         population: -0.25,
@@ -63,7 +93,7 @@ class Simulator {
                 drought: {
                     name: '干旱',
                     description: '长期干旱导致农作物歉收，水资源短缺。',
-                    probability: 0.04,
+                    probability: 0.025, // 降低到2.5%
                     duration: 5,
                     impact: {
                         population: -0.15,
@@ -76,7 +106,7 @@ class Simulator {
                 plague: {
                     name: '瘟疫',
                     description: '致命疾病在人群中传播，造成大量死亡。',
-                    probability: 0.02,
+                    probability: 0.015, // 降低到1.5%
                     duration: 4,
                     impact: {
                         population: -0.3,
@@ -89,7 +119,7 @@ class Simulator {
                 volcanicEruption: {
                     name: '火山喷发',
                     description: '火山喷发释放出大量火山灰和熔岩，摧毁了周围地区。',
-                    probability: 0.01,
+                    probability: 0.008, // 降低到0.8%
                     duration: 2,
                     impact: {
                         population: -0.35,
@@ -113,9 +143,6 @@ class Simulator {
         // 初始化文明属性到格子上
         this.distributeCivAttributesToCells();
         this.updateCellAttributes();
-        
-        // 添加初始事件，确保时间线有内容 - 移到map初始化之后
-        this.generateRandomEvent();
         
         // 延迟创建UISystem实例，避免循环依赖
         this.ui = null;
@@ -941,149 +968,116 @@ class Simulator {
         return resources;
     }
     
-    // 检查并处理文明分裂
-    checkAndHandleCivilizationSplit() {
-        // 文明数量上限
-        const maxCivilizations = 10;
-        
-        // 如果已达到文明数量上限，不再处理分裂
-        if (this.civilizations.length >= maxCivilizations) {
-            return;
-        }
-        
-        // 遍历所有文明，检查是否需要分裂
-        for (let i = this.civilizations.length - 1; i >= 0; i--) {
-            const civ = this.civilizations[i];
-            
-            // 检查是否在分裂冷却期
-            if (civ.splitCooldown && civ.splitCooldown > 0) {
-                civ.splitCooldown--;
-                continue;
-            }
-            
-            // 当稳定性低于30且不稳定年份超过10年时，文明可能分裂
-            if (civ.stability < 30 && civ.unstableYears > 10) {
-                // 随机决定是否分裂（30%概率，降低分裂频率）
-                if (Math.random() < 0.3) {
-                    this.splitCivilization(civ);
-                }
-            }
-        }
-    }
-    
-    // 分裂文明
-    splitCivilization(civ) {
-        // 寻找适合分裂的区域（使用现有的findSuitableAreaForRevival方法）
-        const splitArea = this.map.findSuitableAreaForRevival();
-        if (!splitArea) return;
-        
-        // 创建新文明
-        const newCivId = Math.max(...this.civilizations.map(c => c.id)) + 1;
-        const newCivName = `${civ.name}分裂国`;
-        const newCiv = new Civilization(newCivId, newCivName);
-        
-        // 分配新文明的初始属性（原文明的一半）
-        newCiv.tech = civ.tech * 0.5;
-        newCiv.culture = civ.culture * 0.5;
-        newCiv.economy = civ.economy * 0.5;
-        newCiv.military = civ.military * 0.5;
-        newCiv.population = civ.population * 0.5;
-        
-        // 资源由格子自动分配，不需要文明级别的资源分割
-        
-        // 更新原文明属性
-        civ.tech *= 0.5;
-        civ.culture *= 0.5;
-        civ.economy *= 0.5;
-        civ.military *= 0.5;
-        civ.population *= 0.5;
-        
-        // 为原文明和新文明设置分裂冷却期
-        civ.splitCooldown = 50; // 50个时间单位的冷却
-        newCiv.splitCooldown = 50; // 新文明也需要冷却
-        
-        // 为新文明分配领土
-        this.map.assignInitialTerritory(newCiv, splitArea.x, splitArea.y);
-        
-        // 添加新文明到列表
-        this.civilizations.push(newCiv);
-        
-        // 初始化新文明与其他文明的关系
-        this.civilizations.forEach(existingCiv => {
-            if (existingCiv.id !== newCiv.id) {
-                existingCiv.relations[newCiv.id] = Math.floor(Math.random() * 20 - 10); // 初始关系为-10到10
-                newCiv.relations[existingCiv.id] = existingCiv.relations[newCiv.id];
-            }
-        });
-        
-        // 生成分裂事件
-        this.events.push({
-            year: this.currentYear,
-            type: 'civilization_split',
-            description: `${civ.name}因内部矛盾分裂成${newCivName}！`,
-            triggeredBy: 'internal',
-            affectedCivs: [civ.id, newCiv.id],
-            impact: {
-                civilizationSplit: true
-            }
-        });
-    }
-    
     // 更新文明间的关系 - 考虑策略因素
     updateCivilizationRelations() {
-        // 检查文明分裂
-        this.checkAndHandleCivilizationSplit();
-        
         // 弱势文明联合机制
         this.checkAndHandleWeakCivAlliance();
         
+        // 大文明竞争机制
+        this.checkAndHandleGreatPowerCompetition();
+        
         this.civilizations.forEach((civ1, i) => {
             this.civilizations.slice(i + 1).forEach(civ2 => {
-                // 初始关系值
-                let relation = civ1.relations[civ2.id];
+                // 初始关系值（如果不存在则初始化为0）
+                let relation = civ1.relations[civ2.id] !== undefined ? civ1.relations[civ2.id] : 0;
                 
                 // 影响关系变化的因素
                 const techDiff = Math.abs(civ1.tech - civ2.tech);
                 const cultureDiff = Math.abs(civ1.culture - civ2.culture);
                 const economyDiff = Math.abs(civ1.economy - civ2.economy);
                 
-                // 1. 技术差异影响（降低幅度）
+                // 1. 技术差异影响（增加负面影响）
                 if (techDiff > 30) {
-                    relation -= 0.2; // 技术差距过大导致关系恶化（原0.5）
+                    relation -= 1.5; // 技术差距过大导致关系恶化
                 } else if (techDiff < 10) {
-                    relation += 0.1; // 技术相近促进交流（原0.2）
+                    relation += 0.3; // 技术相近促进交流
                 }
                 
-                // 2. 文化差异影响（降低幅度）
+                // 2. 文化差异影响（增加负面影响）
                 if (cultureDiff > 30) {
-                    relation -= 0.15; // 文化差异过大导致关系恶化（原0.3）
+                    relation -= 1.2; // 文化差异过大导致关系恶化
                 } else if (cultureDiff < 15) {
-                    relation += 0.15; // 文化相近促进友好（原0.3）
+                    relation += 0.5; // 文化相近促进友好
                 }
                 
-                // 3. 经济差异影响（降低幅度）
+                // 3. 经济差异影响（增加负面影响）
                 if (economyDiff > 40) {
-                    relation -= 0.2; // 经济差距过大导致关系恶化（原0.4）
+                    relation -= 1.5; // 经济差距过大导致关系恶化
                 }
                 
-                // 4. 策略影响关系
-                const strategyFactor = this.calculateStrategyFactor(civ1, civ2);
-                relation += strategyFactor * 0.5; // 降低策略影响幅度
+                // 4. 领土竞争影响
+                const civ1Cells = this.getCivilizationCellStats(civ1.id).totalCells;
+                const civ2Cells = this.getCivilizationCellStats(civ2.id).totalCells;
+                const totalCells = this.map.rows * this.map.cols;
                 
-                // 5. 关系稳定性机制：自然回归中性
-                const neutralityPull = (0 - relation) * 0.05; // 向0值回归，每次更新5%
+                // 大文明之间竞争加剧
+                if (civ1Cells > totalCells * 0.1 && civ2Cells > totalCells * 0.1) {
+                    relation -= 2; // 两个大文明关系自然恶化
+                }
+                
+                // 实力差距大的文明关系不稳定
+                const strength1 = civ1.tech + civ1.culture + civ1.economy + civ1.military;
+                const strength2 = civ2.tech + civ2.culture + civ2.economy + civ2.military;
+                const strengthRatio = Math.max(strength1, strength2) / Math.min(strength1, strength2);
+                if (strengthRatio > 3) {
+                    relation -= 1; // 实力差距大导致不信任
+                }
+                
+                // 5. 策略影响关系
+                const strategyFactor = this.calculateStrategyFactor(civ1, civ2);
+                relation += strategyFactor * 0.8;
+                
+                // 6. 关系稳定性机制：向负面偏移回归
+                const neutralityPull = (20 - relation) * 0.03; // 向20值回归（略微负面偏移）
                 relation += neutralityPull;
                 
-                // 6. 随机事件影响（降低幅度）
-                const randomFactor = (Math.random() * 1 - 0.5); // ±0.5（原±1）
+                // 7. 随机事件影响（增加负面波动）
+                const randomFactor = (Math.random() * 3 - 1.5); // -1.5到+1.5，偏向负面
                 relation += randomFactor;
                 
-                // 7. 限制关系值范围
+                // 8. 限制关系值范围
                 relation = Math.max(-100, Math.min(100, relation));
                 
-                // 8. 更新双方关系
+                // 9. 更新双方关系
                 civ1.relations[civ2.id] = relation;
                 civ2.relations[civ1.id] = relation;
+            });
+        });
+    }
+    
+    // 检查并处理大文明竞争
+    checkAndHandleGreatPowerCompetition() {
+        const totalCells = this.map.rows * this.map.cols;
+        
+        // 找出大规模文明（领土占比超过10%）
+        const greatPowers = this.civilizations.filter(civ => {
+            const cellStats = this.getCivilizationCellStats(civ.id);
+            return cellStats.totalCells > totalCells * 0.1;
+        });
+        
+        if (greatPowers.length < 2) return;
+        
+        // 大文明之间关系恶化（竞争机制）
+        greatPowers.forEach((civ1, i) => {
+            greatPowers.slice(i + 1).forEach(civ2 => {
+                // 大文明之间关系自然恶化
+                const relation = civ1.relations[civ2.id];
+                
+                // 根据关系状态决定恶化程度
+                if (relation < 0) {
+                    civ1.relations[civ2.id] -= 4;
+                    civ2.relations[civ1.id] -= 4;
+                } else if (relation < 30) {
+                    civ1.relations[civ2.id] -= 3;
+                    civ2.relations[civ1.id] -= 3;
+                } else {
+                    civ1.relations[civ2.id] -= 2;
+                    civ2.relations[civ1.id] -= 2;
+                }
+                
+                // 限制关系值范围
+                civ1.relations[civ2.id] = Math.max(-100, Math.min(100, civ1.relations[civ2.id]));
+                civ2.relations[civ1.id] = Math.max(-100, Math.min(100, civ2.relations[civ1.id]));
             });
         });
     }
@@ -1170,109 +1164,6 @@ class Simulator {
         }
         
         return factor;
-    }
-    
-    // 随机生成事件
-    generateRandomEvent() {
-        // 检查各种事件的发生条件
-        if (this.checkWarConditions()) {
-            this.triggerWarEvent();
-        } else if (this.checkTradeConditions()) {
-            this.triggerTradeEvent();
-        } else if (this.checkDiplomaticConditions()) {
-            this.triggerDiplomaticEvent();
-        } else if (this.checkInternalConditions()) {
-            this.triggerInternalEvent();
-        } else if (this.checkGlobalConditions()) {
-            this.triggerGlobalEvent();
-        } else if (this.checkBalanceBreakEventConditions()) {
-            // 检查平衡打破事件条件
-            this.triggerBalanceBreakEvent();
-        } else {
-            // 如果没有满足条件的事件，生成一个基础事件
-            this.triggerBasicEvent();
-        }
-        
-        // 限制事件数量
-        if (this.events.length > 50) {
-            this.events.shift();
-        }
-    }
-    
-    // 触发打破平衡的事件
-    triggerBalanceBreakEvent() {
-        // 随机选择一个文明作为事件中心
-        const centerCiv = this.civilizations[Math.floor(Math.random() * this.civilizations.length)];
-        
-        // 随机选择事件类型
-        const eventTypes = [
-            'tech_breakthrough', // 技术突破
-            'cultural_revolution', // 文化革命
-            'economic_boom', // 经济繁荣
-            'military_innovation' // 军事革新
-        ];
-        
-        const eventType = eventTypes[Math.floor(Math.random() * eventTypes.length)];
-        
-        // 事件描述和影响
-        let description = '';
-        let impact = {};
-        
-        switch(eventType) {
-            case 'tech_breakthrough':
-                description = `${centerCiv.name}取得了重大技术突破，科技水平大幅提升！`;
-                impact = {
-                    civilization: centerCiv.name,
-                    eventType: 'tech_breakthrough',
-                    techBoost: 30 // 科技提升30点
-                };
-                // 应用影响
-                centerCiv.tech += 30;
-                break;
-                
-            case 'cultural_revolution':
-                description = `${centerCiv.name}发生了文化革命，文化影响力显著增强！`;
-                impact = {
-                    civilization: centerCiv.name,
-                    eventType: 'cultural_revolution',
-                    cultureBoost: 30 // 文化提升30点
-                };
-                // 应用影响
-                centerCiv.culture += 30;
-                break;
-                
-            case 'economic_boom':
-                description = `${centerCiv.name}经历了经济繁荣，经济实力大幅增长！`;
-                impact = {
-                    civilization: centerCiv.name,
-                    eventType: 'economic_boom',
-                    economyBoost: 30 // 经济提升30点
-                };
-                // 应用影响
-                centerCiv.economy += 30;
-                break;
-                
-            case 'military_innovation':
-                description = `${centerCiv.name}进行了军事革新，军事实力显著提升！`;
-                impact = {
-                    civilization: centerCiv.name,
-                    eventType: 'military_innovation',
-                    militaryBoost: 30 // 军事提升30点
-                };
-                // 应用影响
-                centerCiv.military += 30;
-                break;
-        }
-        
-        // 生成事件
-        this.events.push({
-            year: this.currentYear,
-            type: 'balance_break',
-            description: description,
-            triggeredBy: 'system',
-            affectedCivs: [centerCiv.id],
-            impact: impact
-        });
     }
     
     // 检查并生成灾难事件
@@ -1471,666 +1362,6 @@ class Simulator {
         }
     }
     
-    // 检查战争事件发生条件
-    checkWarConditions() {
-        // 至少需要两个文明
-        if (this.civilizations.length < 2) {
-            return false;
-        }
-        
-        // 检查是否存在关系值低于-30且相邻的文明对
-        for (let i = 0; i < this.civilizations.length; i++) {
-            for (let j = i + 1; j < this.civilizations.length; j++) {
-                const civ1 = this.civilizations[i];
-                const civ2 = this.civilizations[j];
-                
-                // 关系值低于-30
-                if (civ1.relations[civ2.id] < -30) {
-                    // 至少一个文明军事力量超过50
-                    if (civ1.military > 50 || civ2.military > 50) {
-                        // 检查是否相邻
-                        if (this.areCivilizationsAdjacent(civ1, civ2)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        
-        return false;
-    }
-    
-    // 检查贸易事件发生条件
-    checkTradeConditions() {
-        // 至少需要两个文明
-        if (this.civilizations.length < 2) {
-            return false;
-        }
-        
-        // 检查是否存在关系值高于30且相邻的文明对
-        for (let i = 0; i < this.civilizations.length; i++) {
-            for (let j = i + 1; j < this.civilizations.length; j++) {
-                const civ1 = this.civilizations[i];
-                const civ2 = this.civilizations[j];
-                
-                // 关系值高于30
-                if (civ1.relations[civ2.id] > 30) {
-                    // 双方经济实力均超过40
-                    if (civ1.economy > 40 && civ2.economy > 40) {
-                        // 检查是否相邻
-                        if (this.areCivilizationsAdjacent(civ1, civ2)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        
-        return false;
-    }
-    
-    // 检查外交事件发生条件
-    checkDiplomaticConditions() {
-        // 至少需要两个文明
-        if (this.civilizations.length < 2) {
-            return false;
-        }
-        
-        // 检查是否存在关系值在-20到50之间且相邻的文明对
-        for (let i = 0; i < this.civilizations.length; i++) {
-            for (let j = i + 1; j < this.civilizations.length; j++) {
-                const civ1 = this.civilizations[i];
-                const civ2 = this.civilizations[j];
-                
-                // 关系值在-20到50之间
-                if (civ1.relations[civ2.id] > -20 && civ1.relations[civ2.id] < 50) {
-                    // 文化差异低于30
-                    if (Math.abs(civ1.culture - civ2.culture) < 30) {
-                        // 检查是否相邻
-                        if (this.areCivilizationsAdjacent(civ1, civ2)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        
-        return false;
-    }
-    
-    // 检查内部事件发生条件
-    checkInternalConditions() {
-        // 检查是否存在人口超过20000且综合实力超过100的文明
-        for (const civ of this.civilizations) {
-            if (civ.population > 20000 && (civ.tech + civ.culture + civ.economy + civ.military) > 100) {
-                // 检查文明内部属性差异
-                const avgAttribute = (civ.tech + civ.culture + civ.economy + civ.military) / 4;
-                const maxAttribute = Math.max(civ.tech, civ.culture, civ.economy, civ.military);
-                const minAttribute = Math.min(civ.tech, civ.culture, civ.economy, civ.military);
-                
-                // 属性差异超过30
-                if (maxAttribute - minAttribute > 30) {
-                    return true;
-                }
-            }
-        }
-        
-        return false;
-    }
-    
-    // 检查全球事件发生条件
-    checkGlobalConditions() {
-        // 游戏运行时间超过1000年，至少存在3个文明
-        return this.currentYear > -2000 && this.civilizations.length >= 3 && Math.random() < 0.1; // 10%的概率，提高全球事件发生率
-    }
-    
-    // 检查平衡状态事件条件
-    checkBalanceBreakEventConditions() {
-        // 当文明实力较为平衡时，有概率触发打破平衡的事件
-        if (this.civilizations.length < 2) return false;
-        
-        // 计算文明实力差距
-        const strengths = this.civilizations.map(civ => {
-            return civ.tech + civ.culture + civ.economy + civ.military;
-        });
-        
-        const maxStrength = Math.max(...strengths);
-        const minStrength = Math.min(...strengths);
-        const avgStrength = strengths.reduce((sum, s) => sum + s, 0) / strengths.length;
-        
-        // 当所有文明实力都在平均值的80%-120%之间时，认为处于平衡状态
-        const isBalanced = strengths.every(s => s >= avgStrength * 0.8 && s <= avgStrength * 1.2);
-        
-        // 平衡状态下，有15%的概率触发打破平衡的事件
-        return isBalanced && Math.random() < 0.15;
-    }
-    
-    // 触发基础事件
-    triggerBasicEvent() {
-        const eventTypes = ['internal', 'diplomatic', 'global'];
-        const randomEvent = eventTypes[Math.floor(Math.random() * eventTypes.length)];
-        
-        let description = '';
-        switch(randomEvent) {
-            case 'internal':
-                description = '一个文明内部发生了轻微的变化。';
-                break;
-            case 'diplomatic':
-                description = '两个文明之间进行了一次普通的外交接触。';
-                break;
-            case 'global':
-                description = '全球范围内发生了一次小型事件。';
-                break;
-        }
-        
-        this.events.push({
-            year: this.currentYear,
-            type: randomEvent,
-            description: description,
-            triggeredBy: 'random',
-            affectedCells: [],
-            duration: 0,
-            impact: {}
-        });
-    }
-    
-    // 触发战争事件
-    triggerWarEvent() {
-        // 找到符合条件的文明对
-        let warCivs = null;
-        for (let i = 0; i < this.civilizations.length && !warCivs; i++) {
-            for (let j = i + 1; j < this.civilizations.length && !warCivs; j++) {
-                const civ1 = this.civilizations[i];
-                const civ2 = this.civilizations[j];
-                
-                if (civ1.relations[civ2.id] < -30 && (civ1.military > 50 || civ2.military > 50) && this.areCivilizationsAdjacent(civ1, civ2)) {
-                    warCivs = [civ1, civ2];
-                }
-            }
-        }
-        
-        if (!warCivs) return;
-        
-        const [civ1, civ2] = warCivs;
-        
-        // 找到边境格子
-        const borderCells = [];
-        for (let y = 0; y < this.map.rows; y++) {
-            for (let x = 0; x < this.map.cols; x++) {
-                const territory = this.map.territory[y][x];
-                if (territory.owner === civ1.id) {
-                    // 检查周围格子是否属于civ2
-                    const neighbors = [
-                        { x: x-1, y: y-1 }, { x: x, y: y-1 }, { x: x+1, y: y-1 },
-                        { x: x-1, y: y },                     { x: x+1, y: y },
-                        { x: x-1, y: y+1 }, { x: x, y: y+1 }, { x: x+1, y: y+1 }
-                    ];
-                    
-                    for (const neighbor of neighbors) {
-                        if (neighbor.x >= 0 && neighbor.x < this.map.cols && neighbor.y >= 0 && neighbor.y < this.map.rows) {
-                            const neighborTerritory = this.map.territory[neighbor.y][neighbor.x];
-                            if (neighborTerritory.owner === civ2.id) {
-                                borderCells.push({ x, y });
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        if (borderCells.length === 0) return;
-        
-        // 选择一个战斗格子
-        const battleCell = borderCells[Math.floor(Math.random() * borderCells.length)];
-        const territory = this.map.territory[battleCell.y][battleCell.x];
-        
-        // 战斗效果
-        const warImpact = {
-            economy: -0.2, // 经济下降20%
-            population: -0.1, // 人口下降10%
-            military: 0.1 // 军事上升10%
-        };
-        
-        territory.economy = Math.max(0, territory.economy * (1 + warImpact.economy));
-        territory.population = Math.max(0, territory.population * (1 + warImpact.population));
-        territory.military = Math.max(0, territory.military * (1 + warImpact.military));
-        
-        // 战争消耗资源：战斗区域及其周围格子资源减少
-        const warZoneCells = [battleCell];
-        // 添加周围格子到战争区域
-        const neighbors = [
-            { x: battleCell.x-1, y: battleCell.y-1 }, { x: battleCell.x, y: battleCell.y-1 }, { x: battleCell.x+1, y: battleCell.y-1 },
-            { x: battleCell.x-1, y: battleCell.y },                     { x: battleCell.x+1, y: battleCell.y },
-            { x: battleCell.x-1, y: battleCell.y+1 }, { x: battleCell.x, y: battleCell.y+1 }, { x: battleCell.x+1, y: battleCell.y+1 }
-        ];
-        
-        neighbors.forEach(neighbor => {
-            if (neighbor.x >= 0 && neighbor.x < this.map.cols && neighbor.y >= 0 && neighbor.y < this.map.rows) {
-                warZoneCells.push(neighbor);
-            }
-        });
-        
-        // 战争消耗资源：每个战争区域格子资源减少
-        warZoneCells.forEach(cell => {
-            const warCell = this.map.territory[cell.y][cell.x];
-            if (warCell.resource) {
-                // 战争消耗该格子30%的资源 - 提高消耗
-                warCell.resource.quantity = Math.max(1, Math.floor(warCell.resource.quantity * 0.7));
-            }
-        });
-        
-        // 确定胜利方
-        const winner = civ1.military > civ2.military ? civ1 : civ2;
-        const loser = winner === civ1 ? civ2 : civ1;
-        
-        // 胜利方获得资源奖励：从失败方领土获取资源
-        const winnerResourceGain = {
-            mineral: 0,
-            food: 0,
-            energy: 0,
-            rare: 0
-        };
-        
-        // 从失败方领土随机选择几个格子获取资源
-        const loserCells = [];
-        for (let y = 0; y < this.map.rows; y++) {
-            for (let x = 0; x < this.map.cols; x++) {
-                const cell = this.map.territory[y][x];
-                if (cell.owner === loser.id && !cell.isDisputed) {
-                    loserCells.push(cell);
-                }
-            }
-        }
-        
-        // 随机选择3个失败方格子获取资源
-        for (let i = 0; i < 3 && loserCells.length > 0; i++) {
-            const randomIndex = Math.floor(Math.random() * loserCells.length);
-            const cell = loserCells[randomIndex];
-            if (cell.resource) {
-                    // 获取该格子10%的资源 - 降低掠夺比例
-                    const resourceGain = Math.floor(cell.resource.quantity * 0.10);
-                    winnerResourceGain[cell.resource.type] += resourceGain;
-                    // 减少失败方资源
-                    cell.resource.quantity = Math.max(1, cell.resource.quantity - resourceGain);
-                }
-            // 移除已处理的格子
-            loserCells.splice(randomIndex, 1);
-        }
-        
-        // 胜利方军事上升5%，但限制影响范围
-        winner.military *= 1.05;
-        
-        // 降低双方关系
-        civ1.relations[civ2.id] -= 20;
-        civ2.relations[civ1.id] -= 20;
-        
-        // 限制关系值范围
-        civ1.relations[civ2.id] = Math.max(-100, civ1.relations[civ2.id]);
-        civ2.relations[civ1.id] = Math.max(-100, civ2.relations[civ1.id]);
-        
-        // 添加事件
-        this.events.push({
-            year: this.currentYear,
-            type: 'war',
-            description: `${civ1.name}与${civ2.name}在边境地区发生了战争，${winner.name}获得了胜利，掠夺了${winnerResourceGain.mineral}矿产、${winnerResourceGain.food}食物、${winnerResourceGain.energy}能源和${winnerResourceGain.rare}稀有资源！`,
-            triggeredBy: 'relations',
-            affectedCells: [battleCell],
-            duration: 0,
-            impact: {
-                civilization1: civ1.name,
-                civilization2: civ2.name,
-                winner: winner.name,
-                loser: loser.name,
-                cellImpact: warImpact,
-                resourceGain: winnerResourceGain
-            }
-        });
-    }
-    
-    // 触发贸易事件
-    triggerTradeEvent() {
-        // 找到符合条件的文明对
-        let tradeCivs = null;
-        for (let i = 0; i < this.civilizations.length && !tradeCivs; i++) {
-            for (let j = i + 1; j < this.civilizations.length && !tradeCivs; j++) {
-                const civ1 = this.civilizations[i];
-                const civ2 = this.civilizations[j];
-                
-                // 贸易条件：关系良好，经济和文化属性较高，相邻
-                if (civ1.relations[civ2.id] > 30 && 
-                    civ1.economy > 40 && civ2.economy > 40 && 
-                    civ1.culture > 30 && civ2.culture > 30 && 
-                    this.areCivilizationsAdjacent(civ1, civ2)) {
-                    tradeCivs = [civ1, civ2];
-                }
-            }
-        }
-        
-        if (!tradeCivs) return;
-        
-        const [civ1, civ2] = tradeCivs;
-        
-        // 找到边境格子
-        const borderCells = [];
-        for (let y = 0; y < this.map.rows; y++) {
-            for (let x = 0; x < this.map.cols; x++) {
-                const territory = this.map.territory[y][x];
-                if (territory.owner === civ1.id) {
-                    // 检查周围格子是否属于civ2
-                    const neighbors = [
-                        { x: x-1, y: y-1 }, { x: x, y: y-1 }, { x: x+1, y: y-1 },
-                        { x: x-1, y: y },                     { x: x+1, y: y },
-                        { x: x-1, y: y+1 }, { x: x, y: y+1 }, { x: x+1, y: y+1 }
-                    ];
-                    
-                    for (const neighbor of neighbors) {
-                        if (neighbor.x >= 0 && neighbor.x < this.map.cols && neighbor.y >= 0 && neighbor.y < this.map.rows) {
-                            const neighborTerritory = this.map.territory[neighbor.y][neighbor.x];
-                            if (neighborTerritory.owner === civ2.id) {
-                                borderCells.push({ x, y });
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        if (borderCells.length === 0) return;
-        
-        // 选择一个贸易格子
-        const tradeCell = borderCells[Math.floor(Math.random() * borderCells.length)];
-        const territory = this.map.territory[tradeCell.y][tradeCell.x];
-        
-        // 计算贸易效率：受双方经济和文化属性影响
-        const tradeEfficiency = (civ1.economy + civ2.economy + civ1.culture + civ2.culture) / 400; // 贸易效率系数
-        
-        // 贸易效果：根据贸易效率调整
-        const baseTradeImpact = {
-            economy: 0.2, // 基础经济上升20%
-            culture: 0.1 // 基础文化上升10%
-        };
-        
-        const tradeImpact = {
-            economy: baseTradeImpact.economy * tradeEfficiency,
-            culture: baseTradeImpact.culture * tradeEfficiency
-        };
-        
-        territory.economy = Math.min(territory.limits.economy, territory.economy * (1 + tradeImpact.economy));
-        territory.culture = Math.min(territory.limits.culture, territory.culture * (1 + tradeImpact.culture));
-        
-        // 贸易获得资源：根据贸易效率和双方属性获得额外资源 - 降低获得量
-        const resourceTypes = ['mineral', 'food', 'energy', 'rare'];
-        const tradeResources = {
-            mineral: Math.floor(7 * tradeEfficiency),   // 减少30%
-            food: Math.floor(10.5 * tradeEfficiency), // 减少30%
-            energy: Math.floor(8.4 * tradeEfficiency), // 减少30%
-            rare: Math.floor(3.5 * tradeEfficiency)   // 减少30%
-        };
-        
-        // 为贸易双方的领土添加资源
-        const addTradeResources = (civId, resources) => {
-            // 找到该文明的随机几个格子
-            const civCells = [];
-            for (let y = 0; y < this.map.rows; y++) {
-                for (let x = 0; x < this.map.cols; x++) {
-                    const cell = this.map.territory[y][x];
-                    if (cell.owner === civId && !cell.isDisputed) {
-                        civCells.push(cell);
-                    }
-                }
-            }
-            
-            if (civCells.length === 0) return;
-            
-            // 随机选择3个格子添加资源
-            for (let i = 0; i < 3; i++) {
-                const randomCell = civCells[Math.floor(Math.random() * civCells.length)];
-                if (randomCell.resource) {
-                    // 如果格子已有资源，增加数量
-                    const resourceType = randomCell.resource.type;
-                    if (resources[resourceType]) {
-                        randomCell.resource.quantity += Math.floor(resources[resourceType] / 3);
-                        // 限制资源最大数量
-                        const maxResourceQuantities = {
-                            mineral: 120,
-                            food: 150,
-                            energy: 100,
-                            rare: 60,
-                            culture: 80
-                        };
-                        randomCell.resource.quantity = Math.min(maxResourceQuantities[resourceType], randomCell.resource.quantity);
-                    }
-                } else {
-                    // 如果格子没有资源，随机添加一种资源
-                    const randomResourceType = resourceTypes[Math.floor(Math.random() * resourceTypes.length)];
-                    const resourceInfo = this.map.resourceTypes[randomResourceType];
-                    randomCell.resource = {
-                        type: randomResourceType,
-                        name: resourceInfo.name,
-                        quantity: Math.floor(resources[randomResourceType] / 3),
-                        effect: resourceInfo.effect,
-                        color: resourceInfo.color
-                    };
-                }
-            }
-        };
-        
-        // 为双方文明添加贸易资源
-        addTradeResources(civ1.id, tradeResources);
-        addTradeResources(civ2.id, tradeResources);
-        
-        // 提升双方关系
-        civ1.relations[civ2.id] += Math.floor(10 * tradeEfficiency);
-        civ2.relations[civ1.id] += Math.floor(10 * tradeEfficiency);
-        
-        // 限制关系值范围
-        civ1.relations[civ2.id] = Math.min(100, civ1.relations[civ2.id]);
-        civ2.relations[civ1.id] = Math.min(100, civ2.relations[civ1.id]);
-        
-        // 添加事件
-        this.events.push({
-            year: this.currentYear,
-            type: 'trade',
-            description: `${civ1.name}与${civ2.name}在边境地区开展了贸易活动，双方获得了矿产${tradeResources.mineral}、食物${tradeResources.food}、能源${tradeResources.energy}和稀有资源${tradeResources.rare}！`,
-            triggeredBy: 'relations',
-            affectedCells: [tradeCell],
-            duration: 0,
-            impact: {
-                civilization1: civ1.name,
-                civilization2: civ2.name,
-                cellImpact: tradeImpact,
-                tradeResources: tradeResources,
-                tradeEfficiency: tradeEfficiency
-            }
-        });
-    }
-    
-    // 触发外交事件
-    triggerDiplomaticEvent() {
-        // 找到符合条件的文明对
-        let diploCivs = null;
-        for (let i = 0; i < this.civilizations.length && !diploCivs; i++) {
-            for (let j = i + 1; j < this.civilizations.length && !diploCivs; j++) {
-                const civ1 = this.civilizations[i];
-                const civ2 = this.civilizations[j];
-                
-                if (civ1.relations[civ2.id] > -20 && civ1.relations[civ2.id] < 50 && Math.abs(civ1.culture - civ2.culture) < 30 && this.areCivilizationsAdjacent(civ1, civ2)) {
-                    diploCivs = [civ1, civ2];
-                }
-            }
-        }
-        
-        if (!diploCivs) return;
-        
-        const [civ1, civ2] = diploCivs;
-        
-        // 随机调整关系值
-        const relationChange = Math.random() * 20 - 10; // -10到+10
-        civ1.relations[civ2.id] += relationChange;
-        civ2.relations[civ1.id] += relationChange;
-        
-        // 限制关系值范围
-        civ1.relations[civ2.id] = Math.max(-100, Math.min(100, civ1.relations[civ2.id]));
-        civ2.relations[civ1.id] = Math.max(-100, Math.min(100, civ2.relations[civ1.id]));
-        
-        // 外交事件效果描述
-        let effectDesc = '';
-        if (relationChange > 0) {
-            effectDesc = `关系得到了改善。`;
-        } else {
-            effectDesc = `关系出现了恶化。`;
-        }
-        
-        // 添加事件
-        this.events.push({
-            year: this.currentYear,
-            type: 'diplomatic',
-            description: `${civ1.name}与${civ2.name}进行了外交接触，${effectDesc}`,
-            triggeredBy: 'relations',
-            affectedCells: [],
-            duration: 0,
-            impact: {
-                civilization1: civ1.name,
-                civilization2: civ2.name,
-                relationChange: Math.round(relationChange)
-            }
-        });
-    }
-    
-    // 触发内部事件
-    triggerInternalEvent() {
-        // 找到符合条件的文明
-        let targetCiv = null;
-        for (const civ of this.civilizations) {
-            if (civ.population > 20000 && (civ.tech + civ.culture + civ.economy + civ.military) > 100) {
-                const avgAttribute = (civ.tech + civ.culture + civ.economy + civ.military) / 4;
-                const maxAttribute = Math.max(civ.tech, civ.culture, civ.economy, civ.military);
-                const minAttribute = Math.min(civ.tech, civ.culture, civ.economy, civ.military);
-                
-                if (maxAttribute - minAttribute > 30) {
-                    targetCiv = civ;
-                    break;
-                }
-            }
-        }
-        
-        if (!targetCiv) return;
-        
-        // 收集文明所有格子
-        const ownedCells = [];
-        for (let y = 0; y < this.map.rows; y++) {
-            for (let x = 0; x < this.map.cols; x++) {
-                const territory = this.map.territory[y][x];
-                if (territory.owner === targetCiv.id && !territory.isDisputed) {
-                    ownedCells.push({ x, y, cell: territory });
-                }
-            }
-        }
-        
-        if (ownedCells.length < 2) return;
-        
-        // 计算平均属性
-        const avgTech = ownedCells.reduce((sum, item) => sum + item.cell.tech, 0) / ownedCells.length;
-        const avgCulture = ownedCells.reduce((sum, item) => sum + item.cell.culture, 0) / ownedCells.length;
-        const avgEconomy = ownedCells.reduce((sum, item) => sum + item.cell.economy, 0) / ownedCells.length;
-        const avgMilitary = ownedCells.reduce((sum, item) => sum + item.cell.military, 0) / ownedCells.length;
-        
-        // 找到高属性和低属性格子
-        const highTechCells = ownedCells.filter(item => item.cell.tech > avgTech * 1.2);
-        const lowTechCells = ownedCells.filter(item => item.cell.tech < avgTech * 0.8);
-        
-        const highCultureCells = ownedCells.filter(item => item.cell.culture > avgCulture * 1.2);
-        const lowCultureCells = ownedCells.filter(item => item.cell.culture < avgCulture * 0.8);
-        
-        // 资源调度
-        const affectedCells = [];
-        
-        // 调度科技资源
-        if (highTechCells.length > 0 && lowTechCells.length > 0) {
-            const sourceCell = highTechCells[Math.floor(Math.random() * highTechCells.length)];
-            const targetCell = lowTechCells[Math.floor(Math.random() * lowTechCells.length)];
-            const transferAmount = Math.min(sourceCell.cell.tech - avgTech * 1.2, targetCell.cell.limits.tech - targetCell.cell.tech);
-            
-            sourceCell.cell.tech -= transferAmount;
-            targetCell.cell.tech += transferAmount;
-            
-            affectedCells.push(sourceCell, targetCell);
-        }
-        
-        // 调度文化资源
-        if (highCultureCells.length > 0 && lowCultureCells.length > 0) {
-            const sourceCell = highCultureCells[Math.floor(Math.random() * highCultureCells.length)];
-            const targetCell = lowCultureCells[Math.floor(Math.random() * lowCultureCells.length)];
-            const transferAmount = Math.min(sourceCell.cell.culture - avgCulture * 1.2, targetCell.cell.limits.culture - targetCell.cell.culture);
-            
-            sourceCell.cell.culture -= transferAmount;
-            targetCell.cell.culture += transferAmount;
-            
-            affectedCells.push(sourceCell, targetCell);
-        }
-        
-        // 添加事件
-        this.events.push({
-            year: this.currentYear,
-            type: 'internal',
-            description: `${targetCiv.name}进行了内部资源调度，平衡了各地区的发展。`,
-            triggeredBy: 'internal',
-            affectedCells: affectedCells.map(item => ({ x: item.x, y: item.y })),
-            duration: 0,
-            impact: {
-                civilization: targetCiv.name,
-                action: 'resource_scheduling'
-            }
-        });
-    }
-    
-    // 触发全球事件
-    triggerGlobalEvent() {
-        // 全球事件效果
-        const globalEffect = Math.random() * 0.4 - 0.2; // -20% 到 +20%
-        const affectedCells = [];
-        
-        for (let y = 0; y < this.map.rows; y++) {
-            for (let x = 0; x < this.map.cols; x++) {
-                const territory = this.map.territory[y][x];
-                if (territory.owner !== null) {
-                    // 只影响有主格子
-                    territory.tech = Math.max(0, Math.min(territory.limits.tech, territory.tech * (1 + globalEffect)));
-                    territory.culture = Math.max(0, Math.min(territory.limits.culture, territory.culture * (1 + globalEffect)));
-                    territory.economy = Math.max(0, Math.min(territory.limits.economy, territory.economy * (1 + globalEffect)));
-                    territory.military = Math.max(0, Math.min(territory.limits.military, territory.military * (1 + globalEffect)));
-                    territory.population = Math.max(0, Math.min(territory.limits.population, territory.population * (1 + globalEffect)));
-                    
-                    affectedCells.push({ x, y });
-                }
-            }
-        }
-        
-        // 全球事件描述
-        let effectDesc = '';
-        if (globalEffect > 0) {
-            effectDesc = `全球范围内出现了有利于发展的环境，所有文明都获得了增长。`;
-        } else {
-            effectDesc = `全球范围内遭遇了不利事件，所有文明都受到了影响。`;
-        }
-        
-        // 添加事件
-        this.events.push({
-            year: this.currentYear,
-            type: 'global',
-            description: effectDesc,
-            triggeredBy: 'global',
-            affectedCells: affectedCells,
-            duration: 0,
-            impact: {
-                globalEffect: Math.round(globalEffect * 100),
-                affectedCivilizations: this.civilizations.length
-            }
-        });
-    }
-    
     // 演化逻辑
     evolve() {
         // 更新年份
@@ -2140,101 +1371,64 @@ class Simulator {
         // 减少计算频率：每2次演化才进行一次完整计算
         const shouldDoFullCalculation = this.currentYear % 20 === 0;
         
-        // 更新文明
+        // ========== 第一阶段：更新文明基础状态 ==========
         this.civilizations.forEach(civ => {
             civ.updateStats();
             // 文明内资源调度
             civ.scheduleResources(this.map);
+            // 减少分裂冷却期
+            if (civ.splitCooldown > 0) {
+                civ.splitCooldown--;
+            }
         });
         
-        // 检查并生成灾难事件
+        // ========== 第二阶段：灾难事件（世界事件） ==========
         if (shouldDoFullCalculation) {
             this.checkAndGenerateDisaster();
         }
         
-        // 计算影响力和分配领土 - 减少频率
+        // ========== 第三阶段：计算影响力和分配领土 ==========
         if (shouldDoFullCalculation) {
             this.calculateInfluence();
             this.allocateTerritory();
         }
         
-        // 更新格子属性
+        // ========== 第四阶段：更新格子属性 ==========
         if (shouldDoFullCalculation) {
             this.distributeCivAttributesToCells();
         }
-        this.updateCellAttributes(); // 保持每次都更新，确保资源平衡
+        this.updateCellAttributes();
         
         // 从格子属性更新文明整体属性
         this.aggregateCellAttributesToCivilizations();
         
-        // 更新文明间的关系
+        // 更新文明稳定性（基于格子数量）
+        this.civilizations.forEach(civ => {
+            const cellStats = this.getCivilizationCellStats(civ.id);
+            civ.updateStabilityByCells(cellStats.totalCells);
+        });
+        
+        // ========== 第五阶段：文明分裂和合并 ==========
         if (shouldDoFullCalculation) {
-            this.updateCivilizationRelations();
+            this.processSplitAndMergeEvents();
         }
         
-        // 检查文明合并
-        if (shouldDoFullCalculation) {
-            for (let i = 0; i < this.civilizations.length; i++) {
-                for (let j = i + 1; j < this.civilizations.length; j++) {
-                    const civ1 = this.civilizations[i];
-                    const civ2 = this.civilizations[j];
-                    if (this.checkCivilizationMerge(civ1, civ2)) {
-                        this.handleCivilizationMerge(civ1, civ2);
-                        // 合并后重新检查关系
-                        this.updateCivilizationRelations();
-                        break;
-                    }
-                }
-            }
+        // ========== 第六阶段：文明行为（按人口从大到小遍历） ==========
+        if (shouldDoFullCalculation && this.civilizations.length > 0) {
+            this.processCivilizationActions();
         }
         
-        // 检查文明分裂
+        // ========== 第七阶段：文明灭亡检查 ==========
         if (shouldDoFullCalculation) {
-            for (let i = this.civilizations.length - 1; i >= 0; i--) {
-                const civ = this.civilizations[i];
-                if (this.checkCivilizationSplit(civ)) {
-                    this.handleCivilizationSplit(civ);
-                    // 分裂后重新计算影响力
-                    this.calculateInfluence();
-                    this.allocateTerritory();
-                    break;
-                }
-            }
+            this.processCivilizationDeathEvents();
         }
         
-        // 检查文明灭亡
+        // ========== 第八阶段：文明复兴检查 ==========
         if (shouldDoFullCalculation) {
-            for (let i = this.civilizations.length - 1; i >= 0; i--) {
-                const civ = this.civilizations[i];
-                if (this.checkCivilizationDeath(civ)) {
-                    this.handleCivilizationDeath(civ);
-                    // 灭亡后重新计算影响力
-                    this.calculateInfluence();
-                    this.allocateTerritory();
-                }
-            }
+            this.processCivilizationRevivalEvents();
         }
         
-        // 检查文明复兴
-        if (shouldDoFullCalculation) {
-            for (let i = 0; i < this.deadCivilizations.length; i++) {
-                const deadCiv = this.deadCivilizations[i];
-                if (this.checkCivilizationRevival(deadCiv)) {
-                    this.handleCivilizationRevival(deadCiv);
-                    // 复兴后重新计算影响力
-                    this.calculateInfluence();
-                    this.allocateTerritory();
-                    break;
-                }
-            }
-        }
-        
-        // 随机生成事件
-        if (shouldDoFullCalculation) {
-            this.generateRandomEvent();
-        }
-        
-        // 更新UI - 减少频率
+        // ========== 第九阶段：更新UI ==========
         if (shouldDoFullCalculation) {
             this.ui.updateUI();
             this.map.drawMap();
@@ -2242,12 +1436,594 @@ class Simulator {
             this.ui.updateDetails();
             this.ui.updateTimeline();
         }
+        
+        // ========== 第十阶段：定期记录快照 ==========
+        // 每100年记录一次快照
+        if (this.currentYear % 100 === 0) {
+            this.logCivilizationSnapshot();
+        }
+    }
+    
+    // 处理文明分裂和合并
+    processSplitAndMergeEvents() {
+        // 更新文明间的关系
+        this.updateCivilizationRelations();
+        
+        // 检查文明合并（每轮最多处理3次合并）
+        let mergeCount = 0;
+        const maxMerges = 3;
+        for (let i = 0; i < this.civilizations.length && mergeCount < maxMerges; i++) {
+            for (let j = i + 1; j < this.civilizations.length && mergeCount < maxMerges; j++) {
+                const civ1 = this.civilizations[i];
+                const civ2 = this.civilizations[j];
+                // 确保两个文明还存在
+                if (this.civilizations.find(c => c.id === civ1.id) && 
+                    this.civilizations.find(c => c.id === civ2.id)) {
+                    if (this.checkCivilizationMerge(civ1, civ2)) {
+                        this.handleCivilizationMerge(civ1, civ2);
+                        // 合并后重新计算影响力和领土分配
+                        this.calculateInfluence();
+                        this.allocateTerritory();
+                        this.updateCivilizationRelations();
+                        mergeCount++;
+                        // 重新开始循环，因为文明列表已改变
+                        i = -1;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // 检查文明分裂
+        for (let i = this.civilizations.length - 1; i >= 0; i--) {
+            const civ = this.civilizations[i];
+            if (this.checkCivilizationSplit(civ)) {
+                this.handleCivilizationSplit(civ);
+                // 分裂时已经正确分配了领土和影响力，不需要重新计算
+                break;
+            }
+        }
+    }
+    
+    // 处理文明行为（按人口从大到小遍历）
+    processCivilizationActions() {
+        // 按人口从大到小排序
+        const sortedCivilizations = [...this.civilizations].sort((a, b) => b.population - a.population);
+        
+        sortedCivilizations.forEach(civ => {
+            // 检查该文明是否还存在（可能在前面的处理中被合并或灭亡）
+            if (!this.civilizations.find(c => c.id === civ.id)) {
+                return;
+            }
+            
+            // 1. 检查发动各类事件的条件
+            const possibleActions = this.checkCivilizationPossibleActions(civ);
+            
+            // 2. 根据策略、属性和关系决定行为概率
+            const actionProbabilities = this.calculateActionProbabilities(civ, possibleActions);
+            
+            // 3. 随机决定这一轮发生什么行为
+            const selectedAction = this.selectActionByProbability(actionProbabilities);
+            
+            // 4. 执行选中的行为并结算
+            if (selectedAction) {
+                this.executeCivilizationAction(civ, selectedAction);
+            }
+        });
+    }
+    
+    // 检查文明可能发动的行为
+    checkCivilizationPossibleActions(civ) {
+        const actions = [];
+        
+        // 检查战争条件
+        if (this.civilizations.length >= 2) {
+            for (const otherCiv of this.civilizations) {
+                if (otherCiv.id !== civ.id) {
+                    if (civ.relations[otherCiv.id] < -30 && 
+                        civ.military > 50 && 
+                        this.areCivilizationsAdjacent(civ, otherCiv)) {
+                        actions.push({ type: 'war', target: otherCiv });
+                    }
+                }
+            }
+        }
+        
+        // 检查贸易条件
+        if (this.civilizations.length >= 2) {
+            for (const otherCiv of this.civilizations) {
+                if (otherCiv.id !== civ.id) {
+                    if (civ.relations[otherCiv.id] > 30 && 
+                        civ.economy > 40 && otherCiv.economy > 40 &&
+                        this.areCivilizationsAdjacent(civ, otherCiv)) {
+                        actions.push({ type: 'trade', target: otherCiv });
+                    }
+                }
+            }
+        }
+        
+        // 检查外交条件
+        if (this.civilizations.length >= 2) {
+            for (const otherCiv of this.civilizations) {
+                if (otherCiv.id !== civ.id) {
+                    if (civ.relations[otherCiv.id] >= -20 && 
+                        civ.relations[otherCiv.id] <= 40 &&
+                        civ.culture > 30) {
+                        actions.push({ type: 'diplomatic', target: otherCiv });
+                    }
+                }
+            }
+        }
+        
+        // 检查内部事件条件
+        if (civ.stability < 50 || civ.isDeclining) {
+            actions.push({ type: 'internal', target: null });
+        }
+        
+        // 扩张行为（总是可选）
+        actions.push({ type: 'expand', target: null });
+        
+        // 发展行为（总是可选）
+        actions.push({ type: 'develop', target: null });
+        
+        return actions;
+    }
+    
+    // 计算行为概率
+    calculateActionProbabilities(civ, possibleActions) {
+        const probabilities = [];
+        
+        for (const action of possibleActions) {
+            let probability = 0;
+            
+            switch (action.type) {
+                case 'war':
+                    // 军事征服策略更容易发动战争
+                    if (civ.strategy === '军事征服') probability = 0.6;
+                    else if (civ.strategy === '扩张主义') probability = 0.5;
+                    else probability = 0.35;
+                    // 军事属性加成
+                    probability += civ.military / 250;
+                    // 关系越差越容易战争（关系值越低，加成越高）
+                    const relation = civ.relations[action.target.id] || 50;
+                    probability += (100 - relation) / 100;
+                    // 实力差距：强者更倾向于攻击弱者
+                    const myStrength = civ.tech + civ.culture + civ.economy + civ.military;
+                    const targetStrength = action.target.tech + action.target.culture + action.target.economy + action.target.military;
+                    if (myStrength > targetStrength * 1.5) {
+                        probability += 0.2;
+                    }
+                    if (myStrength > targetStrength * 2) {
+                        probability += 0.15;
+                    }
+                    // 领土争夺：领土相邻且差距大时更容易战争
+                    const myTerritory = this.getCivilizationCellStats(civ.id).totalCells;
+                    const targetTerritory = this.getCivilizationCellStats(action.target.id).totalCells;
+                    if (myTerritory > targetTerritory * 2) {
+                        probability += 0.15;
+                    }
+                    // 目标稳定性低时更容易被攻击
+                    if (action.target.stability < 50) {
+                        probability += 0.1;
+                    }
+                    break;
+                    
+                case 'trade':
+                    // 贸易优先策略更容易贸易
+                    if (civ.strategy === '贸易优先') probability = 0.4;
+                    else if (civ.strategy === '和平发展') probability = 0.3;
+                    else probability = 0.15;
+                    // 经济属性加成
+                    probability += civ.economy / 600;
+                    break;
+                    
+                case 'diplomatic':
+                    // 和平发展策略更容易外交
+                    if (civ.strategy === '和平发展') probability = 0.25;
+                    else if (civ.strategy === '文化扩张') probability = 0.2;
+                    else probability = 0.1;
+                    // 文化属性加成
+                    probability += civ.culture / 600;
+                    break;
+                    
+                case 'internal':
+                    // 稳定性越低越容易发生内部事件
+                    probability = (100 - civ.stability) / 120;
+                    if (civ.isDeclining) probability += 0.25;
+                    break;
+                    
+                case 'expand':
+                    // 扩张主义策略更容易扩张
+                    if (civ.strategy === '扩张主义') probability = 0.35;
+                    else if (civ.strategy === '军事征服') probability = 0.25;
+                    else probability = 0.12;
+                    // 军事和科技加成
+                    probability += (civ.military + civ.tech) / 1000;
+                    break;
+                    
+                case 'develop':
+                    // 默认行为，概率降低
+                    probability = 0.2;
+                    // 和平发展策略更倾向于发展
+                    if (civ.strategy === '和平发展') probability = 0.3;
+                    break;
+            }
+            
+            // 确保概率在合理范围内
+            probability = Math.min(0.85, Math.max(0.05, probability));
+            
+            probabilities.push({
+                action: action,
+                probability: probability
+            });
+        }
+        
+        return probabilities;
+    }
+    
+    // 根据概率选择行为
+    selectActionByProbability(probabilities) {
+        if (probabilities.length === 0) return null;
+        
+        // 计算总概率
+        const totalProbability = probabilities.reduce((sum, p) => sum + p.probability, 0);
+        
+        // 随机选择
+        let random = Math.random() * totalProbability;
+        
+        for (const p of probabilities) {
+            random -= p.probability;
+            if (random <= 0) {
+                return p.action;
+            }
+        }
+        
+        return probabilities[probabilities.length - 1].action;
+    }
+    
+    // 执行文明行为
+    executeCivilizationAction(civ, action) {
+        switch (action.type) {
+            case 'war':
+                this.executeWarAction(civ, action.target);
+                break;
+            case 'trade':
+                this.executeTradeAction(civ, action.target);
+                break;
+            case 'diplomatic':
+                this.executeDiplomaticAction(civ, action.target);
+                break;
+            case 'internal':
+                this.executeInternalAction(civ);
+                break;
+            case 'expand':
+                this.executeExpandAction(civ);
+                break;
+            case 'develop':
+                this.executeDevelopAction(civ);
+                break;
+        }
+        
+        // 记录行为日志
+        this.logRecord('action', {
+            civilization: civ.name,
+            actionType: action.type,
+            target: action.target ? action.target.name : null
+        });
+    }
+    
+    // 执行战争行为
+    executeWarAction(civ, targetCiv) {
+        // 找到边境格子
+        const borderCells = this.findBorderCells(civ, targetCiv);
+        if (borderCells.length === 0) return;
+        
+        const battleCell = borderCells[Math.floor(Math.random() * borderCells.length)];
+        const territory = this.map.territory[battleCell.y][battleCell.x];
+        
+        // 战斗效果
+        const warImpact = {
+            economy: -0.2,
+            population: -0.1,
+            military: 0.1
+        };
+        
+        territory.economy = Math.max(0, territory.economy * (1 + warImpact.economy));
+        territory.population = Math.max(0, territory.population * (1 + warImpact.population));
+        territory.military = Math.max(0, territory.military * (1 + warImpact.military));
+        
+        // 确定胜利方（考虑军事实力和稳定性）
+        const civStrength = civ.military * (1 + civ.stability / 100);
+        const targetStrength = targetCiv.military * (1 + targetCiv.stability / 100);
+        const winner = civStrength > targetStrength ? civ : targetCiv;
+        const loser = winner === civ ? targetCiv : civ;
+        
+        // 战争对稳定性的影响（使用修正值）
+        const winnerStabilityChange = 2 + Math.floor(Math.random() * 5);
+        const loserStabilityChange = -(5 + Math.floor(Math.random() * 10));
+        
+        winner.addStabilityModifier(winnerStabilityChange);
+        loser.addStabilityModifier(loserStabilityChange);
+        
+        // 胜利方获得领土
+        if (territory.owner === loser.id) {
+            territory.owner = winner.id;
+            territory.isDisputed = false;
+        }
+        
+        // 战争消耗资源
+        civ.military *= 0.95;
+        targetCiv.military *= 0.95;
+        civ.population *= 0.98;
+        targetCiv.population *= 0.98;
+        
+        // 记录战争事件日志
+        this.logRecord('war', {
+            attacker: civ.name,
+            defender: targetCiv.name,
+            winner: winner.name,
+            loser: loser.name,
+            territoryChange: territory.owner === winner.id ? 1 : 0
+        });
+        
+        // 生成战争事件
+        this.events.push({
+            year: this.currentYear,
+            type: 'war',
+            description: `${civ.name}对${targetCiv.name}发动了战争！${winner.name}获胜。`,
+            triggeredBy: civ.name,
+            affectedCivs: [civ.id, targetCiv.id],
+            impact: {
+                winner: winner.name,
+                loser: loser.name,
+                winnerStabilityChange: winnerStabilityChange,
+                loserStabilityChange: loserStabilityChange
+            }
+        });
+        
+        // 双方关系恶化
+        civ.relations[targetCiv.id] -= 20;
+        targetCiv.relations[civ.id] -= 20;
+    }
+    
+    // 执行贸易行为
+    executeTradeAction(civ, targetCiv) {
+        // 找到边境格子
+        const borderCells = this.findBorderCells(civ, targetCiv);
+        if (borderCells.length === 0) return;
+        
+        const tradeCell = borderCells[Math.floor(Math.random() * borderCells.length)];
+        const territory = this.map.territory[tradeCell.y][tradeCell.x];
+        
+        // 计算贸易效率
+        const tradeEfficiency = (civ.economy + targetCiv.economy + civ.culture + targetCiv.culture) / 400;
+        
+        // 贸易效果
+        const tradeImpact = {
+            economy: 0.2 * tradeEfficiency,
+            culture: 0.1 * tradeEfficiency
+        };
+        
+        territory.economy = Math.min(territory.limits.economy, territory.economy * (1 + tradeImpact.economy));
+        territory.culture = Math.min(territory.limits.culture, territory.culture * (1 + tradeImpact.culture));
+        
+        // 贸易带来稳定性提升（使用修正值）
+        const stabilityBoost = 3 + Math.floor(Math.random() * 5);
+        civ.addStabilityModifier(stabilityBoost);
+        targetCiv.addStabilityModifier(stabilityBoost);
+        
+        // 生成贸易事件
+        this.events.push({
+            year: this.currentYear,
+            type: 'trade',
+            description: `${civ.name}与${targetCiv.name}进行了贸易往来。`,
+            triggeredBy: civ.name,
+            affectedCivs: [civ.id, targetCiv.id],
+            impact: {
+                economyBoost: tradeImpact.economy,
+                cultureBoost: tradeImpact.culture,
+                stabilityBoost: stabilityBoost
+            }
+        });
+        
+        // 双方关系改善
+        civ.relations[targetCiv.id] += 10;
+        targetCiv.relations[civ.id] += 10;
+    }
+    
+    // 执行外交行为
+    executeDiplomaticAction(civ, targetCiv) {
+        // 外交效果
+        const relationChange = Math.floor(Math.random() * 20) + 5;
+        
+        // 外交成功带来稳定性提升（使用修正值）
+        const stabilityBoost = 2 + Math.floor(Math.random() * 4);
+        civ.addStabilityModifier(stabilityBoost);
+        targetCiv.addStabilityModifier(Math.floor(stabilityBoost / 2));
+        
+        // 生成外交事件
+        this.events.push({
+            year: this.currentYear,
+            type: 'diplomatic',
+            description: `${civ.name}与${targetCiv.name}进行了外交接触。`,
+            triggeredBy: civ.name,
+            affectedCivs: [civ.id, targetCiv.id],
+            impact: {
+                relationChange: relationChange,
+                stabilityBoost: stabilityBoost
+            }
+        });
+        
+        // 双方关系改善
+        civ.relations[targetCiv.id] += relationChange;
+        targetCiv.relations[civ.id] += relationChange;
+    }
+    
+    // 执行内部行为
+    executeInternalAction(civ) {
+        const eventTypes = ['政治改革', '经济调整', '文化运动', '科技研究'];
+        const eventType = eventTypes[Math.floor(Math.random() * eventTypes.length)];
+        
+        let description = '';
+        let impact = {};
+        let stabilityBoost = 0;
+        
+        switch (eventType) {
+            case '政治改革':
+                description = `${civ.name}进行了政治改革。`;
+                stabilityBoost = 5 + Math.floor(Math.random() * 10);
+                civ.addStabilityModifier(stabilityBoost);
+                impact = { stabilityChange: `+${stabilityBoost}` };
+                break;
+            case '经济调整':
+                description = `${civ.name}进行了经济调整。`;
+                stabilityBoost = 2 + Math.floor(Math.random() * 4);
+                civ.addStabilityModifier(stabilityBoost);
+                civ.economy += Math.random() * 5;
+                impact = { economyChange: '+随机', stabilityChange: `+${stabilityBoost}` };
+                break;
+            case '文化运动':
+                description = `${civ.name}兴起了文化运动。`;
+                stabilityBoost = 2 + Math.floor(Math.random() * 4);
+                civ.addStabilityModifier(stabilityBoost);
+                civ.culture += Math.random() * 5;
+                impact = { cultureChange: '+随机', stabilityChange: `+${stabilityBoost}` };
+                break;
+            case '科技研究':
+                description = `${civ.name}投入了科技研究。`;
+                stabilityBoost = 1 + Math.floor(Math.random() * 3);
+                civ.addStabilityModifier(stabilityBoost);
+                civ.tech += Math.random() * 5;
+                impact = { techChange: '+随机', stabilityChange: `+${stabilityBoost}` };
+                break;
+        }
+        
+        this.events.push({
+            year: this.currentYear,
+            type: 'internal',
+            description: description,
+            triggeredBy: civ.name,
+            affectedCivs: [civ.id],
+            impact: impact
+        });
+    }
+    
+    // 执行扩张行为
+    executeExpandAction(civ) {
+        // 增加军事和科技投入
+        civ.military += Math.random() * 3;
+        civ.tech += Math.random() * 2;
+        
+        // 增加影响力
+        const cellStats = this.getCivilizationCellStats(civ.id);
+        if (cellStats.totalCells < this.map.rows * this.map.cols * 0.3) {
+            civ.military += Math.random() * 2;
+        }
+        
+        // 扩张对稳定性的影响：小规模扩张提升稳定性，大规模扩张略有下降（使用修正值）
+        let stabilityChange;
+        if (cellStats.totalCells < this.map.rows * this.map.cols * 0.1) {
+            stabilityChange = 2 + Math.floor(Math.random() * 3);
+        } else {
+            stabilityChange = -1 + Math.floor(Math.random() * 3);
+        }
+        civ.addStabilityModifier(stabilityChange);
+        
+        this.events.push({
+            year: this.currentYear,
+            type: 'expand',
+            description: `${civ.name}正在积极扩张领土。`,
+            triggeredBy: civ.name,
+            affectedCivs: [civ.id],
+            impact: { militaryChange: '+随机', techChange: '+随机', stabilityChange: stabilityChange }
+        });
+    }
+    
+    // 执行发展行为
+    executeDevelopAction(civ) {
+        // 均衡发展
+        civ.tech += Math.random() * 2;
+        civ.culture += Math.random() * 2;
+        civ.economy += Math.random() * 2;
+        civ.military += Math.random() * 1;
+        
+        // 内部发展带来稳定性提升（使用修正值）
+        const stabilityBoost = 5 + Math.floor(Math.random() * 8);
+        civ.addStabilityModifier(stabilityBoost);
+        
+        this.events.push({
+            year: this.currentYear,
+            type: 'develop',
+            description: `${civ.name}专注于内部发展。`,
+            triggeredBy: civ.name,
+            affectedCivs: [civ.id],
+            impact: { allAttributes: '+随机', stabilityBoost: stabilityBoost }
+        });
+    }
+    
+    // 查找两个文明的边境格子
+    findBorderCells(civ1, civ2) {
+        const borderCells = [];
+        for (let y = 0; y < this.map.rows; y++) {
+            for (let x = 0; x < this.map.cols; x++) {
+                const territory = this.map.territory[y][x];
+                if (territory.owner === civ1.id) {
+                    const neighbors = [
+                        { x: x-1, y: y-1 }, { x: x, y: y-1 }, { x: x+1, y: y-1 },
+                        { x: x-1, y: y },                     { x: x+1, y: y },
+                        { x: x-1, y: y+1 }, { x: x, y: y+1 }, { x: x+1, y: y+1 }
+                    ];
+                    
+                    for (const neighbor of neighbors) {
+                        if (neighbor.x >= 0 && neighbor.x < this.map.cols && 
+                            neighbor.y >= 0 && neighbor.y < this.map.rows) {
+                            const neighborTerritory = this.map.territory[neighbor.y][neighbor.x];
+                            if (neighborTerritory.owner === civ2.id) {
+                                borderCells.push({ x, y });
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return borderCells;
+    }
+    
+    // 处理文明灭亡事件
+    processCivilizationDeathEvents() {
+        for (let i = this.civilizations.length - 1; i >= 0; i--) {
+            const civ = this.civilizations[i];
+            if (this.checkCivilizationDeath(civ)) {
+                this.handleCivilizationDeath(civ);
+                this.calculateInfluence();
+                this.allocateTerritory();
+            }
+        }
+    }
+    
+    // 处理文明复兴事件
+    processCivilizationRevivalEvents() {
+        for (let i = 0; i < this.deadCivilizations.length; i++) {
+            const deadCiv = this.deadCivilizations[i];
+            if (this.checkCivilizationRevival(deadCiv)) {
+                this.handleCivilizationRevival(deadCiv);
+                this.calculateInfluence();
+                this.allocateTerritory();
+                break;
+            }
+        }
     }
     
     // 开始模拟
     start() {
         if (this.intervalId) {
             clearInterval(this.intervalId);
+        }
+        
+        // 初始化日志开始时间
+        if (!this.simulationLog.startTime) {
+            this.simulationLog.startTime = new Date().toISOString();
         }
         
         this.intervalId = setInterval(() => {
@@ -2261,12 +2037,172 @@ class Simulator {
             clearInterval(this.intervalId);
             this.intervalId = null;
         }
+        
+        // 记录日志结束时间
+        this.simulationLog.endTime = new Date().toISOString();
     }
     
     // 重启模拟
     restart() {
         this.stop();
         this.start();
+    }
+    
+    // 暂停模拟
+    pause() {
+        this.stop();
+    }
+    
+    // 继续模拟
+    resume() {
+        if (!this.intervalId) {
+            this.start();
+        }
+    }
+    
+    // 重置模拟
+    reset() {
+        this.stop();
+        
+        // 重置时间
+        this.currentYear = -3000;
+        this.runningTime = 0;
+        this.events = [];
+        this.deadCivilizations = [];
+        
+        // 重新生成文明
+        const civCount = Math.floor(Math.random() * 4) + 2;
+        this.civilizations = [];
+        
+        for (let i = 0; i < civCount; i++) {
+            const name = this.civilizationNames[i % this.civilizationNames.length];
+            const civ = new Civilization(i + 1, name);
+            this.civilizations.push(civ);
+        }
+        
+        // 重新初始化文明关系
+        this.civilizations.forEach((civ1, i) => {
+            this.civilizations.slice(i + 1).forEach(civ2 => {
+                civ1.relations[civ2.id] = Math.floor(Math.random() * 40 - 20);
+                civ2.relations[civ1.id] = civ1.relations[civ2.id];
+            });
+        });
+        
+        // 重新初始化地图系统
+        this.map = new MapSystem(this);
+        this.map.init();
+        
+        // 为每个文明分配固定位置
+        this.assignCivilizationPositions();
+        
+        // 初始化文明属性到格子上
+        this.distributeCivAttributesToCells();
+        this.updateCellAttributes();
+        
+        // 更新UI
+        this.initUI();
+    }
+    
+    // ===== 日志记录系统 =====
+    
+    // 记录日志
+    logRecord(type, data) {
+        const record = {
+            timestamp: new Date().toISOString(),
+            year: this.currentYear,
+            type: type,
+            data: data
+        };
+        this.simulationLog.records.push(record);
+        
+        // 更新统计
+        this.simulationLog.summary.totalYears = this.currentYear + 3000;
+        switch(type) {
+            case 'split':
+                this.simulationLog.summary.splitEvents++;
+                break;
+            case 'merge':
+                this.simulationLog.summary.mergeEvents++;
+                break;
+            case 'war':
+                this.simulationLog.summary.warEvents++;
+                break;
+            case 'death':
+                this.simulationLog.summary.deathEvents++;
+                break;
+        }
+    }
+    
+    // 记录文明状态快照
+    logCivilizationSnapshot() {
+        const snapshot = {
+            year: this.currentYear,
+            civilizations: this.civilizations.map(civ => ({
+                id: civ.id,
+                name: civ.name,
+                type: civ.type,
+                strategy: civ.strategy,
+                population: Math.floor(civ.population),
+                tech: Math.floor(civ.tech),
+                culture: Math.floor(civ.culture),
+                economy: Math.floor(civ.economy),
+                military: Math.floor(civ.military),
+                stability: Math.floor(civ.stability),
+                stabilityModifier: civ.stabilityModifier,
+                isDeclining: civ.isDeclining,
+                declineYears: civ.declineYears,
+                isUnstable: civ.isUnstable,
+                unstableYears: civ.unstableYears,
+                territory: this.getCivilizationCellStats(civ.id).totalCells
+            }))
+        };
+        this.simulationLog.summary.civilizationHistory.push(snapshot);
+    }
+    
+    // 导出日志为JSON
+    exportLog() {
+        const logData = {
+            ...this.simulationLog,
+            finalState: {
+                year: this.currentYear,
+                civilizations: this.civilizations.map(civ => ({
+                    id: civ.id,
+                    name: civ.name,
+                    type: civ.type,
+                    strategy: civ.strategy,
+                    population: Math.floor(civ.population),
+                    tech: Math.floor(civ.tech),
+                    culture: Math.floor(civ.culture),
+                    economy: Math.floor(civ.economy),
+                    military: Math.floor(civ.military),
+                    stability: Math.floor(civ.stability),
+                    territory: this.getCivilizationCellStats(civ.id).totalCells,
+                    relations: { ...civ.relations }
+                })),
+                deadCivilizations: this.deadCivilizations.map(dc => ({
+                    name: dc.name,
+                    deathYear: dc.deathYear,
+                    peakPopulation: Math.floor(dc.peakPopulation)
+                }))
+            },
+            events: this.events.slice(-100)
+        };
+        
+        return JSON.stringify(logData, null, 2);
+    }
+    
+    // 下载日志文件
+    downloadLog() {
+        const logContent = this.exportLog();
+        const blob = new Blob([logContent], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `civilization-simulation-log-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
     
     // 根据速度获取间隔时间
@@ -2294,33 +2230,136 @@ class Simulator {
     
     // 检查文明是否满足灭亡条件
     checkCivilizationDeath(civ) {
-        // 人口低于1000
-        if (civ.population < 1000) {
-            return true;
-        }
-        
         // 获取文明领土格子数
         const cellStats = this.getCivilizationCellStats(civ.id);
+        
+        // 完全没有领土
         if (cellStats.totalCells === 0) {
             return true;
         }
         
-        // 综合实力（科技+文化+经济+军事）低于50
+        // 综合实力（科技+文化+经济+军事）
         const totalStrength = civ.tech + civ.culture + civ.economy + civ.military;
-        if (totalStrength < 50) {
+        
+        // 计算领土占比
+        const totalCells = this.map.rows * this.map.cols;
+        const territoryRatio = cellStats.totalCells / totalCells;
+        
+        // 基础灭亡条件（非常严格）
+        // 1. 人口低于50且综合实力低于10（极小文明）
+        if (civ.population < 50 && totalStrength < 10) {
             return true;
         }
         
-        // 连续10个时间单位（100年）处于衰退状态
-        if (civ.declineYears >= 10) {
-            return true;
+        // 小规模文明的灭亡条件（领土占比小于3%）
+        if (territoryRatio < 0.03) {
+            // 人口低于100且综合实力低于20
+            if (civ.population < 100 && totalStrength < 20) {
+                return true;
+            }
+            // 连续40个时间单位（400年）处于衰退状态
+            if (civ.declineYears >= 40) {
+                return true;
+            }
+            // 稳定性低于10（极度不稳定）
+            if (civ.stability < 10) {
+                return true;
+            }
+        }
+        
+        // 中等规模文明的灭亡条件（领土占比3%-10%）
+        if (territoryRatio >= 0.03 && territoryRatio < 0.1) {
+            // 人口低于300且综合实力低于40
+            if (civ.population < 300 && totalStrength < 40) {
+                return true;
+            }
+            // 连续60个时间单位（600年）处于衰退状态
+            if (civ.declineYears >= 60) {
+                return true;
+            }
+            // 稳定性低于5（极度不稳定）
+            if (civ.stability < 5) {
+                return true;
+            }
+        }
+        
+        // 大规模文明的灭亡条件（领土占比大于10%）
+        if (territoryRatio >= 0.1) {
+            // 人口低于800且综合实力低于70
+            if (civ.population < 800 && totalStrength < 70) {
+                return true;
+            }
+            // 连续100个时间单位（1000年）处于衰退状态
+            if (civ.declineYears >= 100) {
+                return true;
+            }
+            // 稳定性低于2（几乎不可能）
+            if (civ.stability < 2) {
+                return true;
+            }
         }
         
         return false;
     }
     
+    // 获取文明灭亡原因
+    getDeathReason(civ) {
+        const cellStats = this.getCivilizationCellStats(civ.id);
+        const totalStrength = civ.tech + civ.culture + civ.economy + civ.military;
+        const totalCells = this.map.rows * this.map.cols;
+        const territoryRatio = cellStats.totalCells / totalCells;
+        
+        if (cellStats.totalCells === 0) {
+            return '领土完全丧失';
+        }
+        if (civ.population < 50 && totalStrength < 10) {
+            return '人口和实力过低';
+        }
+        if (territoryRatio < 0.03) {
+            if (civ.population < 100 && totalStrength < 20) {
+                return '小文明人口实力不足';
+            }
+            if (civ.declineYears >= 40) {
+                return `长期衰退(${civ.declineYears}年)`;
+            }
+            if (civ.stability < 10) {
+                return `稳定性过低(${Math.floor(civ.stability)})`;
+            }
+        }
+        if (territoryRatio >= 0.03 && territoryRatio < 0.1) {
+            if (civ.population < 300 && totalStrength < 40) {
+                return '中等文明人口实力不足';
+            }
+            if (civ.declineYears >= 60) {
+                return `长期衰退(${civ.declineYears}年)`;
+            }
+            if (civ.stability < 5) {
+                return `稳定性过低(${Math.floor(civ.stability)})`;
+            }
+        }
+        if (territoryRatio >= 0.1) {
+            if (civ.declineYears >= 100) {
+                return `长期衰退(${civ.declineYears}年)`;
+            }
+            if (civ.stability < 2) {
+                return `稳定性过低(${Math.floor(civ.stability)})`;
+            }
+        }
+        return '未知原因';
+    }
+    
     // 处理文明灭亡
     handleCivilizationDeath(civ) {
+        // 记录灭亡日志
+        this.logRecord('death', {
+            civilization: civ.name,
+            id: civ.id,
+            population: Math.floor(civ.population),
+            stability: Math.floor(civ.stability),
+            territory: this.getCivilizationCellStats(civ.id).totalCells,
+            reason: this.getDeathReason(civ)
+        });
+        
         // 保存灭亡文明的历史数据
         this.deadCivilizations.push({
             id: civ.id,
@@ -2374,8 +2413,10 @@ class Simulator {
     
     // 检查文明是否满足复兴条件
     checkCivilizationRevival(deadCiv) {
-        // 距离灭亡时间超过500年
-        if (this.currentYear - deadCiv.deathYear < 500) {
+        // 距离灭亡时间超过1500年（从1000年提高到1500年）
+        // 但如果所有文明都灭亡，只需要500年
+        const minYears = this.civilizations.length === 0 ? 500 : 1500;
+        if (this.currentYear - deadCiv.deathYear < minYears) {
             return false;
         }
         
@@ -2385,11 +2426,19 @@ class Simulator {
             return false;
         }
         
-        // 检查周围文明实力
+        // 检查周围文明实力（从0.5提高到0.7，更难复兴）
         const surroundingStrength = this.calculateSurroundingStrength(suitableArea.x, suitableArea.y);
         const peakStrength = deadCiv.peakTech + deadCiv.peakCulture + deadCiv.peakEconomy + deadCiv.peakMilitary;
         
-        if (surroundingStrength > peakStrength * 0.3) {
+        // 如果所有文明都灭亡，周围实力为0，直接通过
+        if (this.civilizations.length > 0 && surroundingStrength > peakStrength * 0.7) {
+            return false;
+        }
+        
+        // 随机概率（20%概率复兴，从30%降低到20%）
+        // 但如果所有文明都灭亡，提高到50%
+        const revivalChance = this.civilizations.length === 0 ? 0.5 : 0.2;
+        if (Math.random() > revivalChance) {
             return false;
         }
         
@@ -2431,19 +2480,25 @@ class Simulator {
         
         // 创建新文明，继承原文明的部分属性
         const newId = this.civilizations.length + this.deadCivilizations.length + 1;
-        // 处理名称，避免过长后缀
-        const nameMatch = deadCiv.name.match(/^(.*?)(\d+)?$/);
-        let baseName = nameMatch[1];
-        let number = nameMatch[2] ? parseInt(nameMatch[2]) + 1 : 2;
-        const newName = `${baseName}${number}`;
+        const newName = deadCiv.name; // 复兴文明直接使用原名称
         const newCiv = new Civilization(newId, newName);
         
-        // 继承原文明的部分属性（50%的巅峰值）
-        newCiv.tech = deadCiv.peakTech * 0.5;
-        newCiv.culture = deadCiv.peakCulture * 0.7; // 文化遗产保留更多
-        newCiv.economy = deadCiv.peakEconomy * 0.5;
-        newCiv.military = deadCiv.peakMilitary * 0.4;
-        newCiv.population = deadCiv.peakPopulation * 0.3;
+        // 继承原文明的部分属性（提高复兴文明的初始实力）
+        newCiv.tech = deadCiv.peakTech * 0.7; // 从0.5提高到0.7
+        newCiv.culture = deadCiv.peakCulture * 0.8; // 从0.7提高到0.8
+        newCiv.economy = deadCiv.peakEconomy * 0.7; // 从0.5提高到0.7
+        newCiv.military = deadCiv.peakMilitary * 0.6; // 从0.4提高到0.6
+        newCiv.population = deadCiv.peakPopulation * 0.5; // 从0.3提高到0.5
+        
+        // 确保复兴文明有足够的基础属性
+        newCiv.tech = Math.max(newCiv.tech, 30);
+        newCiv.culture = Math.max(newCiv.culture, 30);
+        newCiv.economy = Math.max(newCiv.economy, 30);
+        newCiv.military = Math.max(newCiv.military, 20);
+        newCiv.population = Math.max(newCiv.population, 2000);
+        
+        // 设置复兴文明的稳定性
+        newCiv.stability = 60; // 复兴文明初始稳定性较高
         
         // 添加到文明列表
         this.civilizations.push(newCiv);
@@ -2479,34 +2534,87 @@ class Simulator {
     
     // 检查文明是否满足合并条件
     checkCivilizationMerge(civ1, civ2) {
-        // 关系值高于80
-        if (civ1.relations[civ2.id] < 80) {
-            return false;
+        const civ1Cells = this.getCivilizationCellStats(civ1.id).totalCells;
+        const civ2Cells = this.getCivilizationCellStats(civ2.id).totalCells;
+        const totalCells = this.map.rows * this.map.cols;
+        const smallCivThreshold = totalCells * 0.05;
+        
+        const smallerCiv = civ1Cells < civ2Cells ? civ1 : civ2;
+        const largerCiv = civ1Cells < civ2Cells ? civ2 : civ1;
+        const smallerCells = Math.min(civ1Cells, civ2Cells);
+        
+        // 计算实力
+        const smallerStrength = smallerCiv.tech + smallerCiv.culture + smallerCiv.economy + smallerCiv.military;
+        const largerStrength = largerCiv.tech + largerCiv.culture + largerCiv.economy + largerCiv.military;
+        const strengthRatio = largerStrength / Math.max(1, smallerStrength);
+        
+        // ===== 场景1：小文明被吞并（分久必合核心机制）=====
+        // 小文明（<5%领土）容易被吞并，但概率要低
+        if (smallerCells < smallCivThreshold) {
+            // 检查是否相邻或被包围
+            const isAdjacent = this.areCivilizationsAdjacent(civ1, civ2);
+            const isSurrounded = this.isCivilizationSurrounded(smallerCiv, largerCiv);
+            
+            if (!isAdjacent && !isSurrounded) {
+                return false;
+            }
+            
+            // 基础合并概率降低到5%
+            let mergeProbability = 0.05;
+            
+            // 实力差距越大，合并概率越高
+            if (strengthRatio > 10) mergeProbability = 0.15;
+            else if (strengthRatio > 5) mergeProbability = 0.1;
+            
+            // 小文明不稳定时更容易被吞并
+            if (smallerCiv.stability < 30) mergeProbability += 0.05;
+            
+            // 被包围时更容易被吞并
+            if (isSurrounded) mergeProbability += 0.05;
+            
+            return Math.random() < mergeProbability;
         }
         
-        // 地理位置相邻（至少有一个相邻格子）
+        // ===== 场景2：征服合并（实力差距导致）=====
+        // 实力差距超过3倍才可能征服合并
+        if (strengthRatio > 3) {
+            // 检查是否相邻
+            if (!this.areCivilizationsAdjacent(civ1, civ2)) {
+                return false;
+            }
+            
+            // 基础概率降低到3%
+            let mergeProbability = 0.03;
+            
+            // 实力差距越大，概率越高
+            if (strengthRatio > 8) mergeProbability = 0.08;
+            else if (strengthRatio > 5) mergeProbability = 0.05;
+            
+            // 弱者稳定性低时更容易被征服
+            if (smallerCiv.stability < 30) mergeProbability += 0.05;
+            
+            return Math.random() < mergeProbability;
+        }
+        
+        // ===== 场景3：友好文明合并 =====
+        // 检查是否相邻
         if (!this.areCivilizationsAdjacent(civ1, civ2)) {
             return false;
         }
         
-        // 文化差异低于20
-        const cultureDiff = Math.abs(civ1.culture - civ2.culture);
-        if (cultureDiff > 20) {
-            return false;
+        const relation = civ1.relations[civ2.id] || 0;
+        // 关系要求提高到70
+        if (relation >= 70) {
+            const cultureDiff = Math.abs(civ1.culture - civ2.culture);
+            const economyDiff = Math.abs(civ1.economy - civ2.economy);
+            if (cultureDiff <= 30 && economyDiff <= 30) {
+                if (civ1.strategy !== '扩张主义' && civ2.strategy !== '扩张主义') {
+                    return Math.random() < 0.05;
+                }
+            }
         }
         
-        // 经济差异低于30
-        const economyDiff = Math.abs(civ1.economy - civ2.economy);
-        if (economyDiff > 30) {
-            return false;
-        }
-        
-        // 双方均为非扩张主义策略
-        if (civ1.strategy === '扩张主义' || civ2.strategy === '扩张主义') {
-            return false;
-        }
-        
-        return true;
+        return false;
     }
     
     // 检查两个文明是否相邻
@@ -2520,7 +2628,7 @@ class Simulator {
         for (let y = 0; y < this.map.rows; y++) {
             for (let x = 0; x < this.map.cols; x++) {
                 const territory = this.map.territory[y][x];
-                if (territory.owner === civ1.id) {
+                if (territory.owner === civ1.id && !territory.isDisputed) {
                     // 检查周围8个格子
                     const neighbors = [
                         { x: x-1, y: y-1 }, { x: x, y: y-1 }, { x: x+1, y: y-1 },
@@ -2531,7 +2639,7 @@ class Simulator {
                     for (const neighbor of neighbors) {
                         if (neighbor.x >= 0 && neighbor.x < this.map.cols && neighbor.y >= 0 && neighbor.y < this.map.rows) {
                             const neighborTerritory = this.map.territory[neighbor.y][neighbor.x];
-                            if (neighborTerritory.owner === civ2.id) {
+                            if (neighborTerritory.owner === civ2.id && !neighborTerritory.isDisputed) {
                                 return true;
                             }
                         }
@@ -2543,8 +2651,63 @@ class Simulator {
         return false;
     }
     
+    // 检查文明是否被另一个文明包围（用于合并判定）
+    isCivilizationSurrounded(smallCiv, largeCiv) {
+        if (!this.map || !this.map.rows || !this.map.cols) {
+            return false;
+        }
+        
+        let smallCivCells = 0;
+        let surroundedCells = 0;
+        
+        for (let y = 0; y < this.map.rows; y++) {
+            for (let x = 0; x < this.map.cols; x++) {
+                const territory = this.map.territory[y][x];
+                if (territory.owner === smallCiv.id && !territory.isDisputed) {
+                    smallCivCells++;
+                    
+                    // 检查周围8个格子
+                    const neighbors = [
+                        { x: x-1, y: y-1 }, { x: x, y: y-1 }, { x: x+1, y: y-1 },
+                        { x: x-1, y: y },                     { x: x+1, y: y },
+                        { x: x-1, y: y+1 }, { x: x, y: y+1 }, { x: x+1, y: y+1 }
+                    ];
+                    
+                    let hasLargeCivNeighbor = false;
+                    for (const neighbor of neighbors) {
+                        if (neighbor.x >= 0 && neighbor.x < this.map.cols && 
+                            neighbor.y >= 0 && neighbor.y < this.map.rows) {
+                            const neighborTerritory = this.map.territory[neighbor.y][neighbor.x];
+                            if (neighborTerritory.owner === largeCiv.id) {
+                                hasLargeCivNeighbor = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (hasLargeCivNeighbor) {
+                        surroundedCells++;
+                    }
+                }
+            }
+        }
+        
+        // 如果超过50%的领土与大文明相邻，则认为被包围
+        return smallCivCells > 0 && surroundedCells / smallCivCells > 0.5;
+    }
+    
     // 处理文明合并
     handleCivilizationMerge(civ1, civ2) {
+        // 记录合并日志
+        this.logRecord('merge', {
+            civilization1: civ1.name,
+            civilization2: civ2.name,
+            newCivilization: `${civ1.name}-${civ2.name}联盟`,
+            civ1Population: Math.floor(civ1.population),
+            civ2Population: Math.floor(civ2.population),
+            relation: civ1.relations[civ2.id]
+        });
+        
         // 创建新文明，合并两个文明的属性
         const newId = this.civilizations.length + this.deadCivilizations.length + 1;
         // 简化合并文明的名称，避免过长
@@ -2594,6 +2757,45 @@ class Simulator {
             }
         });
         
+        // 从文明列表中移除原文明，但保存到灭亡文明列表以便复兴
+        // 保存civ1到灭亡列表
+        this.deadCivilizations.push({
+            id: civ1.id,
+            name: civ1.name,
+            deathYear: this.currentYear,
+            peakTech: civ1.peakTech,
+            peakCulture: civ1.peakCulture,
+            peakEconomy: civ1.peakEconomy,
+            peakMilitary: civ1.peakMilitary,
+            peakPopulation: civ1.peakPopulation,
+            finalTech: civ1.tech,
+            finalCulture: civ1.culture,
+            finalEconomy: civ1.economy,
+            finalMilitary: civ1.military,
+            finalPopulation: civ1.population,
+            strategy: civ1.strategy,
+            territory: this.getCivilizationCellStats(civ1.id)
+        });
+        
+        // 保存civ2到灭亡列表
+        this.deadCivilizations.push({
+            id: civ2.id,
+            name: civ2.name,
+            deathYear: this.currentYear,
+            peakTech: civ2.peakTech,
+            peakCulture: civ2.peakCulture,
+            peakEconomy: civ2.peakEconomy,
+            peakMilitary: civ2.peakMilitary,
+            peakPopulation: civ2.peakPopulation,
+            finalTech: civ2.tech,
+            finalCulture: civ2.culture,
+            finalEconomy: civ2.economy,
+            finalMilitary: civ2.military,
+            finalPopulation: civ2.population,
+            strategy: civ2.strategy,
+            territory: this.getCivilizationCellStats(civ2.id)
+        });
+        
         // 从文明列表中移除原文明
         this.civilizations = this.civilizations.filter(c => c.id !== civ1.id && c.id !== civ2.id);
         
@@ -2615,19 +2817,44 @@ class Simulator {
     
     // 检查文明是否满足分裂条件
     checkCivilizationSplit(civ) {
-        // 领土格子数超过5000
+        // 领土格子数超过地图总格子数的15%
         const cellStats = this.getCivilizationCellStats(civ.id);
-        if (cellStats.totalCells < 5000) {
+        const totalCells = this.map.rows * this.map.cols;
+        const territoryRatio = cellStats.totalCells / totalCells;
+        
+        // 规模越大，分裂阈值越高（更容易分裂）
+        let stabilityThreshold = 70;
+        if (territoryRatio > 0.5) {
+            stabilityThreshold = 75; // 占据50%以上领土，稳定性低于75可能分裂
+        } else if (territoryRatio > 0.3) {
+            stabilityThreshold = 70; // 占据30%以上领土，稳定性低于70可能分裂
+        } else if (territoryRatio > 0.15) {
+            stabilityThreshold = 65; // 占据15%以上领土，稳定性低于65可能分裂
+        } else {
+            return false; // 规模太小，不会分裂
+        }
+        
+        if (civ.stability > stabilityThreshold) {
             return false;
         }
         
-        // 不稳定状态持续5个时间单位（50年）
-        if (civ.unstableYears < 5) {
+        // 不稳定状态持续3个时间单位（30年）才可分裂
+        if (civ.unstableYears < 3) {
             return false;
         }
         
-        // 人口超过100000
-        if (civ.population < 100000) {
+        // 人口超过地图总格子数*2（即3200）
+        if (civ.population < totalCells * 2) {
+            return false;
+        }
+        
+        // 检查分裂冷却期
+        if (civ.splitCooldown && civ.splitCooldown > 0) {
+            return false;
+        }
+        
+        // 随机因素：即使满足条件也有一定概率不分裂（40%概率分裂）
+        if (Math.random() > 0.4) {
             return false;
         }
         
@@ -2636,6 +2863,15 @@ class Simulator {
     
     // 处理文明分裂
     handleCivilizationSplit(civ) {
+        // 记录分裂日志
+        this.logRecord('split', {
+            originalCivilization: civ.name,
+            population: Math.floor(civ.population),
+            stability: Math.floor(civ.stability),
+            unstableYears: civ.unstableYears,
+            territory: this.getCivilizationCellStats(civ.id).totalCells
+        });
+        
         // 获取文明的所有领土
         const ownedCells = [];
         for (let y = 0; y < this.map.rows; y++) {
@@ -2646,6 +2882,11 @@ class Simulator {
             }
         }
         
+        // 如果领土太少，不分裂
+        if (ownedCells.length < 100) {
+            return;
+        }
+        
         // 随机分成两部分
         this.shuffleArray(ownedCells);
         const halfIndex = Math.floor(ownedCells.length / 2);
@@ -2654,11 +2895,7 @@ class Simulator {
         
         // 创建第二个文明
         const newId = this.civilizations.length + this.deadCivilizations.length + 1;
-        // 处理名称，只进行数字递增
-        const nameMatch = civ.name.match(/^(.*?)(\d+)?$/);
-        let baseName = nameMatch[1];
-        let number = nameMatch[2] ? parseInt(nameMatch[2]) + 1 : 2;
-        const newName = `${baseName}${number}`;
+        const newName = this.generateCivilizationName();
         const newCiv = new Civilization(newId, newName);
         
         // 分配属性（原文明保留60%，新文明获得40%）
@@ -2692,9 +2929,18 @@ class Simulator {
         // 添加到文明列表
         this.civilizations.push(newCiv);
         
-        // 分配领土
+        // 分配领土给新文明
         part2.forEach(cell => {
             this.map.territory[cell.y][cell.x].owner = newCiv.id;
+            // 清除影响力，避免被allocateTerritory覆盖
+            this.map.influence[cell.y][cell.x] = {};
+            this.map.influence[cell.y][cell.x][newCiv.id] = 100;
+        });
+        
+        // 更新原文明领土的影响力
+        part1.forEach(cell => {
+            this.map.influence[cell.y][cell.x] = {};
+            this.map.influence[cell.y][cell.x][civ.id] = 100;
         });
         
         // 初始化文明间关系
@@ -2712,6 +2958,14 @@ class Simulator {
         // 重置不稳定状态
         civ.isUnstable = false;
         civ.unstableYears = 0;
+        
+        // 设置分裂冷却期（20个时间单位 = 200年）
+        civ.splitCooldown = 20;
+        newCiv.splitCooldown = 20;
+        
+        // 分裂后提升原文明稳定性（暂时稳定）
+        civ.stabilityModifier += 30;
+        newCiv.stabilityModifier += 30;
         
         // 生成分裂事件
         this.events.push({
@@ -2794,6 +3048,30 @@ class Simulator {
         }
         
         return stats;
+    }
+    
+    // 生成新的文明名称
+    generateCivilizationName() {
+        // 获取所有现有文明和已灭亡文明的名称
+        const existingNames = new Set();
+        this.civilizations.forEach(civ => existingNames.add(civ.name));
+        this.deadCivilizations.forEach(deadCiv => existingNames.add(deadCiv.name));
+        
+        // 尝试生成不重复的名称（最多尝试100次）
+        for (let attempt = 0; attempt < 100; attempt++) {
+            // 随机选择两个汉字
+            const char1 = this.chineseCharacters[Math.floor(Math.random() * this.chineseCharacters.length)];
+            const char2 = this.chineseCharacters[Math.floor(Math.random() * this.chineseCharacters.length)];
+            const newName = `${char1}${char2}文明`;
+            
+            // 检查是否重复
+            if (!existingNames.has(newName)) {
+                return newName;
+            }
+        }
+        
+        // 如果100次都没找到不重复的名称，使用时间戳
+        return `文明${Date.now()}`;
     }
     
     // 计算文明的重心位置

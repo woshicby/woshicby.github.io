@@ -1,5 +1,17 @@
 /* 多文明演化模拟器样式 */
 
+/* 文明演化模拟器专用变量 */
+:root {
+    --info-color: #3498db;
+    --warning-color: #f39c12;
+    --error-color: #e74c3c;
+    --primary-light: rgba(52, 73, 94, 0.15);
+    --info-light: rgba(52, 152, 219, 0.15);
+    --error-light: rgba(231, 76, 60, 0.15);
+    --success-light: rgba(46, 204, 113, 0.15);
+    --warning-light: rgba(243, 156, 18, 0.15);
+}
+
 /* 控制面板样式 */
 .control-section {
     display: flex;
@@ -7,6 +19,41 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
+}
+
+.control-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.control-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius-md);
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.control-btn:hover {
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-light);
+}
+
+.control-btn.secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+.control-btn.secondary:hover {
+    background-color: var(--light-accent);
+    border-color: var(--primary-color);
 }
 
 .speed-control {
@@ -45,7 +92,7 @@
     box-shadow: var(--shadow-light);
     padding: 1.5rem;
     transition: var(--transition-default);
-    border: 2px solid transparent;
+    border: 2px solid var(--border-color);
     position: relative;
 }
 
@@ -149,10 +196,7 @@
 
 /* 地图容器样式 */
 .map-section {
-    background-color: var(--card-bg-color);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-light);
-    padding: 1.5rem;
+    margin-bottom: 30px;
 }
 
 #civilizationMap {
@@ -169,11 +213,7 @@
 
 /* 文明关系图样式 */
 .relations-section {
-    background-color: var(--card-bg-color);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-light);
-    padding: 1.5rem;
-    margin-bottom: 0;
+    margin-bottom: 30px;
 }
 
 .relations-graph {
@@ -189,10 +229,7 @@
 
 /* 文明详细信息面板 */
 .details-section {
-    background-color: var(--card-bg-color);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-light);
-    padding: 1.5rem;
+    margin-bottom: 30px;
 }
 
 .civilization-details {
@@ -302,19 +339,23 @@
 
 /* 时间线样式 */
 .timeline-section {
-    background-color: var(--card-bg-color);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-light);
-    padding: 1.5rem;
+    margin-bottom: 30px;
 }
 
 .timeline {
-    max-height: 400px;
+    min-height: 120px;
+    max-height: 25vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding-right: 0.5rem;
+    padding: 10px;
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 /* 时间线滚动条样式 */
@@ -323,33 +364,35 @@
 }
 
 .timeline::-webkit-scrollbar-track {
-    background: var(--light-accent);
-    border-radius: var(--border-radius-sm);
+    background: var(--bg-color);
+    border-radius: var(--border-radius-md);
 }
 
 .timeline::-webkit-scrollbar-thumb {
     background: var(--border-color);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius-md);
 }
 
 .timeline::-webkit-scrollbar-thumb:hover {
-    background: var(--text-secondary-color);
+    background: var(--disabled-color);
 }
 
 /* 时间线事件样式 */
 .timeline-item {
-    background-color: var(--light-accent);
+    background-color: var(--white);
     border-radius: var(--border-radius-sm);
-    padding: 1rem;
-    border-left: 4px solid var(--primary-color);
+    padding: 0.5rem;
+    border-left: 3px solid var(--primary-color);
     transition: all 0.3s ease;
     opacity: 0;
     transform: translateX(-20px);
     animation: eventSlideIn 0.5s ease forwards;
     margin-bottom: 0.5rem;
+    color: var(--text-color);
 }
 
 .timeline-item:hover {
+    background-color: var(--light-accent);
     box-shadow: var(--shadow-light);
     transform: translateX(5px);
 }
@@ -733,10 +776,69 @@ body.dark-theme .civilization-card:hover {
     box-shadow: var(--shadow-medium);
 }
 
+body.dark-theme .timeline {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .timeline-item {
+    background-color: var(--card-bg-color);
+    border-left-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+body.dark-theme .timeline-item:hover {
+    background-color: var(--light-accent);
+}
+
+body.dark-theme .timeline-year {
+    color: var(--secondary-color);
+}
+
+body.dark-theme .civ-name {
+    color: var(--secondary-color);
+}
+
+body.dark-theme .event-type.internal {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: var(--secondary-color);
+}
+
+body.dark-theme .event-type.diplomatic {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: var(--secondary-color);
+}
+
+body.dark-theme .event-type.war {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+}
+
+body.dark-theme .event-type.trade {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+}
+
+body.dark-theme .event-type.global {
+    background-color: rgba(241, 196, 15, 0.2);
+    color: #f1c40f;
+}
+
 body.dark-theme .speed-control select {
     background-color: var(--background-color);
     color: var(--text-color);
     border-color: var(--border-color);
+}
+
+body.dark-theme .control-btn.secondary {
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .control-btn.secondary:hover {
+    background-color: var(--light-accent);
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
 }
 
 body.dark-theme .relations-graph,
@@ -748,7 +850,7 @@ body.dark-theme .relation-line {
     background-color: var(--border-color);
 }
 
-/* 响应式设计 */
+
 @media (max-width: 768px) {
     .control-panel {
         flex-direction: column;

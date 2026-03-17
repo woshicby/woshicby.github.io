@@ -37,11 +37,7 @@
 
 .resource-input {
     width: 80%;
-    padding: var(--spacing-sm);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
     text-align: center;
-    background-color: var(--white);
 }
 
 /* 锻造区域 */
@@ -181,12 +177,6 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-}
-
-.collection-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--heading-color);
 }
 
 .collection-count {
@@ -505,12 +495,6 @@
     margin-bottom: 10px;
 }
 
-.log-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--heading-color);
-}
-
 .log-area {
     min-height: 120px;
     max-height: 25vh;
@@ -559,6 +543,7 @@
 
 
 /* 夜间模式样式 - 统一管理 */
+body.dark-theme .resources-section,
 body.dark-theme .resources-container,
 body.dark-theme .result-container,
 body.dark-theme .collection-container,
@@ -570,11 +555,10 @@ body.dark-theme .log-area {
     background-color: var(--card-bg-color);
     border-color: var(--border-color);
     border-width: 1px;
-    box-shadow: none; /* 确保不覆盖tools-common.css中的box-shadow设置 */
+    box-shadow: none;
 }
 
 /* 增强输入框和按钮边框可见性 */
-body.dark-theme .resource-input,
 body.dark-theme .action-btn.secondary {
     border-width: 1.5px;
 }
@@ -603,10 +587,19 @@ body.dark-theme .stats-container span span {
 }
 
 /* 输入框样式 */
-body.dark-theme .resource-input,
 body.dark-theme .action-btn.secondary {
     background-color: var(--light-accent);
     border-color: var(--border-color);
+}
+
+/* 结果区域夜间模式样式 */
+body.dark-theme .result-section {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .result-name {
+    color: var(--text-color);
 }
 
 body.dark-theme .action-btn.secondary:hover {

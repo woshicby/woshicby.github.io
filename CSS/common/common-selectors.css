@@ -207,6 +207,131 @@ h3 {
     line-height: 1.4;
 }
 
+/* ==========================================
+   全局表单元素样式 - 文本框统一样式
+   ==========================================
+   统一所有页面的文本框、文本域、选择框样式
+   包含日间模式和夜间模式样式
+   ========================================== */
+
+/* 文本输入框和文本域基础样式 */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+textarea,
+select {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: 16px;
+    font-family: inherit;
+    background-color: var(--white);
+    color: var(--text-color);
+    transition: var(--transition-default);
+    box-sizing: border-box;
+}
+
+/* 文本域特殊样式 */
+textarea {
+    resize: vertical;
+    line-height: 1.6;
+}
+
+/* 选择框特殊样式 */
+select {
+    cursor: pointer;
+}
+
+/* 聚焦状态 */
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* 只读状态 */
+input[type="text"]:read-only,
+input[type="number"]:read-only,
+input[type="email"]:read-only,
+input[type="password"]:read-only,
+input[type="search"]:read-only,
+input[type="url"]:read-only,
+textarea:read-only {
+    background-color: var(--light-accent);
+    cursor: not-allowed;
+    color: var(--light-text);
+}
+
+/* placeholder样式 */
+input[type="text"]::placeholder,
+input[type="number"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="search"]::placeholder,
+input[type="url"]::placeholder,
+textarea::placeholder {
+    color: var(--light-text);
+    opacity: 0.7;
+}
+
+/* 夜间模式样式 */
+body.dark-theme input[type="text"],
+body.dark-theme input[type="number"],
+body.dark-theme input[type="email"],
+body.dark-theme input[type="password"],
+body.dark-theme input[type="search"],
+body.dark-theme input[type="url"],
+body.dark-theme textarea,
+body.dark-theme select {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+body.dark-theme input[type="text"]:focus,
+body.dark-theme input[type="number"]:focus,
+body.dark-theme input[type="email"]:focus,
+body.dark-theme input[type="password"]:focus,
+body.dark-theme input[type="search"]:focus,
+body.dark-theme input[type="url"]:focus,
+body.dark-theme textarea:focus,
+body.dark-theme select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+body.dark-theme input[type="text"]:read-only,
+body.dark-theme input[type="number"]:read-only,
+body.dark-theme input[type="email"]:read-only,
+body.dark-theme input[type="password"]:read-only,
+body.dark-theme input[type="search"]:read-only,
+body.dark-theme input[type="url"]:read-only,
+body.dark-theme textarea:read-only {
+    background-color: var(--light-accent);
+    color: var(--text-color);
+}
+
+body.dark-theme input[type="text"]::placeholder,
+body.dark-theme input[type="number"]::placeholder,
+body.dark-theme input[type="email"]::placeholder,
+body.dark-theme input[type="password"]::placeholder,
+body.dark-theme input[type="search"]::placeholder,
+body.dark-theme input[type="url"]::placeholder,
+body.dark-theme textarea::placeholder {
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
 p {
     margin-bottom: 1rem;
     line-height: 1.8;

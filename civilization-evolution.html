@@ -54,7 +54,7 @@
                     <li><a href="./video.html">视频展示</a></li>
                     <li><a href="./posts.html">博客文章</a></li>
                     <li><a href="./study.html">个人成果</a></li>
-                    <li><a href="./tools.html">小工具&小游戏</a></li>
+                    <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
                     <li><a href="./sports.html">体育运动</a></li>
                     <li>
                         <label class="theme-toggle">
@@ -95,6 +95,13 @@
                 
                 <!-- 控制面板 -->
                 <div class="control-section">
+                    <div class="control-buttons">
+                        <button id="startBtn" class="control-btn" onclick="startSimulation()" style="display: none;">▶ 开始</button>
+                        <button id="pauseBtn" class="control-btn" onclick="pauseSimulation()">⏸ 暂停</button>
+                        <button id="resumeBtn" class="control-btn" onclick="resumeSimulation()" style="display: none;">▶ 继续</button>
+                        <button id="resetBtn" class="control-btn secondary" onclick="resetSimulation()">🔄 重置</button>
+                        <button id="exportLogBtn" class="control-btn secondary" onclick="exportSimulationLog()">📋 导出日志</button>
+                    </div>
                     <div class="speed-control">
                         <label for="speedSelect">演化速度：</label>
                         <select id="speedSelect">

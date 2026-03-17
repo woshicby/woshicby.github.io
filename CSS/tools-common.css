@@ -3,6 +3,9 @@
 /* 返回小工具页面按钮 */
 .back-to-tools {
     margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .back-button {
@@ -17,6 +20,10 @@
 
 .back-button:hover {
     background-color: var(--primary-hover-color);
+}
+
+.back-button-right {
+    margin-left: auto;
 }
 
 /* 工具标签导航样式 */

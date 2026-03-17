@@ -43,29 +43,6 @@
     font-size: 16px;
 }
 
-.form-group input[type="number"] {
-    width: 100%;
-    padding: var(--spacing-md) var(--spacing-md);
-    border: 2px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    font-size: 16px;
-    transition: var(--transition-default);
-    background-color: var(--white);
-    color: var(--text-color);
-}
-
-.form-group input[type="number"]:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-}
-
-.form-group input[type="number"]:read-only {
-    background-color: var(--light-accent);
-    cursor: not-allowed;
-    color: var(--light-text);
-}
-
 /* 时间输入组合 */
 .time-inputs, .pace-inputs {
     display: flex;
@@ -232,7 +209,7 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--table-border-color);
     border-radius: var(--border-radius-md);
 }
 
@@ -240,15 +217,15 @@
 .reference-table td {
     padding: 0.75rem;
     text-align: left;
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid var(--table-border-color);
 }
 
 .reference-table td {
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--table-border-color);
 }
 
 .reference-table th {
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 1px solid var(--table-border-color);
     background-color: var(--light-accent);
     font-weight: bold;
 }
@@ -344,8 +321,6 @@
 }
 
 /* 夜间模式样式 */
-body.dark-theme .result-section h3,
-body.dark-theme .reference-section h3,
 body.dark-theme .split-table-section h4 {
     color: var(--heading-dark-color);
 }
@@ -355,31 +330,6 @@ body.dark-theme .calculator-section {
     background-color: var(--card-bg-color);
     border-color: var(--border-color);
     border-width: 1px;
-}
-
-body.dark-theme .form-group label {
-    color: var(--dark-light-text-color);
-}
-
-body.dark-theme .form-group input[type="number"],
-body.dark-theme .time-inputs input,
-body.dark-theme .pace-inputs input {
-    background-color: var(--primary-color);
-    border-color: var(--border-color);
-    color: var(--text-color);
-}
-
-body.dark-theme .form-group input[type="number"]:focus,
-body.dark-theme .time-inputs input:focus,
-body.dark-theme .pace-inputs input:focus {
-    border-color: var(--secondary-color);
-    box-shadow: 0 0 0 3px rgba(51, 122, 183, 0.25);
-}
-
-body.dark-theme .form-group input[type="number"]:read-only,
-body.dark-theme .pace-inputs input:read-only {
-    background-color: var(--light-accent);
-    color: var(--light-text);
 }
 
 /* 增强下拉菜单样式 */
@@ -446,16 +396,16 @@ body.dark-theme .reference-section {
 }
 
 body.dark-theme .reference-table {
-    border-color: var(--border-color);
+    border-color: var(--table-border-color);
 }
 
 body.dark-theme .reference-table th {
     background-color: var(--light-accent);
-    border-color: var(--border-color);
+    border-color: var(--table-border-color);
 }
 
 body.dark-theme .reference-table td {
-    border-color: var(--border-color);
+    border-color: var(--table-border-color);
 }
 
 body.dark-theme .reference-table th,
