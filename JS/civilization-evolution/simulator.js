@@ -2198,7 +2198,9 @@ class Simulator {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `civilization-simulation-log-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.json`;
+        const now = new Date();
+        const timestamp = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}.${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}`;
+        a.download = `文明演化-模拟日志_${timestamp}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

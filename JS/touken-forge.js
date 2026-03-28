@@ -38,7 +38,9 @@ function initDataManagement() {
         
         const a = document.createElement('a');
         a.href = url;
-        a.download = `touken-swords_${new Date().toISOString().slice(0,10)}.json`;
+        const now = new Date();
+        const timestamp = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}.${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}`;
+        a.download = `刀剑锻造-锻造记录_${timestamp}.json`;
         a.click();
         
         URL.revokeObjectURL(url);
@@ -112,7 +114,9 @@ function initDataManagement() {
         
         const a = document.createElement('a');
         a.href = url;
-        a.download = `touken-log_${new Date().toISOString().slice(0,10)}.json`;
+        const now1 = new Date();
+        const timestamp1 = `${now1.getFullYear()}${String(now1.getMonth()+1).padStart(2,'0')}${String(now1.getDate()).padStart(2,'0')}.${String(now1.getHours()).padStart(2,'0')}${String(now1.getMinutes()).padStart(2,'0')}${String(now1.getSeconds()).padStart(2,'0')}`;
+        a.download = `刀剑锻造-锻造日志_${timestamp1}.json`;
         a.click();
         
         URL.revokeObjectURL(url);
@@ -200,7 +204,9 @@ function initDataManagement() {
         const a = document.createElement('a');
         a.href = url;
         // 使用当前日期作为文件名一部分
-        a.download = `touken-forge-data_${new Date().toISOString().slice(0,10)}.json`;
+        const now2 = new Date();
+        const timestamp2 = `${now2.getFullYear()}${String(now2.getMonth()+1).padStart(2,'0')}${String(now2.getDate()).padStart(2,'0')}.${String(now2.getHours()).padStart(2,'0')}${String(now2.getMinutes()).padStart(2,'0')}${String(now2.getSeconds()).padStart(2,'0')}`;
+        a.download = `刀剑锻造-全部数据_${timestamp2}.json`;
         a.click();
         
         // 清理临时URL对象

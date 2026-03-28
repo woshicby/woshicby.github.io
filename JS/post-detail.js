@@ -1,43 +1,56 @@
 // 博文详情页数据管理和渲染
 class PostDetailManager {
     constructor() {
-        this.postId = this.getPostIdFromUrl();
+        const params = this.getUrlParams();
+        this.postId = params.id;
+        this.postFile = params.file;
         this.init();
     }
 
     async init() {
         try {
-            // 加载博文数据
-            const posts = await this.loadPosts();
-            // 查找当前博文
-            const post = this.findPostById(posts, this.postId);
-            if (post) {
-                // 渲染博文详情
-                this.renderPostDetail(post);
+            const result = await this.loadPosts();
+            
+            if (result.success) {
+                const post = this.findPostById(result.posts, this.postId);
+                if (post) {
+                    this.renderPostDetail(post);
+                } else {
+                    this.renderNotFound();
+                }
             } else {
-                this.renderNotFound();
+                this.renderNotFound(result);
             }
         } catch (error) {
             console.error('加载博文详情失败:', error);
-            this.renderError();
+            this.renderError({
+                error: 'UNKNOWN_ERROR',
+                message: '加载博文详情时发生未知错误',
+                detail: error.message
+            });
         }
     }
 
-    getPostIdFromUrl() {
+    getUrlParams() {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('id');
+        return {
+            id: urlParams.get('id'),
+            file: urlParams.get('file')
+        };
     }
 
     async loadPosts() {
         try {
-            // 首先尝试从 posts-list.json 加载文件列表
+            if (this.postFile) {
+                return await this.loadPostByFile(this.postFile);
+            }
+            
             const listResponse = await fetch('JSON/posts-list.json');
             
             if (listResponse.ok) {
                 const postsList = await listResponse.json();
                 console.log('成功加载posts-list.json，文件数量:', postsList.length);
                 
-                // 找到对应的文件
                 const postInfo = postsList.find(p => p.id.toString() === this.postId.toString());
                 
                 if (postInfo) {
@@ -46,26 +59,77 @@ class PostDetailManager {
                         const mdContent = await mdResponse.text();
                         const parsedPost = this.parseMarkdown(mdContent);
                         parsedPost.id = postInfo.id;
-                        return [parsedPost];
+                        return { success: true, posts: [parsedPost] };
+                    } else {
+                        return { 
+                            success: false, 
+                            error: 'FILE_NOT_FOUND', 
+                            message: `博文文件 "${postInfo.file}" 不存在或无法访问`,
+                            detail: `HTTP状态码: ${mdResponse.status} ${mdResponse.statusText}`
+                        };
                     }
                 }
                 
-                // 如果找不到指定文件，返回空数组
-                console.warn('找不到指定的博文文件');
-                return [];
+                return { 
+                    success: false, 
+                    error: 'ID_NOT_FOUND', 
+                    message: `博文ID "${this.postId}" 不存在`,
+                    detail: '请在博文列表中查找正确的博文'
+                };
             } else {
-                // 如果没有 posts-list.json，尝试从 posts.json 加载
                 console.log('posts-list.json 不存在，尝试从 posts.json 加载');
                 const response = await fetch('JSON/posts.json');
                 if (response.ok) {
-                    return await response.json();
+                    const posts = await response.json();
+                    return { success: true, posts: posts };
                 }
                 console.warn('posts.json 也不存在，使用示例数据');
-                return this.getSamplePosts();
+                return { success: true, posts: this.getSamplePosts() };
             }
         } catch (error) {
-            console.warn('使用示例博文数据:', error);
-            return this.getSamplePosts();
+            console.warn('加载博文数据失败:', error);
+            return { 
+                success: false, 
+                error: 'NETWORK_ERROR', 
+                message: '加载博文数据时发生错误',
+                detail: error.message 
+            };
+        }
+    }
+
+    async loadPostByFile(filename) {
+        try {
+            const mdResponse = await fetch(`posts/${filename}`);
+            if (mdResponse.ok) {
+                const mdContent = await mdResponse.text();
+                try {
+                    const parsedPost = this.parseMarkdown(mdContent);
+                    parsedPost.id = 'file-' + filename.replace(/[^a-zA-Z0-9]/g, '-');
+                    parsedPost.isFileMode = true;
+                    return { success: true, posts: [parsedPost] };
+                } catch (parseError) {
+                    return { 
+                        success: false, 
+                        error: 'PARSE_ERROR', 
+                        message: `文件 "${filename}" Markdown解析失败`,
+                        detail: parseError.message 
+                    };
+                }
+            } else {
+                return { 
+                    success: false, 
+                    error: 'FILE_NOT_FOUND', 
+                    message: `文件 "${filename}" 不存在或无法访问`,
+                    detail: `HTTP状态码: ${mdResponse.status} ${mdResponse.statusText}`
+                };
+            }
+        } catch (error) {
+            return { 
+                success: false, 
+                error: 'NETWORK_ERROR', 
+                message: `加载文件 "${filename}" 时发生网络错误`,
+                detail: error.message 
+            };
         }
     }
 
@@ -264,6 +328,8 @@ class PostDetailManager {
         
         contentElement.innerHTML = postContent;
         
+        this.addHeadingIds(contentElement);
+        
         this.setupLazyLoading(contentElement);
         
         // 给代码块添加行号
@@ -287,23 +353,52 @@ class PostDetailManager {
         }
     }
 
-    renderNotFound() {
+    renderNotFound(errorInfo = null) {
         document.getElementById('post-title').textContent = '博文不存在';
-        document.getElementById('post-content').innerHTML = `
-            <div class="error">
-                <p>抱歉，您请求的博文不存在或已被删除。</p>
-                <a href="posts.html" class="back-to-list">返回博文列表</a>
-            </div>
-        `;
+        
+        let errorHTML = '<div class="error">';
+        
+        if (errorInfo) {
+            const errorTypeMap = {
+                'FILE_NOT_FOUND': '📁 文件未找到',
+                'ID_NOT_FOUND': '🔍 ID未找到',
+                'PARSE_ERROR': '📄 解析错误',
+                'NETWORK_ERROR': '🌐 网络错误'
+            };
+            
+            errorHTML += `<div class="error-type">${errorTypeMap[errorInfo.error] || '❌ 错误'}</div>`;
+            errorHTML += `<p class="error-message">${errorInfo.message}</p>`;
+            if (errorInfo.detail) {
+                errorHTML += `<p class="error-detail"><small>详细信息：${errorInfo.detail}</small></p>`;
+            }
+        } else {
+            errorHTML += '<p>抱歉，您请求的博文不存在或已被删除。</p>';
+        }
+        
+        errorHTML += '<a href="posts.html" class="back-to-list">返回博文列表</a>';
+        errorHTML += '</div>';
+        
+        document.getElementById('post-content').innerHTML = errorHTML;
     }
 
-    renderError() {
-        document.getElementById('post-content').innerHTML = `
-            <div class="error">
-                <p>加载博文失败，请稍后重试。</p>
-                <a href="posts.html" class="back-to-list">返回博文列表</a>
-            </div>
-        `;
+    renderError(errorInfo = null) {
+        document.getElementById('post-title').textContent = '加载失败';
+        
+        let errorHTML = '<div class="error">';
+        
+        if (errorInfo) {
+            errorHTML += `<p class="error-message">${errorInfo.message}</p>`;
+            if (errorInfo.detail) {
+                errorHTML += `<p class="error-detail"><small>详细信息：${errorInfo.detail}</small></p>`;
+            }
+        } else {
+            errorHTML += '<p>加载博文失败，请稍后重试。</p>';
+        }
+        
+        errorHTML += '<a href="posts.html" class="back-to-list">返回博文列表</a>';
+        errorHTML += '</div>';
+        
+        document.getElementById('post-content').innerHTML = errorHTML;
     }
 
     formatDate(dateString) {
@@ -320,7 +415,9 @@ class PostDetailManager {
         const keywords = post.tags && post.tags.length > 0 
             ? post.tags.join(',') 
             : '博客,技术文章';
-        const url = `https://woshicby.github.io/post-detail.html?id=${post.id}`;
+        const url = post.isFileMode 
+            ? `https://woshicby.github.io/post-detail.html?file=${encodeURIComponent(this.postFile)}`
+            : `https://woshicby.github.io/post-detail.html?id=${post.id}`;
         
         document.querySelector('meta[name="description"]').setAttribute('content', description);
         document.querySelector('meta[name="keywords"]').setAttribute('content', keywords);
@@ -419,6 +516,31 @@ class PostDetailManager {
                 }
             });
         }
+    }
+
+    addHeadingIds(container) {
+        const headings = container.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        const usedIds = new Set();
+        
+        headings.forEach(heading => {
+            const text = heading.textContent.trim();
+            const baseId = text
+                .toLowerCase()
+                .replace(/[^\u4e00-\u9fa5a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+            
+            let id = baseId;
+            let counter = 1;
+            while (usedIds.has(id)) {
+                id = `${baseId}-${counter}`;
+                counter++;
+            }
+            
+            usedIds.add(id);
+            heading.id = id;
+        });
     }
 
     // 给代码块添加行号

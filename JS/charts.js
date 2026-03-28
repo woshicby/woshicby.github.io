@@ -808,9 +808,12 @@ function updateEventSeriesComparisonChart(races) {
 function exportChart(chartId, filename) {
     const chart = Chart.getChart(chartId);
     if (chart) {
-        // 创建下载链接
+        const now = new Date();
+        const timestamp = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}.${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}`;
         const link = document.createElement('a');
-        link.download = filename;
+        const ext = filename.endsWith('.png') ? '.png' : '';
+        const baseName = ext ? filename.slice(0, -4) : filename;
+        link.download = `${baseName}_${timestamp}${ext}`;
         link.href = chart.toBase64Image();
         link.click();
     }

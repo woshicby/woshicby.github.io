@@ -830,7 +830,9 @@ function exportDiceHistory() {
     
     const a = document.createElement('a');
     a.href = url;
-    a.download = `dice-history_${new Date().toISOString().slice(0,10)}.json`;
+    const now = new Date();
+    const timestamp = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}.${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}`;
+    a.download = `骰子工具-历史记录_${timestamp}.json`;
     a.click();
     
     URL.revokeObjectURL(url);
@@ -884,7 +886,9 @@ function exportPresets() {
     
     const a = document.createElement('a');
     a.href = url;
-    a.download = `dice-presets_${new Date().toISOString().slice(0,10)}.json`;
+    const now1 = new Date();
+    const timestamp1 = `${now1.getFullYear()}${String(now1.getMonth()+1).padStart(2,'0')}${String(now1.getDate()).padStart(2,'0')}.${String(now1.getHours()).padStart(2,'0')}${String(now1.getMinutes()).padStart(2,'0')}${String(now1.getSeconds()).padStart(2,'0')}`;
+    a.download = `骰子工具-预设配置_${timestamp1}.json`;
     a.click();
     
     URL.revokeObjectURL(url);
@@ -952,7 +956,9 @@ function exportAllData() {
     
     const a = document.createElement('a');
     a.href = url;
-    a.download = `dice-tool-all-data_${new Date().toISOString().slice(0,10)}.json`;
+    const now2 = new Date();
+    const timestamp2 = `${now2.getFullYear()}${String(now2.getMonth()+1).padStart(2,'0')}${String(now2.getDate()).padStart(2,'0')}.${String(now2.getHours()).padStart(2,'0')}${String(now2.getMinutes()).padStart(2,'0')}${String(now2.getSeconds()).padStart(2,'0')}`;
+    a.download = `骰子工具-全部数据_${timestamp2}.json`;
     a.click();
     
     URL.revokeObjectURL(url);
