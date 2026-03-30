@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灵感碎片 - BY的个人网站</title>
+    
+    <meta name="description" content="BY的灵感碎片，记录生活中的点滴灵感、想法和创意。包含文字、图片、音频和视频等多种形式。">
+    <meta name="keywords" content="灵感,碎片,生活记录,想法,创意">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="灵感碎片 - BY的个人网站">
+    <meta property="og:description" content="BY的灵感碎片，记录生活中的点滴灵感、想法和创意。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/moments.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="灵感碎片 - BY的个人网站">
+    <meta name="twitter:description" content="BY的灵感碎片，记录生活中的点滴灵感、想法和创意。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "BY的灵感碎片",
+        "url": "https://woshicby.github.io/moments.html",
+        "description": "记录生活中的点滴灵感、想法和创意",
+        "author": {
+            "@type": "Person",
+            "name": "woshicby"
+        }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/moments.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/moments.html">
+    
+    <script src="./JS/markdown/markdown-it.min.js"></script>
+    <script src="./JS/navigation.js"></script>
+    <script src="./JS/theme-toggle.js"></script>
+    <script src="./JS/background-lazy-load.js"></script>
+    <script src="./JS/moments.js"></script>
+</head>
+<body class="moments-page">
+    <div class="header clearfix wrapper">
+        <h1>灵感碎片</h1>
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./video.html">视频展示</a></li>
+                <li><a href="./posts.html">博客文章</a></li>
+                <li><a href="./moments.html" class="active">灵感碎片</a></li>
+                <li><a href="./study.html">个人成果</a></li>
+                <li><a href="./tools.html">小工具&小游戏</a></li>
+                <li><a href="./sports.html">体育运动</a></li>
+                <li>
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <div class="mainbox clearfix wrapper">
+        <section class="moments-toolbar">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索碎片...">
+            </div>
+            <div class="tags-filter">
+                <h3>标签筛选</h3>
+                <div id="tags-container"></div>
+            </div>
+            <div id="filter-info" class="filter-info" style="display: none;">
+                <div id="filter-tags" class="filter-tags"></div>
+                <button id="clear-filter" class="clear-filter-btn">清除所有</button>
+            </div>
+            <div class="moments-stats">
+                <span class="stat-item"><span class="stat-label">总碎片</span><span id="stat-total" class="stat-value">0</span></span>
+                <span class="stat-item"><span class="stat-label">标签</span><span id="stat-tags" class="stat-value">0</span></span>
+            </div>
+        </section>
+        
+        <section id="moments-list" class="moments-list">
+            <div class="loading">加载中...</div>
+        </section>
+    </div>
+    
+    <div class="foot wrapper">
+        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+    </div>
+</body>
+</html>

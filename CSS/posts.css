@@ -9,7 +9,7 @@ body.posts-page {
 /* 主内容区 - 添加页面特定前缀 */
 .posts-page .mainbox {
     margin: 30px auto;
-    padding: 0 20px;
+    padding: 20px 20px 0 20px;
     display: grid;
     grid-template-columns: 1fr 300px;
     gap: 30px;
@@ -21,6 +21,7 @@ body.posts-page {
     padding: var(--spacing-lg);
     box-shadow: var(--shadow-light);
     transition: var(--transition-default);
+    margin: 0;
 }
 
 .posts-page .posts-container:hover {

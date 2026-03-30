@@ -98,7 +98,7 @@ function renderEmbeddedVideos() {
         
         videoWrapper.innerHTML = `
             <div class="bilibili-player-container">
-                <iframe src="//player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&danmaku=0"
+                <iframe src="//player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&danmaku=0&autoplay=0&muted=1"
                     allowfullscreen="allowfullscreen" width="100%" height="${height}" 
                     scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
             </div>
@@ -147,7 +147,7 @@ function handleResize() {
             
             videoWrapper.innerHTML = `
                 <div class="bilibili-player-container">
-                    <iframe src="//player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&danmaku=0"
+                    <iframe src="//player.bilibili.com/player.html?bvid=${bvid}&page=1&high_quality=1&danmaku=0&autoplay=0&muted=1"
                         allowfullscreen="allowfullscreen" width="100%" height="${height}" 
                         scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
                 </div>

@@ -1,0 +1,429 @@
+body.moments-page {
+    padding-bottom: 40px;
+}
+
+.moments-page .mainbox {
+    margin: 30px auto;
+    padding: 20px 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.moments-page .moments-toolbar {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+    border: 2px solid transparent;
+    margin: 0;
+}
+
+.moments-page .moments-toolbar:hover {
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+}
+
+.moments-page .moments-toolbar .search-box {
+    margin-bottom: var(--spacing-md);
+}
+
+.moments-page #search-input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: 1rem;
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    transition: var(--transition-default);
+}
+
+.moments-page #search-input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.moments-page .tags-filter {
+    margin-bottom: var(--spacing-md);
+}
+
+.moments-page .tags-filter h3 {
+    color: var(--heading-color);
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.moments-page #tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.moments-page #tags-container .tag-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: var(--light-accent);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: var(--transition-default);
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.moments-page #tags-container .tag-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-light);
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.moments-page #tags-container .tag-badge.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.moments-page .filter-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--light-accent);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border: 1px solid var(--border-color);
+    transition: var(--transition-default);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.moments-page .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    align-items: center;
+    flex: 1;
+}
+
+.moments-page .filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 4px 10px;
+    border-radius: var(--border-radius-md);
+    font-size: 0.85rem;
+    transition: var(--transition-default);
+}
+
+.moments-page .filter-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.moments-page .filter-tag-remove {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition-default);
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.moments-page .filter-tag-remove:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.moments-page .clear-filter-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: var(--transition-default);
+    white-space: nowrap;
+}
+
+.moments-page .clear-filter-btn:hover {
+    background-color: var(--primary-hover-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.moments-page .moments-stats {
+    display: flex;
+    gap: var(--spacing-lg);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+}
+
+.moments-page .moments-stats .stat-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.moments-page .moments-stats .stat-label {
+    color: var(--light-text);
+    font-size: 0.85rem;
+}
+
+.moments-page .moments-stats .stat-value {
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.moments-page .moments-list {
+    columns: 320px;
+    column-gap: 20px;
+    padding: 0;
+    margin: 0;
+    background: none;
+    box-shadow: none;
+    border: none;
+}
+
+.moments-page .moments-list:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: transparent;
+    background: none;
+}
+
+.moments-page .moment-item {
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    border: 2px solid transparent;
+    background-color: var(--card-bg-color);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    break-inside: avoid;
+    margin-bottom: 20px;
+}
+
+.moments-page .moment-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--secondary-color), var(--primary-color));
+    border-radius: 4px 0 0 4px;
+    opacity: 0;
+    transition: var(--transition-default);
+}
+
+.moments-page .moment-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--light-accent);
+}
+
+.moments-page .moment-item:hover::before {
+    opacity: 1;
+}
+
+.moments-page .moment-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.moments-page .moment-date {
+    color: var(--light-text);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.moments-page .moment-date::before {
+    content: '🕐';
+    font-size: 0.85rem;
+}
+
+.moments-page .moment-tags {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+}
+
+.moments-page .moment-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: var(--light-accent);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    font-size: 0.7rem;
+    transition: var(--transition-default);
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.moments-page .moment-tag:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-light);
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.moments-page .moment-tag.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.moments-page .moment-content {
+    color: var(--text-color);
+    line-height: 1.7;
+    font-size: 0.95rem;
+    flex: 1;
+}
+
+.moments-page .moment-content p {
+    margin-bottom: 0.8rem;
+}
+
+.moments-page .moment-content p:last-child {
+    margin-bottom: 0;
+}
+
+.moments-page .moment-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-md);
+    margin: var(--spacing-sm) 0;
+    display: block;
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.moments-page .moment-content img:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-medium);
+}
+
+.moments-page .moment-content audio,
+.moments-page .moment-content video {
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--border-radius-md);
+    margin: var(--spacing-sm) 0;
+}
+
+.moments-page .moment-content video {
+    max-height: 300px;
+    background-color: #000;
+}
+
+.moments-page .moment-content a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: var(--transition-default);
+}
+
+.moments-page .moment-content a:hover {
+    text-decoration: underline;
+}
+
+.moments-page .moment-content blockquote {
+    border-left: 3px solid var(--secondary-color);
+    padding-left: var(--spacing-sm);
+    margin: var(--spacing-sm) 0;
+    color: var(--light-text);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.moments-page .moment-content code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--light-accent);
+    padding: 2px 5px;
+    border-radius: var(--border-radius-md);
+    font-size: 0.85em;
+}
+
+.moments-page .moment-content pre {
+    background-color: var(--light-accent);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-md);
+    overflow-x: auto;
+    margin: var(--spacing-sm) 0;
+    font-size: 0.85rem;
+}
+
+.moments-page .loading {
+    text-align: center;
+    padding: 50px;
+    color: var(--light-text);
+    grid-column: 1 / -1;
+}
+
+.moments-page .no-moments {
+    text-align: center;
+    padding: 50px;
+    color: var(--light-text);
+    grid-column: 1 / -1;
+}
+
+.moments-page .foot {
+    margin-top: 40px;
+}
+
+@media (max-width: 900px) {
+    .moments-page .moments-list {
+        columns: 280px;
+    }
+}
+
+@media (max-width: 600px) {
+    .moments-page .moments-list {
+        columns: 1;
+    }
+
+    .moments-page .moment-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .moments-page .moment-content video {
+        max-height: 200px;
+    }
+
+    .moments-page .moments-toolbar {
+        position: relative;
+        top: 0;
+    }
+}
