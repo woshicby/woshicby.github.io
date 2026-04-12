@@ -227,7 +227,7 @@ function renderUserCard(userInfo) {
     
     container.innerHTML = `
         <div class="user-avatar">
-            <img src="${userInfo.face}" alt="${userInfo.name}" onerror="this.src='default-avatar.jpg'">
+            <img src="${userInfo.face}" alt="${userInfo.name}" onerror="this.src='images/b站头像.gif'">
         </div>
         <div class="user-details">
             <h3>${userInfo.name}</h3>
