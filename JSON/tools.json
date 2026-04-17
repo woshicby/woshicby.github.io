@@ -46,5 +46,13 @@
         "description": "多功能骰子投掷工具，支持多种骰子类型（D4/D6/D8/D10/D12/D20/D100），适合桌游和日常决策。",
         "link": "dice-tool.html",
         "buttonText": "开始使用"
+    },
+    {
+        "id": "local-llm-api-chat",
+        "icon": "🤖",
+        "title": "本地大模型API对话工具",
+        "description": "与本地局域网下的LM Studio服务器进行对话，支持自定义服务器地址，方便测试和使用本地AI模型。",
+        "link": "local-llm-api-chat.html",
+        "buttonText": "开始对话"
     }
 ]

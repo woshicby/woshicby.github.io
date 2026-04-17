@@ -300,14 +300,6 @@ class PostDetailManager {
                 
                 // 加载扩展
                 if (md.use) {
-                    // 上标扩展
-                    if (window.markdownitSup) {
-                        md.use(markdownitSup);
-                    }
-                    // 下标扩展
-                    if (window.markdownitSub) {
-                        md.use(markdownitSub);
-                    }
                     // 标记扩展
                     if (window.markdownitMark) {
                         md.use(markdownitMark);
@@ -318,6 +310,8 @@ class PostDetailManager {
                     }
                     // 目录扩展已移除
                 }
+                
+applySubSupRules(md);
                 
                 // 解析Markdown内容
                 postContent = md.render(postContent);
