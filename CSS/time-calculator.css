@@ -1,0 +1,356 @@
+/* 时间计算器样式 */
+
+.calculator-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.time-input-group {
+    background-color: var(--light-accent);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.time-input-group h3 {
+    color: var(--heading-color);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: var(--spacing-sm);
+}
+
+.datetime-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.date-inputs,
+.time-inputs {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.input-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.input-field label {
+    font-size: var(--font-size-sm);
+    color: var(--text-color);
+    font-weight: var(--font-weight-medium);
+}
+
+.input-field input {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    background-color: var(--white);
+    color: var(--text-color);
+    transition: var(--transition-default);
+    text-align: center;
+}
+
+.input-field input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+}
+
+.input-field input::placeholder {
+    color: var(--light-text);
+}
+
+.swap-button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.swap-button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    background-color: var(--white);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition-default);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swap-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.button-group {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.calculate-button {
+    flex: 2;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.calculate-button:hover {
+    background-color: var(--success-hover-color);
+}
+
+.secondary-button {
+    flex: 1;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.secondary-button:hover {
+    background-color: var(--secondary-hover-color);
+}
+
+.result-section {
+    margin-top: var(--spacing-xl);
+}
+
+.result-section h3 {
+    color: var(--heading-color);
+    font-size: var(--font-size-lg);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.result-card {
+    background-color: var(--light-accent);
+    border-radius: var(--border-radius-md);
+    border-left: 4px solid var(--primary-color);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.result-card h4 {
+    color: var(--heading-color);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-md);
+    font-weight: var(--font-weight-semibold);
+}
+
+.result-value {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.6;
+    word-break: break-all;
+}
+
+.unit-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.unit-item {
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: center;
+}
+
+.unit-item .unit-label {
+    font-size: var(--font-size-sm);
+    color: var(--light-text);
+    margin-bottom: var(--spacing-xs);
+}
+
+.unit-item .unit-value {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: var(--font-weight-bold);
+}
+
+.error-message {
+    color: var(--danger-color);
+    font-weight: var(--font-weight-medium);
+    padding: var(--spacing-md);
+    background-color: var(--danger-light);
+    border: 1px solid var(--danger-border);
+    border-radius: var(--border-radius-md);
+    margin-top: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+    .time-input-group {
+        padding: var(--spacing-md);
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .calculate-button,
+    .secondary-button {
+        flex: none;
+        width: 100%;
+    }
+
+    .unit-results {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+
+    .result-value {
+        font-size: 1.2rem;
+    }
+
+    .swap-button {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .time-input-group {
+        padding: var(--spacing-sm);
+    }
+
+    .time-input-group h3 {
+        font-size: var(--font-size-base);
+    }
+
+    .date-inputs,
+    .time-inputs {
+        gap: 6px;
+    }
+
+    .input-field input {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+
+    .input-field label {
+        font-size: var(--font-size-xs);
+    }
+
+    .calculate-button {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+
+    .secondary-button {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+
+    .unit-results {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+
+    .unit-item {
+        padding: var(--spacing-sm);
+    }
+
+    .unit-item .unit-value {
+        font-size: 1rem;
+    }
+
+    .unit-item .unit-label {
+        font-size: var(--font-size-xs);
+    }
+
+    .result-value {
+        font-size: 1rem;
+    }
+
+    .result-card h4 {
+        font-size: var(--font-size-sm);
+    }
+
+    .result-section h3 {
+        font-size: var(--font-size-base);
+    }
+}
+
+body.dark-theme .time-input-group {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .input-field input {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .swap-button {
+    background-color: var(--card-bg-color);
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+body.dark-theme .swap-button:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+body.dark-theme .result-card {
+    background-color: var(--primary-color);
+    border-left-color: var(--secondary-color);
+}
+
+body.dark-theme .result-card h4 {
+    color: var(--dark-heading-color);
+}
+
+body.dark-theme .result-value {
+    color: var(--secondary-color);
+}
+
+body.dark-theme .unit-item {
+    background-color: var(--primary-color);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .unit-item .unit-value {
+    color: var(--secondary-color);
+}
+
+body.dark-theme .calculate-button {
+    background-color: var(--success-color);
+    color: white;
+}
+
+body.dark-theme .secondary-button {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+body.dark-theme .error-message {
+    color: var(--danger-color);
+    background-color: var(--light-accent);
+    border-color: var(--border-color);
+}

@@ -189,7 +189,8 @@ woshicby.github.io/
 | 2026.03.17 | 多文明演化模拟器核心重构：新增运行日志系统、文明行为系统、稳定性修正机制；优化分裂/合并/灭亡/复兴判定；删除科技树模块。全站样式统一：统一表单元素样式，新增CSS变量。新增Markdown转JSON工具，优化工具页面导航结构 |
 | 2026.03.28 | 优化全站下载功能：统一文件名为中文命名，日期时间格式统一为yyyyMMdd.hhmmss；涉及骰子工具、随机决策器、刀剑锻造、文明演化模拟器、运动成绩图表等。博文系统增强：post-detail.js支持通过file参数直接访问博文文件；新增详细错误页面，支持FILE_NOT_FOUND、ID_NOT_FOUND、PARSE_ERROR、NETWORK_ERROR等错误类型显示 |
 | 2026.03.30 | 新增灵感碎片功能(moments.html)：支持记录文字、图片、音频、视频等多种形式的灵感碎片；支持Markdown格式渲染；支持标签筛选功能 |
-| 2026.04.17 | feat(tools): 添加本地大模型API对话工具(local-llm-api-chat.html)，支持与LM Studio服务器进行交互；重构Markdown解析逻辑，提取上下标处理为共享函数(markdown-utils.js)，优化上下标处理避免与数学公式冲突 |
+| 2026.04.17 | 添加本地大模型API对话工具(local-llm-api-chat.html)，支持与LM Studio服务器进行交互；重构Markdown解析逻辑，提取上下标处理为共享函数(markdown-utils.js)，优化上下标处理避免与数学公式冲突 |
+| 2026.04.20 | 添加时间计算器工具(time-calculator.html)；更新用户信息和比赛记录数据 |
 
 ## 使用方法
 
@@ -386,7 +387,8 @@ woshicby.github.io/
 | 2026.03.17 | Civilization Evolution Simulator core refactoring: Added simulation log system, civilization behavior system, stability correction mechanism; optimized split/merge/extinction/revival conditions; removed tech tree module. Site-wide style unification: Unified form element styles, added CSS variables. Added Markdown to JSON tool, optimized tool page navigation structure |
 | 2026.03.28 | Optimized site-wide download functionality: Unified filenames to Chinese, standardized datetime format to yyyyMMdd.hhmmss; affected dice tool, random decision maker, sword forging, civilization evolution simulator, sports charts. Blog system enhancement: post-detail.js now supports direct access to blog files via file parameter; added detailed error page with FILE_NOT_FOUND, ID_NOT_FOUND, PARSE_ERROR, NETWORK_ERROR error types |
 | 2026.03.30 | Added Inspiration Moments feature (moments.html): Supports recording text, images, audio, video and other forms of inspiration moments; supports Markdown format rendering; supports tag filtering |
-| 2026.04.17 | feat(tools): Added local LLM API chat tool (local-llm-api-chat.html), supporting interaction with LM Studio servers; refactored Markdown parsing logic, extracted subscript/superscript handling into a shared function (markdown-utils.js), optimized subscript/superscript processing to avoid conflicts with mathematical formulas |
+| 2026.04.17 | Added local LLM API chat tool (local-llm-api-chat.html), supporting interaction with LM Studio servers; refactored Markdown parsing logic, extracted subscript/superscript handling into a shared function (markdown-utils.js), optimized subscript/superscript processing to avoid conflicts with mathematical formulas |
+| 2026.04.20 | Added time calculator tool (time-calculator.html); updated user information and race records data |
 
 ## Usage
 
@@ -583,7 +585,8 @@ woshicby.github.io/
 | 2026.03.17 | 多文明演化シミュレーター核心リファクタリング：シミュレーションログシステム、文明行動システム、安定性補正メカニズムを追加；分裂/統合/滅亡/復興条件を最適化；テクツリーモジュールを削除。サイト全体のスタイル統一：フォーム要素スタイルを統一、CSS変数を追加。MarkdownからJSONツールを追加、ツールページナビゲーション構造を最適化 |
 | 2026.03.28 | サイト全体のダウンロード機能を最適化：ファイル名を中国語に統一、日時形式をyyyyMMdd.hhmmssに統一；ダイスツール、ランダム決定メーカー、刀剣鍛造、文明演化シミュレーター、スポーツ成績チャートなどが対象。ブログシステム強化：post-detail.jsがfileパラメータによるブログファイルへの直接アクセスをサポート；詳細エラーページを追加、FILE_NOT_FOUND、ID_NOT_FOUND、PARSE_ERROR、NETWORK_ERRORなどのエラータイプ表示に対応 |
 | 2026.03.30 | インスピレーション Moments機能(moments.html)を追加：テキスト、画像、音声、動画など様々な形式のインスピレーションを記録；Markdown形式のレンダリングに対応；タグフィルタリング機能をサポート |
-| 2026.04.17 | feat(tools): ローカルLLM APIチャットツール(local-llm-api-chat.html)を追加、LM Studioサーバーとの対話をサポート；Markdown解析ロジックをリファクタリング、下付き・上付き文字処理を共有関数(markdown-utils.js)に抽出、数式との競合を回避するよう下付き・上付き文字処理を最適化 |
+| 2026.04.17 | ローカルLLM APIチャットツール(local-llm-api-chat.html)を追加、LM Studioサーバーとの対話をサポート；Markdown解析ロジックをリファクタリング、下付き・上付き文字処理を共有関数(markdown-utils.js)に抽出、数式との競合を回避するよう下付き・上付き文字処理を最適化 |
+| 2026.04.20 | 時間計算機ツール(time-calculator.html)を追加；ユーザー情報とレース記録データを更新 |
 
 ## 使用方法
 

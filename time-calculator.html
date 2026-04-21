@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时间计算器 - BY的个人网站</title>
+
+    <meta name="description" content="计算两个时间点之间的时间间隔，支持组合模式和各单位单独显示。">
+    <meta name="keywords" content="时间计算器,时间间隔,日期差,时间差计算">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="时间计算器 - BY的个人网站">
+    <meta property="og:description" content="计算两个时间点之间的时间间隔，支持组合模式和各单位单独显示。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/time-calculator.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="时间计算器 - BY的个人网站">
+    <meta name="twitter:description" content="计算两个时间点之间的时间间隔，支持组合模式和各单位单独显示。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/tools-common.css">
+    <link rel="stylesheet" href="./CSS/time-calculator.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/time-calculator.html">
+
+    <script src="./JS/navigation.js"></script>
+    <script src="./JS/theme-toggle.js"></script>
+    <script src="./JS/background-lazy-load.js"></script>
+    <script src="./JS/tool-tabs.js"></script>
+    <script src="./JS/time-calculator.js"></script>
+</head>
+<body>
+    <div class="header clearfix wrapper">
+        <h1>时间计算器</h1>
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./video.html">视频展示</a></li>
+                <li><a href="./posts.html">博客文章</a></li>
+                <li><a href="./moments.html">灵感碎片</a></li>
+                <li><a href="./study.html">个人成果</a></li>
+                <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
+                <li><a href="./sports.html">体育运动</a></li>
+                <li>
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="mainbox clearfix wrapper">
+        <div class="back-to-tools">
+            <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
+        </div>
+
+        <div class="tool-container">
+            <h2 class="tool-page-title">时间计算器</h2>
+            <p class="tool-description">
+                计算两个时间点之间的时间间隔，支持组合模式和各单位单独显示两种模式。
+            </p>
+
+            <div class="tabs">
+            </div>
+
+            <div class="calculator-section">
+                <div class="time-input-group">
+                    <h3>开始时间</h3>
+                    <div class="datetime-inputs">
+                        <div class="date-inputs">
+                            <div class="input-field">
+                                <label for="startYear">年</label>
+                                <input type="number" id="startYear" placeholder="0" min="0" max="9999">
+                            </div>
+                            <div class="input-field">
+                                <label for="startMonth">月</label>
+                                <input type="number" id="startMonth" placeholder="1" min="1" max="12">
+                            </div>
+                            <div class="input-field">
+                                <label for="startDay">日</label>
+                                <input type="number" id="startDay" placeholder="1" min="1" max="31">
+                            </div>
+                        </div>
+                        <div class="time-inputs">
+                            <div class="input-field">
+                                <label for="startHour">时</label>
+                                <input type="number" id="startHour" placeholder="0" min="0" max="23">
+                            </div>
+                            <div class="input-field">
+                                <label for="startMinute">分</label>
+                                <input type="number" id="startMinute" placeholder="0" min="0" max="59">
+                            </div>
+                            <div class="input-field">
+                                <label for="startSecond">秒</label>
+                                <input type="number" id="startSecond" placeholder="0" min="0" max="59">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swap-button-container">
+                    <button id="swapTimes" class="swap-button" title="交换两个时间" aria-label="交换开始时间和结束时间">⇅</button>
+                </div>
+
+                <div class="time-input-group">
+                    <h3>结束时间</h3>
+                    <div class="datetime-inputs">
+                        <div class="date-inputs">
+                            <div class="input-field">
+                                <label for="endYear">年</label>
+                                <input type="number" id="endYear" placeholder="0" min="0" max="9999">
+                            </div>
+                            <div class="input-field">
+                                <label for="endMonth">月</label>
+                                <input type="number" id="endMonth" placeholder="1" min="1" max="12">
+                            </div>
+                            <div class="input-field">
+                                <label for="endDay">日</label>
+                                <input type="number" id="endDay" placeholder="1" min="1" max="31">
+                            </div>
+                        </div>
+                        <div class="time-inputs">
+                            <div class="input-field">
+                                <label for="endHour">时</label>
+                                <input type="number" id="endHour" placeholder="0" min="0" max="23">
+                            </div>
+                            <div class="input-field">
+                                <label for="endMinute">分</label>
+                                <input type="number" id="endMinute" placeholder="0" min="0" max="59">
+                            </div>
+                            <div class="input-field">
+                                <label for="endSecond">秒</label>
+                                <input type="number" id="endSecond" placeholder="0" min="0" max="59">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="calculate" class="calculate-button">计算时间间隔</button>
+                    <button id="setNow" class="secondary-button">设为当前时间</button>
+                    <button id="clearAll" class="secondary-button">清空</button>
+                </div>
+            </div>
+
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h3>计算结果</h3>
+
+                <div class="result-card">
+                    <h4>组合模式</h4>
+                    <div id="combinedResult" class="result-value"></div>
+                </div>
+
+                <div class="result-card">
+                    <h4>各单位单独显示</h4>
+                    <div id="unitResults" class="unit-results"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="foot wrapper">
+        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+    </div>
+</body>
+</html>

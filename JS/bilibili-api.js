@@ -188,8 +188,8 @@ function fetchBilibiliUserInfo(uid, callback) {
         name: '一条咸鱼by菌',
         face: 'images/b站头像.gif',
         sign: '竹笛/跑步/游戏/日常/动态UP是也~哈工大读博中~催更唠嗑取谱群：629521223',
-        follower: 1539,
-        following: 2369,
+        follower: 1550,
+        following: 2367,
         likes: '1.3万',
         plays: '18.0万'
     };

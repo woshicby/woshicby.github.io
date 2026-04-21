@@ -54,5 +54,13 @@
         "description": "与本地局域网下的LM Studio服务器进行对话，支持自定义服务器地址，方便测试和使用本地AI模型。",
         "link": "local-llm-api-chat.html",
         "buttonText": "开始对话"
+    },
+    {
+        "id": "time-calculator",
+        "icon": "⏱️",
+        "title": "时间计算器",
+        "description": "计算两个时间点之间的时间间隔，支持组合模式（x年x月x日x小时x分钟x秒）和各单位单独显示两种模式。",
+        "link": "time-calculator.html",
+        "buttonText": "使用工具"
     }
 ]
