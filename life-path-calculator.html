@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生命灵数计算器 - BY的个人网站</title>
+
+    <meta name="description" content="生命灵数计算器，输入生日即可计算生命灵数，展示完整计算过程和步骤。">
+    <meta name="keywords" content="生命灵数,灵数计算,生命数字,生日计算, numerology">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="生命灵数计算器 - BY的个人网站">
+    <meta property="og:description" content="生命灵数计算器，输入生日即可计算生命灵数，展示完整计算过程和步骤。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/life-path-calculator.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="生命灵数计算器 - BY的个人网站">
+    <meta name="twitter:description" content="生命灵数计算器，输入生日即可计算生命灵数，展示完整计算过程和步骤。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/tools-common.css">
+    <link rel="stylesheet" href="./CSS/life-path-calculator.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/life-path-calculator.html">
+
+    <script src="./JS/navigation.js"></script>
+    <script src="./JS/theme-toggle.js"></script>
+    <script src="./JS/background-lazy-load.js"></script>
+    <script src="./JS/tool-tabs.js"></script>
+    <script src="./JS/life-path-calculator.js"></script>
+</head>
+<body>
+    <div class="header clearfix wrapper">
+        <h1>生命灵数计算器</h1>
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./video.html">视频展示</a></li>
+                <li><a href="./posts.html">博客文章</a></li>
+                <li><a href="./moments.html">灵感碎片</a></li>
+                <li><a href="./study.html">个人成果</a></li>
+                <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
+                <li><a href="./sports.html">体育运动</a></li>
+                <li>
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="mainbox clearfix wrapper">
+        <div class="back-to-tools">
+            <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
+        </div>
+
+        <div class="tool-container">
+            <h2 class="tool-page-title">生命灵数计算器</h2>
+            <p class="tool-description">
+                输入您的生日，计算生命灵数（Life Path Number），展示完整的逐位相加计算过程。
+            </p>
+
+            <div class="tabs">
+            </div>
+
+            <div class="calculator-section">
+                <div class="input-group">
+                    <h3>输入生日</h3>
+                    <div class="birthday-inputs">
+                        <div class="input-field">
+                            <label for="birthdayInput">生日（YYYYMMDD）</label>
+                            <input type="text" id="birthdayInput" placeholder="如：20000101" maxlength="8" inputmode="numeric" autocomplete="off">
+                        </div>
+                        <div class="input-hint">请输入8位数字，格式为年月日，如 20000101</div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="calculate" class="calculate-button">计算生命灵数</button>
+                    <button id="clearAll" class="secondary-button">清空</button>
+                </div>
+            </div>
+
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h3>计算结果</h3>
+
+                <div class="result-card result-final">
+                    <div class="final-label">您的生命灵数</div>
+                    <div id="finalResult" class="final-number"></div>
+                    <div id="resultType" class="result-type"></div>
+                </div>
+
+                <div class="result-card">
+                    <h4>计算过程</h4>
+                    <div id="calculationSteps" class="calculation-steps"></div>
+                </div>
+
+                <div class="result-card">
+                    <h4>灵数含义</h4>
+                    <div id="numberMeaning" class="number-meaning"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="foot wrapper">
+        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+    </div>
+</body>
+</html>

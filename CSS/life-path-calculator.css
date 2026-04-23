@@ -1,0 +1,425 @@
+/* 生命灵数计算器样式 */
+
+.calculator-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.input-group {
+    background-color: var(--light-accent);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.input-group h3 {
+    color: var(--heading-color);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: var(--spacing-sm);
+}
+
+.birthday-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.input-field label {
+    font-size: var(--font-size-sm);
+    color: var(--text-color);
+    font-weight: var(--font-weight-medium);
+}
+
+.input-field input {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: 1.5rem;
+    background-color: var(--white);
+    color: var(--text-color);
+    transition: var(--transition-default);
+    text-align: center;
+    letter-spacing: 0.5em;
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.input-field input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+}
+
+.input-field input::placeholder {
+    color: var(--light-text);
+    letter-spacing: 0.1em;
+}
+
+.input-hint {
+    font-size: var(--font-size-sm);
+    color: var(--light-text);
+    text-align: center;
+}
+
+.button-group {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.calculate-button {
+    flex: 2;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.calculate-button:hover {
+    background-color: var(--success-hover-color);
+}
+
+.secondary-button {
+    flex: 1;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.secondary-button:hover {
+    background-color: var(--secondary-hover-color);
+}
+
+.result-section {
+    margin-top: var(--spacing-xl);
+}
+
+.result-section h3 {
+    color: var(--heading-color);
+    font-size: var(--font-size-lg);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.result-card {
+    background-color: var(--light-accent);
+    border-radius: var(--border-radius-md);
+    border-left: 4px solid var(--primary-color);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.result-card h4 {
+    color: var(--heading-color);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-md);
+    font-weight: var(--font-weight-semibold);
+}
+
+.result-final {
+    text-align: center;
+    border-left-color: var(--success-color);
+    background: linear-gradient(135deg, var(--light-accent), var(--white));
+}
+
+.final-label {
+    font-size: var(--font-size-base);
+    color: var(--text-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.final-number {
+    font-size: 4rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--success-color);
+    line-height: 1.2;
+    animation: resultAppear 0.6s ease-out;
+}
+
+.result-type {
+    font-size: var(--font-size-sm);
+    color: var(--light-text);
+    margin-top: var(--spacing-xs);
+}
+
+@keyframes resultAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.calculation-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    animation: stepSlideIn 0.4s ease-out both;
+}
+
+.step-item .step-label {
+    font-size: var(--font-size-sm);
+    color: var(--light-text);
+    white-space: nowrap;
+    min-width: 60px;
+}
+
+.step-item .step-expression {
+    font-size: var(--font-size-base);
+    color: var(--text-color);
+    flex: 1;
+    font-family: "Consolas", "Monaco", monospace;
+}
+
+.step-item .step-result {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+.step-item.step-final {
+    border-color: var(--success-color);
+    background-color: var(--light-accent);
+}
+
+.step-item.step-final .step-result {
+    color: var(--success-color);
+    font-size: var(--font-size-lg);
+}
+
+.step-item.step-master {
+    border-color: #9b59b6;
+    background-color: rgba(155, 89, 182, 0.05);
+}
+
+.step-item.step-master .step-result {
+    color: #9b59b6;
+}
+
+@keyframes stepSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.number-meaning {
+    font-size: var(--font-size-base);
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+.number-meaning .meaning-title {
+    font-weight: var(--font-weight-bold);
+    color: var(--heading-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.number-meaning .meaning-text {
+    color: var(--text-color);
+}
+
+.error-message {
+    color: var(--danger-color);
+    font-weight: var(--font-weight-medium);
+    padding: var(--spacing-md);
+    background-color: var(--danger-light);
+    border: 1px solid var(--danger-border);
+    border-radius: var(--border-radius-md);
+    margin-top: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+    .input-group {
+        padding: var(--spacing-md);
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .calculate-button,
+    .secondary-button {
+        flex: none;
+        width: 100%;
+    }
+
+    .final-number {
+        font-size: 3rem;
+    }
+
+    .input-field input {
+        font-size: 1.2rem;
+        letter-spacing: 0.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-group {
+        padding: var(--spacing-sm);
+    }
+
+    .input-group h3 {
+        font-size: var(--font-size-base);
+    }
+
+    .input-field input {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 1rem;
+        letter-spacing: 0.2em;
+    }
+
+    .input-field label {
+        font-size: var(--font-size-xs);
+    }
+
+    .calculate-button {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+
+    .secondary-button {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+
+    .final-number {
+        font-size: 2.5rem;
+    }
+
+    .step-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+
+    .step-item .step-label {
+        min-width: auto;
+    }
+
+    .result-card h4 {
+        font-size: var(--font-size-sm);
+    }
+
+    .result-section h3 {
+        font-size: var(--font-size-base);
+    }
+}
+
+body.dark-theme .input-group {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .input-field input {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .result-card {
+    background-color: var(--primary-color);
+    border-left-color: var(--secondary-color);
+}
+
+body.dark-theme .result-card h4 {
+    color: var(--dark-heading-color);
+}
+
+body.dark-theme .result-final {
+    background: linear-gradient(135deg, var(--primary-color), var(--card-bg-color));
+    border-left-color: var(--success-color);
+}
+
+body.dark-theme .final-number {
+    color: var(--success-color);
+}
+
+body.dark-theme .step-item {
+    background-color: var(--primary-color);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .step-item .step-expression {
+    color: var(--text-color);
+}
+
+body.dark-theme .step-item .step-result {
+    color: var(--secondary-color);
+}
+
+body.dark-theme .step-item.step-final {
+    border-color: var(--success-color);
+    background-color: var(--primary-color);
+}
+
+body.dark-theme .step-item.step-final .step-result {
+    color: var(--success-color);
+}
+
+body.dark-theme .step-item.step-master {
+    border-color: #9b59b6;
+    background-color: rgba(155, 89, 182, 0.1);
+}
+
+body.dark-theme .step-item.step-master .step-result {
+    color: #bb6bd9;
+}
+
+body.dark-theme .calculate-button {
+    background-color: var(--success-color);
+    color: white;
+}
+
+body.dark-theme .secondary-button {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+body.dark-theme .error-message {
+    color: var(--danger-color);
+    background-color: var(--light-accent);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .number-meaning .meaning-title {
+    color: var(--dark-heading-color);
+}

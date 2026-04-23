@@ -62,5 +62,13 @@
         "description": "计算两个时间点之间的时间间隔，支持组合模式（x年x月x日x小时x分钟x秒）和各单位单独显示两种模式。",
         "link": "time-calculator.html",
         "buttonText": "使用工具"
+    },
+    {
+        "id": "life-path-calculator",
+        "icon": "🔢",
+        "title": "生命灵数计算器",
+        "description": "输入生日计算生命灵数，展示完整的逐位相加计算过程，支持大师数（11、22、33、44）识别。",
+        "link": "life-path-calculator.html",
+        "buttonText": "开始计算"
     }
 ]

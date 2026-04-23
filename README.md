@@ -191,6 +191,7 @@ woshicby.github.io/
 | 2026.03.30 | 新增灵感碎片功能(moments.html)：支持记录文字、图片、音频、视频等多种形式的灵感碎片；支持Markdown格式渲染；支持标签筛选功能 |
 | 2026.04.17 | 添加本地大模型API对话工具(local-llm-api-chat.html)，支持与LM Studio服务器进行交互；重构Markdown解析逻辑，提取上下标处理为共享函数(markdown-utils.js)，优化上下标处理避免与数学公式冲突 |
 | 2026.04.20 | 添加时间计算器工具(time-calculator.html)；更新用户信息和比赛记录数据 |
+| 2026.04.23 | 新增生命灵数计算器(life-path-calculator.html)，支持生日输入、逐位相加计算过程展示、大师数识别及灵数含义说明 |
 
 ## 使用方法
 
@@ -389,6 +390,7 @@ woshicby.github.io/
 | 2026.03.30 | Added Inspiration Moments feature (moments.html): Supports recording text, images, audio, video and other forms of inspiration moments; supports Markdown format rendering; supports tag filtering |
 | 2026.04.17 | Added local LLM API chat tool (local-llm-api-chat.html), supporting interaction with LM Studio servers; refactored Markdown parsing logic, extracted subscript/superscript handling into a shared function (markdown-utils.js), optimized subscript/superscript processing to avoid conflicts with mathematical formulas |
 | 2026.04.20 | Added time calculator tool (time-calculator.html); updated user information and race records data |
+| 2026.04.23 | Added life path number calculator (life-path-calculator.html), supporting birthday input, step-by-step digit addition display, master number identification, and number meaning descriptions |
 
 ## Usage
 
@@ -587,6 +589,7 @@ woshicby.github.io/
 | 2026.03.30 | インスピレーション Moments機能(moments.html)を追加：テキスト、画像、音声、動画など様々な形式のインスピレーションを記録；Markdown形式のレンダリングに対応；タグフィルタリング機能をサポート |
 | 2026.04.17 | ローカルLLM APIチャットツール(local-llm-api-chat.html)を追加、LM Studioサーバーとの対話をサポート；Markdown解析ロジックをリファクタリング、下付き・上付き文字処理を共有関数(markdown-utils.js)に抽出、数式との競合を回避するよう下付き・上付き文字処理を最適化 |
 | 2026.04.20 | 時間計算機ツール(time-calculator.html)を追加；ユーザー情報とレース記録データを更新 |
+| 2026.04.23 | ライフパスナンバー計算機(life-path-calculator.html)を追加、誕生日入力、桁ごとの加算過程表示、マスター番号識別、ナンバーの意味説明をサポート |
 
 ## 使用方法
 
