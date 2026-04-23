@@ -2,59 +2,59 @@
 
 /* 响应式布局 - 首页适配 */
 @media (max-width: 768px) {
-    .button_box {
-        float: none;
-        margin: 10px auto;
-        width: 90%;
-    }
-    a.botton {
-        padding: 8px 15px;
-        font-size: 14px;
-    }
+   .button_box {
+       float: none;
+       margin: 10px auto;
+       width: 90%;
+   }
+   a.botton {
+       padding: 8px 15px;
+       font-size: 14px;
+   }
 
-    /* 欢迎区域响应式 */
-    .welcome-section {
-        padding: var(--spacing-lg) var(--spacing-md);
-    }
-    
-    .welcome-buttons {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-md);
-    }
-    
-    /* 卡片通用响应式 */
-    .card, .skill-card, .nav-card {
-        padding: var(--spacing-lg);
-    }
-    
-    /* 个人简介响应式 */
-    .profile-container {
-        flex-direction: column;
-        text-align: center;
-        gap: var(--spacing-lg);
-    }
-    
-    .profile-photo {
-        margin-bottom: var(--spacing-lg);
-        width: 140px;
-        height: 140px;
-        margin: 0 auto;
-    }
-    
-    /* 技能展示响应式 */
-    .skills-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: var(--spacing-md);
-    }
-    
-    .skill-icon {
-        font-size: 2.5rem;
-    }
-    
-    /* 网站导航响应式 */
-    .nav-cards {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
-    }
+   /* 欢迎区域响应式 */
+   .welcome-section {
+       padding: var(--spacing-lg) var(--spacing-md);
+   }
+   
+   .welcome-buttons {
+       flex-direction: column;
+       align-items: flex-start;
+       gap: var(--spacing-md);
+   }
+   
+   /* 卡片通用响应式 */
+   .card, .skill-card, .nav-card {
+       padding: var(--spacing-lg);
+   }
+   
+   /* 个人简介响应式 */
+   .profile-container {
+       flex-direction: column;
+       text-align: center;
+       gap: var(--spacing-lg);
+   }
+   
+   .profile-photo {
+       margin-bottom: var(--spacing-lg);
+       width: 140px;
+       height: 140px;
+       margin: 0 auto;
+   }
+   
+   /* 技能展示响应式 */
+   .skills-grid {
+       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+       gap: var(--spacing-md);
+   }
+   
+   .skill-icon {
+       font-size: 2.5rem;
+   }
+   
+   /* 网站导航响应式 */
+   .nav-cards {
+       grid-template-columns: 1fr;
+       gap: var(--spacing-md);
+   }
 }

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>武林外传接台词 - BY的个人网站</title>
+
+    <meta name="description" content="武林外传接台词小游戏，根据上一句台词猜下一句，看看你是不是真正的武林外传十级学者！">
+    <meta name="keywords" content="武林外传,接台词,小游戏,台词接龙,同福客栈">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="武林外传接台词 - BY的个人网站">
+    <meta property="og:description" content="武林外传接台词小游戏，根据上一句台词猜下一句，看看你是不是真正的武林外传十级学者！">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/wulin-quotes.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="武林外传接台词 - BY的个人网站">
+    <meta name="twitter:description" content="武林外传接台词小游戏，根据上一句台词猜下一句，看看你是不是真正的武林外传十级学者！">
+
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/tools-common.css">
+    <link rel="stylesheet" href="./CSS/wulin-quotes.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/wulin-quotes.html">
+
+    <script src="./JS/navigation.js"></script>
+    <script src="./JS/theme-toggle.js"></script>
+    <script src="./JS/background-lazy-load.js"></script>
+    <script src="./JS/tool-tabs.js"></script>
+</head>
+
+<body>
+    <div class="header clearfix wrapper">
+        <h1>武林外传接台词</h1>
+        <div class="nav">
+            <ul class="clearfix">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./video.html">视频展示</a></li>
+                <li><a href="./posts.html">博客文章</a></li>
+                <li><a href="./moments.html">灵感碎片</a></li>
+                <li><a href="./study.html">个人成果</a></li>
+                <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
+                <li><a href="./sports.html">体育运动</a></li>
+                <li>
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="mainbox clearfix wrapper">
+        <div class="back-to-tools">
+            <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
+        </div>
+
+        <div class="tool-container">
+            <h2 class="tool-page-title">武林外传接台词</h2>
+            <p class="tool-description">
+                根据上一句台词，猜下一句！看看你是不是武林外传十级学者～
+            </p>
+
+            <div class="tabs">
+            </div>
+
+            <div class="game-area">
+                <div class="game-settings">
+                    <div class="setting-row">
+                        <span class="setting-label">难度</span>
+                        <div class="difficulty-options">
+                            <button class="difficulty-btn active" data-difficulty="easy" onclick="setDifficulty('easy')">简单</button>
+                            <button class="difficulty-btn" data-difficulty="medium" onclick="setDifficulty('medium')">中等</button>
+                            <button class="difficulty-btn" data-difficulty="hard" onclick="setDifficulty('hard')">困难</button>
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">角色</span>
+                        <div class="character-tags" id="characterTags"></div>
+                    </div>
+                </div>
+
+                <div class="score-bar">
+                    <div class="score-item">
+                        <span class="score-label">连对</span>
+                        <span class="score-value" id="streak">0</span>
+                    </div>
+                    <div class="score-item score-best">
+                        <span class="score-label">最高</span>
+                        <span class="score-value" id="bestStreak">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">已答</span>
+                        <span class="score-value" id="totalAnswered">0</span>
+                    </div>
+                </div>
+
+                <div class="quote-card" id="quoteCard">
+                    <div class="quote-speaker" id="speaker"></div>
+                    <div class="quote-text" id="quoteText"></div>
+                </div>
+
+                <div class="options-container" id="optionsContainer"></div>
+
+                <div class="result-feedback" id="resultFeedback" style="display: none;">
+                    <div class="feedback-content">
+                        <div class="feedback-icon" id="feedbackIcon"></div>
+                        <div class="feedback-answer" id="feedbackAnswer"></div>
+                    </div>
+                    <div class="context-block" id="contextBlock" style="display: none;">
+                        <div class="context-header">剧本上下文</div>
+                        <div class="context-lines" id="contextLines"></div>
+                    </div>
+                </div>
+
+                <div class="game-controls">
+                    <button class="game-btn primary-btn" id="nextBtn" onclick="nextQuestion()" disabled>下一题</button>
+                    <button class="game-btn secondary-btn" id="hintBtn" onclick="showHint()">提示</button>
+                    <button class="game-btn secondary-btn" onclick="resetGame()">重新开始</button>
+                </div>
+
+                <div class="search-section">
+                    <button class="search-toggle" id="searchToggle" onclick="toggleSearch()">
+                        <span class="search-toggle-text">查台词</span>
+                        <span class="search-toggle-arrow" id="searchArrow">▶</span>
+                    </button>
+                    <div class="search-area" id="searchArea" style="display: none;">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" class="search-input" placeholder="输入台词关键词，如：世界如此美妙" oninput="searchQuote()">
+                            <button class="search-clear-btn" id="searchClearBtn" onclick="clearSearch()" style="display: none;">✕</button>
+                        </div>
+                        <div class="search-filters">
+                            <div class="episode-select-wrapper">
+                                <select id="episodeSelect" class="episode-select" onchange="filterByEpisode(this.value)">
+                                    <option value="">全部回目</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="search-hint">输入关键词搜索台词，或选择回目浏览特定集数</div>
+                        <div class="search-results" id="searchResults">
+                            <div class="search-empty">输入关键词开始搜索</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="loading-overlay" id="loadingOverlay">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">正在加载剧本...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="foot wrapper">
+        <p>&copy; 2026 BY的个人网站</p>
+    </div>
+
+    <script src="./JS/wulin-quotes.js"></script>
+</body>
+
+</html>

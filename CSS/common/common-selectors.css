@@ -1,218 +1,218 @@
 /* 通用样式重置 */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bg-color);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: var(--text-color);
-    font-family: 'Segoe UI', Arial, sans-serif;
-    line-height: 1.8;
-    font-size: 16px;
-    margin: 0;
-    padding: 0;
-    transition: background-color 0.3s ease, color 0.3s ease;
+   background-color: var(--bg-color);
+   background-size: cover;
+   background-position: center;
+   background-attachment: fixed;
+   color: var(--text-color);
+   font-family: 'Segoe UI', Arial, sans-serif;
+   line-height: 1.8;
+   font-size: 16px;
+   margin: 0;
+   padding: 0;
+   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body.background-loaded {
-    background-image: url("../../images/body_backgrond.jpg");
+   background-image: url("../../images/body_backgrond.jpg");
 }
 
 /* 主题切换按钮样式 - 集成到导航栏 */
 .theme-toggle {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 26px;
-    margin: 0 10px; /* 与导航项保持一致的间距 */
+   position: relative;
+   display: inline-block;
+   width: 50px;
+   height: 26px;
+   margin: 0 10px; /* 与导航项保持一致的间距 */
 }
 
 .theme-toggle input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+   opacity: 0;
+   width: 0;
+   height: 0;
 }
 
 .theme-toggle-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 50px;
-    height: 26px;
-    background-color: rgba(255, 255, 255, 0.2); /* 半透明背景与导航栏更好融合 */
-    transition: var(--transition-default);
-    border-radius: var(--border-radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+   position: absolute;
+   cursor: pointer;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   width: 50px;
+   height: 26px;
+   background-color: rgba(255, 255, 255, 0.2); /* 半透明背景与导航栏更好融合 */
+   transition: var(--transition-default);
+   border-radius: var(--border-radius-md);
+   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .theme-toggle-slider:before {
-    position: absolute;
-    content: "☀️";
-    font-size: 14px;
-    height: 20px;
-    width: 20px;
-    left: 2px;
-    bottom: 2px;
-    background-color: white;
-    transition: var(--transition-default);
-    border-radius: var(--border-radius-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+   position: absolute;
+   content: "☀️";
+   font-size: 14px;
+   height: 20px;
+   width: 20px;
+   left: 2px;
+   bottom: 2px;
+   background-color: white;
+   transition: var(--transition-default);
+   border-radius: var(--border-radius-md);
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 input:checked + .theme-toggle-slider {
-    background-color: rgba(255, 255, 255, 0.2);
+   background-color: rgba(255, 255, 255, 0.2);
 }
 
 input:checked + .theme-toggle-slider:before {
-    transform: translateX(24px);
-    content: "🌙";
+   transform: translateX(24px);
+   content: "🌙";
 }
 
 /* 主题切换容器 */
 .theme-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 10px 0;
 }
 
 /* ==========================================
-   通用组件样式 - 卡片容器
-   ==========================================
-   提供统一的卡片组件样式，包含背景、边框、阴影和交互效果
-   应用于需要突出显示的内容区块
-   ========================================== */
+  通用组件样式 - 卡片容器
+  ==========================================
+  提供统一的卡片组件样式，包含背景、边框、阴影和交互效果
+  应用于需要突出显示的内容区块
+  ========================================== */
 .card-container {
-    background-color: var(--card-bg-color);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
-    box-shadow: var(--shadow-light);
-    transition: var(--transition-default);
-    border: 2px solid transparent;
+   background-color: var(--card-bg-color);
+   border-radius: var(--border-radius-md);
+   padding: var(--spacing-lg);
+   margin-bottom: var(--spacing-lg);
+   box-shadow: var(--shadow-light);
+   transition: var(--transition-default);
+   border: 2px solid transparent;
 }
 .card-container:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-    border-color: var(--secondary-color);
-    background-color: var(--light-accent);
+   transform: translateY(-5px);
+   box-shadow: var(--shadow-medium);
+   border-color: var(--secondary-color);
+   background-color: var(--light-accent);
 }
 
 /* ==========================================
-   通用组件样式 - 按钮系统
-   ==========================================
-   提供基础按钮样式和不同状态的按钮变体
-   包含尺寸、颜色和交互效果定义
-   ========================================== */
+  通用组件样式 - 按钮系统
+  ==========================================
+  提供基础按钮样式和不同状态的按钮变体
+  包含尺寸、颜色和交互效果定义
+  ========================================== */
 .btn {
-    display: inline-block;
-    padding: 8px 16px;
-    margin: var(--spacing-xs);
-    border-radius: var(--border-radius-md);
-    border: none;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: var(--transition-default);
-    box-shadow: var(--shadow-light);
+   display: inline-block;
+   padding: 8px 16px;
+   margin: var(--spacing-xs);
+   border-radius: var(--border-radius-md);
+   border: none;
+   font-size: 14px;
+   font-weight: 500;
+   text-align: center;
+   text-decoration: none;
+   cursor: pointer;
+   transition: var(--transition-default);
+   box-shadow: var(--shadow-light);
 }
 .btn-primary {
-    background-color: var(--secondary-color);
-    color: var(--white);
+   background-color: var(--secondary-color);
+   color: var(--white);
 }
 .btn-secondary {
-    background-color: var(--light-accent);
-    color: var(--text-color);
+   background-color: var(--light-accent);
+   color: var(--text-color);
 }
 .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-medium);
+   transform: translateY(-2px);
+   box-shadow: var(--shadow-medium);
 }
 
 /* ==========================================
-   布局组件 - 页面容器
-   ==========================================
-   提供固定宽度的居中容器，控制页面最大宽度
-   包含内边距以确保内容与边缘适当间距
-   ========================================== */
+  布局组件 - 页面容器
+  ==========================================
+  提供固定宽度的居中容器，控制页面最大宽度
+  包含内边距以确保内容与边缘适当间距
+  ========================================== */
 .wrapper {
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 20px;
+   width: 100%;
+   margin: 0 auto;
+   padding: 0 20px;
 }
 
 /* ==========================================
-   布局工具 - 清除浮动
-   ==========================================
-   解决浮动元素导致的父容器高度坍塌问题
-   使用::after伪元素清除浮动
-   ========================================== */
+  布局工具 - 清除浮动
+  ==========================================
+  解决浮动元素导致的父容器高度坍塌问题
+  使用::after伪元素清除浮动
+  ========================================== */
 .clearfix::after {
-    content: '';
-    display: table;
-    clear: both;
+   content: '';
+   display: table;
+   clear: both;
 }
 
 /* ==========================================
-   页面组件 - 网站头部
-   ==========================================
-   包含网站标题和主导航
-   设置背景色、文字颜色和阴影效果
-   ========================================== */
+  页面组件 - 网站头部
+  ==========================================
+  包含网站标题和主导航
+  设置背景色、文字颜色和阴影效果
+  ========================================== */
 .header {
-    background-color: var(--header-bg-color);
-    color: var(--header-text-color);
-    padding: 1rem 0;
-    margin-bottom: 2rem;
-    box-shadow: var(--shadow-light);
+   background-color: var(--header-bg-color);
+   color: var(--header-text-color);
+   padding: 1rem 0;
+   margin-bottom: 2rem;
+   box-shadow: var(--shadow-light);
 }
 
 .header h1 {
-    float: left;
-    font-size: 1.8rem;
-    margin-right: 2rem;
-    margin-left: 2rem;
-    line-height: 1;
+   float: left;
+   font-size: 1.8rem;
+   margin-right: 2rem;
+   margin-left: 2rem;
+   line-height: 1;
 }
 
 /* ==========================================   全局标题样式 - 全站统一   ==========================================   基于tools.css的标题样式，确保全站标题视觉一致性   ========================================= */
 
 h2 {
-    color: var(--primary-color);
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--accent-color);
-    font-size: 1.6rem;
-    line-height: 1.4;
+   color: var(--primary-color);
+   margin-top: 0;
+   margin-bottom: 1.5rem;
+   padding-bottom: 0.75rem;
+   border-bottom: 2px solid var(--accent-color);
+   font-size: 1.6rem;
+   line-height: 1.4;
 }
 
 h3 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    color: var(--heading-color);
-    font-size: 1.3rem;
-    line-height: 1.4;
+   margin-top: 0;
+   margin-bottom: 1rem;
+   color: var(--heading-color);
+   font-size: 1.3rem;
+   line-height: 1.4;
 }
 
 /* ==========================================
-   全局表单元素样式 - 文本框统一样式
-   ==========================================
-   统一所有页面的文本框、文本域、选择框样式
-   包含日间模式和夜间模式样式
-   ========================================== */
+  全局表单元素样式 - 文本框统一样式
+  ==========================================
+  统一所有页面的文本框、文本域、选择框样式
+  包含日间模式和夜间模式样式
+  ========================================== */
 
 /* 文本输入框和文本域基础样式 */
 input[type="text"],
@@ -223,26 +223,26 @@ input[type="search"],
 input[type="url"],
 textarea,
 select {
-    padding: var(--spacing-sm) var(--spacing-md);
-    border: 2px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    font-size: 16px;
-    font-family: inherit;
-    background-color: var(--white);
-    color: var(--text-color);
-    transition: var(--transition-default);
-    box-sizing: border-box;
+   padding: var(--spacing-sm) var(--spacing-md);
+   border: 2px solid var(--border-color);
+   border-radius: var(--border-radius-md);
+   font-size: 16px;
+   font-family: inherit;
+   background-color: var(--white);
+   color: var(--text-color);
+   transition: var(--transition-default);
+   box-sizing: border-box;
 }
 
 /* 文本域特殊样式 */
 textarea {
-    resize: vertical;
-    line-height: 1.6;
+   resize: vertical;
+   line-height: 1.6;
 }
 
 /* 选择框特殊样式 */
 select {
-    cursor: pointer;
+   cursor: pointer;
 }
 
 /* 聚焦状态 */
@@ -254,9 +254,9 @@ input[type="search"]:focus,
 input[type="url"]:focus,
 textarea:focus,
 select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+   outline: none;
+   border-color: var(--primary-color);
+   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
 /* 只读状态 */
@@ -267,9 +267,9 @@ input[type="password"]:read-only,
 input[type="search"]:read-only,
 input[type="url"]:read-only,
 textarea:read-only {
-    background-color: var(--light-accent);
-    cursor: not-allowed;
-    color: var(--light-text);
+   background-color: var(--light-accent);
+   cursor: not-allowed;
+   color: var(--light-text);
 }
 
 /* placeholder样式 */
@@ -280,8 +280,8 @@ input[type="password"]::placeholder,
 input[type="search"]::placeholder,
 input[type="url"]::placeholder,
 textarea::placeholder {
-    color: var(--light-text);
-    opacity: 0.7;
+   color: var(--light-text);
+   opacity: 0.7;
 }
 
 /* 夜间模式样式 */
@@ -293,9 +293,9 @@ body.dark-theme input[type="search"],
 body.dark-theme input[type="url"],
 body.dark-theme textarea,
 body.dark-theme select {
-    background-color: var(--card-bg-color);
-    border-color: var(--border-color);
-    color: var(--text-color);
+   background-color: var(--card-bg-color);
+   border-color: var(--border-color);
+   color: var(--text-color);
 }
 
 body.dark-theme input[type="text"]:focus,
@@ -306,8 +306,8 @@ body.dark-theme input[type="search"]:focus,
 body.dark-theme input[type="url"]:focus,
 body.dark-theme textarea:focus,
 body.dark-theme select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+   border-color: var(--primary-color);
+   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
 }
 
 body.dark-theme input[type="text"]:read-only,
@@ -317,8 +317,8 @@ body.dark-theme input[type="password"]:read-only,
 body.dark-theme input[type="search"]:read-only,
 body.dark-theme input[type="url"]:read-only,
 body.dark-theme textarea:read-only {
-    background-color: var(--light-accent);
-    color: var(--text-color);
+   background-color: var(--light-accent);
+   color: var(--text-color);
 }
 
 body.dark-theme input[type="text"]::placeholder,
@@ -328,162 +328,162 @@ body.dark-theme input[type="password"]::placeholder,
 body.dark-theme input[type="search"]::placeholder,
 body.dark-theme input[type="url"]::placeholder,
 body.dark-theme textarea::placeholder {
-    color: var(--text-color);
-    opacity: 0.7;
+   color: var(--text-color);
+   opacity: 0.7;
 }
 
 p {
-    margin-bottom: 1rem;
-    line-height: 1.8;
+   margin-bottom: 1rem;
+   line-height: 1.8;
 }
 
 /* 基础strong标签样式 */
 strong {
-    color: var(--primary-color);
-    font-weight: 600;
+   color: var(--primary-color);
+   font-weight: 600;
 }
 
 /* ==========================================
-   页面组件 - 导航菜单
-   ==========================================
-   实现顶部导航菜单样式
-   包含链接样式和交互效果
-   ========================================== */
+  页面组件 - 导航菜单
+  ==========================================
+  实现顶部导航菜单样式
+  包含链接样式和交互效果
+  ========================================== */
 .nav {
-    float: right;
-    padding-right: 2rem;
+   float: right;
+   padding-right: 2rem;
 }
 
 .nav ul {
-    list-style: none;
+   list-style: none;
 }
 
 .nav li {
-    display: inline-block;
-    margin-left: 2rem;
-    vertical-align: middle;
+   display: inline-block;
+   margin-left: 2rem;
+   vertical-align: middle;
 }
 
 .nav a {
-    color: var(--nav-link-color);
-    text-decoration: none;
-    font-weight: var(--font-weight-medium);
-    transition: var(--transition-default);
-    line-height: 1;
+   color: var(--nav-link-color);
+   text-decoration: none;
+   font-weight: var(--font-weight-medium);
+   transition: var(--transition-default);
+   line-height: 1;
 }
 
 .nav a:hover {
-    color: var(--nav-link-hover-color);
+   color: var(--nav-link-hover-color);
 }
 
 /* 导航栏激活状态样式 - 桌面端和移动设备共用 */
 .nav a.active {
-    background-color: var(--secondary-color);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius-md);
+   background-color: var(--secondary-color);
+   color: white;
+   padding: 0.5rem 1rem;
+   border-radius: var(--border-radius-md);
 }
 
 a {
-    display: inline-block;
-    color: var(--text-color);
-    transition: var(--transition-default);
+   display: inline-block;
+   color: var(--text-color);
+   transition: var(--transition-default);
 }
 
 a:hover {
-    transform: translateY(-3px);
-    color: #3498db;
+   transform: translateY(-3px);
+   color: #3498db;
 }
 
 /* ==========================================  
-   页面组件 - 主内容盒子
-   ==========================================  
-   全站通用的半透明主容器样式
-   自适应不同屏幕尺寸，在各种设备上提供一致的用户体验
-   ========================================== */
+  页面组件 - 主内容盒子
+  ==========================================  
+  全站通用的半透明主容器样式
+  自适应不同屏幕尺寸，在各种设备上提供一致的用户体验
+  ========================================== */
 div.mainbox{
-    width: 90%; /* 使用百分比宽度，确保不会超出屏幕 */
-    margin: 0 auto; /* 水平居中 */
-    background-color: var(--card-bg-color);
-    box-shadow: var(--shadow-heavy);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-lg);
-    box-sizing: border-box;
-    transition: var(--transition-default);
-    /* 在各种屏幕尺寸上保持居中且不超出屏幕边缘 */
+   width: 90%; /* 使用百分比宽度，确保不会超出屏幕 */
+   margin: 0 auto; /* 水平居中 */
+   background-color: var(--card-bg-color);
+   box-shadow: var(--shadow-heavy);
+   border-radius: var(--border-radius-md);
+   padding: var(--spacing-lg);
+   box-sizing: border-box;
+   transition: var(--transition-default);
+   /* 在各种屏幕尺寸上保持居中且不超出屏幕边缘 */
 }
 
 section {
-    margin: 0 0 var(--spacing-xl) 0;
-    padding: var(--spacing-xl);
-    background-color: var(--white);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-light);
-    transition: var(--transition-default);
-    border: 2px solid transparent;
+   margin: 0 0 var(--spacing-xl) 0;
+   padding: var(--spacing-xl);
+   background-color: var(--white);
+   border-radius: var(--border-radius-md);
+   box-shadow: var(--shadow-light);
+   transition: var(--transition-default);
+   border: 2px solid transparent;
 }
 
 section:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-    border-color: var(--secondary-color);
-    background-color: var(--light-accent);
+   transform: translateY(-5px);
+   box-shadow: var(--shadow-medium);
+   border-color: var(--secondary-color);
+   background-color: var(--light-accent);
 }
 
 /* 导航切换按钮样式 - 桌面端默认隐藏 */
 .nav-toggle {
-    display: none;
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    width: 40px;
-    height: 40px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    z-index: 1100;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
+   display: none;
+   position: fixed;
+   top: 1rem;
+   right: 1rem;
+   width: 40px;
+   height: 40px;
+   background-color: var(--primary-color);
+   color: white;
+   border: none;
+   border-radius: var(--border-radius-md);
+   cursor: pointer;
+   z-index: 1100;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   gap: 5px;
 }
 
 /* 汉堡菜单图标线条 */
 .nav-toggle span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: white;
-    border-radius: var(--border-radius-md);
-    transition: var(--transition-default);
+   display: block;
+   width: 25px;
+   height: 3px;
+   background-color: white;
+   border-radius: var(--border-radius-md);
+   transition: var(--transition-default);
 }
 
 /* 汉堡菜单激活状态 - 转换为X形状 */
 .nav-toggle.active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+   transform: translateY(8px) rotate(45deg);
 }
 
 .nav-toggle.active span:nth-child(2) {
-    opacity: 0;
+   opacity: 0;
 }
 
 .nav-toggle.active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+   transform: translateY(-8px) rotate(-45deg);
 }
 
 /* ==========================================
-   页面组件 - 网站页脚
-   ==========================================
-   包含版权信息和社交链接
-   设置背景色、文字颜色和内边距
-   ========================================== */
+  页面组件 - 网站页脚
+  ==========================================
+  包含版权信息和社交链接
+  设置背景色、文字颜色和内边距
+  ========================================== */
 .foot {
-    background-color: var(--footer-bg-color);
-    color: var(--footer-text-color);
-    text-align: center;
-    padding: 1.5rem 0;
-    margin-top: 2rem;
-    font-size: 0.9rem;
+   background-color: var(--footer-bg-color);
+   color: var(--footer-text-color);
+   text-align: center;
+   padding: 1.5rem 0;
+   margin-top: 2rem;
+   font-size: 0.9rem;
 }
