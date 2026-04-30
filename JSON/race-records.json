@@ -440,6 +440,21 @@
     },
     {
         "id": 30,
+        "name": "2026青岛山海四季跑（春季赛）",
+        "date": "2026-05-10",
+        "location": "山东省青岛市浮山绿道",
+        "event": "10km",
+        "result": "",
+        "distance": "10公里",
+        "pace": "",
+        "stravaLink": "",
+        "season": "2026春季",
+        "certification": [],
+        "category": "路跑",
+        "eventSeries": "青岛山海四季跑"
+    },
+    {
+        "id": 31,
         "name": "2026威海100",
         "date": "2026-05-16",
         "location": "山东省威海市半月湾",
@@ -456,7 +471,7 @@
         "itraPerformanceScore": ""
     },
     {
-        "id": 31,
+        "id": 32,
         "name": "2026珠山越野精英赛",
         "date": "2026-05-31",
         "location": "山东省青岛市黄岛区大珠山风景区",
@@ -473,7 +488,7 @@
         "itraPerformanceScore": ""
     },
     {
-        "id": 32,
+        "id": 33,
         "name": "2026咔哒寻山群英赛",
         "date": "2026-09-13",
         "location": "山东省青岛市李沧区紫竹幽谷风景区",
@@ -489,7 +504,7 @@
         "raceScore": ""
     },
     {
-        "id": 33,
+        "id": 34,
         "name": "2026莆田木兰溪马拉松",
         "date": "2026-12-27",
         "location": "福建省莆田市荔城区木兰溪治理展览馆",
