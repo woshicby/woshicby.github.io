@@ -73,6 +73,7 @@ body.posts-page {
 
 .posts-page .post-meta {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: var(--spacing-md);
     color: var(--light-text);
@@ -427,6 +428,16 @@ body.posts-page {
 }
 
 /* 过滤信息区域样式 */
+.posts-page .series-description {
+    color: var(--text-color-secondary);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-left: 3px solid var(--secondary-color);
+    background-color: var(--light-accent);
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+}
+
 .posts-page .filter-info {
     display: flex;
     align-items: center;
@@ -511,6 +522,266 @@ body.posts-page {
 }
 
 .posts-page .clear-filter-btn:active {
+    transform: translateY(0);
+}
+
+/* 系列视图 */
+.posts-page .series-section {
+    margin-bottom: 1.5rem;
+}
+
+.posts-page #series-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+    padding: 0;
+}
+
+.posts-page .series-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background-color: var(--light-accent);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: var(--transition-default);
+    border: 2px solid transparent;
+}
+
+.posts-page .series-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.posts-page .series-btn.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    box-shadow: var(--shadow-medium);
+}
+
+.posts-page .series-btn .series-count {
+    font-size: 0.7rem;
+    background-color: rgba(0,0,0,0.1);
+    padding: 0 5px;
+    border-radius: var(--border-radius-sm);
+}
+
+.posts-page .series-btn:hover .series-count,
+.posts-page .series-btn.active .series-count {
+    background-color: rgba(255,255,255,0.3);
+}
+
+.posts-page .no-series {
+    font-size: 0.85rem;
+    color: var(--text-color-secondary);
+    padding: 4px 8px;
+}
+
+/* 博文卡片中的系列标签（跟在日期后面） */
+.posts-page .post-meta .series-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 1px 8px;
+    background-color: var(--light-accent);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: var(--transition-default);
+    border: 2px solid transparent;
+}
+
+.posts-page .post-meta .series-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.posts-page .post-meta .series-badge.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    box-shadow: var(--shadow-medium);
+}
+
+/* 时间线归档视图 */
+.posts-page .timeline-section {
+    margin-bottom: 1.5rem;
+}
+
+.posts-page .timeline-group {
+    margin-bottom: 4px;
+}
+
+.posts-page .timeline-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: var(--transition-default);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--heading-color);
+    user-select: none;
+}
+
+.posts-page .timeline-header:hover {
+    background-color: var(--light-accent);
+}
+
+.posts-page .timeline-arrow {
+    font-size: 0.65rem;
+    transition: transform 0.2s ease;
+    color: var(--light-text);
+}
+
+.posts-page .timeline-label {
+    flex: 1;
+}
+
+.posts-page .timeline-count {
+    background-color: var(--light-accent);
+    padding: 1px 6px;
+    border-radius: var(--border-radius-md);
+    font-size: 0.75rem;
+    color: var(--light-text);
+    font-weight: 400;
+}
+
+.posts-page .timeline-items {
+    padding-left: 20px;
+    border-left: 2px solid var(--border-color);
+    margin-left: 10px;
+}
+
+.posts-page .timeline-item {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: var(--transition-default);
+    font-size: 0.8rem;
+    position: relative;
+}
+
+.posts-page .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    opacity: 0.5;
+    transition: var(--transition-default);
+}
+
+.posts-page .timeline-item:hover {
+    background-color: var(--light-accent);
+}
+
+.posts-page .timeline-item:hover::before {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.3);
+}
+
+.posts-page .timeline-day {
+    color: var(--light-text);
+    white-space: nowrap;
+    min-width: 28px;
+}
+
+.posts-page .timeline-title {
+    color: var(--text-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.posts-page .timeline-item:hover .timeline-title {
+    color: var(--secondary-color);
+}
+
+/* 加载更多哨兵 */
+.posts-page .load-more-sentinel {
+    height: 1px;
+    width: 100%;
+}
+
+/* 博文高亮动画 */
+.posts-page .post-item-highlight {
+    animation: post-highlight 2s ease-out;
+}
+
+@keyframes post-highlight {
+    0% {
+        box-shadow: 0 0 0 3px var(--secondary-color);
+        background-color: var(--light-accent);
+    }
+    70% {
+        box-shadow: 0 0 0 3px var(--secondary-color);
+    }
+    100% {
+        box-shadow: none;
+        background-color: var(--card-bg-color);
+    }
+}
+
+/* 回到顶部按钮 */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--secondary-color);
+    background-color: var(--card-bg-color);
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: var(--shadow-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.back-to-top:active {
     transform: translateY(0);
 }
 

@@ -85,7 +85,8 @@
     <div class="mainbox clearfix wrapper">
 
         <section class="posts-container">
-            <h2>博文列表</h2>
+            <h2 id="posts-title">博文列表</h2>
+            <div id="series-description" class="series-description" style="display: none;"></div>
             <div id="filter-info" class="filter-info" style="display: none;">
                 <div id="filter-tags" class="filter-tags"></div>
                 <button id="clear-filter" class="clear-filter-btn">清除所有</button>
@@ -103,6 +104,14 @@
             <div class="categories-list">
                 <h3>分类</h3>
                 <div id="categories-list"></div>
+            </div>
+            <div class="series-section">
+                <h3>系列</h3>
+                <div id="series-container"></div>
+            </div>
+            <div class="timeline-section">
+                <h3>时间线</h3>
+                <div id="timeline-container"></div>
             </div>
             <div class="tags-list">
                 <h3>标签</h3>

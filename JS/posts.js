@@ -4,28 +4,31 @@ class PostManager {
         this.posts = [];
         this.categories = [];
         this.tags = [];
+        this.seriesMeta = [];
+        this.currentPage = 0;
+        this.postsPerPage = 5;
+        this.filteredPosts = null;
+        this.isLoading = false;
         this.init();
     }
 
     async init() {
         try {
             console.log('开始初始化博文管理器');
-            // 加载博文数据
             await this.loadPosts();
             console.log('成功加载数据，文章总数:', this.posts.length);
-            // 提取分类和标签
             this.extractCategoriesAndTags();
             console.log('提取分类:', this.categories.length, '个，标签:', this.tags.length, '个');
-            // 渲染页面内容
             this.renderPostsList();
             console.log('文章列表渲染完成');
             this.renderCategories();
+            this.renderSeries();
+            this.renderTimeline();
             this.renderTags();
-            // 绑定搜索事件
             this.bindSearch();
-            // 绑定清除过滤按钮事件
             this.bindClearFilter();
-            // 检查URL参数
+            this.bindScrollLoad();
+            this.createBackToTopButton();
             this.checkUrlParams();
         } catch (error) {
             console.error('加载博文数据失败:', error);
@@ -78,6 +81,15 @@ class PostManager {
                     this.posts = this.getSamplePosts();
                 }
             }
+
+            const seriesResponse = await fetch('JSON/posts-series.json');
+            if (seriesResponse.ok) {
+                this.seriesMeta = await seriesResponse.json();
+                console.log('成功加载posts-series.json，系列数量:', this.seriesMeta.length);
+            } else {
+                console.warn('posts-series.json加载失败，使用空数组');
+                this.seriesMeta = [];
+            }
         } catch (error) {
             console.error('加载博文数据失败:', error.message);
             console.warn('将使用示例博文数据');
@@ -111,7 +123,9 @@ class PostManager {
             content: markdownContent,
             excerpt: metadata.excerpt || this.extractExcerpt(markdownContent),
             categories: metadata.categories || [],
-            tags: metadata.tags || []
+            tags: metadata.tags || [],
+            series: metadata.series || null,
+            series_order: metadata.series_order || null
         };
     }
 
@@ -170,24 +184,271 @@ class PostManager {
 
         this.categories = Array.from(categorySet).sort();
         this.tags = Array.from(tagSet).sort();
+
+        this.seriesCount = {};
+        this.posts.forEach(post => {
+            if (post.series) {
+                this.seriesCount[post.series] = (this.seriesCount[post.series] || 0) + 1;
+            }
+        });
     }
 
-    renderPostsList(filteredPosts = null) {
-        // 使用所有文章数据，不做数量限制
-        const postsToRender = filteredPosts || this.posts;
+    renderPostsList(filteredPosts = null, append = false) {
+        if (filteredPosts !== null) {
+            this.filteredPosts = filteredPosts;
+            this.currentPage = 0;
+        }
+
+        const postsToRender = this.filteredPosts || this.posts;
         const postsListElement = document.getElementById('posts-list');
 
         if (postsToRender.length === 0) {
             postsListElement.innerHTML = '<div class="no-posts">没有找到相关博文</div>';
+            this.removeLoadMoreSentinel();
             return;
         }
 
-        // 渲染所有文章
+        const startIndex = append ? this.currentPage * this.postsPerPage : 0;
+        const endIndex = Math.min(startIndex + this.postsPerPage, postsToRender.length);
+
+        if (!append) {
+            postsListElement.innerHTML = '';
+        }
+
+        const postsToAppend = postsToRender.slice(startIndex, endIndex);
+        const postsHTML = postsToAppend.map(post => this.createPostHTML(post)).join('');
+
+        if (append) {
+            postsListElement.insertAdjacentHTML('beforeend', postsHTML);
+        } else {
+            postsListElement.innerHTML = postsHTML;
+        }
+
+        this.currentPage = Math.ceil(endIndex / this.postsPerPage);
+        this.updateLoadMoreSentinel(endIndex < postsToRender.length);
+
+        this.bindPostFilterEvents();
+    }
+
+    updateLoadMoreSentinel(hasMore) {
+        this.removeLoadMoreSentinel();
+        if (!hasMore) return;
+
+        const sentinel = document.createElement('div');
+        sentinel.id = 'load-more-sentinel';
+        sentinel.className = 'load-more-sentinel';
+        const postsListElement = document.getElementById('posts-list');
+        postsListElement.appendChild(sentinel);
+
+        if (this.scrollObserver) {
+            this.scrollObserver.observe(sentinel);
+        }
+    }
+
+    removeLoadMoreSentinel() {
+        const existing = document.getElementById('load-more-sentinel');
+        if (existing) existing.remove();
+    }
+
+    bindScrollLoad() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !this.isLoading) {
+                    const postsToRender = this.filteredPosts || this.posts;
+                    const currentEnd = this.currentPage * this.postsPerPage;
+                    if (currentEnd < postsToRender.length) {
+                        this.isLoading = true;
+                        this.renderPostsList(null, true);
+                        this.isLoading = false;
+                    }
+                }
+            });
+        }, { rootMargin: '200px' });
+
+        this.scrollObserver = observer;
+    }
+
+    observeSentinel() {
+        if (this.scrollObserver) {
+            const sentinel = document.getElementById('load-more-sentinel');
+            if (sentinel) {
+                this.scrollObserver.observe(sentinel);
+            }
+        }
+    }
+
+    renderSeries() {
+        const seriesContainer = document.getElementById('series-container');
+        if (!seriesContainer) return;
+
+        const grouped = {};
+        this.posts.forEach(post => {
+            if (post.series) {
+                if (!grouped[post.series]) {
+                    grouped[post.series] = [];
+                }
+                grouped[post.series].push(post);
+            }
+        });
+
+        const seriesOrder = this.seriesMeta.map(s => s.name);
+        const sortedKeys = Object.keys(grouped).sort((a, b) => {
+            const iA = seriesOrder.indexOf(a);
+            const iB = seriesOrder.indexOf(b);
+            if (iA === -1 && iB === -1) return a.localeCompare(b);
+            if (iA === -1) return 1;
+            if (iB === -1) return -1;
+            return iA - iB;
+        });
+
+        if (sortedKeys.length === 0) {
+            seriesContainer.innerHTML = '<div class="no-series">暂无系列</div>';
+            return;
+        }
+
+        let html = '';
+        sortedKeys.forEach(key => {
+            const posts = grouped[key];
+            const meta = this.seriesMeta.find(s => s.name === key);
+            const slug = meta ? meta.slug : encodeURIComponent(key);
+            html += `<a href="posts.html?series=${encodeURIComponent(key)}" class="series-btn" data-series="${key}" title="${meta ? meta.description : ''}">`;
+            html += `${key}<span class="series-count">${posts.length}</span>`;
+            html += `</a>`;
+        });
+
+        seriesContainer.innerHTML = html;
+
+        seriesContainer.querySelectorAll('.series-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const series = btn.getAttribute('data-series');
+                this.filterBySeries(series);
+            });
+        });
+    }
+
+    renderTimeline() {
+        const timelineContainer = document.getElementById('timeline-container');
+        if (!timelineContainer) return;
+
+        const grouped = {};
+        this.posts.forEach(post => {
+            const date = new Date(post.date);
+            const key = `${date.getFullYear()}年${date.getMonth() + 1}月`;
+            if (!grouped[key]) {
+                grouped[key] = [];
+            }
+            grouped[key].push(post);
+        });
+
+        const sortedKeys = Object.keys(grouped).sort((a, b) => {
+            const [yA, mA] = a.match(/(\d+)年(\d+)月/).slice(1).map(Number);
+            const [yB, mB] = b.match(/(\d+)年(\d+)月/).slice(1).map(Number);
+            return yB !== yA ? yB - yA : mB - mA;
+        });
+
+        let html = '';
+        sortedKeys.forEach(key => {
+            const posts = grouped[key];
+            html += `<div class="timeline-group">`;
+            html += `<div class="timeline-header" data-expanded="false">`;
+            html += `<span class="timeline-arrow">▶</span>`;
+            html += `<span class="timeline-label">${key}</span>`;
+            html += `<span class="timeline-count">${posts.length}</span>`;
+            html += `</div>`;
+            html += `<div class="timeline-items" style="display:none;">`;
+            posts.forEach(post => {
+                const day = new Date(post.date).getDate();
+                html += `<div class="timeline-item" data-post-id="${post.id}" title="${post.title}">`;
+                html += `<span class="timeline-day">${day}日</span>`;
+                html += `<span class="timeline-title">${post.title}</span>`;
+                html += `</div>`;
+            });
+            html += `</div></div>`;
+        });
+
+        timelineContainer.innerHTML = html;
+
+        timelineContainer.querySelectorAll('.timeline-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const items = header.nextElementSibling;
+                const arrow = header.querySelector('.timeline-arrow');
+                const isExpanded = header.getAttribute('data-expanded') === 'true';
+
+                if (isExpanded) {
+                    items.style.display = 'none';
+                    arrow.textContent = '▶';
+                    header.setAttribute('data-expanded', 'false');
+                } else {
+                    items.style.display = 'block';
+                    arrow.textContent = '▼';
+                    header.setAttribute('data-expanded', 'true');
+                }
+            });
+        });
+
+        timelineContainer.querySelectorAll('.timeline-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const postId = item.getAttribute('data-post-id');
+                const postElement = document.querySelector(`.post-item a[href="post-detail.html?id=${postId}"]`);
+                if (postElement) {
+                    const article = postElement.closest('.post-item');
+                    if (article) {
+                        article.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        article.classList.add('post-item-highlight');
+                        setTimeout(() => article.classList.remove('post-item-highlight'), 2000);
+                        return;
+                    }
+                }
+                this.loadAllPostsForJump(postId);
+            });
+        });
+    }
+
+    loadAllPostsForJump(targetPostId) {
+        const postsToRender = this.filteredPosts || this.posts;
+        this.filteredPosts = postsToRender;
+        this.currentPage = 0;
+        this.removeLoadMoreSentinel();
+
+        const postsListElement = document.getElementById('posts-list');
         const postsHTML = postsToRender.map(post => this.createPostHTML(post)).join('');
         postsListElement.innerHTML = postsHTML;
-
-        // 绑定文章列表中的分类和标签点击事件
+        this.currentPage = Math.ceil(postsToRender.length / this.postsPerPage);
         this.bindPostFilterEvents();
+
+        const postElement = document.querySelector(`.post-item a[href="post-detail.html?id=${targetPostId}"]`);
+        if (postElement) {
+            const article = postElement.closest('.post-item');
+            if (article) {
+                setTimeout(() => {
+                    article.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    article.classList.add('post-item-highlight');
+                    setTimeout(() => article.classList.remove('post-item-highlight'), 2000);
+                }, 100);
+            }
+        }
+    }
+
+    createBackToTopButton() {
+        const btn = document.createElement('button');
+        btn.id = 'back-to-top';
+        btn.className = 'back-to-top';
+        btn.title = '回到顶部';
+        btn.innerHTML = '↑';
+        document.body.appendChild(btn);
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
+
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     }
 
     createPostHTML(post) {
@@ -204,6 +465,9 @@ class PostManager {
         let dateHTML = `<span class="post-date">${this.formatDate(post.date)}</span>`;
         if (post.update_date) {
             dateHTML += `<span class="post-update-date">（更新于 ${this.formatDate(post.update_date)}）</span>`;
+        }
+        if (post.series) {
+            dateHTML += `<span class="series-badge" data-series="${post.series}">${post.series}${post.series_order ? ` · 第${post.series_order}/${this.seriesCount[post.series]}篇` : ''}</span>`;
         }
 
         return `
@@ -281,6 +545,14 @@ class PostManager {
                 this.filterByTag(tag);
             });
         });
+
+        postsList.querySelectorAll('[data-series]').forEach(badge => {
+            badge.addEventListener('click', (e) => {
+                e.preventDefault();
+                const series = badge.getAttribute('data-series');
+                this.filterBySeries(series);
+            });
+        });
     }
 
     filterByCategory(category) {
@@ -314,6 +586,17 @@ class PostManager {
         }
         
         urlParams.delete('search');
+        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+        
+        this.applyFilters();
+    }
+
+    filterBySeries(series) {
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.delete('category');
+        urlParams.delete('tag');
+        urlParams.delete('search');
+        urlParams.set('series', series);
         window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
         
         this.applyFilters();
@@ -362,25 +645,28 @@ class PostManager {
         const urlParams = new URLSearchParams(window.location.search);
         const categories = urlParams.getAll('category');
         const tags = urlParams.getAll('tag');
+        const series = urlParams.get('series');
         const search = urlParams.get('search');
 
         let filteredPosts = this.posts;
 
-        // 应用分类过滤（OR逻辑：匹配任意一个选中的分类）
         if (categories.length > 0) {
             filteredPosts = filteredPosts.filter(post => 
                 post.categories && post.categories.some(cat => categories.includes(cat))
             );
         }
 
-        // 应用标签过滤（OR逻辑：匹配任意一个选中的标签）
         if (tags.length > 0) {
             filteredPosts = filteredPosts.filter(post => 
                 post.tags && post.tags.some(tag => tags.includes(tag))
             );
         }
 
-        // 应用搜索过滤
+        if (series) {
+            filteredPosts = filteredPosts.filter(post => post.series === series);
+            filteredPosts.sort((a, b) => (a.series_order || 0) - (b.series_order || 0));
+        }
+
         if (search) {
             const searchTerm = search.toLowerCase();
             filteredPosts = filteredPosts.filter(post => 
@@ -392,11 +678,31 @@ class PostManager {
         }
 
         this.renderPostsList(filteredPosts);
-        this.updateFilterInfo(categories, tags, search);
-        this.updateActiveStates(categories, tags);
+        this.updateSeriesInfo(series);
+        this.updateFilterInfo(categories, tags, search, series);
+        this.updateActiveStates(categories, tags, series);
     }
 
-    updateFilterInfo(categories, tags, search) {
+    updateSeriesInfo(series) {
+        const titleEl = document.getElementById('posts-title');
+        const descEl = document.getElementById('series-description');
+
+        if (series) {
+            titleEl.textContent = series;
+            const meta = this.seriesMeta.find(s => s.name === series);
+            if (meta && meta.description) {
+                descEl.textContent = meta.description;
+                descEl.style.display = 'block';
+            } else {
+                descEl.style.display = 'none';
+            }
+        } else {
+            titleEl.textContent = '博文列表';
+            descEl.style.display = 'none';
+        }
+    }
+
+    updateFilterInfo(categories, tags, search, series) {
         const filterInfo = document.getElementById('filter-info');
         const filterTags = document.getElementById('filter-tags');
         
@@ -405,6 +711,11 @@ class PostManager {
         }
 
         filterTags.innerHTML = '';
+
+        if (series) {
+            const tagElement = this.createFilterTag('系列', series, 'series');
+            filterTags.appendChild(tagElement);
+        }
 
         categories.forEach(category => {
             const tagElement = this.createFilterTag('分类', category, 'category');
@@ -473,6 +784,7 @@ class PostManager {
         const urlParams = new URLSearchParams(window.location.search);
         urlParams.delete('category');
         urlParams.delete('tag');
+        urlParams.delete('series');
         urlParams.delete('search');
         window.history.replaceState({}, '', window.location.pathname);
         
@@ -480,7 +792,7 @@ class PostManager {
         document.getElementById('search-input').value = '';
     }
 
-    updateActiveStates(categories, tags) {
+    updateActiveStates(categories, tags, series) {
         document.querySelectorAll('[data-category]').forEach(link => {
             const category = link.getAttribute('data-category');
             if (categories.includes(category)) {
@@ -496,6 +808,15 @@ class PostManager {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
+            }
+        });
+
+        document.querySelectorAll('[data-series]').forEach(badge => {
+            const s = badge.getAttribute('data-series');
+            if (series && s === series) {
+                badge.classList.add('active');
+            } else {
+                badge.classList.remove('active');
             }
         });
     }
