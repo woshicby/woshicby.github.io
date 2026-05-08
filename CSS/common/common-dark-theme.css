@@ -1,106 +1,106 @@
 /* ==========================================
-   夜间模式样式文件
-   ==========================================
-   包含所有与黑暗模式相关的样式规则
-   负责在深色主题下调整网站的颜色和视觉效果
-   ========================================== */
+  夜间模式样式文件
+  ==========================================
+  包含所有与黑暗模式相关的样式规则
+  负责在深色主题下调整网站的颜色和视觉效果
+  ========================================== */
 
 /* 夜间模式基础样式 */
 body.dark-theme {
-    --theme: dark;
-    --primary-color: var(--dark-primary-color);
-    --primary-hover-color: var(--dark-primary-hover-color);
-    --light-accent: var(--dark-light-accent);
-    --text-color: var(--dark-text-color);
-    --light-text: var(--dark-light-text);
-    --text-muted: var(--dark-text-muted);
-    --white: var(--dark-white);
-    --card-bg-color: var(--dark-card-bg-color);
-    --heading-color: var(--dark-heading-color);
-    --border-color: var(--dark-border-color);
-    --table-border-color: var(--dark-table-border-color);
-    --code-bg: var(--dark-code-bg-color);
-    --shadow-light: var(--dark-shadow-light);
-    --shadow-medium: var(--dark-shadow-medium);
-    --shadow-heavy: var(--dark-shadow-heavy);
-    --card-shadow: var(--shadow-light);
-    /* 头部和导航 */
-    --header-bg-color: var(--dark-header-bg-color);
-    --header-text-color: var(--dark-header-text-color);
-    --nav-link-color: var(--dark-nav-link-color);
-    --nav-link-hover-color: var(--dark-nav-link-hover-color);
-    --nav-bg-color: var(--dark-nav-bg-color);
-    --nav-a-bg-color: var(--dark-nav-a-bg-color);
-    --nav-a-hover-bg-color: var(--dark-nav-a-hover-bg-color);
-    --footer-bg-color: var(--dark-footer-bg-color);
-    --footer-text-color: var(--dark-footer-text-color);
-    /* 补充变量 */
-    --background-color: var(--dark-background-color);
-    --card-background: var(--dark-card-background);
-    --hover-background: var(--dark-hover-background);
-    --primary-text-color: var(--dark-primary-text-color);
-    --secondary-text-color: var(--dark-secondary-text-color);
+   --theme: dark;
+   --primary-color: var(--dark-primary-color);
+   --primary-hover-color: var(--dark-primary-hover-color);
+   --light-accent: var(--dark-light-accent);
+   --text-color: var(--dark-text-color);
+   --light-text: var(--dark-light-text);
+   --text-muted: var(--dark-text-muted);
+   --white: var(--dark-white);
+   --card-bg-color: var(--dark-card-bg-color);
+   --heading-color: var(--dark-heading-color);
+   --border-color: var(--dark-border-color);
+   --table-border-color: var(--dark-table-border-color);
+   --code-bg: var(--dark-code-bg-color);
+   --shadow-light: var(--dark-shadow-light);
+   --shadow-medium: var(--dark-shadow-medium);
+   --shadow-heavy: var(--dark-shadow-heavy);
+   --card-shadow: var(--shadow-light);
+   /* 头部和导航 */
+   --header-bg-color: var(--dark-header-bg-color);
+   --header-text-color: var(--dark-header-text-color);
+   --nav-link-color: var(--dark-nav-link-color);
+   --nav-link-hover-color: var(--dark-nav-link-hover-color);
+   --nav-bg-color: var(--dark-nav-bg-color);
+   --nav-a-bg-color: var(--dark-nav-a-bg-color);
+   --nav-a-hover-bg-color: var(--dark-nav-a-hover-bg-color);
+   --footer-bg-color: var(--dark-footer-bg-color);
+   --footer-text-color: var(--dark-footer-text-color);
+   /* 补充变量 */
+   --background-color: var(--dark-background-color);
+   --card-background: var(--dark-card-background);
+   --hover-background: var(--dark-hover-background);
+   --primary-text-color: var(--dark-primary-text-color);
+   --secondary-text-color: var(--dark-secondary-text-color);
 }
 
 /* 检测系统深色模式偏好 */
 @media (prefers-color-scheme: dark) {
-    /* 当系统设置为深色模式且用户未明确指定时，默认使用深色主题 */
-    :root:not([data-theme]) {
-        --theme: dark;
-        --primary-color: var(--dark-primary-color);
-        --primary-hover-color: var(--dark-primary-hover-color);
-        --light-accent: var(--dark-light-accent);
-        --text-color: var(--dark-text-color);
-        --light-text: var(--dark-light-text);
-        --text-muted: var(--dark-text-muted);
-        --white: var(--dark-white);
-        --card-bg-color: var(--dark-card-bg-color);
-        --heading-color: var(--dark-heading-color);
-        --border-color: var(--dark-border-color);
-        --table-border-color: var(--dark-table-border-color);
-        --code-bg: var(--dark-code-bg-color);
-        --shadow-light: var(--dark-shadow-light);
-        --shadow-medium: var(--dark-shadow-medium);
-        --shadow-heavy: var(--dark-shadow-heavy);
-        --card-shadow: var(--shadow-light);
-        /* 头部和导航 */
-        --header-bg-color: var(--dark-header-bg-color);
-        --header-text-color: var(--dark-header-text-color);
-        --nav-link-color: var(--dark-nav-link-color);
-        --nav-link-hover-color: var(--dark-nav-link-hover-color);
-        --nav-bg-color: var(--dark-nav-bg-color);
-        --nav-a-bg-color: var(--dark-nav-a-bg-color);
-        --nav-a-hover-bg-color: var(--dark-nav-a-hover-bg-color);
-        --footer-bg-color: var(--dark-footer-bg-color);
-        --footer-text-color: var(--dark-footer-text-color);
-    }
+   /* 当系统设置为深色模式且用户未明确指定时，默认使用深色主题 */
+   :root:not([data-theme]) {
+       --theme: dark;
+       --primary-color: var(--dark-primary-color);
+       --primary-hover-color: var(--dark-primary-hover-color);
+       --light-accent: var(--dark-light-accent);
+       --text-color: var(--dark-text-color);
+       --light-text: var(--dark-light-text);
+       --text-muted: var(--dark-text-muted);
+       --white: var(--dark-white);
+       --card-bg-color: var(--dark-card-bg-color);
+       --heading-color: var(--dark-heading-color);
+       --border-color: var(--dark-border-color);
+       --table-border-color: var(--dark-table-border-color);
+       --code-bg: var(--dark-code-bg-color);
+       --shadow-light: var(--dark-shadow-light);
+       --shadow-medium: var(--dark-shadow-medium);
+       --shadow-heavy: var(--dark-shadow-heavy);
+       --card-shadow: var(--shadow-light);
+       /* 头部和导航 */
+       --header-bg-color: var(--dark-header-bg-color);
+       --header-text-color: var(--dark-header-text-color);
+       --nav-link-color: var(--dark-nav-link-color);
+       --nav-link-hover-color: var(--dark-nav-link-hover-color);
+       --nav-bg-color: var(--dark-nav-bg-color);
+       --nav-a-bg-color: var(--dark-nav-a-bg-color);
+       --nav-a-hover-bg-color: var(--dark-nav-a-hover-bg-color);
+       --footer-bg-color: var(--dark-footer-bg-color);
+       --footer-text-color: var(--dark-footer-text-color);
+   }
 }
 
 /* 夜间模式组件样式 - 按standard-selectors.css顺序排列 */
 
 /* 主题切换按钮夜间模式样式 */
 body.dark-theme .theme-toggle-slider {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
+   background-color: rgba(255, 255, 255, 0.2);
+   border-color: rgba(255, 255, 255, 0.3);
 }
 
 body.dark-theme .theme-toggle-slider:before {
-    background-color: white;
+   background-color: white;
 }
 
 body.dark-theme input:checked + .theme-toggle-slider {
-    background-color: rgba(255, 255, 255, 0.2);
+   background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* 主题切换容器夜间模式样式 */
 body.dark-theme .theme-container {
-    color: var(--dark-text-color);
+   color: var(--dark-text-color);
 }
 
 /* 卡片容器夜间模式样式 */
 body.dark-theme .card-container {
-    background-color: var(--dark-card-bg-color);
-    box-shadow: var(--dark-shadow-light);
+   background-color: var(--dark-card-bg-color);
+   box-shadow: var(--dark-shadow-light);
 }
 
 body.dark-theme .card-container:hover,
@@ -108,130 +108,130 @@ body.dark-theme .personal-record-item:hover,
 body.dark-theme .posts-container:hover,
 body.dark-theme .post-item:hover,
 body.dark-theme .sidebar:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--dark-shadow-medium);
-    border-color: var(--secondary-color);
-    background-color: var(--dark-primary-hover-color);
+   transform: translateY(-5px);
+   box-shadow: var(--dark-shadow-medium);
+   border-color: var(--secondary-color);
+   background-color: var(--dark-primary-hover-color);
 }
 
 /* 按钮系统夜间模式样式 */
 body.dark-theme .btn {
-    box-shadow: var(--dark-shadow-light);
+   box-shadow: var(--dark-shadow-light);
 }
 
 body.dark-theme .btn:hover {
-    box-shadow: var(--dark-shadow-medium);
+   box-shadow: var(--dark-shadow-medium);
 }
 
 body.dark-theme .btn-secondary {
-    background-color: var(--dark-light-accent);
-    color: var(--dark-text-color);
+   background-color: var(--dark-light-accent);
+   color: var(--dark-text-color);
 }
 
 /* 页面容器夜间模式样式 */
 body.dark-theme .wrapper {
-    color: var(--dark-text-color);
+   color: var(--dark-text-color);
 }
 
 /* 网站头部夜间模式样式 */
 body.dark-theme .header {
-    background-color: var(--header-bg-color);
-    color: var(--header-text-color);
-    box-shadow: var(--shadow-medium);
+   background-color: var(--header-bg-color);
+   color: var(--header-text-color);
+   box-shadow: var(--shadow-medium);
 }
 
 body.dark-theme .header h1 {
-    color: var(--header-text-color);
+   color: var(--header-text-color);
 }
 
 /* 全局标题夜间模式样式 */
 body.dark-theme h2 {
-    color: var(--dark-heading-color);
-    border-bottom-color: var(--secondary-color);
+   color: var(--dark-heading-color);
+   border-bottom-color: var(--secondary-color);
 }
 
 body.dark-theme h3 {
-    color: var(--dark-heading-color);
+   color: var(--dark-heading-color);
 }
 
 
 
 /* strong标签夜间模式样式 */
 body.dark-theme strong {
-    color: var(--dark-heading-color);
+   color: var(--dark-heading-color);
 }
 
 /* 导航菜单夜间模式样式 */
 body.dark-theme .nav {
-    background-color: var(--nav-bg-color);
-    color: var(--nav-link-color);
+   background-color: var(--nav-bg-color);
+   color: var(--nav-link-color);
 }
 
 body.dark-theme .nav a {
-    color: var(--nav-link-color);
+   color: var(--nav-link-color);
 }
 
 body.dark-theme .nav a:hover {
-    color: var(--nav-link-hover-color);
+   color: var(--nav-link-hover-color);
 }
 
 body.dark-theme .nav a.active {
-    background-color: var(--secondary-color);
-    color: white;
+   background-color: var(--secondary-color);
+   color: white;
 }
 
 /* 链接夜间模式 */
 body.dark-theme a {
-    color: var(--secondary-color);
+   color: var(--secondary-color);
 }
 
 body.dark-theme a:hover {
-    color: white;
-    border-color: var(--secondary-color);
+   color: white;
+   border-color: var(--secondary-color);
 }
 
 /* 主内容盒子夜间模式样式 */
 body.dark-theme div.mainbox {
-    background-color: var(--dark-card-bg-color);
-    box-shadow: var(--dark-shadow-heavy);
+   background-color: var(--dark-card-bg-color);
+   box-shadow: var(--dark-shadow-heavy);
 }
 
 /* section夜间模式样式 */
 body.dark-theme section {
-    background-color: var(--dark-card-bg-color);
-    box-shadow: var(--dark-shadow-light);
+   background-color: var(--dark-card-bg-color);
+   box-shadow: var(--dark-shadow-light);
 }
 
 body.dark-theme section:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--dark-shadow-medium);
-    border-color: var(--secondary-color);
-    background-color: var(--dark-primary-hover-color);
+   transform: translateY(-5px);
+   box-shadow: var(--dark-shadow-medium);
+   border-color: var(--secondary-color);
+   background-color: var(--dark-primary-hover-color);
 }
 
 /* 导航切换按钮夜间模式样式 */
 body.dark-theme .nav-toggle {
-    box-shadow: var(--dark-shadow-medium);
+   box-shadow: var(--dark-shadow-medium);
 }
 
 body.dark-theme .nav-toggle span {
-    background-color: white;
+   background-color: white;
 }
 
 body.dark-theme .nav-toggle.active span:nth-child(1) {
-    background-color: white;
+   background-color: white;
 }
 
 body.dark-theme .nav-toggle.active span:nth-child(2) {
-    background-color: white;
+   background-color: white;
 }
 
 body.dark-theme .nav-toggle.active span:nth-child(3) {
-    background-color: white;
+   background-color: white;
 }
 
 /* 网站页脚夜间模式样式 */
 body.dark-theme .foot {
-    background-color: var(--footer-bg-color);
-    color: var(--footer-text-color);
+   background-color: var(--footer-bg-color);
+   color: var(--footer-text-color);
 }

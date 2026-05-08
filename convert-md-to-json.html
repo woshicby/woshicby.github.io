@@ -1,136 +1,136 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown转JSON工具 - BY的个人网站</title>
-    
-    <meta name="description" content="在线Markdown到JSON转换工具，将Markdown文件转换为JSON格式，支持YAML frontmatter解析，方便博客文章管理。">
-    <meta name="keywords" content="Markdown转换,JSON转换,Markdown解析,YAML frontmatter,博客工具">
-    <meta name="author" content="woshicby">
-    <meta name="robots" content="index, follow">
-    
-    <meta property="og:title" content="Markdown转JSON工具 - BY的个人网站">
-    <meta property="og:description" content="在线Markdown到JSON转换工具，将Markdown文件转换为JSON格式，支持YAML frontmatter解析。">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://woshicby.github.io/convert-md-to-json.html">
-    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
-    <meta property="og:site_name" content="BY的个人网站">
-    <meta property="og:locale" content="zh_CN">
-    
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Markdown转JSON工具 - BY的个人网站">
-    <meta name="twitter:description" content="在线Markdown到JSON转换工具，将Markdown文件转换为JSON格式，支持YAML frontmatter解析。">
-    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
-    
-    <link rel="stylesheet" href="./CSS/common.css">
-    <link rel="stylesheet" href="./CSS/tools-common.css">
-    <link rel="stylesheet" href="./CSS/convert-md-to-json.css">
-    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-    <link rel="canonical" href="https://woshicby.github.io/convert-md-to-json.html">
-    
-    <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
-    <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
-    <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
-    <script src="./JS/tool-tabs.js"></script><!-- 引入工具标签动态加载脚本 -->
-    <script src="./JS/convert-md-to-json.js"></script><!-- 引入Markdown转换脚本 -->
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Markdown转JSON工具 - BY的个人网站</title>
+   
+   <meta name="description" content="在线Markdown到JSON转换工具，将Markdown文件转换为JSON格式，支持YAML frontmatter解析，方便博客文章管理。">
+   <meta name="keywords" content="Markdown转换,JSON转换,Markdown解析,YAML frontmatter,博客工具">
+   <meta name="author" content="woshicby">
+   <meta name="robots" content="index, follow">
+   
+   <meta property="og:title" content="Markdown转JSON工具 - BY的个人网站">
+   <meta property="og:description" content="在线Markdown到JSON转换工具，将Markdown文件转换为JSON格式，支持YAML frontmatter解析。">
+   <meta property="og:type" content="website">
+   <meta property="og:url" content="https://woshicby.github.io/convert-md-to-json.html">
+   <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+   <meta property="og:site_name" content="BY的个人网站">
+   <meta property="og:locale" content="zh_CN">
+   
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="twitter:title" content="Markdown转JSON工具 - BY的个人网站">
+   <meta name="twitter:description" content="在线Markdown到JSON转换工具，将Markdown文件转换为JSON格式，支持YAML frontmatter解析。">
+   <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+   
+   <link rel="stylesheet" href="./CSS/common.css">
+   <link rel="stylesheet" href="./CSS/tools-common.css">
+   <link rel="stylesheet" href="./CSS/convert-md-to-json.css">
+   <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+   <link rel="canonical" href="https://woshicby.github.io/convert-md-to-json.html">
+   
+   <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
+   <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
+   <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
+   <script src="./JS/tool-tabs.js"></script><!-- 引入工具标签动态加载脚本 -->
+   <script src="./JS/convert-md-to-json.js"></script><!-- 引入Markdown转换脚本 -->
 </head>
 <body>
-    <!-- 页面头部 - 使用common.css提供的导航样式 -->
-    <div class="header clearfix wrapper">
-        <!-- logo/大标题区域开始 -->
-        <h1>Markdown到JSON转换工具</h1>
-        <!-- logo/大标题区域结束 -->
-        <!-- 导航栏开始 -->
-        <div class="nav">
-            <ul class="clearfix">
-                <li><a href="./index.html">首页</a></li>
-                <li><a href="./video.html">视频展示</a></li>
-                <li><a href="./posts.html">博客文章</a></li>
-                <li><a href="./moments.html">灵感碎片</a></li>
-                <li><a href="./study.html">个人成果</a></li>
-                <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
-                <li><a href="./sports.html">体育运动</a></li>
-                <li>
-                    <label class="theme-toggle">
-                        <input type="checkbox" id="themeToggle">
-                        <span class="theme-toggle-slider"></span>
-                    </label>
-                </li>
-            </ul>
-        </div>
-        <!-- 导航栏结束 -->
-    </div>
-    <!-- 头部外套结束 -->
-    
-    <!-- 移动导航菜单切换按钮 -->
-    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-    
-    <!-- 主要内容区域 -->
-    <div class="mainbox clearfix wrapper">
-        <div class="back-to-tools">
-            <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
-            <a href="posts.html" class="back-button back-button-right">返回博客文章 →</a>
-        </div>
+   <!-- 页面头部 - 使用common.css提供的导航样式 -->
+   <div class="header clearfix wrapper">
+       <!-- logo/大标题区域开始 -->
+       <h1>Markdown到JSON转换工具</h1>
+       <!-- logo/大标题区域结束 -->
+       <!-- 导航栏开始 -->
+       <div class="nav">
+           <ul class="clearfix">
+               <li><a href="./index.html">首页</a></li>
+               <li><a href="./video.html">视频展示</a></li>
+               <li><a href="./posts.html">博客文章</a></li>
+               <li><a href="./moments.html">灵感碎片</a></li>
+               <li><a href="./study.html">个人成果</a></li>
+               <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
+               <li><a href="./sports.html">体育运动</a></li>
+               <li>
+                   <label class="theme-toggle">
+                       <input type="checkbox" id="themeToggle">
+                       <span class="theme-toggle-slider"></span>
+                   </label>
+               </li>
+           </ul>
+       </div>
+       <!-- 导航栏结束 -->
+   </div>
+   <!-- 头部外套结束 -->
+   
+   <!-- 移动导航菜单切换按钮 -->
+   <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+       <span></span>
+       <span></span>
+       <span></span>
+   </button>
+   
+   <!-- 主要内容区域 -->
+   <div class="mainbox clearfix wrapper">
+       <div class="back-to-tools">
+           <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
+           <a href="posts.html" class="back-button back-button-right">返回博客文章 →</a>
+       </div>
 
-        <div class="tool-container">
-            <h2 class="tool-page-title">Markdown到JSON转换工具</h2>
-            <p class="tool-description">
-                将Markdown格式的博文转换为JSON格式，支持YAML frontmatter解析，方便博客文章管理。
-            </p>
+       <div class="tool-container">
+           <h2 class="tool-page-title">Markdown到JSON转换工具</h2>
+           <p class="tool-description">
+               将Markdown格式的博文转换为JSON格式，支持YAML frontmatter解析，方便博客文章管理。
+           </p>
 
-            <div class="tabs">
-                <!-- 标签按钮由JS动态生成 -->
-            </div>
-            
-            <div class="tips-section">
-                <h3>使用说明</h3>
-                <p>1. 在下方文本框中粘贴Markdown格式的博文内容，或上传Markdown文件</p>
-                <p>2. 点击"转换"按钮生成JSON格式</p>
-                <p>3. 将生成的JSON内容保存到JSON/posts.json文件中</p>
-                <div class="example"><strong>Markdown示例格式：</strong>                    ---
-                    title: 示例博文标题
-                    date: 2024-01-01
-                    categories: [技术, 教程]
-                    tags: [JavaScript, Web开发]
-                    excerpt: 这是博文摘要
-                    ---
-                    # 正文标题
-                    博文内容...</div>
-            </div>
-            
-            <div class="input-group">
-                <label for="markdown-input">Markdown内容：</label>
-                <textarea id="markdown-input" placeholder="在此粘贴Markdown内容..."></textarea>
-            </div>
-            
-            <div class="button-group">
-                <label class="file-input">
-                    <input type="file" id="file-input" accept=".md,.markdown" style="display: none;">
-                    <button type="button" onclick="document.getElementById('file-input').click();">上传Markdown文件</button>
-                </label>
-                <button id="convert-btn">转换</button>
-                <button id="add-btn">添加到博文列表</button>
-                <button id="clear-btn">清空</button>
-                <button id="generate-btn">生成完整JSON</button>
-            </div>
-            
-            <div class="result-section">
-                <h3>转换结果</h3>
-                <pre id="json-output"></pre>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 脚注外套开始 -->
-    <div class="foot wrapper">
-        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
-    </div>
-    <!-- 脚注外套结束 -->
+           <div class="tabs">
+               <!-- 标签按钮由JS动态生成 -->
+           </div>
+           
+           <div class="tips-section">
+               <h3>使用说明</h3>
+               <p>1. 在下方文本框中粘贴Markdown格式的博文内容，或上传Markdown文件</p>
+               <p>2. 点击"转换"按钮生成JSON格式</p>
+               <p>3. 将生成的JSON内容保存到JSON/posts.json文件中</p>
+               <div class="example"><strong>Markdown示例格式：</strong>                    ---
+                   title: 示例博文标题
+                   date: 2024-01-01
+                   categories: [技术, 教程]
+                   tags: [JavaScript, Web开发]
+                   excerpt: 这是博文摘要
+                   ---
+                   # 正文标题
+                   博文内容...</div>
+           </div>
+           
+           <div class="input-group">
+               <label for="markdown-input">Markdown内容：</label>
+               <textarea id="markdown-input" placeholder="在此粘贴Markdown内容..."></textarea>
+           </div>
+           
+           <div class="button-group">
+               <label class="file-input">
+                   <input type="file" id="file-input" accept=".md,.markdown" style="display: none;">
+                   <button type="button" onclick="document.getElementById('file-input').click();">上传Markdown文件</button>
+               </label>
+               <button id="convert-btn">转换</button>
+               <button id="add-btn">添加到博文列表</button>
+               <button id="clear-btn">清空</button>
+               <button id="generate-btn">生成完整JSON</button>
+           </div>
+           
+           <div class="result-section">
+               <h3>转换结果</h3>
+               <pre id="json-output"></pre>
+           </div>
+       </div>
+   </div>
+   
+   <!-- 脚注外套开始 -->
+   <div class="foot wrapper">
+       <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+   </div>
+   <!-- 脚注外套结束 -->
 </body>
 </html>

@@ -2,765 +2,765 @@
 
 /* 文明演化模拟器专用变量 */
 :root {
-    --info-color: #3498db;
-    --warning-color: #f39c12;
-    --error-color: #e74c3c;
-    --primary-light: rgba(52, 73, 94, 0.15);
-    --info-light: rgba(52, 152, 219, 0.15);
-    --error-light: rgba(231, 76, 60, 0.15);
-    --success-light: rgba(46, 204, 113, 0.15);
-    --warning-light: rgba(243, 156, 18, 0.15);
+   --info-color: #3498db;
+   --warning-color: #f39c12;
+   --error-color: #e74c3c;
+   --primary-light: rgba(52, 73, 94, 0.15);
+   --info-light: rgba(52, 152, 219, 0.15);
+   --error-light: rgba(231, 76, 60, 0.15);
+   --success-light: rgba(46, 204, 113, 0.15);
+   --warning-light: rgba(243, 156, 18, 0.15);
 }
 
 /* 控制面板样式 */
 .control-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 1rem;
 }
 
 .control-buttons {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
 }
 
 .control-btn {
-    padding: 0.5rem 1rem;
-    border: 2px solid var(--primary-color);
-    border-radius: var(--border-radius-md);
-    background-color: var(--primary-color);
-    color: white;
-    font-size: 0.9rem;
-    font-weight: var(--font-weight-medium);
-    cursor: pointer;
-    transition: var(--transition-default);
+   padding: 0.5rem 1rem;
+   border: 2px solid var(--primary-color);
+   border-radius: var(--border-radius-md);
+   background-color: var(--primary-color);
+   color: white;
+   font-size: 0.9rem;
+   font-weight: var(--font-weight-medium);
+   cursor: pointer;
+   transition: var(--transition-default);
 }
 
 .control-btn:hover {
-    background-color: var(--primary-hover-color);
-    border-color: var(--primary-hover-color);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-light);
+   background-color: var(--primary-hover-color);
+   border-color: var(--primary-hover-color);
+   transform: translateY(-2px);
+   box-shadow: var(--shadow-light);
 }
 
 .control-btn.secondary {
-    background-color: transparent;
-    color: var(--primary-color);
+   background-color: transparent;
+   color: var(--primary-color);
 }
 
 .control-btn.secondary:hover {
-    background-color: var(--light-accent);
-    border-color: var(--primary-color);
+   background-color: var(--light-accent);
+   border-color: var(--primary-color);
 }
 
 .speed-control {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
 }
 
 .speed-control select {
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-size: 0.9rem;
+   padding: 0.5rem;
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius-sm);
+   background-color: var(--background-color);
+   color: var(--text-color);
+   font-size: 0.9rem;
 }
 
 .simulation-info {
-    display: flex;
-    gap: 2rem;
-    font-size: 0.9rem;
-    color: var(--text-secondary-color);
+   display: flex;
+   gap: 2rem;
+   font-size: 0.9rem;
+   color: var(--text-secondary-color);
 }
 
 /* 文明卡片容器 */
 .civilizations-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   gap: 1.5rem;
 }
 
 /* 文明卡片样式 */
 .civilization-card {
-    background-color: var(--card-bg-color);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-light);
-    padding: 1.5rem;
-    transition: var(--transition-default);
-    border: 2px solid var(--border-color);
-    position: relative;
+   background-color: var(--card-bg-color);
+   border-radius: var(--border-radius-md);
+   box-shadow: var(--shadow-light);
+   padding: 1.5rem;
+   transition: var(--transition-default);
+   border: 2px solid var(--border-color);
+   position: relative;
 }
 
 /* 文明颜色指示器 */
 .civ-color-indicator {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 4px;
+   border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
 }
 
 .civilization-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-    border-color: var(--secondary-color);
+   transform: translateY(-5px);
+   box-shadow: var(--shadow-medium);
+   border-color: var(--secondary-color);
 }
 
 .civ-name {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    color: var(--primary-color);
-    font-size: 1.3rem;
-    text-align: center;
+   margin-top: 0;
+   margin-bottom: 0.5rem;
+   color: var(--primary-color);
+   font-size: 1.3rem;
+   text-align: center;
 }
 
 .civ-type {
-    margin-bottom: 0.5rem;
-    color: var(--info-color);
-    font-size: 1rem;
-    font-weight: var(--font-weight-medium);
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+   margin-bottom: 0.5rem;
+   color: var(--info-color);
+   font-size: 1rem;
+   font-weight: var(--font-weight-medium);
+   text-align: center;
+   text-transform: uppercase;
+   letter-spacing: 0.5px;
 }
 
 .civ-strategy {
-    margin-bottom: 1rem;
-    color: var(--text-secondary-color);
-    font-size: 0.9rem;
-    text-align: center;
-    background-color: var(--light-accent);
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--border-radius-full);
-    display: inline-block;
-    margin-left: 50%;
-    transform: translateX(-50%);
+   margin-bottom: 1rem;
+   color: var(--text-secondary-color);
+   font-size: 0.9rem;
+   text-align: center;
+   background-color: var(--light-accent);
+   padding: 0.25rem 0.75rem;
+   border-radius: var(--border-radius-full);
+   display: inline-block;
+   margin-left: 50%;
+   transform: translateX(-50%);
 }
 
 /* 文明统计样式 */
 .civ-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+   display: flex;
+   flex-direction: column;
+   gap: 0.8rem;
 }
 
 .stat-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
+   display: flex;
+   flex-direction: column;
+   gap: 0.3rem;
 }
 
 .stat-label {
-    font-size: 0.9rem;
-    color: var(--text-secondary-color);
-    font-weight: var(--font-weight-medium);
+   font-size: 0.9rem;
+   color: var(--text-secondary-color);
+   font-weight: var(--font-weight-medium);
 }
 
 .stat-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    height: 20px;
-    background-color: var(--light-accent);
-    border-radius: var(--border-radius-sm);
-    overflow: hidden;
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+   height: 20px;
+   background-color: var(--light-accent);
+   border-radius: var(--border-radius-sm);
+   overflow: hidden;
 }
 
 .stat-fill {
-    height: 100%;
-    background-color: var(--primary-color);
-    transition: width 0.5s ease;
-    border-radius: var(--border-radius-sm);
+   height: 100%;
+   background-color: var(--primary-color);
+   transition: width 0.5s ease;
+   border-radius: var(--border-radius-sm);
 }
 
 .stat-value {
-    font-size: 0.8rem;
-    color: var(--text-color);
-    min-width: 30px;
-    text-align: right;
+   font-size: 0.8rem;
+   color: var(--text-color);
+   min-width: 30px;
+   text-align: right;
 }
 
 /* 地图和关系图容器 */
 .main-content-grid {
-    display: grid;
-    grid-template-rows: auto auto;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+   display: grid;
+   grid-template-rows: auto auto;
+   gap: 1.5rem;
+   margin-bottom: 2rem;
 }
 
 /* 地图容器样式 */
 .map-section {
-    margin-bottom: 30px;
+   margin-bottom: 30px;
 }
 
 #civilizationMap {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-    background-color: var(--light-accent);
-    border-radius: var(--border-radius-sm);
-    box-shadow: var(--shadow-inset);
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
+   width: 100%;
+   max-width: 100%;
+   height: auto;
+   object-fit: contain;
+   background-color: var(--light-accent);
+   border-radius: var(--border-radius-sm);
+   box-shadow: var(--shadow-inset);
+   image-rendering: pixelated;
+   image-rendering: crisp-edges;
 }
 
 /* 文明关系图样式 */
 .relations-section {
-    margin-bottom: 30px;
+   margin-bottom: 30px;
 }
 
 .relations-graph {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    min-height: 200px;
-    position: relative;
-    background-color: var(--light-accent);
-    border-radius: var(--border-radius-sm);
-    padding: 2rem;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   min-height: 200px;
+   position: relative;
+   background-color: var(--light-accent);
+   border-radius: var(--border-radius-sm);
+   padding: 2rem;
 }
 
 /* 文明详细信息面板 */
 .details-section {
-    margin-bottom: 30px;
+   margin-bottom: 30px;
 }
 
 .civilization-details {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 1.5rem;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+   gap: 1.5rem;
 }
 
 .civ-detail-card {
-    background-color: var(--light-accent);
-    border-radius: var(--border-radius-sm);
-    padding: 1rem;
-    border-left: 4px solid var(--primary-color);
+   background-color: var(--light-accent);
+   border-radius: var(--border-radius-sm);
+   padding: 1rem;
+   border-left: 4px solid var(--primary-color);
 }
 
 .civ-detail-card h4 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-    font-size: 1.1rem;
+   margin-top: 0;
+   margin-bottom: 1rem;
+   color: var(--primary-color);
+   font-size: 1.1rem;
 }
 
 .civ-detail-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
 }
 
 .civ-detail-stat {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.9rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   font-size: 0.9rem;
 }
 
 .civ-detail-stat-label {
-    color: var(--text-secondary-color);
+   color: var(--text-secondary-color);
 }
 
 .civ-detail-stat-value {
-    font-weight: var(--font-weight-medium);
-    color: var(--text-color);
+   font-weight: var(--font-weight-medium);
+   color: var(--text-color);
 }
 
 .civ-traits {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.5rem;
+   margin-top: 1rem;
 }
 
 .civ-trait {
-    background-color: var(--primary-light);
-    color: var(--primary-color);
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--border-radius-full);
-    font-size: 0.8rem;
-    font-weight: var(--font-weight-medium);
+   background-color: var(--primary-light);
+   color: var(--primary-color);
+   padding: 0.25rem 0.5rem;
+   border-radius: var(--border-radius-full);
+   font-size: 0.8rem;
+   font-weight: var(--font-weight-medium);
 }
 
 .relation-node {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: var(--font-weight-bold);
-    position: relative;
-    z-index: 2;
-    transition: transform 0.3s ease;
+   width: 80px;
+   height: 80px;
+   border-radius: 50%;
+   background-color: var(--primary-color);
+   color: white;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-weight: var(--font-weight-bold);
+   position: relative;
+   z-index: 2;
+   transition: transform 0.3s ease;
 }
 
 .relation-node:hover {
-    transform: scale(1.1);
+   transform: scale(1.1);
 }
 
 .relation-line {
-    position: absolute;
-    height: 2px;
-    background-color: var(--border-color);
-    z-index: 1;
-    transition: all 0.3s ease;
+   position: absolute;
+   height: 2px;
+   background-color: var(--border-color);
+   z-index: 1;
+   transition: all 0.3s ease;
 }
 
 .relation-line.friendly {
-    background-color: var(--success-color);
-    box-shadow: 0 0 5px var(--success-color);
+   background-color: var(--success-color);
+   box-shadow: 0 0 5px var(--success-color);
 }
 
 .relation-line.hostile {
-    background-color: var(--error-color);
-    box-shadow: 0 0 5px var(--error-color);
+   background-color: var(--error-color);
+   box-shadow: 0 0 5px var(--error-color);
 }
 
 .relation-line.neutral {
-    background-color: var(--warning-color);
-    box-shadow: 0 0 5px var(--warning-color);
+   background-color: var(--warning-color);
+   box-shadow: 0 0 5px var(--warning-color);
 }
 
 .relation-line.trade {
-    background-color: var(--info-color);
-    box-shadow: 0 0 5px var(--info-color);
+   background-color: var(--info-color);
+   box-shadow: 0 0 5px var(--info-color);
 }
 
 /* 时间线样式 */
 .timeline-section {
-    margin-bottom: 30px;
+   margin-bottom: 30px;
 }
 
 .timeline {
-    min-height: 120px;
-    max-height: 25vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 10px;
-    background: var(--card-bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    font-family: monospace;
-    font-size: 14px;
-    line-height: 1.4;
+   min-height: 120px;
+   max-height: 25vh;
+   overflow-y: auto;
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+   padding: 10px;
+   background: var(--card-bg-color);
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius-md);
+   font-family: monospace;
+   font-size: 14px;
+   line-height: 1.4;
 }
 
 /* 时间线滚动条样式 */
 .timeline::-webkit-scrollbar {
-    width: 8px;
+   width: 8px;
 }
 
 .timeline::-webkit-scrollbar-track {
-    background: var(--bg-color);
-    border-radius: var(--border-radius-md);
+   background: var(--bg-color);
+   border-radius: var(--border-radius-md);
 }
 
 .timeline::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: var(--border-radius-md);
+   background: var(--border-color);
+   border-radius: var(--border-radius-md);
 }
 
 .timeline::-webkit-scrollbar-thumb:hover {
-    background: var(--disabled-color);
+   background: var(--disabled-color);
 }
 
 /* 时间线事件样式 */
 .timeline-item {
-    background-color: var(--white);
-    border-radius: var(--border-radius-sm);
-    padding: 0.5rem;
-    border-left: 3px solid var(--primary-color);
-    transition: all 0.3s ease;
-    opacity: 0;
-    transform: translateX(-20px);
-    animation: eventSlideIn 0.5s ease forwards;
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
+   background-color: var(--white);
+   border-radius: var(--border-radius-sm);
+   padding: 0.5rem;
+   border-left: 3px solid var(--primary-color);
+   transition: all 0.3s ease;
+   opacity: 0;
+   transform: translateX(-20px);
+   animation: eventSlideIn 0.5s ease forwards;
+   margin-bottom: 0.5rem;
+   color: var(--text-color);
 }
 
 .timeline-item:hover {
-    background-color: var(--light-accent);
-    box-shadow: var(--shadow-light);
-    transform: translateX(5px);
+   background-color: var(--light-accent);
+   box-shadow: var(--shadow-light);
+   transform: translateX(5px);
 }
 
 .timeline-year {
-    font-weight: var(--font-weight-bold);
-    color: var(--primary-color);
-    margin-right: 1rem;
-    font-size: 0.9rem;
+   font-weight: var(--font-weight-bold);
+   color: var(--primary-color);
+   margin-right: 1rem;
+   font-size: 0.9rem;
 }
 
 .timeline-event {
-    color: var(--text-color);
-    font-size: 0.9rem;
+   color: var(--text-color);
+   font-size: 0.9rem;
 }
 
 /* 事件卡片样式 */
 .event-card {
-    background-color: var(--light-accent);
-    border-radius: var(--border-radius-sm);
-    padding: 1rem;
-    border-left: 4px solid var(--primary-color);
-    transition: all 0.3s ease;
-    opacity: 0;
-    transform: translateX(-20px);
-    animation: eventSlideIn 0.5s ease forwards;
+   background-color: var(--light-accent);
+   border-radius: var(--border-radius-sm);
+   padding: 1rem;
+   border-left: 4px solid var(--primary-color);
+   transition: all 0.3s ease;
+   opacity: 0;
+   transform: translateX(-20px);
+   animation: eventSlideIn 0.5s ease forwards;
 }
 
 @keyframes eventSlideIn {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+   to {
+       opacity: 1;
+       transform: translateX(0);
+   }
 }
 
 .event-card:hover {
-    box-shadow: var(--shadow-light);
-    transform: translateX(5px);
+   box-shadow: var(--shadow-light);
+   transform: translateX(5px);
 }
 
 .event-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.5rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start;
+   margin-bottom: 0.5rem;
+   flex-wrap: wrap;
+   gap: 0.5rem;
 }
 
 .event-time {
-    font-size: 0.8rem;
-    color: var(--primary-color);
-    font-weight: var(--font-weight-bold);
+   font-size: 0.8rem;
+   color: var(--primary-color);
+   font-weight: var(--font-weight-bold);
 }
 
 .event-type {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--border-radius-full);
-    font-weight: var(--font-weight-medium);
-    text-transform: uppercase;
+   font-size: 0.75rem;
+   padding: 0.25rem 0.5rem;
+   border-radius: var(--border-radius-full);
+   font-weight: var(--font-weight-medium);
+   text-transform: uppercase;
 }
 
 .event-type.internal {
-    background-color: var(--primary-light);
-    color: var(--primary-color);
+   background-color: var(--primary-light);
+   color: var(--primary-color);
 }
 
 .event-type.diplomatic {
-    background-color: var(--info-light);
-    color: var(--info-color);
+   background-color: var(--info-light);
+   color: var(--info-color);
 }
 
 .event-type.war {
-    background-color: var(--error-light);
-    color: var(--error-color);
+   background-color: var(--error-light);
+   color: var(--error-color);
 }
 
 .event-type.trade {
-    background-color: var(--success-light);
-    color: var(--success-color);
+   background-color: var(--success-light);
+   color: var(--success-color);
 }
 
 .event-type.global {
-    background-color: var(--warning-light);
-    color: var(--warning-color);
+   background-color: var(--warning-light);
+   color: var(--warning-color);
 }
 
 .event-title {
-    margin: 0 0 0.5rem 0;
-    color: var(--text-color);
-    font-size: 1rem;
-    font-weight: var(--font-weight-medium);
+   margin: 0 0 0.5rem 0;
+   color: var(--text-color);
+   font-size: 1rem;
+   font-weight: var(--font-weight-medium);
 }
 
 .event-description {
-    margin: 0;
-    color: var(--text-secondary-color);
-    font-size: 0.9rem;
-    line-height: 1.5;
+   margin: 0;
+   color: var(--text-secondary-color);
+   font-size: 0.9rem;
+   line-height: 1.5;
 }
 
 /* 关系矩阵样式 */
 .relations-matrix {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-    background-color: var(--light-accent);
-    border-radius: var(--border-radius-sm);
-    overflow: hidden;
-    box-shadow: var(--shadow-inset);
+   width: 100%;
+   border-collapse: collapse;
+   font-size: 0.9rem;
+   background-color: var(--light-accent);
+   border-radius: var(--border-radius-sm);
+   overflow: hidden;
+   box-shadow: var(--shadow-inset);
 }
 
 .relations-matrix th, .relations-matrix td {
-    padding: 0.75rem;
-    text-align: center;
-    border: 1px solid var(--border-color);
+   padding: 0.75rem;
+   text-align: center;
+   border: 1px solid var(--border-color);
 }
 
 .relations-matrix th {
-    background-color: var(--card-bg-color);
-    font-weight: var(--font-weight-bold);
-    position: relative;
+   background-color: var(--card-bg-color);
+   font-weight: var(--font-weight-bold);
+   position: relative;
 }
 
 .relations-matrix .civ-header {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    white-space: nowrap;
-    padding: 1rem 0.5rem;
-    font-size: 0.8rem;
+   writing-mode: vertical-rl;
+   text-orientation: mixed;
+   white-space: nowrap;
+   padding: 1rem 0.5rem;
+   font-size: 0.8rem;
 }
 
 .relation-cell {
-    font-weight: var(--font-weight-medium);
-    transition: all 0.2s ease;
-    cursor: pointer;
-    position: relative;
+   font-weight: var(--font-weight-medium);
+   transition: all 0.2s ease;
+   cursor: pointer;
+   position: relative;
 }
 
 .relation-cell:hover {
-    transform: scale(1.1);
-    z-index: 10;
-    box-shadow: var(--shadow-light);
+   transform: scale(1.1);
+   z-index: 10;
+   box-shadow: var(--shadow-light);
 }
 
 .relation-cell.self {
-    background-color: var(--primary-light);
-    color: var(--primary-color);
-    font-weight: bold;
-    cursor: default;
+   background-color: var(--primary-light);
+   color: var(--primary-color);
+   font-weight: bold;
+   cursor: default;
 }
 
 .relation-cell.friendly {
-    background-color: rgba(76, 175, 80, 0.2);
-    color: var(--success-color);
+   background-color: rgba(76, 175, 80, 0.2);
+   color: var(--success-color);
 }
 
 .relation-cell.neutral {
-    background-color: rgba(255, 193, 7, 0.2);
-    color: var(--warning-color);
+   background-color: rgba(255, 193, 7, 0.2);
+   color: var(--warning-color);
 }
 
 .relation-cell.hostile {
-    background-color: rgba(244, 67, 54, 0.2);
-    color: var(--error-color);
+   background-color: rgba(244, 67, 54, 0.2);
+   color: var(--error-color);
 }
 
 /* 文明详情卡片新样式 */
 .civ-detail-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    flex-wrap: wrap;
-    gap: 1rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 0.5rem;
+   flex-wrap: wrap;
+   gap: 1rem;
 }
 
 .civ-strategy {
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--border-radius-full);
-    font-size: 0.8rem;
-    font-weight: var(--font-weight-medium);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+   padding: 0.25rem 0.75rem;
+   border-radius: var(--border-radius-full);
+   font-size: 0.8rem;
+   font-weight: var(--font-weight-medium);
+   display: inline-flex;
+   align-items: center;
+   gap: 0.5rem;
 }
 
 .civ-strategy-desc {
-    font-size: 0.85rem;
-    color: var(--text-secondary-color);
-    margin-bottom: 1rem;
-    padding-left: 0.25rem;
-    border-left: 3px solid var(--border-color);
+   font-size: 0.85rem;
+   color: var(--text-secondary-color);
+   margin-bottom: 1rem;
+   padding-left: 0.25rem;
+   border-left: 3px solid var(--border-color);
 }
 
 .civ-territory-stats {
-    background-color: var(--background-color);
-    padding: 1rem;
-    border-radius: var(--border-radius-sm);
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-color);
+   background-color: var(--background-color);
+   padding: 1rem;
+   border-radius: var(--border-radius-sm);
+   margin-bottom: 1rem;
+   border: 1px solid var(--border-color);
 }
 
 .civ-territory-stats h5 {
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    color: var(--text-color);
-    font-size: 0.9rem;
-    font-weight: var(--font-weight-medium);
+   margin-top: 0;
+   margin-bottom: 0.75rem;
+   color: var(--text-color);
+   font-size: 0.9rem;
+   font-weight: var(--font-weight-medium);
 }
 
 .civ-territory-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 0.75rem;
 }
 
 .territory-stat-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.85rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   font-size: 0.85rem;
 }
 
 .territory-stat-label {
-    color: var(--text-secondary-color);
+   color: var(--text-secondary-color);
 }
 
 .territory-stat-value {
-    font-weight: var(--font-weight-medium);
-    color: var(--text-color);
+   font-weight: var(--font-weight-medium);
+   color: var(--text-color);
 }
 
 .civ-detail-stats {
-    background-color: var(--background-color);
-    padding: 1rem;
-    border-radius: var(--border-radius-sm);
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+   background-color: var(--background-color);
+   padding: 1rem;
+   border-radius: var(--border-radius-sm);
+   margin-bottom: 1rem;
+   border: 1px solid var(--border-color);
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
 }
 
 .civ-detail-stat {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    font-size: 0.9rem;
+   display: flex;
+   flex-direction: column;
+   gap: 0.25rem;
+   font-size: 0.9rem;
 }
 
 .civ-detail-stat-label {
-    color: var(--text-secondary-color);
-    font-size: 0.85rem;
+   color: var(--text-secondary-color);
+   font-size: 0.85rem;
 }
 
 .civ-detail-stat-value {
-    font-weight: var(--font-weight-medium);
-    color: var(--text-color);
-    font-size: 0.9rem;
+   font-weight: var(--font-weight-medium);
+   color: var(--text-color);
+   font-size: 0.9rem;
 }
 
 .stat-bar-small {
-    height: 6px;
-    background-color: var(--border-color);
-    border-radius: var(--border-radius-full);
-    margin-top: 0.25rem;
-    overflow: hidden;
-    width: 100%;
+   height: 6px;
+   background-color: var(--border-color);
+   border-radius: var(--border-radius-full);
+   margin-top: 0.25rem;
+   overflow: hidden;
+   width: 100%;
 }
 
 .stat-fill-small {
-    height: 100%;
-    border-radius: var(--border-radius-full);
-    transition: width 0.5s ease;
+   height: 100%;
+   border-radius: var(--border-radius-full);
+   transition: width 0.5s ease;
 }
 
 .civ-cell-attributes {
-    background-color: var(--background-color);
-    padding: 1rem;
-    border-radius: var(--border-radius-sm);
-    border: 1px solid var(--border-color);
+   background-color: var(--background-color);
+   padding: 1rem;
+   border-radius: var(--border-radius-sm);
+   border: 1px solid var(--border-color);
 }
 
 .civ-cell-attributes h5 {
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    color: var(--text-color);
-    font-size: 0.9rem;
-    font-weight: var(--font-weight-medium);
+   margin-top: 0;
+   margin-bottom: 0.75rem;
+   color: var(--text-color);
+   font-size: 0.9rem;
+   font-weight: var(--font-weight-medium);
 }
 
 .civ-cell-attr-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 0.75rem;
 }
 
 .cell-attr-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.85rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   font-size: 0.85rem;
 }
 
 .cell-attr-label {
-    color: var(--text-secondary-color);
+   color: var(--text-secondary-color);
 }
 
 .cell-attr-value {
-    font-weight: var(--font-weight-medium);
-    color: var(--text-color);
+   font-weight: var(--font-weight-medium);
+   color: var(--text-color);
 }
 
 /* 地图悬停提示样式 */
 .map-tooltip {
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 12px;
-    pointer-events: none;
-    z-index: 1000;
-    max-width: 250px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    line-height: 1.4;
+   position: absolute;
+   background-color: rgba(0, 0, 0, 0.8);
+   color: #fff;
+   padding: 8px 12px;
+   border-radius: 4px;
+   font-size: 12px;
+   pointer-events: none;
+   z-index: 1000;
+   max-width: 250px;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   line-height: 1.4;
 }
 
 .map-tooltip strong {
-    color: var(--primary-color);
-    font-weight: var(--font-weight-bold);
+   color: var(--primary-color);
+   font-weight: var(--font-weight-bold);
 }
 
 /* 格子属性显示增强 */
 #civilizationMap {
-    cursor: crosshair;
+   cursor: crosshair;
 }
 
 /* 响应式调整 */
 @media (max-width: 768px) {
-    .civ-territory-grid,
-    .civ-cell-attr-grid {
-        grid-template-columns: 1fr;
-    }
+   .civ-territory-grid,
+   .civ-cell-attr-grid {
+       grid-template-columns: 1fr;
+   }
 }
 
 /* 事件影响样式 */
 .event-impact {
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid var(--border-color);
-    font-size: 0.8rem;
-    color: var(--text-secondary-color);
+   margin-top: 0.5rem;
+   padding-top: 0.5rem;
+   border-top: 1px solid var(--border-color);
+   font-size: 0.8rem;
+   color: var(--text-secondary-color);
 }
 
 .impact-item {
-    margin-bottom: 0.25rem;
+   margin-bottom: 0.25rem;
 }
 
 .impact-positive {
-    color: var(--success-color);
+   color: var(--success-color);
 }
 
 .impact-negative {
-    color: var(--error-color);
+   color: var(--error-color);
 }
 
 /* 夜间模式样式 */
@@ -768,194 +768,194 @@ body.dark-theme .control-panel,
 body.dark-theme .civilization-card,
 body.dark-theme .relations-container,
 body.dark-theme .timeline-container {
-    background-color: var(--card-bg-color);
-    box-shadow: var(--shadow-light);
+   background-color: var(--card-bg-color);
+   box-shadow: var(--shadow-light);
 }
 
 body.dark-theme .civilization-card:hover {
-    box-shadow: var(--shadow-medium);
+   box-shadow: var(--shadow-medium);
 }
 
 body.dark-theme .timeline {
-    background-color: var(--card-bg-color);
-    border-color: var(--border-color);
+   background-color: var(--card-bg-color);
+   border-color: var(--border-color);
 }
 
 body.dark-theme .timeline-item {
-    background-color: var(--card-bg-color);
-    border-left-color: var(--primary-color);
-    color: var(--text-color);
+   background-color: var(--card-bg-color);
+   border-left-color: var(--primary-color);
+   color: var(--text-color);
 }
 
 body.dark-theme .timeline-item:hover {
-    background-color: var(--light-accent);
+   background-color: var(--light-accent);
 }
 
 body.dark-theme .timeline-year {
-    color: var(--secondary-color);
+   color: var(--secondary-color);
 }
 
 body.dark-theme .civ-name {
-    color: var(--secondary-color);
+   color: var(--secondary-color);
 }
 
 body.dark-theme .event-type.internal {
-    background-color: rgba(52, 152, 219, 0.2);
-    color: var(--secondary-color);
+   background-color: rgba(52, 152, 219, 0.2);
+   color: var(--secondary-color);
 }
 
 body.dark-theme .event-type.diplomatic {
-    background-color: rgba(52, 152, 219, 0.2);
-    color: var(--secondary-color);
+   background-color: rgba(52, 152, 219, 0.2);
+   color: var(--secondary-color);
 }
 
 body.dark-theme .event-type.war {
-    background-color: rgba(231, 76, 60, 0.2);
-    color: #e74c3c;
+   background-color: rgba(231, 76, 60, 0.2);
+   color: #e74c3c;
 }
 
 body.dark-theme .event-type.trade {
-    background-color: rgba(46, 204, 113, 0.2);
-    color: #2ecc71;
+   background-color: rgba(46, 204, 113, 0.2);
+   color: #2ecc71;
 }
 
 body.dark-theme .event-type.global {
-    background-color: rgba(241, 196, 15, 0.2);
-    color: #f1c40f;
+   background-color: rgba(241, 196, 15, 0.2);
+   color: #f1c40f;
 }
 
 body.dark-theme .speed-control select {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    border-color: var(--border-color);
+   background-color: var(--background-color);
+   color: var(--text-color);
+   border-color: var(--border-color);
 }
 
 body.dark-theme .control-btn.secondary {
-    color: var(--text-color);
-    border-color: var(--border-color);
+   color: var(--text-color);
+   border-color: var(--border-color);
 }
 
 body.dark-theme .control-btn.secondary:hover {
-    background-color: var(--light-accent);
-    border-color: var(--secondary-color);
-    color: var(--secondary-color);
+   background-color: var(--light-accent);
+   border-color: var(--secondary-color);
+   color: var(--secondary-color);
 }
 
 body.dark-theme .relations-graph,
 body.dark-theme .event-card {
-    background-color: var(--light-accent);
+   background-color: var(--light-accent);
 }
 
 body.dark-theme .relation-line {
-    background-color: var(--border-color);
+   background-color: var(--border-color);
 }
 
 
 @media (max-width: 768px) {
-    .control-panel {
-        flex-direction: column;
-        align-items: stretch;
-    }
+   .control-panel {
+       flex-direction: column;
+       align-items: stretch;
+   }
 
-    .simulation-info {
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: flex-start;
-    }
+   .simulation-info {
+       flex-direction: column;
+       gap: 0.5rem;
+       align-items: flex-start;
+   }
 
-    .civilizations-container {
-        grid-template-columns: 1fr;
-    }
+   .civilizations-container {
+       grid-template-columns: 1fr;
+   }
 
-    .relations-graph {
-        padding: 1rem;
-        min-height: 150px;
-    }
+   .relations-graph {
+       padding: 1rem;
+       min-height: 150px;
+   }
 
-    .relation-node {
-        width: 60px;
-        height: 60px;
-        font-size: 0.9rem;
-    }
+   .relation-node {
+       width: 60px;
+       height: 60px;
+       font-size: 0.9rem;
+   }
 
-    .timeline {
-        max-height: 300px;
-    }
+   .timeline {
+       max-height: 300px;
+   }
 }
 
 @media (max-width: 480px) {
-    .relations-container {
-        padding: 1rem;
-    }
+   .relations-container {
+       padding: 1rem;
+   }
 
-    .relations-graph {
-        padding: 0.5rem;
-        min-height: 120px;
-    }
+   .relations-graph {
+       padding: 0.5rem;
+       min-height: 120px;
+   }
 
-    .relation-node {
-        width: 50px;
-        height: 50px;
-        font-size: 0.8rem;
-    }
+   .relation-node {
+       width: 50px;
+       height: 50px;
+       font-size: 0.8rem;
+   }
 
-    .event-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+   .event-header {
+       flex-direction: column;
+       align-items: flex-start;
+   }
 
-    .timeline {
-        max-height: 250px;
-    }
+   .timeline {
+       max-height: 250px;
+   }
 }
 
 /* 加载动画 */
 .loading {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid var(--border-color);
-    border-radius: 50%;
-    border-top-color: var(--primary-color);
-    animation: spin 1s ease-in-out infinite;
+   display: inline-block;
+   width: 20px;
+   height: 20px;
+   border: 3px solid var(--border-color);
+   border-radius: 50%;
+   border-top-color: var(--primary-color);
+   animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+   to { transform: rotate(360deg); }
 }
 
 /* 空状态样式 */
 .empty-state {
-    text-align: center;
-    color: var(--text-secondary-color);
-    padding: 2rem;
-    font-style: italic;
+   text-align: center;
+   color: var(--text-secondary-color);
+   padding: 2rem;
+   font-style: italic;
 }
 
 /* 文明卡片动画 */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+   from {
+       opacity: 0;
+       transform: translateY(20px);
+   }
+   to {
+       opacity: 1;
+       transform: translateY(0);
+   }
 }
 
 .civilization-card {
-    animation: fadeInUp 0.6s ease forwards;
+   animation: fadeInUp 0.6s ease forwards;
 }
 
 .civilization-card:nth-child(1) {
-    animation-delay: 0.1s;
+   animation-delay: 0.1s;
 }
 
 .civilization-card:nth-child(2) {
-    animation-delay: 0.2s;
+   animation-delay: 0.2s;
 }
 
 .civilization-card:nth-child(3) {
-    animation-delay: 0.3s;
+   animation-delay: 0.3s;
 }

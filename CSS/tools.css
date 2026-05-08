@@ -3,172 +3,172 @@
 /* 工具网格布局 */
 .tools-grid,
 .games-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+   gap: 2rem;
 }
 
 /* 游戏卡片样式 */
 .game-card {
-    background-color: var(--card-bg-color);
-    border-radius: var(--border-radius-md);
-    overflow: hidden;
-    box-shadow: var(--shadow-light);
-    transition: var(--transition-default);
-    border: 2px solid transparent;
+   background-color: var(--card-bg-color);
+   border-radius: var(--border-radius-md);
+   overflow: hidden;
+   box-shadow: var(--shadow-light);
+   transition: var(--transition-default);
+   border: 2px solid transparent;
 }
 
 .game-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-    border-color: var(--secondary-color);
-    background-color: var(--light-accent);
+   transform: translateY(-5px);
+   box-shadow: var(--shadow-medium);
+   border-color: var(--secondary-color);
+   background-color: var(--light-accent);
 }
 
 /* 游戏卡片图片 */
 .game-card-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-bottom: 1px solid var(--border-color);
+   width: 100%;
+   height: 200px;
+   object-fit: cover;
+   border-bottom: 1px solid var(--border-color);
 }
 
 /* 游戏卡片内容 */
 .game-card-content {
-    padding: 1.5rem;
+   padding: 1.5rem;
 }
 .game-card-content p {
-    margin-bottom: 1.5rem;
-    color: var(--text-color);
-    line-height: 1.6;
+   margin-bottom: 1.5rem;
+   color: var(--text-color);
+   line-height: 1.6;
 }
 
 /* 游戏卡片按钮 - 使用common.css中的按钮样式 */
 .game-card-button {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    font-weight: var(--font-weight-medium);
-    transition: var(--transition-default);
+   display: inline-block;
+   background-color: var(--primary-color);
+   color: white;
+   padding: 0.75rem 1.5rem;
+   border-radius: var(--border-radius-md);
+   text-decoration: none;
+   font-weight: var(--font-weight-medium);
+   transition: var(--transition-default);
 }
 
 .game-card-button:hover {
-    background-color: var(--primary-hover-color);
+   background-color: var(--primary-hover-color);
 }
 
 /* 工具卡片样式 - 与游戏卡片保持一致的结构 */
 .tool-card {
-    background-color: var(--card-bg-color);
-    border-radius: var(--border-radius-md);
-    overflow: hidden;
-    box-shadow: var(--shadow-light);
-    transition: var(--transition-default);
-    border: 2px solid transparent;
+   background-color: var(--card-bg-color);
+   border-radius: var(--border-radius-md);
+   overflow: hidden;
+   box-shadow: var(--shadow-light);
+   transition: var(--transition-default);
+   border: 2px solid transparent;
 }
 
 .tool-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-    border-color: var(--secondary-color);
-    background-color: var(--light-accent);
+   transform: translateY(-5px);
+   box-shadow: var(--shadow-medium);
+   border-color: var(--secondary-color);
+   background-color: var(--light-accent);
 }
 
 /* 工具卡片图标区域 - 替代图片位置 */
 .tool-card-icon {
-    width: 100%;
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 6rem;
-    background-color: var(--light-accent);
-    color: var(--primary-color);
+   width: 100%;
+   height: 200px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 6rem;
+   background-color: var(--light-accent);
+   color: var(--primary-color);
 }
 
 /* 工具卡片图片 - 与游戏卡片图片保持一致 */
 .tool-card-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+   width: 100%;
+   height: 200px;
+   object-fit: cover;
 }
 
 /* 工具卡片内容 */
 .tool-card-content {
-    padding: 1.5rem;
+   padding: 1.5rem;
 }
 
 .tool-card-content p {
-    margin-bottom: 1.5rem;
-    color: var(--text-color);
-    line-height: 1.6;
+   margin-bottom: 1.5rem;
+   color: var(--text-color);
+   line-height: 1.6;
 }
 
 /* 工具卡片按钮 - 使用common.css中的按钮样式 */
 .tool-card-button {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    font-weight: var(--font-weight-medium);
-    transition: var(--transition-default);
+   display: inline-block;
+   background-color: var(--primary-color);
+   color: white;
+   padding: 0.75rem 1.5rem;
+   border-radius: var(--border-radius-md);
+   text-decoration: none;
+   font-weight: var(--font-weight-medium);
+   transition: var(--transition-default);
 }
 
 /* 响应式样式 - 统一管理 */
 /* 平板及以下设备 */
 @media (max-width: 768px) {
-    .tools-grid,
-    .games-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .game-card-content,
-    .tool-card-content {
-        padding: 1.25rem;
-    }
-    
-    .game-card-image,
-    .tool-card-image {
-        height: 180px;
-    }
-    
-    .tool-card-icon {
-        font-size: 4rem;
-    }
+   .tools-grid,
+   .games-grid {
+       grid-template-columns: 1fr;
+       gap: 1.5rem;
+   }
+   
+   .game-card-content,
+   .tool-card-content {
+       padding: 1.25rem;
+   }
+   
+   .game-card-image,
+   .tool-card-image {
+       height: 180px;
+   }
+   
+   .tool-card-icon {
+       font-size: 4rem;
+   }
 }
 
 /* 手机设备 */
 @media (max-width: 480px) {
-    .game-card-image {
-        height: 150px;
-    }
-    
-    
+   .game-card-image {
+       height: 150px;
+   }
+   
+   
 }
 
 /* 夜间模式样式 - 统一管理 */
 body.dark-theme .game-card,
 body.dark-theme .tool-card {
-    background-color: var(--card-bg-color);
-    box-shadow: var(--shadow-light);
+   background-color: var(--card-bg-color);
+   box-shadow: var(--shadow-light);
 }
 
 body.dark-theme .game-card:hover,
 body.dark-theme .tool-card:hover {
-    box-shadow: var(--shadow-medium);
+   box-shadow: var(--shadow-medium);
 }
 
 body.dark-theme .tool-card-icon {
-    background-color: var(--light-accent);
+   background-color: var(--light-accent);
 }
 
 /* 按钮悬停效果与日间模式保持一致 */
 body.dark-theme .game-card-button:hover,
 body.dark-theme .tool-card-button:hover {
-    background-color: var(--dark-primary-hover-color);
+   background-color: var(--dark-primary-hover-color);
 }

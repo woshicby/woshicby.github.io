@@ -2,149 +2,149 @@
 
 /* 返回小工具页面按钮 */
 .back-to-tools {
-    margin-bottom: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+   margin-bottom: 1.5rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
 }
 
 .back-button {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    transition: var(--transition-default);
+   display: inline-block;
+   background-color: var(--primary-color);
+   color: white;
+   padding: 0.75rem 1.5rem;
+   border-radius: var(--border-radius-md);
+   text-decoration: none;
+   transition: var(--transition-default);
 }
 
 .back-button:hover {
-    background-color: var(--primary-hover-color);
+   background-color: var(--primary-hover-color);
 }
 
 .back-button-right {
-    margin-left: auto;
+   margin-left: auto;
 }
 
 /* 工具标签导航样式 */
 .tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    flex-wrap: wrap;
+   display: flex;
+   gap: 10px;
+   margin-bottom: 10px;
+   padding-bottom: 10px;
+   flex-wrap: wrap;
 }
 
 .tab-btn {
-    padding: 12px 24px;
-    background: var(--card-bg-color);
-    border: 2px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: var(--transition-default);
-    color: var(--text-color);
+   padding: 12px 24px;
+   background: var(--card-bg-color);
+   border: 2px solid var(--border-color);
+   border-radius: var(--border-radius-md);
+   cursor: pointer;
+   font-size: 16px;
+   font-weight: 600;
+   transition: var(--transition-default);
+   color: var(--text-color);
 }
 
 .tab-btn:hover {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+   background: var(--primary-color);
+   color: white;
+   border-color: var(--primary-color);
 }
 
 .tab-btn.active {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+   background: var(--primary-color);
+   color: white;
+   border-color: var(--primary-color);
 }
 
 /* 工具/游戏标题样式 - 按照锻刀模拟器格式 */
 .tool-page-title {
-    color: var(--heading-color);
-    text-align: center;
-    margin-bottom: var(--spacing-md);
-    font-size: 24px;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
+   color: var(--heading-color);
+   text-align: center;
+   margin-bottom: var(--spacing-md);
+   font-size: 24px;
+   border-bottom: 2px solid var(--border-color);
+   padding-bottom: 10px;
 }
 
 /* 工具/游戏简介样式 - 按照锻刀模拟器格式 */
 .tool-description {
-    font-size: 15px;
-    line-height: 1.5;
-    color: var(--text-color);
-    text-align: center;
-    margin: var(--spacing-md) auto;
-    max-width: 800px;
+   font-size: 15px;
+   line-height: 1.5;
+   color: var(--text-color);
+   text-align: center;
+   margin: var(--spacing-md) auto;
+   max-width: 800px;
 }
 
 /* 统一工具容器样式 - 按照样式对比页面样式 */
 .tool-container {
-    width: 100%;
-    margin: 0 auto;
-    padding: var(--spacing-xl);
-    background-color: var(--white);
-    border-radius: var(--border-radius-md);
-    border: 1px solid var(--border-color);
-    font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
-    box-sizing: border-box;
+   width: 100%;
+   margin: 0 auto;
+   padding: var(--spacing-xl);
+   background-color: var(--white);
+   border-radius: var(--border-radius-md);
+   border: 1px solid var(--border-color);
+   font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+   box-sizing: border-box;
 }
 
 /* 统一section样式 - 所有工具/游戏页面通用 */
 [class$="-section"] {
-    margin-bottom: 30px;
+   margin-bottom: 30px;
 }
 
 [class$="-section"] h3 {
-    color: var(--heading-color);
-    margin-bottom: 15px;
-    font-size: 18px;
+   color: var(--heading-color);
+   margin-bottom: 15px;
+   font-size: 18px;
 }
 
 /* 响应式样式 - 统一管理 */
 /* 平板及以下设备 */
 @media (max-width: 768px) {
-    .tool-page-title {
-        font-size: 24px;
-        padding-bottom: 8px;
-    }
-    
-    /* 确保所有工具容器在中等屏幕上有一致的内边距 */
-    .tool-container {
-        padding: var(--spacing-lg);
-    }
+   .tool-page-title {
+       font-size: 24px;
+       padding-bottom: 8px;
+   }
+   
+   /* 确保所有工具容器在中等屏幕上有一致的内边距 */
+   .tool-container {
+       padding: var(--spacing-lg);
+   }
 }
 
 /* 手机设备 */
 @media (max-width: 480px) {
-    /* 合并的响应式规则 */
-    .tool-page-title {
-        font-size: 20px;
-        padding-bottom: 6px;
-    }
-    
-    /* 确保所有工具容器在小屏幕上有一致的内边距和圆角 */
-    .tool-container {
-        padding: var(--spacing-md);
-        border-radius: var(--border-radius-md);
-    }
-    
-    .tool-description {
-        font-size: 13px;
-        padding: 10px;
-        margin: 10px auto;
-        max-width: 95%;
-    }
+   /* 合并的响应式规则 */
+   .tool-page-title {
+       font-size: 20px;
+       padding-bottom: 6px;
+   }
+   
+   /* 确保所有工具容器在小屏幕上有一致的内边距和圆角 */
+   .tool-container {
+       padding: var(--spacing-md);
+       border-radius: var(--border-radius-md);
+   }
+   
+   .tool-description {
+       font-size: 13px;
+       padding: 10px;
+       margin: 10px auto;
+       max-width: 95%;
+   }
 }
 
 /* 夜间模式样式 - 统一管理 */
 body.dark-theme .tool-page-title {
-    color: var(--heading-color);
-    border-bottom-color: var(--border-color);
+   color: var(--heading-color);
+   border-bottom-color: var(--border-color);
 }
 
 body.dark-theme .tool-container {
-    background-color: var(--card-bg-color);
-    border: 1px solid var(--border-color);
+   background-color: var(--card-bg-color);
+   border: 1px solid var(--border-color);
 }

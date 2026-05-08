@@ -188,11 +188,12 @@ woshicby.github.io/
 | 2026.03.16 | 多文明演化模拟器：添加运行日志记录系统，支持导出JSON格式日志；优化文明分裂机制，添加冷却期和稳定性修正；调整稳定性计算公式，平衡大文明惩罚；优化战争概率计算，增加实力差距和领土竞争因素 |
 | 2026.03.17 | 多文明演化模拟器核心重构：新增运行日志系统、文明行为系统、稳定性修正机制；优化分裂/合并/灭亡/复兴判定；删除科技树模块。全站样式统一：统一表单元素样式，新增CSS变量。新增Markdown转JSON工具，优化工具页面导航结构 |
 | 2026.03.28 | 优化全站下载功能：统一文件名为中文命名，日期时间格式统一为yyyyMMdd.hhmmss；涉及骰子工具、随机决策器、刀剑锻造、文明演化模拟器、运动成绩图表等。博文系统增强：post-detail.js支持通过file参数直接访问博文文件；新增详细错误页面，支持FILE_NOT_FOUND、ID_NOT_FOUND、PARSE_ERROR、NETWORK_ERROR等错误类型显示 |
-| 2026.03.30 | 新增灵感碎片功能(moments.html)：支持记录文字、图片、音频、视频等多种形式的灵感碎片；支持Markdown格式渲染；支持标签筛选功能 |
+| 2026.03.30 | 新增灵感碎片功能：（moments.html）支持记录文字、图片、音频、视频等多种形式的灵感碎片；支持Markdown格式渲染；支持标签筛选功能 |
 | 2026.04.17 | 添加本地大模型API对话工具(local-llm-api-chat.html)，支持与LM Studio服务器进行交互；重构Markdown解析逻辑，提取上下标处理为共享函数(markdown-utils.js)，优化上下标处理避免与数学公式冲突 |
 | 2026.04.20 | 添加时间计算器工具(time-calculator.html)；更新用户信息和比赛记录数据 |
 | 2026.04.23 | 新增生命灵数计算器(life-path-calculator.html)，支持生日输入、逐位相加计算过程展示、大师数识别及灵数含义说明 |
 | 2026.05.04 | 添加博文系列功能并优化博文列表页面：新增系列分类展示、时间线归档视图、无限滚动加载、回到顶部按钮，更新相关JSON和样式 |
+| 2026.05.08 | 添加武林外传接台词游戏(wulin-quotes.html)和台词查询工具，支持多难度模式、角色筛选、台词搜索功能 |
 
 ## 使用方法
 
@@ -393,6 +394,7 @@ woshicby.github.io/
 | 2026.04.20 | Added time calculator tool (time-calculator.html); updated user information and race records data |
 | 2026.04.23 | Added life path number calculator (life-path-calculator.html), supporting birthday input, step-by-step digit addition display, master number identification, and number meaning descriptions |
 | 2026.05.04 | Added blog series feature and optimized posts list page: series classification, timeline archive view, infinite scroll loading, back-to-top button, updated related JSON and styles |
+| 2026.05.08 | Added My Own Swordsman quote guessing game (wulin-quotes.html) and dialogue search tool, supporting multiple difficulty modes, character filtering, and dialogue search |
 
 ## Usage
 
@@ -593,6 +595,7 @@ woshicby.github.io/
 | 2026.04.20 | 時間計算機ツール(time-calculator.html)を追加；ユーザー情報とレース記録データを更新 |
 | 2026.04.23 | ライフパスナンバー計算機(life-path-calculator.html)を追加、誕生日入力、桁ごとの加算過程表示、マスター番号識別、ナンバーの意味説明をサポート |
 | 2026.05.04 | ブログシリーズ機能を追加し投稿一覧ページを最適化：シリーズ分類表示、タイムラインアーカイブビュー、無限スクロール読み込み、トップへ戻るボタン、関連JSONとスタイルを更新 |
+| 2026.05.08 | 武林外伝セリフ当てゲーム(wulin-quotes.html)とセリフ検索ツールを追加、複数難易度モード、キャラクターフィルタリング、セリフ検索機能をサポート |
 
 ## 使用方法
 

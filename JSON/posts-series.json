@@ -1,27 +1,27 @@
 [
-  {
-    "name": "攀岩记录",
-    "slug": "climbing",
-    "description": "攀岩体验与相关想法记录"
-  },
-  {
-    "name": "筋膜松解",
-    "slug": "fascia-release",
-    "description": "做筋膜刀松解的感受与效果记录"
-  },
-  {
-    "name": "假期行程记录",
-    "slug": "holiday-trip",
-    "description": "长假期的行程与费用记录"
-  },
-  {
-    "name": "赛记",
-    "slug": "race-report",
-    "description": "各类比赛的参赛过程和赛后总结记录"
-  },
-  {
-    "name": "ISFP-9w1探索",
-    "slug": "isfp-9w1",
-    "description": "某种ISFP人格的自我探索与行动过程"
-  }
+ {
+   "name": "攀岩记录",
+   "slug": "climbing",
+   "description": "攀岩体验与相关想法记录"
+ },
+ {
+   "name": "筋膜松解",
+   "slug": "fascia-release",
+   "description": "做筋膜刀松解的感受与效果记录"
+ },
+ {
+   "name": "假期行程记录",
+   "slug": "holiday-trip",
+   "description": "长假期的行程与费用记录"
+ },
+ {
+   "name": "赛记",
+   "slug": "race-report",
+   "description": "各类比赛的参赛过程和赛后总结记录"
+ },
+ {
+   "name": "ISFP-9w1探索",
+   "slug": "isfp-9w1",
+   "description": "某种ISFP人格的自我探索与行动过程"
+ }
 ]
