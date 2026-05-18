@@ -13,5 +13,10 @@
    { "url": "convert-md-to-json.html", "name": "Markdown转JSON" },
    { "url": "seo-checker.html", "name": "SEO元数据检查工具" },
    { "url": "random-decision.html", "name": "随机决策器" },
-   { "url": "dice-tool.html", "name": "骰子工具" }
+   { "url": "dice-tool.html", "name": "骰子工具" },
+   { "url": "moments.html", "name": "灵感碎片" },
+   { "url": "local-llm-api-chat.html", "name": "本地大模型API对话工具" },
+   { "url": "time-calculator.html", "name": "时间计算器" },
+   { "url": "life-path-calculator.html", "name": "生命灵数计算器" },
+   { "url": "wulin-quotes.html", "name": "武林外传接台词" }
 ]

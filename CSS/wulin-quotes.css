@@ -59,9 +59,7 @@
 }
 
 .character-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-xs);
+    display: contents;
 }
 
 .char-tag {
