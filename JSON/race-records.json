@@ -12,7 +12,8 @@
        "season": "2023秋季",
        "certification": [],
        "category": "路跑",
-       "eventSeries": "海南城市夜跑"
+       "eventSeries": "海南城市夜跑",
+       "status": "finished"
    },
    {
        "id": 2,
@@ -27,7 +28,8 @@
        "season": "2023秋季",
        "certification": ["A1","国际标牌"],
        "category": "路跑",
-       "eventSeries": "海南儋州马拉松"
+       "eventSeries": "海南儋州马拉松",
+       "status": "finished"
    },
    {
        "id": 3,
@@ -42,7 +44,8 @@
        "season": "2024春季",
        "certification": ["A1"],
        "category": "路跑",
-       "eventSeries": "茂名马拉松"
+       "eventSeries": "茂名马拉松",
+       "status": "finished"
    },
    {
        "id": 4,
@@ -57,7 +60,8 @@
        "season": "2024春季",
        "certification": ["A1"],
        "category": "路跑",
-       "eventSeries": "陵水半程马拉松"
+       "eventSeries": "陵水半程马拉松",
+       "status": "finished"
    },
    {
        "id": 5,
@@ -72,7 +76,8 @@
        "season": "2024春季",
        "certification": ["不计入PB/SB"],
        "category": "路跑",
-       "eventSeries": "海南大学荧光夜跑"
+       "eventSeries": "海南大学荧光夜跑",
+       "status": "finished"
    },
    {
        "id": 6,
@@ -87,7 +92,8 @@
        "season": "2024春季",
        "certification": ["不计入PB/SB"],
        "category": "路跑",
-       "eventSeries": "海南万人健步大会"
+       "eventSeries": "海南万人健步大会",
+       "status": "finished"
    },
    {
        "id": 7,
@@ -102,7 +108,8 @@
        "season": "2024春季",
        "certification": [],
        "category": "路跑",
-       "eventSeries": "海口湾路跑段位赛"
+       "eventSeries": "海口湾路跑段位赛",
+       "status": "finished"
    },
    {
        "id": 8,
@@ -117,7 +124,8 @@
        "season": "2024春季",
        "certification": [],
        "category": "路跑",
-       "eventSeries": "海南定安幸福跑"
+       "eventSeries": "海南定安幸福跑",
+       "status": "finished"
    },
    {
        "id": 9,
@@ -132,7 +140,8 @@
        "season": "2024春季",
        "certification": [],
        "category": "场地跑",
-       "eventSeries": "高校百英里资格赛"
+       "eventSeries": "高校百英里资格赛",
+       "status": "finished"
    },
    {
        "id": 10,
@@ -147,7 +156,8 @@
        "season": "2024春季",
        "certification": [],
        "category": "场地跑",
-       "eventSeries": "高校百英里资格赛"
+       "eventSeries": "高校百英里资格赛",
+       "status": "finished"
    },
    {
        "id": 11,
@@ -162,7 +172,8 @@
        "season": "2024春季",
        "certification": [],
        "category": "场地跑",
-       "eventSeries": "莆田木兰溪马拉松"
+       "eventSeries": "莆田木兰溪马拉松",
+       "status": "finished"
    },
    {
        "id": 12,
@@ -177,7 +188,8 @@
        "season": "2024秋季",
        "certification": [],
        "category": "路跑",
-       "eventSeries": "全民健康跑"
+       "eventSeries": "全民健康跑",
+       "status": "finished"
    },
    {
        "id": 13,
@@ -192,7 +204,8 @@
        "season": "2024秋季",
        "certification": ["A1"],
        "category": "路跑",
-       "eventSeries": "澄迈半程马拉松"
+       "eventSeries": "澄迈半程马拉松",
+       "status": "finished"
    },
    {
        "id": 14,
@@ -207,7 +220,8 @@
        "season": "2024秋季",
        "certification": ["A1","国际标牌"],
        "category": "路跑",
-       "eventSeries": "海南儋州马拉松"
+       "eventSeries": "海南儋州马拉松",
+       "status": "finished"
    },
    {
        "id": 15,
@@ -222,7 +236,8 @@
        "season": "2024秋季",
        "certification": ["A1"],
        "category": "路跑",
-       "eventSeries": "莆田木兰溪马拉松"
+       "eventSeries": "莆田木兰溪马拉松",
+       "status": "finished"
    },
    {
        "id": 16,
@@ -237,7 +252,8 @@
        "season": "2025春季",
        "certification": ["C"],
        "category": "路跑",
-       "eventSeries": "万宁马拉松"
+       "eventSeries": "万宁马拉松",
+       "status": "finished"
    },
    {
        "id": 17,
@@ -252,7 +268,8 @@
        "season": "2025春季",
        "certification": ["C"],
        "category": "路跑",
-       "eventSeries": "陵水半程马拉松"
+       "eventSeries": "陵水半程马拉松",
+       "status": "finished"
    },
    {
        "id": 18,
@@ -267,7 +284,8 @@
        "season": "2025春季",
        "certification": ["不计入PB/SB"],
        "category": "路跑",
-       "eventSeries": "海南大学荧光夜跑"
+       "eventSeries": "海南大学荧光夜跑",
+       "status": "finished"
    },
    {
        "id": 19,
@@ -282,7 +300,8 @@
        "season": "2025春季",
        "certification": [],
        "category": "路跑",
-       "eventSeries": "海南定安幸福跑"
+       "eventSeries": "海南定安幸福跑",
+       "status": "finished"
    },
    {
        "id": 20,
@@ -297,7 +316,8 @@
        "season": "2025春季",
        "certification": ["C"],
        "category": "路跑",
-       "eventSeries": "中国热带雨林健步走公开赛"
+       "eventSeries": "中国热带雨林健步走公开赛",
+       "status": "finished"
    },
    {
        "id": 21,
@@ -312,7 +332,8 @@
        "season": "2025秋季",
        "certification": ["C"],
        "category": "路跑",
-       "eventSeries": "莱州半程马拉松"
+       "eventSeries": "莱州半程马拉松",
+       "status": "finished"
    },
    {
        "id": 22,
@@ -329,7 +350,8 @@
        "category": "越野跑",
        "eventSeries": "昆嵛50越野挑战赛",
        "raceScore": "335",
-       "itraPerformanceScore": "324"
+       "itraPerformanceScore": "324",
+       "status": "finished"
    },
    {
        "id": 23,
@@ -346,13 +368,14 @@
        "category": "越野跑",
        "eventSeries": "烟台山星空越野赛",
        "raceScore": "374",
-       "itraPerformanceScore": "362"
+       "itraPerformanceScore": "362",
+       "status": "finished"
    },
    {
        "id": 24,
        "name": "2025栖霞环湖赛",
        "date": "2025-10-12",
-       "location": "山东省烟台市栖霞龙腾广场",
+       "location": "山东省烟台市栖霞市龙腾广场",
        "event": "20.25km",
        "result": "1:27:30",
        "distance": "16.68公里",
@@ -361,7 +384,8 @@
        "season": "2025秋季",
        "certification": ["不计入PB/SB","C"],
        "category": "路跑",
-       "eventSeries": "栖霞环湖赛"
+       "eventSeries": "栖霞环湖赛",
+       "status": "finished"
    },
    {
        "id": 25,
@@ -376,7 +400,8 @@
        "season": "2025秋季",
        "certification": ["A1","国际金标"],
        "category": "路跑",
-       "eventSeries": "黄河口马拉松"
+       "eventSeries": "黄河口马拉松",
+       "status": "finished"
    },
    {
        "id": 26,
@@ -391,7 +416,8 @@
        "season": "2025秋季",
        "certification": ["B"],
        "category": "路跑",
-       "eventSeries": "日照马拉松"
+       "eventSeries": "日照马拉松",
+       "status": "finished"
    },
    {
        "id": 27,
@@ -406,13 +432,14 @@
        "season": "2025秋季",
        "certification": ["A1"],
        "category": "路跑",
-       "eventSeries": "莆田木兰溪马拉松"
+       "eventSeries": "莆田木兰溪马拉松",
+       "status": "finished"
    },
    {
        "id": 28,
        "name": "2026威海迎新跑",
        "date": "2026-01-01",
-       "location": "山东省威海市至海港湾海上足球场",
+       "location": "山东省威海市环翠区至海港湾海上足球场",
        "event": "16km",
        "result": "1:36:39",
        "distance": "16公里",
@@ -421,7 +448,8 @@
        "season": "2025秋季",
        "certification": [],
        "category": "路跑",
-       "eventSeries": "威海迎新跑"
+       "eventSeries": "威海迎新跑",
+       "status": "finished"
    },
    {
        "id": 29,
@@ -436,13 +464,14 @@
        "season": "2026春季",
        "certification": ["A1"],
        "category": "路跑",
-       "eventSeries": "荣成马拉松"
+       "eventSeries": "荣成马拉松",
+       "status": "finished"
    },
    {
        "id": 30,
        "name": "2026青岛山海四季跑（春季赛）",
        "date": "2026-05-10",
-       "location": "山东省青岛市浮山绿道",
+       "location": "山东省青岛市市北区浮山绿道",
        "event": "10km",
        "result": "1:07:33",
        "distance": "10公里",
@@ -451,14 +480,15 @@
        "season": "2026春季",
        "certification": [],
        "category": "路跑",
-       "eventSeries": "青岛山海四季跑"
+       "eventSeries": "青岛山海四季跑",
+       "status": "finished"
    },
    {
        "id": 31,
-       "name": "2026威海100",
+       "name": "2026威海100超级越野赛",
        "date": "2026-05-17",
-       "location": "山东省威海市半月湾",
-       "event": "35日",
+       "location": "山东省威海市环翠区至海港湾海上足球场",
+       "event": "虎鲸组（35日）",
        "result": "8:11:04",
        "distance": "35公里",
        "pace": "",
@@ -468,30 +498,14 @@
        "category": "越野跑",
        "eventSeries": "威海100",
        "raceScore": "",
-       "itraPerformanceScore": ""
+       "itraPerformanceScore": "",
+       "status": "finished"
    },
    {
        "id": 32,
-       "name": "2026珠山越野精英赛",
-       "date": "2026-05-31",
-       "location": "山东省青岛市黄岛区大珠山风景区",
-       "event": "ZSTJ30（珠山探境30km）",
-       "result": "",
-       "distance": "30公里",
-       "pace": "",
-       "stravaLink": "",
-       "season": "2026春季",
-       "certification": ["ITRA 1分"],
-       "category": "越野跑",
-       "eventSeries": "珠山越野精英赛",
-       "raceScore": "",
-       "itraPerformanceScore": ""
-   },
-   {
-       "id": 33,
        "name": "2026青岛山海四季跑（夏季赛）",
        "date": "2026-06-20",
-       "location": "山东省青岛市浮山绿道",
+       "location": "山东省青岛市市北区浮山绿道",
        "event": "10km",
        "result": "",
        "distance": "10公里",
@@ -500,10 +514,11 @@
        "season": "2026春季",
        "certification": [],
        "category": "路跑",
-       "eventSeries": "青岛山海四季跑"
+       "eventSeries": "青岛山海四季跑",
+       "status": "registered"
    },
    {
-       "id": 34,
+       "id": 33,
        "name": "2026咔哒寻山群英赛",
        "date": "2026-09-13",
        "location": "山东省青岛市李沧区紫竹幽谷风景区",
@@ -516,10 +531,59 @@
        "certification": ["ITRA 2分"],
        "category": "越野跑",
        "eventSeries": "咔哒寻山群英赛",
-       "raceScore": ""
+       "raceScore": "",
+       "status": "registered"
+   },
+   {
+       "id": 34,
+       "name": "2026黄河口（东营）马拉松",
+       "date": "2026-10-18",
+       "location": "山东省东营市新世纪广场",
+       "event": "半程马拉松",
+       "result": "",
+       "distance": "21.0975公里",
+       "pace": "",
+       "stravaLink": "",
+       "season": "2026秋季",
+       "certification": ["A1","国际金标"],
+       "category": "路跑",
+       "eventSeries": "黄河口马拉松",
+       "status": "TBD"
    },
    {
        "id": 35,
+       "name": "2026烟台马拉松",
+       "date": "2026-11-01",
+       "location": "山东省烟台市芝罘区滨海广场",
+       "event": "半程马拉松",
+       "result": "",
+       "distance": "21.0975公里",
+       "pace": "",
+       "stravaLink": "",
+       "season": "2026秋季",
+       "certification": [],
+       "category": "路跑",
+       "eventSeries": "烟台马拉松",
+       "status": "2026-06-30"
+   },
+   {
+       "id": 36,
+       "name": "2026上海马拉松",
+       "date": "2026-12-06",
+       "location": "上海市外滩金牛广场",
+       "event": "马拉松",
+       "result": "",
+       "distance": "42.195公里",
+       "pace": "",
+       "stravaLink": "",
+       "season": "2026秋季",
+       "certification": ["A1","国际金标"],
+       "category": "路跑",
+       "eventSeries": "上海马拉松",
+       "status": "2026-06-30"
+   },
+   {
+       "id": 37,
        "name": "2026莆田木兰溪马拉松",
        "date": "2026-12-27",
        "location": "福建省莆田市荔城区木兰溪治理展览馆",
@@ -531,6 +595,7 @@
        "season": "2026秋季",
        "certification": ["A1"],
        "category": "路跑",
-       "eventSeries": "莆田木兰溪马拉松"
+       "eventSeries": "莆田木兰溪马拉松",
+       "status": "TBD"
    }
 ]

@@ -447,3 +447,30 @@
        border-radius: 50%;
    }
 }
+
+/* 待抽签赛事样式 */
+.pending-lottery-section {
+   margin-top: var(--spacing-md);
+}
+
+.pending-lottery-title {
+   color: var(--accent-color);
+   font-size: 1rem;
+   font-weight: 600;
+   margin-bottom: var(--spacing-sm);
+   padding-bottom: var(--spacing-xs);
+   border-bottom: 2px dashed var(--accent-color);
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-xs);
+}
+
+.pending-lottery-title i {
+   font-size: 0.9rem;
+}
+
+/* 日历中待抽签赛事单元格样式 */
+.calendar-day.race-pending-lottery {
+   border: 2px dashed var(--accent-color);
+   font-weight: bold;
+}

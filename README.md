@@ -26,30 +26,38 @@
 
 ### 1. 计算器工具
 - **配速计算器** (pace-calculator.html): 用于跑步和运动的配速计算工具
+- **时间计算器** (time-calculator.html): 时间间隔计算工具
+- **生命灵数计算器** (life-path-calculator.html): 基于生日的灵数计算与解读工具
 
 ### 2. 游戏相关
 - **刀剑乱舞锻刀模拟器** (touken-forge.html): 模拟游戏中的锻刀系统
 - **多文明演化模拟器** (civilization-evolution.html): 自动模拟多个文明的发展历程，展示文明间的交流、冲突与兴衰
+- **武林外传接台词游戏** (wulin-quotes.html): 武林外传台词猜测游戏，支持多难度模式和台词查询
 
 ### 3. 媒体展示
 - **视频播放器** (video.html): 视频内容展示和播放
+- **灵感碎片** (moments.html): 记录文字、图片、音频、视频等多种形式的灵感碎片，支持Markdown渲染和标签筛选
 
 ### 4. 体育相关
-- **跑步记录** (sports.html): 展示个人跑步记录，支持赛季最佳(SB)和个人最佳(PB)标记，可折叠的赛季记录展示，完赛证书采用多列瀑布流布局展示，支持在certification字段添加"不计入PB/SB"标签排除特定赛事，比赛记录中显示比赛类型
+- **跑步记录** (sports.html): 展示个人跑步记录，支持赛季最佳(SB)和个人最佳(PB)标记，可折叠的赛季记录展示，完赛证书采用多列瀑布流布局展示，支持在certification字段添加"不计入PB/SB"标签排除特定赛事，比赛记录中显示比赛类型，越野跑支持raceScore和ITRA表现指数
 - **成绩变化对比** (sports.html): 支持同一项目成绩变化对比和同一赛事成绩变化对比，显示全部平均成绩、最佳成绩、最差成绩、变化趋势和上次参赛天数
-- **赛事日历** (sports.html): 展示不同类型的跑步比赛，支持按月/年切换视图，过去赛事显示成绩，未来赛事显示起跑时间，鼠标悬停显示详情提示框，包含赛事类型图例
+- **赛事日历** (sports.html): 展示不同类型的跑步比赛，支持按月/年切换视图，过去赛事显示成绩，未来赛事显示起跑时间，鼠标悬停显示详情提示框，包含赛事类型图例，支持待抽签赛事分区展示与出签日期显示
 
 ### 5. 学习资源
-- **学习页面** (study.html): 学习资料和笔记
+- **学习页面** (study.html): 学习资料和笔记，支持动态加载与筛选
 
 ### 6. 博客/文章
-- **文章列表** (posts.html): 博客文章列表展示
+- **文章列表** (posts.html): 博客文章列表展示，支持系列分类、时间线归档视图、无限滚动加载
 - **文章详情** (post-detail.html): 文章详细内容展示，支持Markdown格式
 
 ### 7. 实用工具
 - **工具集** (tools.html): 各种实用小工具集合
 - **样式比较器** (style-comparison.html): 样式对比工具
 - **Markdown转换工具** (convert-md-to-json.html): 将Markdown文件转换为JSON格式
+- **SEO元数据检查器** (seo-checker.html): 检查网页SEO元数据
+- **随机决策器** (random-decision.html): 随机选择决策工具
+- **骰子工具** (dice-tool.html): 虚拟骰子投掷工具
+- **本地大模型API对话** (local-llm-api-chat.html): 与LM Studio等本地大模型服务交互
 
 ### 8. 技术功能
 - **MathJax支持**: 数学公式渲染
@@ -72,82 +80,123 @@
 ```
 woshicby.github.io/
 ├── CSS/             # 样式文件目录
-│   ├── common/      # 公共样式子目录
-│   ├── index/       # 首页样式子目录
-│   ├── pace-calculator/  # 配速计算器样式子目录
-│   ├── tools-common/     # 工具公共样式子目录
-│   ├── common.css   # 公共样式
-│   ├── index.css    # 首页样式
-│   ├── pace-calculator.css
-│   ├── sports.css
-│   ├── style-comparison.css
-│   ├── tools-common.css
-│   ├── tools.css
-│   ├── touken-forge.css
-│   ├── video.css
+│   ├── common/      # 公共样式子目录（深色主题、响应式、选择器）
+│   ├── index/       # 首页样式子目录（深色主题、响应式、选择器）
+│   ├── calendar.css       # 赛事日历样式
+│   ├── charts.css         # 成绩图表样式
+│   ├── civilization-evolution.css  # 多文明演化模拟器样式
+│   ├── common.css         # 公共样式
 │   ├── convert-md-to-json.css  # Markdown转换工具样式
-│   ├── github.min.css  # GitHub风格样式
-│   ├── post-detail.css  # 文章详情样式
-│   ├── posts.css       # 文章列表样式
-│   ├── study.css       # 学习页面样式
-│   └── civilization-evolution.css  # 多文明演化模拟器样式
+│   ├── dice-tool.css      # 骰子工具样式
+│   ├── github.min.css     # GitHub风格代码高亮样式
+│   ├── index.css          # 首页样式
+│   ├── life-path-calculator.css  # 生命灵数计算器样式
+│   ├── local-llm-api-chat.css    # 本地大模型对话样式
+│   ├── moments.css        # 灵感碎片样式
+│   ├── pace-calculator.css  # 配速计算器样式
+│   ├── post-detail.css    # 文章详情样式
+│   ├── posts.css          # 文章列表样式
+│   ├── random-decision.css  # 随机决策器样式
+│   ├── seo-checker.css    # SEO检查器样式
+│   ├── sports.css         # 跑步记录样式
+│   ├── study.css          # 学习页面样式
+│   ├── style-comparison.css  # 样式比较器样式
+│   ├── time-calculator.css  # 时间计算器样式
+│   ├── tools-common.css   # 工具公共样式
+│   ├── tools.css          # 工具集样式
+│   ├── touken-forge.css   # 刀剑乱舞样式
+│   ├── video.css          # 视频播放器样式
+│   └── wulin-quotes.css   # 武林外传样式
 ├── JS/              # JavaScript文件目录
 │   ├── MathJax-3.2.2es5/  # MathJax数学公式库
+│   ├── civilization-evolution/  # 多文明演化模拟器
+│   │   ├── civilization.js
+│   │   ├── main.js
+│   │   ├── map.js
+│   │   ├── simulator.js
+│   │   ├── tech-tree.json
+│   │   └── ui.js
 │   ├── markdown/     # Markdown相关功能
-│   ├── bilibili-api.js
-│   ├── navigation.js
-│   ├── pace-calculator.js
-│   ├── theme-toggle.js
-│   ├── touken-forge.js
-│   ├── sports.js     # 跑步记录功能
+│   │   ├── markdown-it.min.js
+│   │   ├── markdown-it-footnote.min.js
+│   │   ├── markdown-it-mark.min.js
+│   │   ├── markdown-it-sub.min.js
+│   │   ├── markdown-it-sup.min.js
+│   │   └── markdown-utils.js  # Markdown解析共享工具
+│   ├── background-lazy-load.js  # 背景图懒加载
+│   ├── bilibili-api.js    # B站API
+│   ├── calendar.js        # 赛事日历功能
+│   ├── charts.js          # 成绩图表功能
 │   ├── convert-md-to-json.js  # Markdown转换工具
-│   ├── highlight.min.js  # 代码高亮
-│   ├── post-detail.js  # 文章详情功能
-│   ├── posts.js       # 文章列表功能
-│   └── civilization-evolution/  # 多文明演化模拟器
-│       ├── civilization.js
-│       ├── map.js
-│       ├── simulator.js
-│       ├── ui.js
-│       └── main.js
+│   ├── dice-tool.js       # 骰子工具
+│   ├── highlight.min.js   # 代码高亮
+│   ├── life-path-calculator.js  # 生命灵数计算器
+│   ├── local-llm-api-chat.js    # 本地大模型对话
+│   ├── moments.js         # 灵感碎片
+│   ├── navigation.js      # 导航功能
+│   ├── pace-calculator.js # 配速计算器
+│   ├── post-detail.js     # 文章详情功能
+│   ├── posts.js           # 文章列表功能
+│   ├── random-decision.js # 随机决策器
+│   ├── seo-checker.js     # SEO检查器
+│   ├── sports.js          # 跑步记录功能
+│   ├── study.js           # 学习页面功能
+│   ├── theme-toggle.js    # 主题切换
+│   ├── time-calculator.js # 时间计算器
+│   ├── tool-tabs.js       # 工具页标签导航
+│   ├── tools.js           # 工具集
+│   ├── touken-forge.js    # 刀剑乱舞
+│   └── wulin-quotes.js    # 武林外传
+├── JSON/              # JSON数据文件目录
+│   ├── games.json        # 游戏数据
+│   ├── moments.json      # 灵感碎片数据
+│   ├── posts.json        # 博客文章数据（已废弃，向后兼容）
+│   ├── posts-list.json   # 博客文章列表配置文件
+│   ├── posts-series.json # 博客系列配置文件
+│   ├── race-records.json # 跑步记录数据
+│   ├── seo-pages.json    # SEO页面配置
+│   ├── study-data.json   # 学习页面数据
+│   └── tools.json        # 工具数据
 ├── posts/           # 博客文章目录
-│   ├── markdown示例.md
-│   └── posts.json
+│   └── *.md        # Markdown格式博文
 ├── images/          # 图片资源目录
-│   ├── BV1zM41127x9.jpg
+│   ├── finisher_certificates/  # 完赛证书图片
+│   ├── moments/     # 灵感碎片图片
+│   ├── post.*/      # 博文配图子目录
 │   ├── bilibili-icon.png
 │   ├── body_backgrond.jpg
+│   ├── b站头像.gif
+│   ├── favicon.ico
 │   ├── github-icon.svg
-│   ├── menu-icon.svg
-│   ├── test_image.jpg
-│   ├── touken/      # 刀剑乱舞相关图片
-│   │   └── default_sword.jpg
-│   └── weibo-icon.png
-├── videos/          # 视频资源目录
-│   └── test_video.mp4
+│   └── menu-icon.svg
 ├── audios/          # 音频资源目录
-│   └── test_audio.mp3
+│   └── moments/     # 灵感碎片音频
+├── videos/          # 视频资源目录
 ├── documents/       # 项目文档目录
 │   ├── resize.txt
 │   ├── resized_files_list.txt
-│   └── 时间距离配速距离计算逻辑.txt
-├── JSON/              # JSON数据文件目录
-│   ├── posts.json     # 博客文章数据（已废弃，向后兼容）
-│   ├── posts-list.json  # 博客文章列表配置文件
-│   └── race-records.json  # 跑步记录数据
-├── templates/       # 模板文件目录
+│   ├── 时间距离配速距离计算逻辑.txt
+│   └── 武林外传剧本全.md
 ├── index.html       # 网站首页
 ├── pace-calculator.html
+├── time-calculator.html
+├── life-path-calculator.html
 ├── sports.html
 ├── study.html
 ├── style-comparison.html
 ├── tools.html
 ├── touken-forge.html
+├── civilization-evolution.html
+├── wulin-quotes.html
 ├── video.html
-├── convert-md-to-json.html  # Markdown转换工具页面
-├── post-detail.html  # 文章详情页面
-├── posts.html        # 文章列表页面
-├── civilization-evolution.html  # 多文明演化模拟器页面
+├── moments.html
+├── posts.html
+├── post-detail.html
+├── convert-md-to-json.html
+├── seo-checker.html
+├── random-decision.html
+├── dice-tool.html
+├── local-llm-api-chat.html
 └── README.md        # 项目说明文档
 ```
 
@@ -194,6 +243,7 @@ woshicby.github.io/
 | 2026.04.23 | 新增生命灵数计算器(life-path-calculator.html)，支持生日输入、逐位相加计算过程展示、大师数识别及灵数含义说明 |
 | 2026.05.04 | 添加博文系列功能并优化博文列表页面：新增系列分类展示、时间线归档视图、无限滚动加载、回到顶部按钮，更新相关JSON和样式 |
 | 2026.05.08 | 添加武林外传接台词游戏(wulin-quotes.html)和台词查询工具，支持多难度模式、角色筛选、台词搜索功能 |
+| 2026.05.20 | 添加待抽签赛事管理与展示功能：新增待抽签赛事状态判断逻辑与日历样式；过滤已完赛赛事用于PB/SB计算和图表统计；补全赛事数据的status字段并新增待抽签赛事 |
 
 ## 使用方法
 
@@ -227,30 +277,38 @@ This is a personal website built with HTML, CSS, and JavaScript, designed to dem
 
 ### 1. Calculator Tools
 - **Pace Calculator** (pace-calculator.html): A tool for calculating running and sports pace
+- **Time Calculator** (time-calculator.html): Time interval calculation tool
+- **Life Path Number Calculator** (life-path-calculator.html): Life path number calculation and interpretation tool based on birthday
 
 ### 2. Game-related
 - **Touken Ranbu Sword Forging Simulator** (touken-forge.html): Simulates the sword forging system in the game
 - **Civilization Evolution Simulator** (civilization-evolution.html): Automatically simulates the development process of multiple civilizations, showing exchanges, conflicts, and rises and falls between civilizations
+- **My Own Swordsman Quote Game** (wulin-quotes.html): Quote guessing game for the TV show "My Own Swordsman", supporting multiple difficulty modes and dialogue search
 
 ### 3. Media Display
 - **Video Player** (video.html): Video content display and playback
+- **Inspiration Moments** (moments.html): Record inspiration moments in various formats including text, images, audio, and video, with Markdown rendering and tag filtering support
 
 ### 4. Sports-related
-- **Running Records** (sports.html): Displays personal running records with Season Best (SB) and Personal Best (PB) markers, featuring collapsible season records and multi-column waterfall layout for finisher certificates, supports adding "不计入PB/SB" tag in certification field to exclude specific races from PB calculation, shows race type in race records
+- **Running Records** (sports.html): Displays personal running records with Season Best (SB) and Personal Best (PB) markers, featuring collapsible season records and multi-column waterfall layout for finisher certificates, supports adding "不计入PB/SB" tag in certification field to exclude specific races from PB calculation, shows race type in race records, trail running supports raceScore and ITRA performance index
 - **Race Performance Comparison** (sports.html): Supports same project performance comparison and same event series performance comparison, displays all-time average, best performance, worst performance, trend, and days since last race
-- **Race Calendar** (sports.html): Displays different types of running races, supports monthly/yearly view switching, shows results for past races and start times for future races, displays detailed tooltips on mouse hover, includes race type legend
+- **Race Calendar** (sports.html): Displays different types of running races, supports monthly/yearly view switching, shows results for past races and start times for future races, displays detailed tooltips on mouse hover, includes race type legend, supports pending lottery race section display with draw date
 
 ### 5. Learning Resources
-- **Study Page** (study.html): Learning materials and notes
+- **Study Page** (study.html): Learning materials and notes, with dynamic loading and filtering support
 
 ### 6. Blog/Articles
-- **Article List** (posts.html): Blog article list display
+- **Article List** (posts.html): Blog article list display, supporting series classification, timeline archive view, and infinite scroll loading
 - **Article Detail** (post-detail.html): Article content display with Markdown support
 
 ### 7. Utility Tools
 - **Tools Collection** (tools.html): A collection of various practical small tools
 - **Style Comparator** (style-comparison.html): Style comparison tool
 - **Markdown to JSON Converter** (convert-md-to-json.html): Converts Markdown files to JSON format
+- **SEO Metadata Checker** (seo-checker.html): Web page SEO metadata checking tool
+- **Random Decision Maker** (random-decision.html): Random selection decision tool
+- **Dice Tool** (dice-tool.html): Virtual dice rolling tool
+- **Local LLM API Chat** (local-llm-api-chat.html): Interact with local LLM services like LM Studio
 
 ### 8. Technical Features
 - **MathJax Support**: Mathematical formula rendering
@@ -273,82 +331,123 @@ This is a personal website built with HTML, CSS, and JavaScript, designed to dem
 ```
 woshicby.github.io/
 ├── CSS/             # CSS files directory
-│   ├── common/      # Common styles subdirectory
-│   ├── index/       # Homepage styles subdirectory
-│   ├── pace-calculator/  # Pace calculator styles subdirectory
-│   ├── tools-common/     # Tools common styles subdirectory
-│   ├── common.css   # Common styles
-│   ├── index.css    # Homepage styles
-│   ├── pace-calculator.css
-│   ├── sports.css
-│   ├── style-comparison.css
-│   ├── tools-common.css
-│   ├── tools.css
-│   ├── touken-forge.css
-│   ├── video.css
+│   ├── common/      # Common styles subdirectory (dark theme, responsive, selectors)
+│   ├── index/       # Homepage styles subdirectory (dark theme, responsive, selectors)
+│   ├── calendar.css       # Race calendar styles
+│   ├── charts.css         # Performance chart styles
+│   ├── civilization-evolution.css  # Civilization Evolution Simulator styles
+│   ├── common.css         # Common styles
 │   ├── convert-md-to-json.css  # Markdown converter styles
-│   ├── github.min.css  # GitHub style
-│   ├── post-detail.css  # Article detail styles
-│   ├── posts.css       # Article list styles
-│   ├── study.css       # Study page styles
-│   └── civilization-evolution.css  # Civilization Evolution Simulator styles
+│   ├── dice-tool.css      # Dice tool styles
+│   ├── github.min.css     # GitHub style code highlighting
+│   ├── index.css          # Homepage styles
+│   ├── life-path-calculator.css  # Life path calculator styles
+│   ├── local-llm-api-chat.css    # Local LLM chat styles
+│   ├── moments.css        # Inspiration Moments styles
+│   ├── pace-calculator.css  # Pace calculator styles
+│   ├── post-detail.css    # Article detail styles
+│   ├── posts.css          # Article list styles
+│   ├── random-decision.css  # Random decision maker styles
+│   ├── seo-checker.css    # SEO checker styles
+│   ├── sports.css         # Running records styles
+│   ├── study.css          # Study page styles
+│   ├── style-comparison.css  # Style comparator styles
+│   ├── time-calculator.css  # Time calculator styles
+│   ├── tools-common.css   # Tools common styles
+│   ├── tools.css          # Tools collection styles
+│   ├── touken-forge.css   # Touken Ranbu styles
+│   ├── video.css          # Video player styles
+│   └── wulin-quotes.css   # My Own Swordsman styles
 ├── JS/              # JavaScript files directory
 │   ├── MathJax-3.2.2es5/  # MathJax library
+│   ├── civilization-evolution/  # Civilization Evolution Simulator
+│   │   ├── civilization.js
+│   │   ├── main.js
+│   │   ├── map.js
+│   │   ├── simulator.js
+│   │   ├── tech-tree.json
+│   │   └── ui.js
 │   ├── markdown/     # Markdown related functionality
-│   ├── bilibili-api.js
-│   ├── navigation.js
-│   ├── pace-calculator.js
-│   ├── theme-toggle.js
-│   ├── touken-forge.js
-│   ├── sports.js     # Running records functionality
+│   │   ├── markdown-it.min.js
+│   │   ├── markdown-it-footnote.min.js
+│   │   ├── markdown-it-mark.min.js
+│   │   ├── markdown-it-sub.min.js
+│   │   ├── markdown-it-sup.min.js
+│   │   └── markdown-utils.js  # Markdown parsing shared utilities
+│   ├── background-lazy-load.js  # Background image lazy loading
+│   ├── bilibili-api.js    # Bilibili API
+│   ├── calendar.js        # Race calendar functionality
+│   ├── charts.js          # Performance chart functionality
 │   ├── convert-md-to-json.js  # Markdown converter
-│   ├── highlight.min.js  # Code highlighting
-│   ├── post-detail.js  # Article detail functionality
-│   ├── posts.js       # Article list functionality
-│   └── civilization-evolution/  # Civilization Evolution Simulator
-│       ├── civilization.js
-│       ├── map.js
-│       ├── simulator.js
-│       ├── ui.js
-│       └── main.js
+│   ├── dice-tool.js       # Dice tool
+│   ├── highlight.min.js   # Code highlighting
+│   ├── life-path-calculator.js  # Life path calculator
+│   ├── local-llm-api-chat.js    # Local LLM chat
+│   ├── moments.js         # Inspiration Moments
+│   ├── navigation.js      # Navigation functionality
+│   ├── pace-calculator.js # Pace calculator
+│   ├── post-detail.js     # Article detail functionality
+│   ├── posts.js           # Article list functionality
+│   ├── random-decision.js # Random decision maker
+│   ├── seo-checker.js     # SEO checker
+│   ├── sports.js          # Running records functionality
+│   ├── study.js           # Study page functionality
+│   ├── theme-toggle.js    # Theme switching
+│   ├── time-calculator.js # Time calculator
+│   ├── tool-tabs.js       # Tool page tab navigation
+│   ├── tools.js           # Tools collection
+│   ├── touken-forge.js    # Touken Ranbu
+│   └── wulin-quotes.js    # My Own Swordsman
+├── JSON/              # JSON data files directory
+│   ├── games.json        # Game data
+│   ├── moments.json      # Inspiration Moments data
+│   ├── posts.json        # Blog posts data (deprecated, backward compatible)
+│   ├── posts-list.json   # Blog posts list configuration file
+│   ├── posts-series.json # Blog series configuration file
+│   ├── race-records.json  # Running records data
+│   ├── seo-pages.json    # SEO page configuration
+│   ├── study-data.json   # Study page data
+│   └── tools.json        # Tools data
 ├── posts/           # Blog articles directory
-│   ├── markdown示例.md
-│   └── posts.json
+│   └── *.md        # Markdown format blog posts
 ├── images/          # Image resources directory
-│   ├── BV1zM41127x9.jpg
+│   ├── finisher_certificates/  # Finisher certificate images
+│   ├── moments/     # Inspiration Moments images
+│   ├── post.*/      # Blog post image subdirectories
 │   ├── bilibili-icon.png
 │   ├── body_backgrond.jpg
+│   ├── b站头像.gif
+│   ├── favicon.ico
 │   ├── github-icon.svg
-│   ├── menu-icon.svg
-│   ├── test_image.jpg
-│   ├── touken/      # Touken Ranbu related images
-│   │   └── default_sword.jpg
-│   └── weibo-icon.png
-├── videos/          # Video resources directory
-│   └── test_video.mp4
+│   └── menu-icon.svg
 ├── audios/          # Audio resources directory
-│   └── test_audio.mp3
+│   └── moments/     # Inspiration Moments audio
+├── videos/          # Video resources directory
 ├── documents/       # Project documents directory
 │   ├── resize.txt
 │   ├── resized_files_list.txt
-│   └── 时间距离配速距离计算逻辑.txt (Time-Distance-Pace Calculation Logic)
-├── JSON/              # JSON data files directory
-│   ├── posts.json     # Blog posts data (deprecated, backward compatible)
-│   ├── posts-list.json  # Blog posts list configuration file
-│   └── race-records.json  # Running records data
-├── templates/       # Template files directory
+│   ├── 时间距离配速距离计算逻辑.txt (Time-Distance-Pace Calculation Logic)
+│   └── 武林外传剧本全.md (My Own Swordsman Script)
 ├── index.html       # Website homepage
 ├── pace-calculator.html
+├── time-calculator.html
+├── life-path-calculator.html
 ├── sports.html
 ├── study.html
 ├── style-comparison.html
 ├── tools.html
 ├── touken-forge.html
+├── civilization-evolution.html
+├── wulin-quotes.html
 ├── video.html
-├── convert-md-to-json.html  # Markdown converter page
-├── post-detail.html  # Article detail page
-├── posts.html        # Article list page
-├── civilization-evolution.html  # Civilization Evolution Simulator page
+├── moments.html
+├── posts.html
+├── post-detail.html
+├── convert-md-to-json.html
+├── seo-checker.html
+├── random-decision.html
+├── dice-tool.html
+├── local-llm-api-chat.html
 └── README.md        # Project documentation
 ```
 
@@ -395,6 +494,7 @@ woshicby.github.io/
 | 2026.04.23 | Added life path number calculator (life-path-calculator.html), supporting birthday input, step-by-step digit addition display, master number identification, and number meaning descriptions |
 | 2026.05.04 | Added blog series feature and optimized posts list page: series classification, timeline archive view, infinite scroll loading, back-to-top button, updated related JSON and styles |
 | 2026.05.08 | Added My Own Swordsman quote guessing game (wulin-quotes.html) and dialogue search tool, supporting multiple difficulty modes, character filtering, and dialogue search |
+| 2026.05.20 | Added pending lottery race management and display: new pending lottery status logic and calendar styles; filter finished races for PB/SB calculation and chart statistics; added status field to all race records and new pending lottery races |
 
 ## Usage
 
@@ -428,30 +528,38 @@ When adding new pages, please follow the existing file structure and naming conv
 
 ### 1. 計算ツール
 - **ペース計算機** (pace-calculator.html): ランニングやスポーツのペース計算ツール
+- **時間計算機** (time-calculator.html): 時間間隔計算ツール
+- **ライフパスナンバー計算機** (life-path-calculator.html): 誕生日に基づくライフパスナンバー計算・解釈ツール
 
 ### 2. ゲーム関連
 - **刀剣乱舞刀鍛冶シミュレーター** (touken-forge.html): ゲーム内の刀鍛冶システムをシミュレート
 - **多文明演化シミュレーター** (civilization-evolution.html): 複数の文明の発展プロセスを自動的にシミュレートし、文明間の交流、対立、盛衰を示す
+- **武林外伝セリフ当てゲーム** (wulin-quotes.html): ドラマ「武林外伝」のセリフ当てゲーム、複数難易度モードとセリフ検索をサポート
 
 ### 3. メディア表示
 - **ビデオプレイヤー** (video.html): ビデオコンテンツの表示と再生
+- **インスピレーション Moments** (moments.html): テキスト、画像、音声、動画など様々な形式のインスピレーションを記録、Markdownレンダリングとタグフィルタリングをサポート
 
 ### 4. スポーツ関連
-- **ランニング記録** (sports.html): 個人のランニング記録を表示し、シーズンベスト(SB)とパーソナルベスト(PB)のマーカーをサポート、折りたたみ可能なシーズン記録機能を搭載、完走証明書は多列のウォーターフォールレイアウトで表示、特定のレースをPB計算から除外するためにcertificationフィールドに「不计入PB/SB」タグを追加できる、レース記録にレースタイプを表示
+- **ランニング記録** (sports.html): 個人のランニング記録を表示し、シーズンベスト(SB)とパーソナルベスト(PB)のマーカーをサポート、折りたたみ可能なシーズン記録機能を搭載、完走証明書は多列のウォーターフォールレイアウトで表示、特定のレースをPB計算から除外するためにcertificationフィールドに「不计入PB/SB」タグを追加できる、レース記録にレースタイプを表示、トレイルランはraceScoreとITRAパフォーマンス指数をサポート
 - **レース成績比較** (sports.html): 同一プロジェクトの成績変化比較と同一イベントシリーズの成績変化比較をサポート、全期間平均成績、最高成績、最低成績、傾向、および前回レースからの日数を表示
-- **レースカレンダー** (sports.html): 異なるタイプのランニングレースを表示、月/年ビュー切り替えに対応、過去のレースには結果を表示、未来のレースにはスタート時間を表示、マウスホバーで詳細ツールチップを表示、レースタイプの凡例を含む
+- **レースカレンダー** (sports.html): 異なるタイプのランニングレースを表示、月/年ビュー切り替えに対応、過去のレースには結果を表示、未来のレースにはスタート時間を表示、マウスホバーで詳細ツールチップを表示、レースタイプの凡例を含む、抽選待ちレースのセクション表示と抽選日表示をサポート
 
 ### 5. 学習リソース
-- **学習ページ** (study.html): 学習資料とノート
+- **学習ページ** (study.html): 学習資料とノート、動的読み込みとフィルタリングをサポート
 
 ### 6. ブログ/記事
-- **記事一覧** (posts.html): ブログ記事一覧表示
+- **記事一覧** (posts.html): ブログ記事一覧表示、シリーズ分類、タイムラインアーカイブビュー、無限スクロール読み込みをサポート
 - **記事詳細** (post-detail.html): Markdown形式で記事内容を表示
 
 ### 7. 便利ツール
 - **ツールコレクション** (tools.html): 様々な実用的な小さなツールの集合
 - **スタイル比較ツール** (style-comparison.html): スタイル比較ツール
 - **MarkdownからJSONへの変換ツール** (convert-md-to-json.html): MarkdownファイルをJSON形式に変換
+- **SEOメタデータチェッカー** (seo-checker.html): ウェブページSEOメタデータチェックツール
+- **ランダム決定メーカー** (random-decision.html): ランダム選択決定ツール
+- **ダイスツール** (dice-tool.html): バーチャルダイス投擲ツール
+- **ローカルLLM APIチャット** (local-llm-api-chat.html): LM StudioなどのローカルLLMサービスと対話
 
 ### 8. 技術機能
 - **MathJaxサポート**: 数式のレンダリング
@@ -474,82 +582,123 @@ When adding new pages, please follow the existing file structure and naming conv
 ```
 woshicby.github.io/
 ├── CSS/             # CSSファイルディレクトリ
-│   ├── common/      # 共通スタイルサブディレクトリ
-│   ├── index/       # ホームページスタイルサブディレクトリ
-│   ├── pace-calculator/  # ペース計算機スタイルサブディレクトリ
-│   ├── tools-common/     # ツール共通スタイルサブディレクトリ
-│   ├── common.css   # 共通スタイル
-│   ├── index.css    # ホームページスタイル
-│   ├── pace-calculator.css
-│   ├── sports.css
-│   ├── style-comparison.css
-│   ├── tools-common.css
-│   ├── tools.css
-│   ├── touken-forge.css
-│   ├── video.css
+│   ├── common/      # 共通スタイルサブディレクトリ（ダークテーマ、レスポンシブ、セレクタ）
+│   ├── index/       # ホームページスタイルサブディレクトリ（ダークテーマ、レスポンシブ、セレクタ）
+│   ├── calendar.css       # レースカレンダースタイル
+│   ├── charts.css         # 成績チャートスタイル
+│   ├── civilization-evolution.css  # 多文明演化シミュレータースタイル
+│   ├── common.css         # 共通スタイル
 │   ├── convert-md-to-json.css  # Markdown変換ツールスタイル
-│   ├── github.min.css  # GitHubスタイル
-│   ├── post-detail.css  # 記事詳細スタイル
-│   ├── posts.css       # 記事一覧スタイル
-│   ├── study.css       # 学習ページスタイル
-│   └── civilization-evolution.css  # 多文明演化シミュレータースタイル
+│   ├── dice-tool.css      # ダイスツールスタイル
+│   ├── github.min.css     # GitHubスタイルコードハイライト
+│   ├── index.css          # ホームページスタイル
+│   ├── life-path-calculator.css  # ライフパスナンバー計算機スタイル
+│   ├── local-llm-api-chat.css    # ローカルLLMチャットスタイル
+│   ├── moments.css        # インスピレーションMomentsスタイル
+│   ├── pace-calculator.css  # ペース計算機スタイル
+│   ├── post-detail.css    # 記事詳細スタイル
+│   ├── posts.css          # 記事一覧スタイル
+│   ├── random-decision.css  # ランダム決定メーカースタイル
+│   ├── seo-checker.css    # SEOチェッカースタイル
+│   ├── sports.css         # ランニング記録スタイル
+│   ├── study.css          # 学習ページスタイル
+│   ├── style-comparison.css  # スタイル比較ツールスタイル
+│   ├── time-calculator.css  # 時間計算機スタイル
+│   ├── tools-common.css   # ツール共通スタイル
+│   ├── tools.css          # ツールコレクションスタイル
+│   ├── touken-forge.css   # 刀剣乱舞スタイル
+│   ├── video.css          # ビデオプレイヤースタイル
+│   └── wulin-quotes.css   # 武林外伝スタイル
 ├── JS/              # JavaScriptファイルディレクトリ
 │   ├── MathJax-3.2.2es5/  # MathJaxライブラリ
+│   ├── civilization-evolution/  # 多文明演化シミュレーター
+│   │   ├── civilization.js
+│   │   ├── main.js
+│   │   ├── map.js
+│   │   ├── simulator.js
+│   │   ├── tech-tree.json
+│   │   └── ui.js
 │   ├── markdown/     # Markdown関連機能
-│   ├── bilibili-api.js
-│   ├── navigation.js
-│   ├── pace-calculator.js
-│   ├── theme-toggle.js
-│   ├── touken-forge.js
-│   ├── sports.js     # ランニング記録機能
+│   │   ├── markdown-it.min.js
+│   │   ├── markdown-it-footnote.min.js
+│   │   ├── markdown-it-mark.min.js
+│   │   ├── markdown-it-sub.min.js
+│   │   ├── markdown-it-sup.min.js
+│   │   └── markdown-utils.js  # Markdown解析共有ユーティリティ
+│   ├── background-lazy-load.js  # 背景画像遅延読み込み
+│   ├── bilibili-api.js    # Bilibili API
+│   ├── calendar.js        # レースカレンダー機能
+│   ├── charts.js          # 成績チャート機能
 │   ├── convert-md-to-json.js  # Markdown変換ツール
-│   ├── highlight.min.js  # コードハイライト
-│   ├── post-detail.js  # 記事詳細機能
-│   ├── posts.js       # 記事一覧機能
-│   └── civilization-evolution/  # 多文明演化シミュレーター
-│       ├── civilization.js
-│       ├── map.js
-│       ├── simulator.js
-│       ├── ui.js
-│       └── main.js
+│   ├── dice-tool.js       # ダイスツール
+│   ├── highlight.min.js   # コードハイライト
+│   ├── life-path-calculator.js  # ライフパスナンバー計算機
+│   ├── local-llm-api-chat.js    # ローカルLLMチャット
+│   ├── moments.js         # インスピレーションMoments
+│   ├── navigation.js      # ナビゲーション機能
+│   ├── pace-calculator.js # ペース計算機
+│   ├── post-detail.js     # 記事詳細機能
+│   ├── posts.js           # 記事一覧機能
+│   ├── random-decision.js # ランダム決定メーカー
+│   ├── seo-checker.js     # SEOチェッカー
+│   ├── sports.js          # ランニング記録機能
+│   ├── study.js           # 学習ページ機能
+│   ├── theme-toggle.js    # テーマ切り替え
+│   ├── time-calculator.js # 時間計算機
+│   ├── tool-tabs.js       # ツールページタブナビゲーション
+│   ├── tools.js           # ツールコレクション
+│   ├── touken-forge.js    # 刀剣乱舞
+│   └── wulin-quotes.js    # 武林外伝
+├── JSON/              # JSONデータファイルディレクトリ
+│   ├── games.json        # ゲームデータ
+│   ├── moments.json      # インスピレーションMomentsデータ
+│   ├── posts.json        # ブログ記事データ（非推奨、後方互換）
+│   ├── posts-list.json   # ブログ記事リスト設定ファイル
+│   ├── posts-series.json # ブログシリーズ設定ファイル
+│   ├── race-records.json  # ランニング記録データ
+│   ├── seo-pages.json    # SEOページ設定
+│   ├── study-data.json   # 学習ページデータ
+│   └── tools.json        # ツールデータ
 ├── posts/           # ブログ記事ディレクトリ
-│   ├── markdown示例.md
-│   └── posts.json
+│   └── *.md        # Markdown形式ブログ記事
 ├── images/          # 画像リソースディレクトリ
-│   ├── BV1zM41127x9.jpg
+│   ├── finisher_certificates/  # 完走証明書画像
+│   ├── moments/     # インスピレーションMoments画像
+│   ├── post.*/      # ブログ記事画像サブディレクトリ
 │   ├── bilibili-icon.png
 │   ├── body_backgrond.jpg
+│   ├── b站头像.gif
+│   ├── favicon.ico
 │   ├── github-icon.svg
-│   ├── menu-icon.svg
-│   ├── test_image.jpg
-│   ├── touken/      # 刀剣乱舞関連画像
-│   │   └── default_sword.jpg
-│   └── weibo-icon.png
-├── videos/          # 動画リソースディレクトリ
-│   └── test_video.mp4
+│   └── menu-icon.svg
 ├── audios/          # 音声リソースディレクトリ
-│   └── test_audio.mp3
+│   └── moments/     # インスピレーションMoments音声
+├── videos/          # 動画リソースディレクトリ
 ├── documents/       # プロジェクトドキュメントディレクトリ
 │   ├── resize.txt
 │   ├── resized_files_list.txt
-│   └── 时间距离配速距离计算逻辑.txt (時間-距離-ペース計算ロジック)
-├── JSON/              # JSONデータファイルディレクトリ
-│   ├── posts.json     # ブログ記事データ（非推奨、後方互換）
-│   ├── posts-list.json  # ブログ記事リスト設定ファイル
-│   └── race-records.json  # ランニング記録データ
-├── templates/       # テンプレートファイルディレクトリ
+│   ├── 时间距离配速距离计算逻辑.txt (時間-距離-ペース計算ロジック)
+│   └── 武林外传剧本全.md (武林外伝スクリプト)
 ├── index.html       # ウェブサイトホームページ
 ├── pace-calculator.html
+├── time-calculator.html
+├── life-path-calculator.html
 ├── sports.html
 ├── study.html
 ├── style-comparison.html
 ├── tools.html
 ├── touken-forge.html
+├── civilization-evolution.html
+├── wulin-quotes.html
 ├── video.html
-├── convert-md-to-json.html  # Markdown変換ツールページ
-├── post-detail.html  # 記事詳細ページ
-├── posts.html        # 記事一覧ページ
-├── civilization-evolution.html  # 多文明演化シミュレーターページ
+├── moments.html
+├── posts.html
+├── post-detail.html
+├── convert-md-to-json.html
+├── seo-checker.html
+├── random-decision.html
+├── dice-tool.html
+├── local-llm-api-chat.html
 └── README.md        # プロジェクトドキュメント
 ```
 
@@ -596,6 +745,7 @@ woshicby.github.io/
 | 2026.04.23 | ライフパスナンバー計算機(life-path-calculator.html)を追加、誕生日入力、桁ごとの加算過程表示、マスター番号識別、ナンバーの意味説明をサポート |
 | 2026.05.04 | ブログシリーズ機能を追加し投稿一覧ページを最適化：シリーズ分類表示、タイムラインアーカイブビュー、無限スクロール読み込み、トップへ戻るボタン、関連JSONとスタイルを更新 |
 | 2026.05.08 | 武林外伝セリフ当てゲーム(wulin-quotes.html)とセリフ検索ツールを追加、複数難易度モード、キャラクターフィルタリング、セリフ検索機能をサポート |
+| 2026.05.20 | 抽選待ちレース管理・表示機能を追加：抽選待ちレースステータス判定ロジックとカレンダースタイルを新規追加；PB/SB計算とチャート統計に完了レースのみをフィルタリング；全レースデータにstatusフィールドを追加し、抽選待ちレースを新規追加 |
 
 ## 使用方法
 

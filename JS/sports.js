@@ -423,8 +423,8 @@ function generateRaceRecords() {
    const pbs = findPersonalBests(raceRecords);
    const sbs = findSeasonBests(raceRecords);
    
-   // 过滤掉没有结果的赛事
-   const racesWithResults = raceRecords.filter(race => race.result && race.result !== '');
+   // 过滤掉没有结果的赛事和待抽签赛事
+   const racesWithResults = raceRecords.filter(race => race.result && race.result !== '' && race.status === 'finished');
    
    // 生成个人记录内容
    generatePersonalRecords(racesWithResults);
@@ -615,8 +615,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // 加载完赛证书数据 - 现在从raceRecords中获取信息
 function loadCertificatesData() {
-   // 从raceRecords中构建证书列表
-   const certificates = raceRecords.map(race => {
+   // 从raceRecords中构建证书列表（排除待抽签赛事）
+   const certificates = raceRecords
+       .filter(race => race.status === 'finished')
+       .map(race => {
        // 从日期字符串中提取YYYYMMDD格式的日期部分
        const datePart = race.date.replace(/-/g, '');
        

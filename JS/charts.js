@@ -574,11 +574,14 @@ function initProjectComparison(races) {
    
    if (!projectSelect || !statsContainer) return;
    
+   // 只纳入已完赛赛事
+   const finishedRaces = races.filter(race => race.status === 'finished');
+   
    // 按项目分组
-   const racesByEvent = groupRacesByEvent(races);
+   const racesByEvent = groupRacesByEvent(finishedRaces);
    
    // 特殊处理：将所有越野跑归为一个项目
-   const trailRuns = races.filter(race => race.category === '越野跑');
+   const trailRuns = finishedRaces.filter(race => race.category === '越野跑');
    if (trailRuns.length >= 2) {
        racesByEvent['越野跑'] = trailRuns;
    }
@@ -726,8 +729,11 @@ function initEventSeriesComparison(races) {
    
    if (!seriesSelect) return;
    
+   // 只纳入已完赛赛事
+   const finishedRaces = races.filter(race => race.status === 'finished');
+   
    // 按赛事系列和项目分组
-   const racesBySeries = groupRacesByEventSeries(races);
+   const racesBySeries = groupRacesByEventSeries(finishedRaces);
    
    // 填充赛事系列选择下拉框（只显示有多次记录的赛事系列和项目组合）
    const validSeries = Object.keys(racesBySeries).filter(series => racesBySeries[series].length >= 2);
