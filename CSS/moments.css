@@ -196,8 +196,7 @@ body.moments-page {
 }
 
 .moments-page .moments-list {
-   columns: 320px;
-   column-gap: 20px;
+   position: relative;
    padding: 0;
    margin: 0;
    background: none;
@@ -212,6 +211,12 @@ body.moments-page {
    background: none;
 }
 
+.moments-page .moments-list .masonry-column {
+   position: absolute;
+   top: 0;
+   box-sizing: border-box;
+}
+
 .moments-page .moment-item {
    border-radius: var(--border-radius-md);
    padding: var(--spacing-lg);
@@ -220,9 +225,6 @@ body.moments-page {
    box-shadow: var(--shadow-light);
    transition: var(--transition-default);
    position: relative;
-   display: inline-block;
-   width: 100%;
-   break-inside: avoid;
    margin-bottom: 20px;
 }
 
@@ -403,15 +405,11 @@ body.moments-page {
 }
 
 @media (max-width: 900px) {
-   .moments-page .moments-list {
-       columns: 280px;
-   }
+   /* 瀑布流列数由JS自动适配 */
 }
 
 @media (max-width: 600px) {
-   .moments-page .moments-list {
-       columns: 1;
-   }
+   /* 瀑布流列数由JS自动适配 */
 
    .moments-page .moment-meta {
        flex-direction: column;

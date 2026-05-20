@@ -70,5 +70,13 @@
        "description": "输入生日计算生命灵数，展示完整的逐位相加计算过程，支持大师数（11、22、33、44）识别。",
        "link": "life-path-calculator.html",
        "buttonText": "开始计算"
+   },
+   {
+       "id": "emoji-renderer",
+       "icon": "😎",
+       "title": "Emoji渲染器",
+       "description": "高清Emoji渲染与导出工具，支持分类浏览、关键词搜索、超高清渲染和PNG导出。",
+       "link": "emoji-renderer.html",
+       "buttonText": "开始使用"
    }
 ]

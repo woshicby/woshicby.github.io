@@ -1,0 +1,423 @@
+.emoji-renderer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.preview-area {
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 20px;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.preview-header h3 {
+    color: var(--heading-color);
+    font-size: 18px;
+    margin: 0;
+}
+
+.preview-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+}
+
+.size-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.size-control label {
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.size-control input[type="range"] {
+    width: 140px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.size-number-input {
+    width: 100px;
+    padding: 3px 6px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    background: var(--card-bg-color);
+    color: var(--text-color);
+    font-size: 13px;
+    text-align: center;
+}
+
+.size-number-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.size-info {
+    font-size: 12px;
+    color: var(--light-text);
+    background: var(--hover-background);
+    padding: 2px 8px;
+    border-radius: var(--border-radius-sm);
+    white-space: nowrap;
+}
+
+.style-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-color);
+    flex-wrap: wrap;
+}
+
+.style-control label {
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.style-btn {
+    padding: 4px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    background: var(--card-bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 12px;
+    transition: var(--transition-fast);
+}
+
+.style-btn:hover {
+    border-color: var(--primary-color);
+}
+
+.style-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.bg-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.bg-control label {
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.bg-btn {
+    padding: 4px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    background: var(--card-bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 12px;
+    transition: var(--transition-fast);
+}
+
+.bg-btn:hover {
+    border-color: var(--primary-color);
+}
+
+.bg-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.bg-control input[type="color"] {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    background: none;
+}
+
+.preview-canvas-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    padding: 20px;
+    background-image:
+        linear-gradient(45deg, #ccc 25%, transparent 25%),
+        linear-gradient(-45deg, #ccc 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #ccc 75%),
+        linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+}
+
+#emojiCanvas {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: var(--border-radius-sm);
+}
+
+.export-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.export-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    background: var(--primary-color);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.export-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.export-btn.secondary {
+    background: var(--secondary-color);
+}
+
+.selector-area {
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 20px;
+}
+
+.search-bar {
+    margin-bottom: 12px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background: var(--white);
+    color: var(--text-color);
+    font-size: 15px;
+    transition: var(--transition-fast);
+    box-sizing: border-box;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.search-bar input::placeholder {
+    color: var(--light-text);
+}
+
+.category-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.cat-btn {
+    padding: 6px 14px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background: var(--card-bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 14px;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+}
+
+.cat-btn:hover {
+    border-color: var(--primary-color);
+    background: var(--hover-background);
+}
+
+.cat-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.emoji-grid-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 8px;
+}
+
+.emoji-grid-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.emoji-grid-wrapper::-webkit-scrollbar-track {
+    background: var(--card-bg-color);
+    border-radius: 4px;
+}
+
+.emoji-grid-wrapper::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.emoji-grid-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--light-text);
+}
+
+.emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+    gap: 4px;
+}
+
+.emoji-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    font-size: 28px;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    user-select: none;
+    border: 2px solid transparent;
+}
+
+.emoji-item img.emoji {
+    width: 28px;
+    height: 28px;
+    pointer-events: none;
+}
+
+.emoji-item:hover {
+    background: var(--hover-background);
+    transform: scale(1.15);
+    border-color: var(--primary-color);
+}
+
+.emoji-item.selected {
+    background: var(--hover-background);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.4);
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--light-text);
+    font-size: 15px;
+}
+
+@media (max-width: 768px) {
+    .preview-header {
+        flex-direction: column;
+    }
+
+    .preview-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .size-control input[type="range"] {
+        width: 120px;
+    }
+
+    .emoji-grid {
+        grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+    }
+
+    .emoji-item {
+        width: 42px;
+        height: 42px;
+        font-size: 24px;
+    }
+
+    .emoji-item img.emoji {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .preview-area,
+    .selector-area {
+        padding: 12px;
+    }
+
+    .emoji-grid {
+        grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+    }
+
+    .emoji-item {
+        width: 38px;
+        height: 38px;
+        font-size: 22px;
+    }
+
+    .emoji-item img.emoji {
+        width: 22px;
+        height: 22px;
+    }
+
+    .export-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .cat-btn {
+        padding: 4px 10px;
+        font-size: 12px;
+    }
+}
+
+body.dark-theme .preview-canvas-wrapper {
+    background-image:
+        linear-gradient(45deg, #444 25%, transparent 25%),
+        linear-gradient(-45deg, #444 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #444 75%),
+        linear-gradient(-45deg, transparent 75%, #444 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+body.dark-theme .search-bar input {
+    background: var(--card-bg-color);
+}
+
+body.dark-theme .emoji-grid-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}

@@ -6,8 +6,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>时间计算器 - BY的个人网站</title>
 
-   <meta name="description" content="计算两个时间点之间的时间间隔，支持组合模式和各单位单独显示。">
-   <meta name="keywords" content="时间计算器,时间间隔,日期差,时间差计算">
+   <meta name="description" content="计算两个时间点之间的时间间隔，支持组合模式和各单位单独显示，以及视频时间对轨计算。">
+   <meta name="keywords" content="时间计算器,时间间隔,日期差,时间差计算,对轨,视频同步">
    <meta name="author" content="woshicby">
    <meta name="robots" content="index, follow">
 
@@ -41,20 +41,13 @@
        <h1>时间计算器</h1>
        <div class="nav">
            <ul class="clearfix">
-               <li><a href="./index.html">首页</a></li>
-               <li><a href="./video.html">视频展示</a></li>
-               <li><a href="./posts.html">博客文章</a></li>
-               <li><a href="./moments.html">灵感碎片</a></li>
-               <li><a href="./study.html">个人成果</a></li>
-               <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
-               <li><a href="./sports.html">体育运动</a></li>
-               <li>
+                <li>
                    <label class="theme-toggle">
                        <input type="checkbox" id="themeToggle">
                        <span class="theme-toggle-slider"></span>
                    </label>
                </li>
-           </ul>
+            </ul>
        </div>
    </div>
 
@@ -72,7 +65,7 @@
        <div class="tool-container">
            <h2 class="tool-page-title">时间计算器</h2>
            <p class="tool-description">
-               计算两个时间点之间的时间间隔，支持组合模式和各单位单独显示两种模式。
+               计算两个时间点之间的时间间隔，支持组合模式和各单位单独显示两种模式。也支持视频时间对轨计算。
            </p>
 
            <div class="tabs">
@@ -172,6 +165,42 @@
                    <h4>各单位单独显示</h4>
                    <div id="unitResults" class="unit-results"></div>
                </div>
+           </div>
+
+           <!-- 对轨计算 -->
+           <div class="sync-section">
+               <h3>对轨计算</h3>
+               <p class="sync-description">根据已知视频的实际时间与时间线位置，计算其他视频的时间线位置。</p>
+
+               <div class="sync-reference">
+                   <h4>参考点</h4>
+                   <div class="sync-ref-row">
+                       <div class="sync-ref-field">
+                           <label for="syncRefReal">实际时间</label>
+                           <input type="text" id="syncRefReal" placeholder="07:20:00" autocomplete="off">
+                       </div>
+                       <span class="sync-arrow">→</span>
+                       <div class="sync-ref-field">
+                           <label for="syncRefTimeline">时间线位置</label>
+                           <input type="text" id="syncRefTimeline" placeholder="00:12:05" autocomplete="off">
+                       </div>
+                   </div>
+               </div>
+
+               <div class="sync-list-header">
+                   <h4>待对轨视频</h4>
+                   <div class="sync-list-actions">
+                       <button id="syncBatchBtn" class="sync-batch-btn">批量导入</button>
+                       <button id="syncAddBtn" class="sync-add-btn">+ 添加</button>
+                   </div>
+               </div>
+               <div id="syncBatchArea" class="sync-batch-area" style="display:none;">
+                   <textarea id="syncBatchInput" placeholder="每行一个文件名，如&#10;VID_20260627_074624_00_014.mp4&#10;DJI_20260621060958_0001_D.MP4" rows="4"></textarea>
+                   <button id="syncBatchParse" class="sync-add-btn">解析导入</button>
+               </div>
+               <div id="syncList" class="sync-list"></div>
+
+               <div class="sync-error" id="syncError" style="display: none;"></div>
            </div>
        </div>
    </div>

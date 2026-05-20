@@ -243,3 +243,133 @@ function showError(message) {
 function hideError() {
    document.getElementById('errorMessage').style.display = 'none';
 }
+
+// ============ 对轨计算 ============
+
+var syncItemId = 0;
+
+function parseTimeStr(str) {
+   str = str.trim();
+   // 支持 H:MM:SS, HH:MM:SS, MM:SS, M:SS 等格式
+   var parts = str.split(':').map(Number);
+   if (parts.some(isNaN)) return null;
+   if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+   if (parts.length === 2) return parts[0] * 60 + parts[1];
+   if (parts.length === 1) return parts[0];
+   return null;
+}
+
+function formatTimeFromSec(totalSec) {
+   var isNeg = totalSec < 0;
+   var abs = Math.abs(Math.round(totalSec));
+   var h = Math.floor(abs / 3600);
+   var m = Math.floor((abs % 3600) / 60);
+   var s = abs % 60;
+   var str = (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+   return isNeg ? '-' + str : str;
+}
+
+function addSyncItem() {
+   syncItemId++;
+   var id = syncItemId;
+   var list = document.getElementById('syncList');
+   var item = document.createElement('div');
+   item.className = 'sync-item';
+   item.setAttribute('data-id', id);
+   item.innerHTML =
+       '<input type="text" class="sync-real-input" placeholder="实际时间 如 07:21:06" autocomplete="off">' +
+       '<span class="sync-arrow">→</span>' +
+       '<span class="sync-timeline-result">--:--:--</span>' +
+       '<button class="sync-remove-btn" title="删除">✕</button>';
+
+   item.querySelector('.sync-real-input').addEventListener('input', function() { calcSyncItem(item); });
+   item.querySelector('.sync-remove-btn').addEventListener('click', function() { item.remove(); });
+
+   list.appendChild(item);
+   item.querySelector('.sync-real-input').focus();
+}
+
+function calcSyncItem(item) {
+   var refReal = parseTimeStr(document.getElementById('syncRefReal').value);
+   var refTimeline = parseTimeStr(document.getElementById('syncRefTimeline').value);
+   var realInput = item.querySelector('.sync-real-input');
+   var resultSpan = item.querySelector('.sync-timeline-result');
+   var videoReal = parseTimeStr(realInput.value);
+
+   if (refReal === null || refTimeline === null || videoReal === null) {
+       resultSpan.textContent = '--:--:--';
+       resultSpan.classList.remove('sync-neg');
+       return;
+   }
+
+   var offset = videoReal - refReal;
+   var timelinePos = refTimeline + offset;
+   resultSpan.textContent = formatTimeFromSec(timelinePos);
+   resultSpan.classList.toggle('sync-neg', timelinePos < 0);
+}
+
+function calcAllSync() {
+   document.querySelectorAll('.sync-item').forEach(calcSyncItem);
+}
+
+// 从文件名解析日期时间
+// 支持: VID_20260627_074624_00_014.mp4, DJI_20260621060958_0001_D.MP4 等
+function parseFilenameDateTime(filename) {
+   // 匹配 YYYYMMDD_HHMMSS 或 YYYYMMDDHHMMSS
+   var m = filename.match(/(\d{4})(\d{2})(\d{2})_?(\d{2})(\d{2})(\d{2})/);
+   if (!m) return null;
+   var h = parseInt(m[4], 10);
+   var mi = parseInt(m[5], 10);
+   var s = parseInt(m[6], 10);
+   if (h > 23 || mi > 59 || s > 59) return null;
+   return m[4] + ':' + m[5] + ':' + m[6];
+}
+
+function batchImport() {
+   var text = document.getElementById('syncBatchInput').value;
+   var lines = text.split('\n').map(function(l) { return l.trim(); }).filter(function(l) { return l.length > 0; });
+   var imported = 0;
+   var failed = [];
+
+   for (var i = 0; i < lines.length; i++) {
+       var time = parseFilenameDateTime(lines[i]);
+       if (time) {
+           addSyncItem();
+           var items = document.querySelectorAll('.sync-item');
+           var lastItem = items[items.length - 1];
+           lastItem.querySelector('.sync-real-input').value = time;
+           calcSyncItem(lastItem);
+           imported++;
+       } else {
+           failed.push(lines[i]);
+       }
+   }
+
+   // 显示解析失败的文件名
+   var errorDiv = document.getElementById('syncError');
+   if (failed.length > 0) {
+       errorDiv.textContent = '未能解析的文件名(' + failed.length + '个)：' + failed.join('、');
+       errorDiv.style.display = 'block';
+   } else {
+       errorDiv.style.display = 'none';
+   }
+
+   if (imported > 0) {
+       document.getElementById('syncBatchInput').value = '';
+       document.getElementById('syncBatchArea').style.display = 'none';
+   }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+   document.getElementById('syncAddBtn').addEventListener('click', addSyncItem);
+   document.getElementById('syncRefReal').addEventListener('input', calcAllSync);
+   document.getElementById('syncRefTimeline').addEventListener('input', calcAllSync);
+   document.getElementById('syncBatchBtn').addEventListener('click', function() {
+       var area = document.getElementById('syncBatchArea');
+       area.style.display = area.style.display === 'none' ? 'block' : 'none';
+       if (area.style.display === 'block') document.getElementById('syncBatchInput').focus();
+   });
+   document.getElementById('syncBatchParse').addEventListener('click', batchImport);
+   // 默认添加一条
+   addSyncItem();
+});

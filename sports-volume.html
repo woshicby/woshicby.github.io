@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>运动量统计 - 体育运动</title>
+
+   <meta name="description" content="BY的运动量统计，展示运动距离和时间统计。">
+   <meta name="keywords" content="运动记录,跑步,骑行,运动量统计,统计">
+   <meta name="author" content="woshicby">
+   <meta name="robots" content="index, follow">
+
+   <link rel="stylesheet" href="./CSS/common.css">
+   <link rel="stylesheet" href="./CSS/sports-common.css">
+   <link rel="stylesheet" href="./CSS/sports.css">
+   <link rel="stylesheet" href="./CSS/sports-volume.css">
+   <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+
+   <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
+   <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
+   <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
+   <script src="./JS/sports-config.js" defer></script>
+   <script src="./JS/sports-common.js" defer></script>
+   <script src="./JS/sports-volume.js" defer></script>
+</head>
+<!-- ==========================================
+        页面头部 - 网站标题和导航
+        ==========================================
+        包含网站标志和主导航菜单，当前高亮"体育运动"选项
+        ========================================== -->
+
+<body>
+   <!-- 头部外套开始 -->
+   <div class="header clearfix wrapper">
+       <!-- logo/大标题区域开始 -->
+       <h1>体育运动</h1>
+       <!-- logo/大标题区域结束 -->
+       <!-- 导航栏开始 -->
+       <div class="nav">
+           <ul class="clearfix">
+                <li>
+                   <label class="theme-toggle">
+                       <input type="checkbox" id="themeToggle">
+                       <span class="theme-toggle-slider"></span>
+                   </label>
+               </li>
+            </ul>
+       </div>
+       <!-- 导航栏结束 -->
+   </div>
+   <!-- 头部外套结束 -->
+
+   <!-- 移动导航菜单切换按钮 -->
+   <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+       <span></span>
+       <span></span>
+       <span></span>
+   </button>
+   <!-- 主体外套开始 -->
+   <!-- ==========================================
+            主体内容区域
+            ==========================================
+            展示个人运动量统计
+            ========================================== -->
+   <div class="mainbox clearfix wrapper">
+       <!-- 体育运动子页面导航 -->
+       <div class="sports-tabs-container">
+           <a href="sports.html" class="sports-tab-btn">活动列表</a>
+           <a href="sports-active.html" class="sports-tab-btn">活跃统计</a>
+           <a href="sports-volume.html" class="sports-tab-btn active">运动量统计</a>
+       </div>
+
+       <!-- 左侧：年度统计侧边栏（窄） -->
+       <section class="volume-sidebar">
+           <div class="year-summary" id="yearSummary">
+               <div class="summary-loading">加载年度统计中...</div>
+           </div>
+       </section>
+
+       <!-- 右侧：主内容区域（宽） -->
+       <section class="volume-main">
+           <div class="summary-filter-bar">
+               <select id="sportTypeFilter" class="filter-select">
+                   <option value="all">全部运动</option>
+               </select>
+               <select id="intervalFilter" class="filter-select">
+                   <option value="year">年</option>
+                   <option value="month">月</option>
+                   <option value="week">周</option>
+                   <option value="day">日</option>
+               </select>
+           </div>
+           <div class="summary-content" id="volumeContent">
+               <div class="summary-loading">加载运动量统计中...</div>
+           </div>
+       </section>
+   </div>
+   <!-- 主体外套结束 -->
+   <!-- 脚注外套开始 -->
+   <div class="foot wrapper">
+       <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+   </div>
+   <!-- 脚注外套结束 -->
+</body>
+
+</html>

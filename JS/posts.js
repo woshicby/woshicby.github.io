@@ -1,9 +1,9 @@
 // 博文数据管理和渲染
-class PostManager {
+class PostManager extends FilterableListManager {
     constructor() {
+        super();
         this.posts = [];
         this.categories = [];
-        this.tags = [];
         this.seriesMeta = [];
         this.currentPage = 0;
         this.postsPerPage = 5;
@@ -39,10 +39,9 @@ class PostManager {
     async loadPosts() {
         try {
             // 首先尝试从 posts-list.json 加载文件列表
-            const listResponse = await fetch('JSON/posts-list.json');
-            
-            if (listResponse.ok) {
-                const postsList = await listResponse.json();
+            const postsList = await fetchJSON('JSON/posts-list.json', null);
+
+            if (postsList) {
                 console.log('成功加载posts-list.json，文件数量:', postsList.length);
                 
                 // 逐个读取 md 文件并解析
@@ -72,9 +71,9 @@ class PostManager {
             } else {
                 // 如果没有 posts-list.json，尝试从 posts.json 加载
                 console.log('posts-list.json 不存在，尝试从 posts.json 加载');
-                const response = await fetch('JSON/posts.json');
-                if (response.ok) {
-                    this.posts = await response.json();
+                const data = await fetchJSON('JSON/posts.json', null);
+                if (data) {
+                    this.posts = data;
                     console.log('成功加载posts.json，文章数量:', this.posts.length);
                 } else {
                     console.warn('posts.json 也不存在，使用示例数据');
@@ -82,9 +81,9 @@ class PostManager {
                 }
             }
 
-            const seriesResponse = await fetch('JSON/posts-series.json');
-            if (seriesResponse.ok) {
-                this.seriesMeta = await seriesResponse.json();
+            const seriesData = await fetchJSON('JSON/posts-series.json', null);
+            if (seriesData) {
+                this.seriesMeta = seriesData;
                 console.log('成功加载posts-series.json，系列数量:', this.seriesMeta.length);
             } else {
                 console.warn('posts-series.json加载失败，使用空数组');
@@ -462,9 +461,9 @@ class PostManager {
                 `<a href="?tag=${encodeURIComponent(tag)}" class="tag-badge" data-tag="${tag}">${tag}</a>`
             ).join('')}</div>` : '';
 
-        let dateHTML = `<span class="post-date">${this.formatDate(post.date)}</span>`;
+        let dateHTML = `<span class="post-date">${this.formatDateDefault(post.date)}</span>`;
         if (post.update_date) {
-            dateHTML += `<span class="post-update-date">（更新于 ${this.formatDate(post.update_date)}）</span>`;
+            dateHTML += `<span class="post-update-date">（更新于 ${this.formatDateDefault(post.update_date)}）</span>`;
         }
         if (post.series) {
             dateHTML += `<span class="series-badge" data-series="${post.series}">${post.series}${post.series_order ? ` · 第${post.series_order}/${this.seriesCount[post.series]}篇` : ''}</span>`;
@@ -517,14 +516,6 @@ class PostManager {
         });
     }
 
-    bindSearch() {
-        const searchInput = document.getElementById('search-input');
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value;
-            this.searchPosts(searchTerm);
-        });
-    }
-
     bindPostFilterEvents() {
         const postsList = document.getElementById('posts-list');
         
@@ -556,7 +547,7 @@ class PostManager {
     }
 
     filterByCategory(category) {
-        const urlParams = new URLSearchParams(window.location.search);
+        const urlParams = getUrlParams();
         const categories = urlParams.getAll('category');
         
         if (categories.includes(category)) {
@@ -568,81 +559,36 @@ class PostManager {
         }
         
         urlParams.delete('search');
-        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
-        
-        this.applyFilters();
-    }
-
-    filterByTag(tag) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const tags = urlParams.getAll('tag');
-        
-        if (tags.includes(tag)) {
-            const newTags = tags.filter(t => t !== tag);
-            urlParams.delete('tag');
-            newTags.forEach(t => urlParams.append('tag', t));
-        } else {
-            urlParams.append('tag', tag);
-        }
-        
-        urlParams.delete('search');
-        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+        setUrlParams(urlParams);
         
         this.applyFilters();
     }
 
     filterBySeries(series) {
-        const urlParams = new URLSearchParams(window.location.search);
+        const urlParams = getUrlParams();
         urlParams.delete('category');
         urlParams.delete('tag');
         urlParams.delete('search');
         urlParams.set('series', series);
-        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+        setUrlParams(urlParams);
         
         this.applyFilters();
     }
 
-    searchPosts(searchTerm) {
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        if (!searchTerm.trim()) {
-            urlParams.delete('search');
-            window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
-            this.applyFilters();
-            return;
-        }
-
-        urlParams.set('search', searchTerm);
-        // 移除分类和标签参数，因为搜索是独立的过滤方式
-        urlParams.delete('category');
-        urlParams.delete('tag');
-        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
-        
-        this.applyFilters();
+    formatDateDefault(dateString) {
+        return formatDate(dateString);
     }
 
-    checkUrlParams() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const search = urlParams.get('search');
-        
-        if (search) {
-            document.getElementById('search-input').value = search;
-        }
-        
-        this.applyFilters();
+    getSearchClearParams() {
+        return ['category', 'tag'];
     }
 
-    formatDate(dateString) {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('zh-CN', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
+    getClearFilterParams() {
+        return ['category', 'tag', 'series', 'search'];
     }
 
     applyFilters() {
-        const urlParams = new URLSearchParams(window.location.search);
+        const urlParams = getUrlParams();
         const categories = urlParams.getAll('category');
         const tags = urlParams.getAll('tag');
         const series = urlParams.get('series');
@@ -703,93 +649,12 @@ class PostManager {
     }
 
     updateFilterInfo(categories, tags, search, series) {
-        const filterInfo = document.getElementById('filter-info');
-        const filterTags = document.getElementById('filter-tags');
-        
-        if (!filterInfo || !filterTags) {
-            return;
-        }
-
-        filterTags.innerHTML = '';
-
-        if (series) {
-            const tagElement = this.createFilterTag('系列', series, 'series');
-            filterTags.appendChild(tagElement);
-        }
-
-        categories.forEach(category => {
-            const tagElement = this.createFilterTag('分类', category, 'category');
-            filterTags.appendChild(tagElement);
-        });
-
-        tags.forEach(tag => {
-            const tagElement = this.createFilterTag('标签', tag, 'tag');
-            filterTags.appendChild(tagElement);
-        });
-
-        if (search) {
-            const tagElement = this.createFilterTag('搜索', search, 'search');
-            filterTags.appendChild(tagElement);
-        }
-
-        if (filterTags.children.length > 0) {
-            filterInfo.style.display = 'flex';
-        } else {
-            filterInfo.style.display = 'none';
-        }
-    }
-
-    createFilterTag(type, value, paramType) {
-        const tag = document.createElement('div');
-        tag.className = 'filter-tag';
-        tag.innerHTML = `
-            <span>${type}: ${value}</span>
-            <button class="filter-tag-remove" data-type="${paramType}" data-value="${value}" title="移除此过滤条件">×</button>
-        `;
-        
-        tag.querySelector('.filter-tag-remove').addEventListener('click', () => {
-            this.removeFilter(paramType, value);
-        });
-        
-        return tag;
-    }
-
-    removeFilter(paramType, value = null) {
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        if (value) {
-            const values = urlParams.getAll(paramType);
-            const newValues = values.filter(v => v !== value);
-            urlParams.delete(paramType);
-            newValues.forEach(v => urlParams.append(paramType, v));
-        } else {
-            urlParams.delete(paramType);
-        }
-        
-        window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
-        
-        this.applyFilters();
-    }
-
-    bindClearFilter() {
-        const clearFilterBtn = document.getElementById('clear-filter');
-        if (clearFilterBtn) {
-            clearFilterBtn.addEventListener('click', () => {
-                this.clearFilter();
-            });
-        }
-    }
-
-    clearFilter() {
-        const urlParams = new URLSearchParams(window.location.search);
-        urlParams.delete('category');
-        urlParams.delete('tag');
-        urlParams.delete('series');
-        urlParams.delete('search');
-        window.history.replaceState({}, '', window.location.pathname);
-        
-        this.applyFilters();
-        document.getElementById('search-input').value = '';
+        const entries = [];
+        categories.forEach(cat => entries.push({ type: '分类', value: cat, paramType: 'category' }));
+        tags.forEach(tag => entries.push({ type: '标签', value: tag, paramType: 'tag' }));
+        if (series) entries.push({ type: '系列', value: series, paramType: 'series' });
+        if (search) entries.push({ type: '搜索', value: search, paramType: 'search' });
+        super.updateFilterInfo(entries);
     }
 
     updateActiveStates(categories, tags, series) {

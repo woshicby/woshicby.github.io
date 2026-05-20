@@ -7,9 +7,6 @@
 
 body {
    background-color: var(--bg-color);
-   background-size: cover;
-   background-position: center;
-   background-attachment: fixed;
    color: var(--text-color);
    font-family: 'Segoe UI', Arial, sans-serif;
    line-height: 1.8;
@@ -19,7 +16,24 @@ body {
    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body.background-loaded {
+/* 固定背景层：替代 background-attachment: fixed
+   使用 position:fixed 实现固定背景，
+   避免滚动时全页面重绘导致的严重卡顿 */
+body::before {
+   content: '';
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   z-index: -1;
+   pointer-events: none;
+}
+
+body.background-loaded::before {
    background-image: url("../../images/body_backgrond.jpg");
 }
 
@@ -98,12 +112,9 @@ input:checked + .theme-toggle-slider:before {
    padding: var(--spacing-lg);
    margin-bottom: var(--spacing-lg);
    box-shadow: var(--shadow-light);
-   transition: var(--transition-default);
    border: 2px solid transparent;
 }
 .card-container:hover {
-   transform: translateY(-5px);
-   box-shadow: var(--shadow-medium);
    border-color: var(--secondary-color);
    background-color: var(--light-accent);
 }
@@ -137,7 +148,6 @@ input:checked + .theme-toggle-slider:before {
    color: var(--text-color);
 }
 .btn:hover {
-   transform: translateY(-2px);
    box-shadow: var(--shadow-medium);
 }
 
@@ -387,11 +397,10 @@ strong {
 a {
    display: inline-block;
    color: var(--text-color);
-   transition: var(--transition-default);
+   transition: color 0.3s ease;
 }
 
 a:hover {
-   transform: translateY(-3px);
    color: #3498db;
 }
 
@@ -409,7 +418,6 @@ div.mainbox{
    border-radius: var(--border-radius-md);
    padding: var(--spacing-lg);
    box-sizing: border-box;
-   transition: var(--transition-default);
    /* 在各种屏幕尺寸上保持居中且不超出屏幕边缘 */
 }
 
@@ -419,15 +427,7 @@ section {
    background-color: var(--white);
    border-radius: var(--border-radius-md);
    box-shadow: var(--shadow-light);
-   transition: var(--transition-default);
    border: 2px solid transparent;
-}
-
-section:hover {
-   transform: translateY(-5px);
-   box-shadow: var(--shadow-medium);
-   border-color: var(--secondary-color);
-   background-color: var(--light-accent);
 }
 
 /* 导航切换按钮样式 - 桌面端默认隐藏 */

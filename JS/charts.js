@@ -1,17 +1,15 @@
 // 图表相关功能实现
 
-// 将时间格式的成绩转换为总秒数以便比较
-function convertResultToSeconds(result) {
-   const parts = result.split(':').map(Number);
-   if (parts.length === 3) {
-       // 格式为 时:分:秒
-       return parts[0] * 3600 + parts[1] * 60 + parts[2];
-   } else if (parts.length === 2) {
-       // 格式为 分:秒
-       return parts[0] * 60 + parts[1];
-   }
-   return 0;
-}
+// 监听主题切换，更新图表颜色
+document.addEventListener('themeChanged', function(e) {
+    var isDark = e.detail.theme === 'dark';
+    Chart.defaults.color = isDark ? '#e0e0e0' : '#666';
+    Chart.defaults.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+    // 刷新所有图表
+    Object.values(Chart.instances).forEach(function(chart) {
+        chart.update();
+    });
+});
 
 // 将秒数转换为时间格式（hh:mm:ss）
 function convertSecondsToTime(seconds) {
@@ -206,7 +204,7 @@ function createTimeSeriesChart(canvasId, data, stats, isTrailRun = false) {
    if (isTrailRun) {
        // 越野跑：显示ITRA表现分
        chartData.datasets.push({
-           label: '比赛表现分',
+           label: '赛事表现分',
            data: data.map(item => ({
                x: item.date,
                y: item.raceScore ? parseInt(item.raceScore) : 0,
@@ -340,7 +338,7 @@ function createTimeSeriesChart(canvasId, data, stats, isTrailRun = false) {
                                const raceScore = context.raw.raceScore;
                                const itraPerformanceScore = context.raw.itraPerformanceScore;
                                if (raceScore) {
-                                   return `比赛表现分: ${raceScore}`;
+                                   return `赛事表现分: ${raceScore}`;
                                } else if (itraPerformanceScore) {
                                    return `ITRA表现分: ${itraPerformanceScore}`;
                                }
@@ -574,11 +572,14 @@ function initProjectComparison(races) {
    
    if (!projectSelect || !statsContainer) return;
    
+   // 只纳入已完赛赛事
+   const finishedRaces = races.filter(race => race.status === 'finished');
+   
    // 按项目分组
-   const racesByEvent = groupRacesByEvent(races);
+   const racesByEvent = groupRacesByEvent(finishedRaces);
    
    // 特殊处理：将所有越野跑归为一个项目
-   const trailRuns = races.filter(race => race.category === '越野跑');
+   const trailRuns = finishedRaces.filter(race => race.category === '越野跑');
    if (trailRuns.length >= 2) {
        racesByEvent['越野跑'] = trailRuns;
    }
@@ -593,10 +594,14 @@ function initProjectComparison(races) {
        projectSelect.appendChild(option);
    });
    
-   // 选择第一个项目
    if (validEvents.length > 0) {
-       projectSelect.value = validEvents[0];
-       updateProjectComparisonChart(racesByEvent[validEvents[0]]);
+       const defaultEvent = validEvents.reduce((latest, event) => {
+           const latestDateA = Math.max(...racesByEvent[latest].map(r => new Date(r.date).getTime()));
+           const latestDateB = Math.max(...racesByEvent[event].map(r => new Date(r.date).getTime()));
+           return latestDateB > latestDateA ? event : latest;
+       }, validEvents[0]);
+       projectSelect.value = defaultEvent;
+       updateProjectComparisonChart(racesByEvent[defaultEvent]);
    }
    
    // 添加项目选择事件监听
@@ -644,11 +649,11 @@ function updateProjectComparisonChart(races) {
                    <p>${latestItraScore}</p>
                </div>
                <div class="stat-item">
-                   <h4>最佳比赛表现分</h4>
+                   <h4>最佳赛事表现分</h4>
                    <p>${stats.maxRaceScore || '-'}</p>
                </div>
                <div class="stat-item">
-                   <h4>最差比赛表现分</h4>
+                   <h4>最差赛事表现分</h4>
                    <p>${stats.minRaceScore || '-'}</p>
                </div>
                <div class="stat-item">
@@ -726,8 +731,11 @@ function initEventSeriesComparison(races) {
    
    if (!seriesSelect) return;
    
+   // 只纳入已完赛赛事
+   const finishedRaces = races.filter(race => race.status === 'finished');
+   
    // 按赛事系列和项目分组
-   const racesBySeries = groupRacesByEventSeries(races);
+   const racesBySeries = groupRacesByEventSeries(finishedRaces);
    
    // 填充赛事系列选择下拉框（只显示有多次记录的赛事系列和项目组合）
    const validSeries = Object.keys(racesBySeries).filter(series => racesBySeries[series].length >= 2);
@@ -735,16 +743,19 @@ function initEventSeriesComparison(races) {
    validSeries.forEach(series => {
        const option = document.createElement('option');
        option.value = series;
-       // 显示格式：赛事系列名称 (项目)
        const [seriesName, event] = series.split('-');
        option.textContent = `${seriesName} (${event})`;
        seriesSelect.appendChild(option);
    });
    
-   // 选择第一个赛事系列
    if (validSeries.length > 0) {
-       seriesSelect.value = validSeries[0];
-       updateEventSeriesComparisonChart(racesBySeries[validSeries[0]]);
+       const defaultSeries = validSeries.reduce((latest, series) => {
+           const latestDateA = Math.max(...racesBySeries[latest].map(r => new Date(r.date).getTime()));
+           const latestDateB = Math.max(...racesBySeries[series].map(r => new Date(r.date).getTime()));
+           return latestDateB > latestDateA ? series : latest;
+       }, validSeries[0]);
+       seriesSelect.value = defaultSeries;
+       updateEventSeriesComparisonChart(racesBySeries[defaultSeries]);
    }
    
    // 添加赛事系列选择事件监听
