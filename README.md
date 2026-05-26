@@ -244,6 +244,7 @@ woshicby.github.io/
 | 2026.05.04 | 添加博文系列功能并优化博文列表页面：新增系列分类展示、时间线归档视图、无限滚动加载、回到顶部按钮，更新相关JSON和样式 |
 | 2026.05.08 | 添加武林外传接台词游戏(wulin-quotes.html)和台词查询工具，支持多难度模式、角色筛选、台词搜索功能 |
 | 2026.05.20 | 添加待抽签赛事管理与展示功能：新增待抽签赛事状态判断逻辑与日历样式；过滤已完赛赛事用于PB/SB计算和图表统计；补全赛事数据的status字段并新增待抽签赛事 |
+| 2026.05.26 | 新增Emoji渲染器工具(emoji-renderer.html)，支持多平台风格渲染与高清导出；更新赛事记录数据 |
 
 ## 使用方法
 
@@ -495,6 +496,7 @@ woshicby.github.io/
 | 2026.05.04 | Added blog series feature and optimized posts list page: series classification, timeline archive view, infinite scroll loading, back-to-top button, updated related JSON and styles |
 | 2026.05.08 | Added My Own Swordsman quote guessing game (wulin-quotes.html) and dialogue search tool, supporting multiple difficulty modes, character filtering, and dialogue search |
 | 2026.05.20 | Added pending lottery race management and display: new pending lottery status logic and calendar styles; filter finished races for PB/SB calculation and chart statistics; added status field to all race records and new pending lottery races |
+| 2026.05.26 | Added Emoji Renderer tool (emoji-renderer.html) with multi-platform style rendering and high-resolution export; updated race records data|
 
 ## Usage
 
@@ -746,6 +748,7 @@ woshicby.github.io/
 | 2026.05.04 | ブログシリーズ機能を追加し投稿一覧ページを最適化：シリーズ分類表示、タイムラインアーカイブビュー、無限スクロール読み込み、トップへ戻るボタン、関連JSONとスタイルを更新 |
 | 2026.05.08 | 武林外伝セリフ当てゲーム(wulin-quotes.html)とセリフ検索ツールを追加、複数難易度モード、キャラクターフィルタリング、セリフ検索機能をサポート |
 | 2026.05.20 | 抽選待ちレース管理・表示機能を追加：抽選待ちレースステータス判定ロジックとカレンダースタイルを新規追加；PB/SB計算とチャート統計に完了レースのみをフィルタリング；全レースデータにstatusフィールドを追加し、抽選待ちレースを新規追加 |
+| 2026.05.26 | Emojiレンダラーツール(emoji-renderer.html)を追加、マルチプラットフォームスタイルレンダリングと高解像度エクスポートに対応；レース記録データを更新 |
 
 ## 使用方法
 

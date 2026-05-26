@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Emoji渲染器 - BY的个人网站</title>
+
+   <meta name="description" content="高清Emoji渲染器，支持分类浏览、搜索选取、超高清渲染和导出PNG图片。">
+   <meta name="keywords" content="Emoji,高清Emoji,Emoji渲染,Emoji导出,Emoji搜索,表情包">
+   <meta name="author" content="woshicby">
+   <meta name="robots" content="index, follow">
+
+   <meta property="og:title" content="Emoji渲染器 - BY的个人网站">
+   <meta property="og:description" content="高清Emoji渲染器，支持分类浏览、搜索选取、超高清渲染和导出PNG图片。">
+   <meta property="og:type" content="website">
+   <meta property="og:url" content="https://woshicby.github.io/emoji-renderer.html">
+   <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+   <meta property="og:site_name" content="BY的个人网站">
+   <meta property="og:locale" content="zh_CN">
+
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="twitter:title" content="Emoji渲染器 - BY的个人网站">
+   <meta name="twitter:description" content="高清Emoji渲染器，支持分类浏览、搜索选取、超高清渲染和导出PNG图片。">
+   <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+
+   <link rel="stylesheet" href="./CSS/common.css">
+   <link rel="stylesheet" href="./CSS/tools-common.css">
+   <link rel="stylesheet" href="./CSS/emoji-renderer.css">
+   <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+   <link rel="canonical" href="https://woshicby.github.io/emoji-renderer.html">
+
+   <script src="./JS/navigation.js"></script>
+   <script src="./JS/theme-toggle.js"></script>
+   <script src="./JS/background-lazy-load.js"></script>
+   <script src="./JS/tool-tabs.js"></script>
+</head>
+
+<body>
+   <div class="header clearfix wrapper">
+       <h1>Emoji渲染器</h1>
+       <div class="nav">
+           <ul class="clearfix">
+               <li><a href="./index.html">首页</a></li>
+               <li><a href="./video.html">视频展示</a></li>
+               <li><a href="./posts.html">博客文章</a></li>
+               <li><a href="./moments.html">灵感碎片</a></li>
+               <li><a href="./study.html">个人成果</a></li>
+               <li><a href="./tools.html" class="active">小工具&小游戏</a></li>
+               <li><a href="./sports.html">体育运动</a></li>
+               <li>
+                   <label class="theme-toggle">
+                       <input type="checkbox" id="themeToggle">
+                       <span class="theme-toggle-slider"></span>
+                   </label>
+               </li>
+           </ul>
+       </div>
+   </div>
+
+   <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+       <span></span>
+       <span></span>
+       <span></span>
+   </button>
+
+   <div class="mainbox clearfix wrapper">
+       <div class="back-to-tools">
+           <a href="tools.html" class="back-button">← 返回小工具&小游戏</a>
+       </div>
+
+       <div class="tool-container">
+           <h2 class="tool-page-title">Emoji渲染器</h2>
+           <p class="tool-description">
+               高清Emoji渲染与导出工具，支持分类浏览、关键词搜索、超高清渲染和PNG导出。
+           </p>
+
+           <div class="tabs"></div>
+
+           <div class="emoji-renderer-section">
+               <div class="preview-area">
+                   <div class="preview-header">
+                       <h3>渲染预览</h3>
+                       <div class="preview-controls">
+                           <div class="size-control">
+                               <label for="renderSize">渲染尺寸：</label>
+                               <input type="range" id="renderSize" min="64" max="16384" value="512" step="64">
+                               <input type="number" id="renderSizeInput" min="64" max="16384" value="512" step="64" class="size-number-input">
+                               <span class="size-info" id="sizeInfo">512 × 512</span>
+                           </div>
+                           <div class="style-control">
+                               <label>渲染风格：</label>
+                               <button class="style-btn active" data-style="system">系统默认</button>
+                               <button class="style-btn" data-style="twitter">Twitter</button>
+                               <button class="style-btn" data-style="google">Google</button>
+                           </div>
+                           <div class="bg-control">
+                               <label>背景：</label>
+                               <button class="bg-btn active" data-bg="transparent">透明</button>
+                               <button class="bg-btn" data-bg="white">白色</button>
+                               <button class="bg-btn" data-bg="black">黑色</button>
+                               <button class="bg-btn custom-bg-btn" data-bg="custom">自定义</button>
+                               <input type="color" id="customBgColor" value="#ffffff" title="自定义背景色">
+                           </div>
+                       </div>
+                   </div>
+                   <div class="preview-canvas-wrapper">
+                       <canvas id="emojiCanvas" width="512" height="512"></canvas>
+                   </div>
+                   <div class="export-controls">
+                       <button id="exportPng" class="export-btn">📥 导出PNG</button>
+                       <button id="copyEmoji" class="export-btn secondary">📋 复制Emoji字符</button>
+                   </div>
+               </div>
+
+               <div class="selector-area">
+                   <div class="search-bar">
+                       <input type="text" id="emojiSearch" placeholder="搜索Emoji..." autocomplete="off">
+                   </div>
+
+                   <div class="category-tabs" id="categoryTabs"></div>
+
+                   <div class="emoji-grid-wrapper">
+                       <div class="emoji-grid" id="emojiGrid"></div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+
+   <div class="foot wrapper">
+       <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+   </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script>
+   <script src="./JS/emoji-renderer.js"></script>
+</body>
+
+</html>
