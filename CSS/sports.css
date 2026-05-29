@@ -589,3 +589,159 @@ body.dark-theme .sports_record {
 body.dark-theme .sports_record:hover {
     color: var(--accent-color);
 }
+
+/* 即将到来的比赛样式 */
+#upcoming-races {
+    margin-bottom: var(--spacing-lg);
+}
+
+.upcoming-races-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+}
+
+/* 日历年视图样式 */
+.calendar-year-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.calendar-month-container {
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-light);
+}
+
+.upcoming-race-card {
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+    display: flex;
+    flex-direction: column;
+    min-height: 240px;
+}
+
+.upcoming-race-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.upcoming-race-card-content {
+    flex: 1;
+}
+
+.upcoming-race-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-sm);
+}
+
+.upcoming-race-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--heading-color);
+    flex: 1;
+    margin-right: var(--spacing-sm);
+}
+
+.status-badge {
+    padding: 3px 10px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-badge.registered {
+    background-color: #27ae60;
+    color: white;
+}
+
+.status-badge.finished {
+    background-color: #3498db;
+    color: white;
+}
+
+.status-badge.tbd {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.status-badge.pending {
+    background-color: #f39c12;
+    color: white;
+}
+
+.upcoming-race-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.upcoming-race-date,
+.upcoming-race-location {
+    display: block;
+}
+
+.upcoming-race-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.upcoming-race-category,
+.upcoming-race-event,
+.upcoming-race-distance {
+    padding: 3px 10px;
+    background-color: var(--hover-background);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.85rem;
+    color: var(--text-color);
+}
+
+.upcoming-race-countdown {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+}
+
+.countdown-label {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.countdown-timer {
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: #27ae60;
+}
+
+.no-upcoming {
+    text-align: center;
+    color: var(--secondary-color);
+    padding: var(--spacing-lg);
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+    .upcoming-races-list {
+        grid-template-columns: 1fr;
+    }
+}

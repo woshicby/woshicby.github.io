@@ -377,6 +377,9 @@ function renderCalendar() {
    
    // 渲染当前视图内的赛事列表
    renderCurrentViewRaces(viewRaces);
+   
+   // 启动倒计时更新
+   startCountdownUpdater();
 }
 
 // 渲染月视图
@@ -700,134 +703,193 @@ function getRacesByDate(dateStr) {
 
 
 // 渲染当前视图内的赛事列表
-function renderCurrentViewRaces() {
-   const calendarContainer = document.getElementById('calendar');
-   if (!calendarContainer) return;
-   
-   // 移除已存在的赛事列表（包括单个赛事项和列表容器）
-   const existingRaceItems = calendarContainer.querySelectorAll('.race-item');
-   existingRaceItems.forEach(item => item.remove());
-   
-   const existingRaceList = calendarContainer.querySelector('.races-list');
-   if (existingRaceList) {
-       existingRaceList.remove();
-   }
-   
-   const existingPendingSection = calendarContainer.querySelector('.pending-lottery-section');
-   if (existingPendingSection) {
-       existingPendingSection.remove();
-   }
-   
-   const existingDivider = calendarContainer.querySelector('.calendar-races-divider');
-   if (existingDivider) {
-       existingDivider.remove();
-   }
-   
-   // 根据当前视图类型筛选赛事
-   let viewRaces = [];
-   
-   if (currentView === 'month') {
-       // 月视图：筛选当前月份的赛事
-       viewRaces = upcomingRaces.filter(race => {
-           const raceDate = new Date(race.date);
-           return raceDate.getFullYear() === currentYear && 
-                  raceDate.getMonth() === currentMonth;
-       });
-   } else {
-       // 年视图：筛选当前年份的赛事
-       viewRaces = upcomingRaces.filter(race => {
-           const raceDate = new Date(race.date);
-           return raceDate.getFullYear() === currentYear;
-       });
-   }
-   
-   // 分离待抽签赛事和普通赛事
-   const normalRaces = viewRaces.filter(race => !isPendingLottery(race));
-   const pendingLotteryRaces = viewRaces.filter(race => isPendingLottery(race));
-   
-   // 按时间顺序排序
-   normalRaces.sort((a, b) => new Date(a.date) - new Date(b.date));
-   pendingLotteryRaces.sort((a, b) => new Date(a.date) - new Date(b.date));
-   
-   // 如果没有任何赛事，不显示列表
-   if (normalRaces.length === 0 && pendingLotteryRaces.length === 0) {
-       return;
-   }
-   
-   // 添加赛事分隔线
-   const divider = document.createElement('hr');
-   divider.className = 'calendar-races-divider';
-   calendarContainer.appendChild(divider);
-   
-   // 渲染普通赛事列表
-   if (normalRaces.length > 0) {
-       const racesList = document.createElement('div');
-       racesList.className = 'races-list calendar-year-view';
-       
-       normalRaces.forEach(race => {
-           const raceItem = createRaceItemElement(race);
-           racesList.appendChild(raceItem);
-       });
-       
-       calendarContainer.appendChild(racesList);
-   }
-   
-   // 渲染待抽签赛事列表
-   if (pendingLotteryRaces.length > 0) {
-       const pendingSection = document.createElement('div');
-       pendingSection.className = 'pending-lottery-section';
-       
-       const pendingTitle = document.createElement('h4');
-       pendingTitle.className = 'pending-lottery-title';
-       pendingTitle.innerHTML = '<i class="fas fa-ticket-alt"></i> 待抽签';
-       pendingSection.appendChild(pendingTitle);
-       
-       const pendingList = document.createElement('div');
-       pendingList.className = 'races-list calendar-year-view pending-lottery-list';
-       
-       pendingLotteryRaces.forEach(race => {
-           const raceItem = createRaceItemElement(race, true);
-           pendingList.appendChild(raceItem);
-       });
-       
-       pendingSection.appendChild(pendingList);
-       calendarContainer.appendChild(pendingSection);
-   }
+function renderCurrentViewRaces(viewRaces) {
+    const calendarContainer = document.getElementById('calendar');
+    if (!calendarContainer) return;
+    
+    // 移除已存在的赛事列表（包括单个赛事项和列表容器）
+    const existingRaceItems = calendarContainer.querySelectorAll('.race-item, .upcoming-race-card');
+    existingRaceItems.forEach(item => item.remove());
+    
+    const existingRaceList = calendarContainer.querySelector('.races-list, .upcoming-races-list');
+    if (existingRaceList) {
+        existingRaceList.remove();
+    }
+    
+    const existingPendingSection = calendarContainer.querySelector('.pending-lottery-section');
+    if (existingPendingSection) {
+        existingPendingSection.remove();
+    }
+    
+    const existingDivider = calendarContainer.querySelector('.calendar-races-divider');
+    if (existingDivider) {
+        existingDivider.remove();
+    }
+    
+    // 按时间顺序排序
+    viewRaces.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    // 如果没有任何赛事，不显示列表
+    if (viewRaces.length === 0) {
+        return;
+    }
+    
+    // 添加赛事分隔线
+    const divider = document.createElement('hr');
+    divider.className = 'calendar-races-divider';
+    calendarContainer.appendChild(divider);
+    
+    // 渲染赛事列表（所有赛事放在一起，通过标签区分）
+    const racesList = document.createElement('div');
+    racesList.className = 'upcoming-races-list';
+    
+    viewRaces.forEach(race => {
+        const raceItem = createRaceItemElement(race, isPendingLottery(race));
+        racesList.appendChild(raceItem);
+    });
+    
+    calendarContainer.appendChild(racesList);
 }
 
 // 创建赛事项DOM元素
 function createRaceItemElement(race, isPendingLottery = false) {
-   const raceItem = document.createElement('div');
-   raceItem.className = 'race-item calendar-month-container' + (isPendingLottery ? ' pending-lottery-item' : '');
-   
-   const currentDate = new Date();
-   const raceDate = new Date(race.date);
-   const isPastRace = raceDate < currentDate || (raceDate.toDateString() === currentDate.toDateString() && race.result && race.result !== '');
-   
-   let displayTime;
-   if (isPendingLottery) {
-       displayTime = race.status === 'TBD' ? '待抽签' : `${race.status}出签`;
-   } else {
-       displayTime = isPastRace ? (race.result || '无成绩') : (race.startTime || '待定');
-   }
-   
-   raceItem.innerHTML = `
-       <div class="race-item-header calendar-month-title">${race.date}</div>
-       <div class="race-item-content">
-           <div class="race-item-name">${race.name}</div>
-           <div class="race-item-time">${displayTime}</div>
-           <div class="race-item-details">
-               <span class="race-item-location">${race.location}</span>
-               <span class="race-item-event">${race.event}</span>
-               <span class="race-item-category">${race.category}</span>
-           </div>
-       </div>
-   `;
-   
-   raceItem.onclick = null;
-   
-   return raceItem;
+    const raceItem = document.createElement('div');
+    raceItem.className = 'upcoming-race-card' + (isPendingLottery ? ' pending-lottery-item' : '');
+    
+    const currentDate = new Date();
+    const raceDate = new Date(race.date);
+    const isPastRace = raceDate < currentDate || (raceDate.toDateString() === currentDate.toDateString() && race.result && race.result !== '');
+    
+    let statusBadge = '';
+    if (isPendingLottery) {
+        if (race.status === 'TBD') {
+            statusBadge = '<span class="status-badge tbd">待抽签</span>';
+        } else {
+            statusBadge = `<span class="status-badge pending">待抽签 (${race.status})</span>`;
+        }
+    } else if (race.status === 'registered') {
+        statusBadge = '<span class="status-badge registered">已报名</span>';
+    } else if (isPastRace) {
+        statusBadge = '<span class="status-badge finished">已完赛</span>';
+    }
+    
+    // 计算倒计时（所有未来赛事都显示倒计时）
+    let countdownHTML = '';
+    if (isPastRace) {
+        // 已完赛：显示成绩
+        countdownHTML = `
+            <div class="upcoming-race-countdown">
+                <span class="countdown-label">成绩：</span>
+                <span class="countdown-timer finished">${race.result || '无成绩'}</span>
+            </div>
+        `;
+    } else {
+        // 未来赛事（包括待抽签）：显示倒计时
+        const now = Date.now();
+        const [hours, minutes] = (race.startTime || '07:30').split(':').map(Number);
+        const [year, month, day] = race.date.split('-').map(Number);
+        const startTime = new Date(year, month - 1, day, hours, minutes, 0, 0).getTime();
+        const remaining = startTime - now;
+        
+        const countdownLabel = '距开赛还剩：';
+        
+        countdownHTML = `
+            <div class="upcoming-race-countdown">
+                <span class="countdown-label">${countdownLabel}</span>
+                <span class="countdown-timer" data-race-id="${race.id}">${formatCountdown(remaining)}</span>
+            </div>
+        `;
+    }
+    
+    raceItem.innerHTML = `
+        <div class="upcoming-race-card-content">
+            <div class="upcoming-race-header">
+                <h3 class="upcoming-race-title">${race.name}</h3>
+                ${statusBadge}
+            </div>
+            <div class="upcoming-race-meta">
+                <span class="upcoming-race-date">📅 ${race.date} ${race.startTime || ''}</span>
+                <span class="upcoming-race-location">📍 ${race.location}</span>
+            </div>
+            <div class="upcoming-race-details">
+                <span class="upcoming-race-category">${race.category}</span>
+                <span class="upcoming-race-event">${race.event}</span>
+                <span class="upcoming-race-distance">${race.distance}</span>
+            </div>
+        </div>
+        ${countdownHTML}
+    `;
+    
+    raceItem.onclick = null;
+    
+    return raceItem;
 }
+
+// 格式化倒计时
+function formatCountdown(ms) {
+    if (ms <= 0) return '比赛进行中或已结束';
+    
+    const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((ms % (1000 * 60)) / 1000);
+    
+    return `${days}天 ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// 倒计时更新器
+let countdownInterval = null;
+
+// 更新倒计时显示
+function updateCountdowns() {
+    const countdownElements = document.querySelectorAll('.countdown-timer');
+    
+    countdownElements.forEach(el => {
+        const raceId = parseInt(el.dataset.raceId);
+        if (isNaN(raceId)) return;
+        
+        const race = upcomingRaces.find(r => r.id === raceId);
+        if (!race) return;
+        
+        const now = Date.now();
+        const [hours, minutes] = (race.startTime || '07:30').split(':').map(Number);
+        const [year, month, day] = race.date.split('-').map(Number);
+        const startTime = new Date(year, month - 1, day, hours, minutes, 0, 0).getTime();
+        const remaining = startTime - now;
+        
+        el.textContent = formatCountdown(remaining);
+        
+        // 根据剩余时间改变颜色
+        if (remaining <= 0) {
+            el.style.color = '#e74c3c';
+        } else if (remaining < 24 * 60 * 60 * 1000) {
+            el.style.color = '#f39c12';
+        } else {
+            el.style.color = '#27ae60';
+        }
+    });
+}
+
+// 启动倒计时更新
+function startCountdownUpdater() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    countdownInterval = setInterval(updateCountdowns, 1000);
+}
+
+function stopCountdownUpdater() {
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+    }
+}
+
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        stopCountdownUpdater();
+    } else {
+        startCountdownUpdater();
+    }
+});
 
 // 显示普通通知
 function showNotification(message) {
