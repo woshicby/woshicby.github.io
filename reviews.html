@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>书影音记录 - BY的个人网站</title>
+    
+    <meta name="description" content="BY的书影音记录，包含电影、书籍、音乐、游戏和舞台剧的评价与评分。">
+    <meta name="keywords" content="豆瓣,影评,书评,乐评,游戏评价,舞台剧,评分">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="书影音记录 - BY的个人网站">
+    <meta property="og:description" content="BY的书影音记录，包含电影、书籍、音乐、游戏和舞台剧的评价与评分。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/reviews.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="书影音记录 - BY的个人网站">
+    <meta name="twitter:description" content="BY的书影音记录，包含电影、书籍、音乐、游戏和舞台剧的评价与评分。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "BY的书影音记录",
+        "url": "https://woshicby.github.io/reviews.html",
+        "description": "包含电影、书籍、音乐、游戏和舞台剧的评价与评分",
+        "author": {
+            "@type": "Person",
+            "name": "woshicby"
+        }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/reviews.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/reviews.html">
+    
+    <script src="./JS/markdown/markdown-it.min.js"></script>
+    <script src="./JS/navigation.js"></script>
+    <script src="./JS/theme-toggle.js"></script>
+    <script src="./JS/background-lazy-load.js"></script>
+    <script src="./JS/reviews.js"></script>
+</head>
+<body class="reviews-page">
+    <div class="header clearfix wrapper">
+        <h1>书影音记录</h1>
+        <div class="nav">
+            <ul class="clearfix">
+                <li>
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <div class="mainbox clearfix wrapper">
+        <section class="reviews-toolbar">
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="movie">🎬 电影</button>
+                <button class="category-tab" data-category="book">📖 书籍</button>
+                <button class="category-tab" data-category="music">🎵 音乐</button>
+                <button class="category-tab" data-category="game">🎮 游戏</button>
+                <button class="category-tab" data-category="drama">🎭 舞台剧</button>
+            </div>
+            <div class="status-tabs" id="status-tabs"></div>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索标题、评论...">
+            </div>
+            <div class="tags-filter" id="tags-section">
+                <h3>标签筛选</h3>
+                <div id="tags-container"></div>
+            </div>
+            <div id="filter-info" class="filter-info" style="display: none;">
+                <div id="filter-tags" class="filter-tags"></div>
+                <button id="clear-filter" class="clear-filter-btn">清除所有</button>
+            </div>
+            <div class="reviews-stats">
+                <span class="stat-item"><span class="stat-label">当前</span><span id="stat-current" class="stat-value">0</span></span>
+                <span class="stat-item"><span class="stat-label">总计</span><span id="stat-total" class="stat-value">0</span></span>
+                <span class="stat-item"><span class="stat-label">已评</span><span id="stat-reviewed" class="stat-value">0</span></span>
+                <span class="stat-item"><span class="stat-label">均分</span><span id="stat-avg" class="stat-value">-</span></span>
+            </div>
+        </section>
+        
+        <section id="reviews-list" class="reviews-list">
+            <div class="loading">加载中...</div>
+        </section>
+    </div>
+    
+    <div class="foot wrapper">
+        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+    </div>
+</body>
+</html>

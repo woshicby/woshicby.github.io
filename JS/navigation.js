@@ -1,46 +1,61 @@
-/**
-* 响应式导航栏功能模块
-* 提供移动设备导航菜单切换功能、无障碍支持及错误处理
-*/
-
-// 等待DOM完全加载后执行导航栏初始化
 document.addEventListener('DOMContentLoaded', function() {
-   /**
-    * 初始化导航栏功能
-    * 检查必要DOM元素并绑定事件监听器
-    */
-   function initNavigation() {
-       // 获取导航相关DOM元素
-       const navToggle = document.querySelector('.nav-toggle');
-       const nav = document.querySelector('.nav');
-       
-       // 验证必要元素存在性
-       if (navToggle && nav) {
-           // 为导航切换按钮添加点击事件处理器
-           navToggle.addEventListener('click', function() {
-               // 切换导航菜单显示状态
-               nav.classList.toggle('active');
-               
-               // 切换按钮自身的活动状态（用于图标变化等样式）
-               this.classList.toggle('active');
-               
-               // 更新无障碍属性，提高可访问性
-               const expanded = this.getAttribute('aria-expanded') === 'true';
-               this.setAttribute('aria-expanded', !expanded);
-               
-               // 开发环境调试信息
-               console.log('导航菜单已' + (nav.classList.contains('active') ? '展开' : '收起'));
-           });
-       } else {
-           // 错误处理与调试提示
-           if (navToggle === null && nav !== null) {
-               console.warn('未找到.nav-toggle元素，但存在.nav元素。请确保HTML结构完整。');
-           } else if (nav === null) {
-               console.warn('未找到.nav元素。导航功能无法初始化。');
-           }
-       }
-   }
-   
-   // 执行导航栏初始化
-   initNavigation();
+    const NAV_ITEMS = [
+        { href: './index.html', label: '首页' },
+        { href: './posts.html', label: '博客文章' },
+        { href: './reviews.html', label: '书影音记录' },
+        { href: './moments.html', label: '灵感碎片' },
+        { href: './study.html', label: '个人成果' },
+        { href: './video.html', label: '视频展示' },
+        { href: './tools.html', label: '小工具&小游戏' },
+        { href: './sports.html', label: '体育运动' }
+    ];
+
+    function renderNav() {
+        const navUl = document.querySelector('.nav ul.clearfix');
+        if (!navUl) return;
+
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const themeToggle = navUl.querySelector('.theme-toggle');
+
+        const navLinksHTML = NAV_ITEMS.map(item => {
+            const page = item.href.split('/').pop();
+            const isActive = page === currentPage;
+            return `<li><a href="${item.href}"${isActive ? ' class="active"' : ''}>${item.label}</a></li>`;
+        }).join('');
+
+        if (themeToggle) {
+            const toggleLi = themeToggle.closest('li');
+            if (toggleLi) {
+                navUl.innerHTML = navLinksHTML;
+                navUl.appendChild(toggleLi);
+            } else {
+                navUl.innerHTML = navLinksHTML + `<li><label class="theme-toggle">${themeToggle.outerHTML.replace(/<label[^>]*>|<\/label>/g, '')}</label></li>`;
+            }
+        } else {
+            navUl.innerHTML = navLinksHTML + `<li>
+                <label class="theme-toggle">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="theme-toggle-slider"></span>
+                </label>
+            </li>`;
+        }
+    }
+
+    function initNavigation() {
+        renderNav();
+
+        const navToggle = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav');
+
+        if (navToggle && nav) {
+            navToggle.addEventListener('click', function() {
+                nav.classList.toggle('active');
+                this.classList.toggle('active');
+                const expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !expanded);
+            });
+        }
+    }
+
+    initNavigation();
 });
