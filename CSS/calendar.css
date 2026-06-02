@@ -174,6 +174,11 @@
    color: var(--text-color);
 }
 
+.race-tooltip-divider {
+   border-top: 1px solid var(--border-color);
+   margin: var(--spacing-xs) 0;
+ }
+
 /* 年视图单元格也需要相对定位 */
 .calendar-month-table .calendar-day {
    position: relative;
@@ -473,4 +478,83 @@
 .calendar-day.race-pending-lottery {
    border: 2px dashed var(--accent-color);
    font-weight: bold;
+}
+
+.calendar-day.race-to-be-registered {
+   border: 2px dashed #9b59b6;
+   font-weight: bold;
+}
+
+.calendar-day.race-dimmed {
+   opacity: 0.35;
+   border: none;
+   font-weight: normal;
+}
+
+.race-filter-bar {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-sm);
+   margin-top: var(--spacing-md);
+   flex-wrap: wrap;
+}
+
+.race-filter-toggle {
+   display: inline-flex;
+   align-items: center;
+   gap: 4px;
+   padding: 6px 14px;
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius-sm);
+   background: var(--card-bg-color);
+   color: var(--text-color);
+   cursor: pointer;
+   font-size: 0.85rem;
+   transition: all 0.2s;
+}
+
+.race-filter-toggle:hover {
+   border-color: var(--accent-color);
+}
+
+.race-filter-toggle .filter-icon {
+   font-size: 0.9rem;
+}
+
+.race-filter-options {
+   display: flex;
+   gap: var(--spacing-xs);
+   overflow: hidden;
+   max-height: 40px;
+   transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+   opacity: 1;
+}
+
+.race-filter-options.collapsed {
+   max-height: 0;
+   opacity: 0;
+   margin: 0;
+   pointer-events: none;
+}
+
+.race-filter-btn {
+   padding: 5px 12px;
+   border: 1px solid var(--border-color);
+   border-radius: var(--border-radius-sm);
+   background: var(--card-bg-color);
+   color: var(--secondary-text-color);
+   cursor: pointer;
+   font-size: 0.8rem;
+   transition: all 0.2s;
+}
+
+.race-filter-btn:hover {
+   border-color: var(--accent-color);
+   color: var(--text-color);
+}
+
+.race-filter-btn.active {
+   background: var(--accent-color);
+   color: white;
+   border-color: var(--accent-color);
 }

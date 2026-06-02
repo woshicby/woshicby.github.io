@@ -580,23 +580,6 @@
    },
    {
       "id": 32,
-      "name": "2026青岛山海四季跑（夏季赛）",
-      "date": "2026-06-20",
-      "startTime": "09:00",
-      "location": "山东省青岛市市北区浮山绿道",
-      "category": "路跑",
-      "event": "10km",
-      "distance": "10公里",
-      "status": "registered",
-      "result": "",
-      "pace": "",
-      "season": "2026春季",
-      "certification": [],
-      "eventSeries": "青岛山海四季跑",
-      "stravaLink": ""
-   },
-   {
-      "id": 33,
       "name": "2026户外特工山顶见训练赛（青岛站）",
       "date": "2026-06-21",
       "startTime": "07:30",
@@ -612,6 +595,23 @@
          "ITRA 1分"
       ],
       "eventSeries": "户外特工山顶见训练赛",
+      "stravaLink": ""
+   },
+   {
+      "id": 33,
+      "name": "2026青岛山海四季跑（夏季赛）",
+      "date": "2026-06-27",
+      "startTime": "07:30",
+      "location": "山东省青岛市崂山区极地海上足球场",
+      "category": "路跑",
+      "event": "10km",
+      "distance": "10公里",
+      "status": "registered",
+      "result": "",
+      "pace": "",
+      "season": "2026春季",
+      "certification": [],
+      "eventSeries": "青岛山海四季跑",
       "stravaLink": ""
    },
    {
@@ -636,22 +636,21 @@
    },
    {
       "id": 35,
-      "name": "2026黄河口（东营）马拉松",
+      "name": "2026日照马拉松",
       "date": "2026-10-18",
       "startTime": "07:30",
-      "location": "山东省东营市新世纪广场",
+      "location": "山东省日照市人民广场",
       "category": "路跑",
       "event": "半程马拉松",
       "distance": "21.0975公里",
-      "status": "TBD",
+      "status": "待报名",
       "result": "",
       "pace": "",
       "season": "2026秋季",
       "certification": [
-         "A1",
-         "国际金标"
+         "A1"
       ],
-      "eventSeries": "黄河口马拉松",
+      "eventSeries": "日照马拉松",
       "stravaLink": ""
    },
    {
@@ -667,7 +666,9 @@
       "result": "",
       "pace": "",
       "season": "2026秋季",
-      "certification": [],
+      "certification": [
+         "A1"
+      ],
       "eventSeries": "烟台马拉松",
       "stravaLink": ""
    },
@@ -676,7 +677,7 @@
       "name": "2026上海马拉松",
       "date": "2026-12-06",
       "startTime": "07:30",
-      "location": "上海市外滩金牛广场",
+      "location": "上海市黄浦区外滩金牛广场",
       "category": "路跑",
       "event": "马拉松",
       "distance": "42.195公里",
@@ -700,7 +701,7 @@
       "category": "路跑",
       "event": "马拉松",
       "distance": "42.195公里",
-      "status": "TBD",
+      "status": "待报名",
       "result": "",
       "pace": "",
       "season": "2026秋季",
@@ -708,6 +709,59 @@
          "A1"
       ],
       "eventSeries": "莆田木兰溪马拉松",
+      "stravaLink": ""
+   },
+   {
+      "id": 39,
+      "name": "2026临沂马拉松",
+      "date": "2026-11-01",
+      "startTime": "07:30",
+      "location": "山东省临沂市五洲湖广场",
+      "category": "路跑",
+      "event": "半程马拉松",
+      "distance": "21.0975公里",
+      "status": "待报名",
+      "result": "",
+      "pace": "",
+      "season": "2026秋季",
+      "certification": [
+         "A1"
+      ],
+      "eventSeries": "临沂马拉松",
+      "stravaLink": ""
+   },
+   {
+      "id": 40,
+      "name": "2026青岛山海四季跑（秋季赛）",
+      "date": "TBC",
+      "startTime": "",
+      "location": "TBC",
+      "category": "路跑",
+      "event": "10km",
+      "distance": "10公里",
+      "status": "registered",
+      "result": "",
+      "pace": "",
+      "season": "2026秋季",
+      "certification": [],
+      "eventSeries": "青岛山海四季跑",
+      "stravaLink": ""
+   },
+   {
+      "id": 41,
+      "name": "2026青岛山海四季跑（冬季赛）",
+      "date": "TBC",
+      "startTime": "",
+      "location": "TBC",
+      "category": "路跑",
+      "event": "10km",
+      "distance": "10公里",
+      "status": "registered",
+      "result": "",
+      "pace": "",
+      "season": "2026秋季",
+      "certification": [],
+      "eventSeries": "青岛山海四季跑",
       "stravaLink": ""
    }
 ]

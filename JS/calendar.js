@@ -5,7 +5,11 @@ let upcomingRaces = [];
 
 // 判断赛事是否为待抽签状态
 function isPendingLottery(race) {
-   return race.status && !['finished', 'registered', 'DNS', 'DNF'].includes(race.status);
+   return race.status && !['finished', 'registered', 'DNS', 'DNF', '待报名'].includes(race.status);
+}
+
+function isToBeRegistered(race) {
+   return race.status === '待报名';
 }
 
 // 当前显示的年份和月份
@@ -14,6 +18,8 @@ let currentMonth = new Date().getMonth();
 
 // 当前视图类型：'month' 或 'year'
 let currentView = 'month';
+
+let currentFilter = 'all';
 
 // 响应式断点（参考其他页面的响应式设置）
 const RESPONSIVE_BREAKPOINT = 768;
@@ -233,46 +239,58 @@ function createTooltip() {
 }
 
 // 显示赛事提示框
-function showRaceTooltip(event, race) {
+function showRaceTooltip(event, races) {
    const tooltip = createTooltip();
+   const raceList = Array.isArray(races) ? races : [races];
    
-   // 判断是过去赛事还是未来赛事
    const currentDate = new Date();
-   const raceDate = new Date(race.date);
-   const isPastRace = raceDate < currentDate || (raceDate.toDateString() === currentDate.toDateString() && race.result && race.result !== '');
    
-   // 生成提示框内容
-   let content = `
-       <div class="race-tooltip-title">${race.name}</div>
-       <div class="race-tooltip-item">
-           <span class="race-tooltip-label">日期：</span>${race.date}
-       </div>
-   `;
-   
-   if (isPendingLottery(race)) {
-       const lotteryLabel = race.status === 'TBD' ? '待抽签（出签日期待定）' : `待抽签（${race.status}出签）`;
+   let content = '';
+   raceList.forEach((race, index) => {
+       if (index > 0) {
+           content += '<div class="race-tooltip-divider"></div>';
+       }
+       
+       const raceDate = new Date(race.date);
+       const isPastRace = raceDate < currentDate || (raceDate.toDateString() === currentDate.toDateString() && race.result && race.result !== '');
+       
        content += `
+           <div class="race-tooltip-title">${race.name}</div>
            <div class="race-tooltip-item">
-               <span class="race-tooltip-label">状态：</span>${lotteryLabel}
+               <span class="race-tooltip-label">日期：</span>${race.date}
            </div>
        `;
-   } else if (isPastRace) {
-       content += `
-           <div class="race-tooltip-item">
-               <span class="race-tooltip-label">成绩：</span>${race.result || '无成绩'}
-           </div>
-       `;
-   } else {
-       content += `
-           <div class="race-tooltip-item">
-               <span class="race-tooltip-label">时间：</span>${race.startTime || '待定'}
-           </div>
-       `;
-   }
+       
+       if (isToBeRegistered(race)) {
+           content += `
+               <div class="race-tooltip-item">
+                   <span class="race-tooltip-label">状态：</span>待报名
+               </div>
+           `;
+       } else if (isPendingLottery(race)) {
+           const lotteryLabel = race.status === 'TBD' ? '待抽签（出签日期待定）' : `待抽签（${race.status}出签）`;
+           content += `
+               <div class="race-tooltip-item">
+                   <span class="race-tooltip-label">状态：</span>${lotteryLabel}
+               </div>
+           `;
+       } else if (isPastRace) {
+           content += `
+               <div class="race-tooltip-item">
+                   <span class="race-tooltip-label">成绩：</span>${race.result || '无成绩'}
+               </div>
+           `;
+       } else {
+           content += `
+               <div class="race-tooltip-item">
+                   <span class="race-tooltip-label">时间：</span>${race.startTime || '待定'}
+               </div>
+           `;
+       }
+   });
    
    tooltip.innerHTML = content;
    
-   // 设置提示框位置
    tooltip.style.display = 'block';
    tooltip.style.left = `${event.pageX + 10}px`;
    tooltip.style.top = `${event.pageY + 10}px`;
@@ -351,15 +369,20 @@ function renderCalendar() {
    let viewRaces = [];
    
    if (currentView === 'month') {
-       // 月视图：筛选当前月份的赛事
        viewRaces = upcomingRaces.filter(race => {
+           if (race.date === 'TBC') {
+               const now = new Date();
+               return currentYear === now.getFullYear() && currentMonth === now.getMonth();
+           }
            const raceDate = new Date(race.date);
            return raceDate.getFullYear() === currentYear && 
                   raceDate.getMonth() === currentMonth;
        });
    } else {
-       // 年视图：筛选当前年份的赛事
        viewRaces = upcomingRaces.filter(race => {
+           if (race.date === 'TBC') {
+               return currentYear === new Date().getFullYear();
+           }
            const raceDate = new Date(race.date);
            return raceDate.getFullYear() === currentYear;
        });
@@ -375,8 +398,11 @@ function renderCalendar() {
        renderYearView(calendarContainer);
    }
    
+   // 应用筛选
+   const filteredRaces = applyFilter(viewRaces);
+   
    // 渲染当前视图内的赛事列表
-   renderCurrentViewRaces(viewRaces);
+   renderCurrentViewRaces(filteredRaces, viewRaces);
    
    // 启动倒计时更新
    startCountdownUpdater();
@@ -472,32 +498,29 @@ function renderMonthView(calendarContainer) {
                // 检查当天是否有赛事
                const dayRaces = getRacesByDate(dateStr);
                if (dayRaces.length > 0) {
-                   // 获取第一个赛事的类型
                    const raceType = dayRaces[0].category;
-                   // 根据赛事类型添加相应的颜色类
                    const colorClass = raceTypeColorMap[raceType] || raceTypeColorMap['other'];
                    cell.classList.add(colorClass);
                    
-                   // 根据赛事结果判断是过去还是未来赛事
                    const isPastRace = dayRaces[0].result && dayRaces[0].result !== '';
                    cell.classList.add(isPastRace ? 'race-past' : 'race-future');
                    
-                   // 待抽签赛事添加特殊标记
                    if (isPendingLottery(dayRaces[0])) {
                        cell.classList.add('race-pending-lottery');
                    }
                    
+                   if (isToBeRegistered(dayRaces[0])) {
+                       cell.classList.add('race-to-be-registered');
+                   }
                    
-                   // 添加鼠标悬停事件，显示赛事提示框
-                   const race = dayRaces[0];
                    cell.addEventListener('mouseenter', (event) => {
-                       showRaceTooltip(event, race);
+                       showRaceTooltip(event, dayRaces);
                    });
                    cell.addEventListener('mouseleave', () => {
                        hideRaceTooltip();
                    });
                    cell.addEventListener('mousemove', (event) => {
-                       showRaceTooltip(event, race);
+                       showRaceTooltip(event, dayRaces);
                    });
                }
                
@@ -509,7 +532,6 @@ function renderMonthView(calendarContainer) {
        
        tbody.appendChild(row);
        
-       // 如果已经显示了当月所有日期，结束循环
        if (dayCount > daysInMonth) {
            break;
        }
@@ -616,43 +638,40 @@ function renderYearView(calendarContainer) {
                    cell.textContent = dayCount;
                    
                    // 检查当天是否有赛事
-               const dayRaces = getRacesByDate(dateStr);
-               if (dayRaces.length > 0) {
-                   // 获取第一个赛事的类型
-                   const raceType = dayRaces[0].category;
-                   // 根据赛事类型添加相应的颜色类
-                   const colorClass = raceTypeColorMap[raceType] || raceTypeColorMap['other'];
-                   cell.classList.add(colorClass);
-                   
-                   // 根据赛事结果判断是过去还是未来赛事
-                   const isPastRace = dayRaces[0].result && dayRaces[0].result !== '';
-                   cell.classList.add(isPastRace ? 'race-past' : 'race-future');
-                   
-                   // 待抽签赛事添加特殊标记
-                   if (isPendingLottery(dayRaces[0])) {
-                       cell.classList.add('race-pending-lottery');
+                   const dayRaces = getRacesByDate(dateStr);
+                   if (dayRaces.length > 0) {
+                       const raceType = dayRaces[0].category;
+                       const colorClass = raceTypeColorMap[raceType] || raceTypeColorMap['other'];
+                       cell.classList.add(colorClass);
+                       
+                       const isPastRace = dayRaces[0].result && dayRaces[0].result !== '';
+                       cell.classList.add(isPastRace ? 'race-past' : 'race-future');
+                       
+                       if (isPendingLottery(dayRaces[0])) {
+                           cell.classList.add('race-pending-lottery');
+                       }
+                       
+                       if (isToBeRegistered(dayRaces[0])) {
+                           cell.classList.add('race-to-be-registered');
+                       }
+                       
+                       cell.addEventListener('mouseenter', (event) => {
+                           showRaceTooltip(event, dayRaces);
+                       });
+                       cell.addEventListener('mouseleave', () => {
+                           hideRaceTooltip();
+                       });
+                       cell.addEventListener('mousemove', (event) => {
+                           showRaceTooltip(event, dayRaces);
+                       });
                    }
                    
-                   // 添加鼠标悬停事件，显示赛事提示框
-                   const race = dayRaces[0];
-                   cell.addEventListener('mouseenter', (event) => {
-                       showRaceTooltip(event, race);
-                   });
-                   cell.addEventListener('mouseleave', () => {
-                       hideRaceTooltip();
-                   });
-                   cell.addEventListener('mousemove', (event) => {
-                       showRaceTooltip(event, race);
-                   });
-               }
-               
-               // 添加点击事件，切换到月视图查看详情
-               const clickedDay = dayCount;
-               cell.onclick = () => {
-                   currentMonth = month;
-                   currentView = 'month';
-                   renderCalendar();
-               };
+                   const clickedDay = dayCount;
+                   cell.onclick = () => {
+                       currentMonth = month;
+                       currentView = 'month';
+                       renderCalendar();
+                   };
                    
                    dayCount++;
                }
@@ -700,14 +719,74 @@ function getRacesByDate(dateStr) {
    return upcomingRaces.filter(race => race.date === dateStr);
 }
 
+function applyFilter(races) {
+   if (currentFilter === 'all') return races;
+   if (currentFilter === 'finished') return races.filter(race => race.status === 'finished');
+   if (currentFilter === 'unfinished') return races.filter(race => race.status !== 'finished');
+   return races;
+}
+
+function isRaceFinished(race) {
+   return race.status === 'finished';
+ }
+
+function updateCalendarDimmedDates(filteredRaces, allViewRaces) {
+   const allDayCells = document.querySelectorAll('.calendar-day:not(.empty)');
+   
+   if (currentFilter === 'all') {
+       allDayCells.forEach(cell => cell.classList.remove('race-dimmed'));
+       return;
+   }
+   
+   const filteredDates = new Set(filteredRaces.map(r => r.date));
+   const allRaceDates = new Set(allViewRaces.map(r => r.date));
+   
+   allDayCells.forEach(cell => {
+       const cellDate = getCellDate(cell);
+       if (!cellDate) return;
+       
+       if (allRaceDates.has(cellDate) && !filteredDates.has(cellDate)) {
+           cell.classList.add('race-dimmed');
+       } else {
+           cell.classList.remove('race-dimmed');
+       }
+   });
+}
+
+function getCellDate(cell) {
+   const table = cell.closest('table');
+   if (!table) return null;
+   
+   const monthContainer = table.closest('.calendar-month-container');
+   let year = currentYear;
+   let month = currentMonth;
+   
+   if (monthContainer) {
+       const titleEl = monthContainer.querySelector('.calendar-month-title');
+       if (titleEl) {
+           const fullText = titleEl.textContent.trim();
+           const yearMatch = fullText.match(/(\d{4})年/);
+           const monthMatch = fullText.match(/(\d{1,2})月/);
+           if (yearMatch) year = parseInt(yearMatch[1]);
+           if (monthMatch) month = parseInt(monthMatch[1]) - 1;
+       }
+   }
+   
+   const day = parseInt(cell.textContent);
+   if (isNaN(day)) return null;
+   
+   const monthStr = String(month + 1).padStart(2, '0');
+   const dayStr = String(day).padStart(2, '0');
+   return `${year}-${monthStr}-${dayStr}`;
+}
+
 
 
 // 渲染当前视图内的赛事列表
-function renderCurrentViewRaces(viewRaces) {
+function renderCurrentViewRaces(viewRaces, allViewRaces) {
     const calendarContainer = document.getElementById('calendar');
     if (!calendarContainer) return;
     
-    // 移除已存在的赛事列表（包括单个赛事项和列表容器）
     const existingRaceItems = calendarContainer.querySelectorAll('.race-item, .upcoming-race-card');
     existingRaceItems.forEach(item => item.remove());
     
@@ -726,20 +805,64 @@ function renderCurrentViewRaces(viewRaces) {
         existingDivider.remove();
     }
     
-    // 按时间顺序排序
-    viewRaces.sort((a, b) => new Date(a.date) - new Date(b.date));
+    const existingFilterBar = calendarContainer.querySelector('.race-filter-bar');
+    if (existingFilterBar) {
+        existingFilterBar.remove();
+    }
     
-    // 如果没有任何赛事，不显示列表
+    const filterBar = document.createElement('div');
+    filterBar.className = 'race-filter-bar';
+    
+    const filterToggle = document.createElement('button');
+    filterToggle.className = 'race-filter-toggle';
+    filterToggle.innerHTML = `<span class="filter-icon">⚙</span> 筛选`;
+    filterBar.appendChild(filterToggle);
+    
+    const filterOptions = document.createElement('div');
+    filterOptions.className = 'race-filter-options collapsed';
+    
+    const filters = [
+        { key: 'all', label: '全部比赛' },
+        { key: 'finished', label: '已参赛比赛' },
+        { key: 'unfinished', label: '未参赛比赛' }
+    ];
+    
+    filters.forEach(f => {
+        const btn = document.createElement('button');
+        btn.className = 'race-filter-btn' + (currentFilter === f.key ? ' active' : '');
+        btn.textContent = f.label;
+        btn.addEventListener('click', () => {
+            currentFilter = f.key;
+            renderCalendar();
+        });
+        filterOptions.appendChild(btn);
+    });
+    
+    filterBar.appendChild(filterOptions);
+    
+    filterToggle.addEventListener('click', () => {
+        filterOptions.classList.toggle('collapsed');
+        filterToggle.classList.toggle('expanded');
+    });
+    
+    calendarContainer.appendChild(filterBar);
+    
+    updateCalendarDimmedDates(viewRaces, allViewRaces);
+    
+    viewRaces.sort((a, b) => {
+        const dateA = a.date === 'TBC' ? Infinity : new Date(a.date).getTime();
+        const dateB = b.date === 'TBC' ? Infinity : new Date(b.date).getTime();
+        return dateA - dateB;
+    });
+    
     if (viewRaces.length === 0) {
         return;
     }
     
-    // 添加赛事分隔线
     const divider = document.createElement('hr');
     divider.className = 'calendar-races-divider';
     calendarContainer.appendChild(divider);
     
-    // 渲染赛事列表（所有赛事放在一起，通过标签区分）
     const racesList = document.createElement('div');
     racesList.className = 'upcoming-races-list';
     
@@ -756,12 +879,15 @@ function createRaceItemElement(race, isPendingLottery = false) {
     const raceItem = document.createElement('div');
     raceItem.className = 'upcoming-race-card' + (isPendingLottery ? ' pending-lottery-item' : '');
     
+    const isTBC = race.date === 'TBC';
     const currentDate = new Date();
-    const raceDate = new Date(race.date);
-    const isPastRace = raceDate < currentDate || (raceDate.toDateString() === currentDate.toDateString() && race.result && race.result !== '');
+    const raceDate = isTBC ? null : new Date(race.date);
+    const isPastRace = !isTBC && (raceDate < currentDate || (raceDate.toDateString() === currentDate.toDateString() && race.result && race.result !== ''));
     
     let statusBadge = '';
-    if (isPendingLottery) {
+    if (isToBeRegistered(race)) {
+        statusBadge = '<span class="status-badge to-be-registered">待报名</span>';
+    } else if (isPendingLottery) {
         if (race.status === 'TBD') {
             statusBadge = '<span class="status-badge tbd">待抽签</span>';
         } else {
@@ -773,10 +899,15 @@ function createRaceItemElement(race, isPendingLottery = false) {
         statusBadge = '<span class="status-badge finished">已完赛</span>';
     }
     
-    // 计算倒计时（所有未来赛事都显示倒计时）
     let countdownHTML = '';
-    if (isPastRace) {
-        // 已完赛：显示成绩
+    if (isTBC) {
+        countdownHTML = `
+            <div class="upcoming-race-countdown">
+                <span class="countdown-label">距开赛还剩：</span>
+                <span class="countdown-timer">∞</span>
+            </div>
+        `;
+    } else if (isPastRace) {
         countdownHTML = `
             <div class="upcoming-race-countdown">
                 <span class="countdown-label">成绩：</span>
@@ -784,22 +915,23 @@ function createRaceItemElement(race, isPendingLottery = false) {
             </div>
         `;
     } else {
-        // 未来赛事（包括待抽签）：显示倒计时
         const now = Date.now();
         const [hours, minutes] = (race.startTime || '07:30').split(':').map(Number);
         const [year, month, day] = race.date.split('-').map(Number);
         const startTime = new Date(year, month - 1, day, hours, minutes, 0, 0).getTime();
         const remaining = startTime - now;
         
-        const countdownLabel = '距开赛还剩：';
-        
         countdownHTML = `
             <div class="upcoming-race-countdown">
-                <span class="countdown-label">${countdownLabel}</span>
+                <span class="countdown-label">距开赛还剩：</span>
                 <span class="countdown-timer" data-race-id="${race.id}">${formatCountdown(remaining)}</span>
             </div>
         `;
     }
+    
+    const displayDate = isTBC ? '待定' : race.date;
+    const displayTime = isTBC ? '' : (race.startTime || '');
+    const displayLocation = race.location === 'TBC' ? '待定' : race.location;
     
     raceItem.innerHTML = `
         <div class="upcoming-race-card-content">
@@ -808,8 +940,8 @@ function createRaceItemElement(race, isPendingLottery = false) {
                 ${statusBadge}
             </div>
             <div class="upcoming-race-meta">
-                <span class="upcoming-race-date">📅 ${race.date} ${race.startTime || ''}</span>
-                <span class="upcoming-race-location">📍 ${race.location}</span>
+                <span class="upcoming-race-date">📅 ${displayDate} ${displayTime}</span>
+                <span class="upcoming-race-location">📍 ${displayLocation}</span>
             </div>
             <div class="upcoming-race-details">
                 <span class="upcoming-race-category">${race.category}</span>

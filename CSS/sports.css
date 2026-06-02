@@ -682,6 +682,11 @@ body.dark-theme .sports_record:hover {
     color: white;
 }
 
+.status-badge.to-be-registered {
+    background-color: #9b59b6;
+    color: white;
+}
+
 .upcoming-race-meta {
     display: flex;
     flex-direction: column;

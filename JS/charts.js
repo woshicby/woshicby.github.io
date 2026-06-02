@@ -596,10 +596,14 @@ function initProjectComparison(races) {
        projectSelect.appendChild(option);
    });
    
-   // 选择第一个项目
    if (validEvents.length > 0) {
-       projectSelect.value = validEvents[0];
-       updateProjectComparisonChart(racesByEvent[validEvents[0]]);
+       const defaultEvent = validEvents.reduce((latest, event) => {
+           const latestDateA = Math.max(...racesByEvent[latest].map(r => new Date(r.date).getTime()));
+           const latestDateB = Math.max(...racesByEvent[event].map(r => new Date(r.date).getTime()));
+           return latestDateB > latestDateA ? event : latest;
+       }, validEvents[0]);
+       projectSelect.value = defaultEvent;
+       updateProjectComparisonChart(racesByEvent[defaultEvent]);
    }
    
    // 添加项目选择事件监听
@@ -741,16 +745,19 @@ function initEventSeriesComparison(races) {
    validSeries.forEach(series => {
        const option = document.createElement('option');
        option.value = series;
-       // 显示格式：赛事系列名称 (项目)
        const [seriesName, event] = series.split('-');
        option.textContent = `${seriesName} (${event})`;
        seriesSelect.appendChild(option);
    });
    
-   // 选择第一个赛事系列
    if (validSeries.length > 0) {
-       seriesSelect.value = validSeries[0];
-       updateEventSeriesComparisonChart(racesBySeries[validSeries[0]]);
+       const defaultSeries = validSeries.reduce((latest, series) => {
+           const latestDateA = Math.max(...racesBySeries[latest].map(r => new Date(r.date).getTime()));
+           const latestDateB = Math.max(...racesBySeries[series].map(r => new Date(r.date).getTime()));
+           return latestDateB > latestDateA ? series : latest;
+       }, validSeries[0]);
+       seriesSelect.value = defaultSeries;
+       updateEventSeriesComparisonChart(racesBySeries[defaultSeries]);
    }
    
    // 添加赛事系列选择事件监听
