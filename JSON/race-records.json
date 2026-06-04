@@ -574,8 +574,8 @@
          "ITRA 2分"
       ],
       "eventSeries": "威海100",
-      "raceScore": "",
-      "itraPerformanceScore": "",
+      "raceScore": "298",
+      "itraPerformanceScore": "362",
       "stravaLink": "https://www.strava.com/activities/18538598647"
    },
    {
@@ -621,7 +621,7 @@
       "startTime": "07:30",
       "location": "山东省青岛市李沧区紫竹幽谷风景区",
       "category": "越野跑",
-      "event": "寻山组24km",
+      "event": "寻山组（24km）",
       "distance": "24公里",
       "status": "registered",
       "result": "",

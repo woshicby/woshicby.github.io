@@ -248,6 +248,7 @@ woshicby.github.io/
 | 2026.05.29 | 重构赛事日历模块：新增实时倒计时系统（支持页面可见性适配）；卡片式UI替代旧版布局；新增状态徽章区分已报名/待抽签/已完赛等状态；补全startTime字段；优化移动端响应式布局 |
 | 2026.05.31 | 重构导航栏逻辑，新增动态生成导航菜单功能：重写navigation.js，使用配置化方式管理导航项；统一所有页面的导航栏结构，移除硬编码的导航链接；新增书影音记录页面(reviews.html)及相关配套资源；修复部分页面导航缩进不一致的问题 |
 | 2026.06.02 | 新增赛事待报名状态支持与筛选功能：新增待报名赛事样式与状态标识；重构赛事默认选中逻辑，按最新参赛日期选择默认项目/赛事系列；完善日历视图筛选功能，支持按全部/已参赛/未参赛状态筛选，未显示赛事日期以灰色标识；优化赛事提示框，支持多赛事同时展示并添加分隔线；新增TBC（待定）日期赛事支持，倒计时显示∞；更新赛事数据，修正部分赛事信息并新增赛事记录 |
+| 2026.06.03 | 书影音记录页面筛选系统增强：新增快速筛选（评分状态、时间范围）与高级筛选（评分等级、地区、标签）两级筛选体系；评分制从5星制改为10分制，均分统计排除未评分项目，默认仅显示已评分项目；地区筛选支持空格分隔的多地区匹配；更新赛事记录分数与名称格式；格式化JSON数据文件缩进 |
 
 ## 使用方法
 
@@ -503,6 +504,7 @@ woshicby.github.io/
 | 2026.05.29 | Refactored race calendar module: added real-time countdown system with page visibility adaptation; card-style UI replacing legacy layout; added status badges for registered/pending lottery/finished states; completed startTime field; optimized mobile responsive layout |
 | 2026.05.31 | Refactored navigation logic, added dynamic navigation menu generation: rewrote navigation.js with configuration-based navigation item management; unified navigation structure across all pages, removed hardcoded navigation links; added Book/Movie/Music Reviews page (reviews.html) with supporting resources; fixed inconsistent navigation indentation on some pages |
 | 2026.06.02 | Added race pre-registration status support and filtering: new pre-registration race styles and status badges; refactored default selection logic to choose by latest race date; improved calendar filtering with all/finished/upcoming filters, dimmed dates for hidden races; enhanced race tooltip to display multiple races with dividers; added TBC (To Be Confirmed) date race support with ∞ countdown; updated race data and added new race records |
+| 2026.06.03 | Enhanced review page filtering system: added two-level filtering with quick filters (rating status, time range) and advanced filters (rating level, region, tags); changed rating system from 5-star to 10-point scale; average rating excludes unrated items; default view shows only rated items; region filter supports space-separated multi-region matching; updated race record scores and name format; formatted JSON data file indentation |
 
 ## Usage
 
@@ -758,6 +760,7 @@ woshicby.github.io/
 | 2026.05.29 | レースカレンダーモジュールをリファクタリング：リアルタイムカウントダウンシステム（ページ表示状態適応）を追加；カード式UIで旧レイアウトを置き換え；登録済み/抽選待ち/完走などのステータスバッジを追加；startTimeフィールドを補完；モバイルレスポンシブレイアウトを最適化 |
 | 2026.05.31 | ナビゲーション論理をリファクタリング、動的ナビゲーションメニュー生成機能を追加：navigation.jsを設定ベースのナビゲーション項目管理で再作成；全ページのナビゲーション構造を統一、ハードコードされたナビゲーションリンクを削除；書影音記録ページ(reviews.html)と関連リソースを追加；一部ページのナビゲーションインデントの不一致を修正 |
 | 2026.06.02 | レース事前登録ステータスサポートとフィルタリング機能を追加：事前登録レースのスタイルとステータスバッジを新規追加；デフォルト選択論理をリファクタリング、最新レース日付でデフォルト項目/シリーズを選択；カレンダーフィルタリング機能を改善、全て/完走/未完走フィルタに対応、非表示レース日付をグレー表示；レースツールチップを最適化、複数レースの同時表示と区切り線を追加；TBC（未定）日付レースサポートを追加、カウントダウンに∞を表示；レースデータを更新、一部レース情報を修正し新規レース記録を追加 |
+| 2026.06.03 | レビューページフィルタリングシステム強化：クイックフィルター（評価ステータス、期間）と高度なフィルター（評価レベル、地域、タグ）の2段階フィルタリングを追加；評価制度を5スター制から10点制に変更；平均評価は未評価項目を除外；デフォルトで評価済み項目のみ表示；地域フィルターはスペース区切りの複数地域マッチングに対応；レース記録のスコアと名称フォーマットを更新；JSONデータファイルのインデントをフォーマット |
 
 ## 使用方法
 

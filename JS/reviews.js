@@ -3,6 +3,10 @@ class ReviewsManager {
         this.allData = {};
         this.currentCategory = 'movie';
         this.currentStatus = null;
+        this.currentRatingStatus = 'rated';
+        this.currentRatingLevels = new Set();
+        this.currentTimeFilter = 'all';
+        this.currentRegion = null;
         this.currentItems = [];
         this.md = null;
         this.init();
@@ -15,6 +19,7 @@ class ReviewsManager {
             this.bindCategoryTabs();
             this.bindSearch();
             this.bindClearFilter();
+            this.bindAdvancedFilters();
             this.checkUrlParams();
         } catch (error) {
             console.error('加载豆瓣记录失败:', error);
@@ -81,6 +86,7 @@ class ReviewsManager {
     switchCategory(category) {
         this.currentCategory = category;
         this.currentStatus = null;
+        this.currentRegion = null;
 
         document.querySelectorAll('.category-tab').forEach(tab => {
             tab.classList.toggle('active', tab.getAttribute('data-category') === category);
@@ -88,6 +94,7 @@ class ReviewsManager {
 
         this.renderStatusTabs();
         this.renderTags();
+        this.renderRegionFilter();
         this.applyFilters();
         this.updateUrlParams();
     }
@@ -121,6 +128,7 @@ class ReviewsManager {
                 container.querySelectorAll('.status-tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 this.renderTags();
+                this.renderRegionFilter();
                 this.applyFilters();
                 this.updateUrlParams();
             });
@@ -144,24 +152,28 @@ class ReviewsManager {
         const items = this.getCategoryItems(this.currentCategory, this.currentStatus);
         const tags = this.extractTags(items);
         const tagsContainer = document.getElementById('tags-container');
-        const tagsSection = document.getElementById('tags-section');
+        const tagsGroup = tagsContainer ? tagsContainer.closest('.filter-group') : null;
+
+        if (!tagsContainer) return;
 
         if (tags.length === 0) {
-            tagsSection.style.display = 'none';
+            if (tagsGroup) tagsGroup.style.display = 'none';
             return;
         }
 
-        tagsSection.style.display = 'block';
+        if (tagsGroup) tagsGroup.style.display = '';
 
         tagsContainer.innerHTML = tags.map(tag => {
             const count = items.filter(item =>
                 (item.genres && item.genres.includes(tag)) ||
                 (item.tags && item.tags.includes(tag))
             ).length;
-            return `<span class="tag-badge" data-tag="${tag}">${tag} <span class="count">${count}</span></span>`;
+            return { tag, count };
+        }).sort((a, b) => b.count - a.count).map(({ tag, count }) => {
+            return `<button class="filter-btn" data-tag="${tag}">${tag} (${count})</button>`;
         }).join('');
 
-        tagsContainer.querySelectorAll('.tag-badge').forEach(badge => {
+        tagsContainer.querySelectorAll('.filter-btn').forEach(badge => {
             badge.addEventListener('click', () => {
                 this.toggleTagFilter(badge.getAttribute('data-tag'));
             });
@@ -209,9 +221,125 @@ class ReviewsManager {
             clearFilterBtn.addEventListener('click', () => {
                 window.history.replaceState({}, '', window.location.pathname);
                 document.getElementById('search-input').value = '';
+                this.currentRatingStatus = 'rated';
+                this.currentRatingLevels.clear();
+                this.currentTimeFilter = 'all';
+                this.resetAdvancedFilterUI();
                 this.applyFilters();
             });
         }
+    }
+
+    bindAdvancedFilters() {
+        const toggle = document.getElementById('advanced-filter-toggle');
+        const options = document.getElementById('advanced-filter-options');
+        if (toggle && options) {
+            toggle.addEventListener('click', () => {
+                options.classList.toggle('collapsed');
+            });
+        }
+
+        const ratingStatusFilter = document.getElementById('rating-status-filter');
+        if (ratingStatusFilter) {
+            ratingStatusFilter.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    this.currentRatingStatus = btn.getAttribute('data-value');
+                    ratingStatusFilter.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    this.applyFilters();
+                });
+            });
+        }
+
+        const ratingLevelFilter = document.getElementById('rating-level-filter');
+        if (ratingLevelFilter) {
+            ratingLevelFilter.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const value = parseInt(btn.getAttribute('data-value'));
+                    if (this.currentRatingLevels.has(value)) {
+                        this.currentRatingLevels.delete(value);
+                        btn.classList.remove('active');
+                    } else {
+                        this.currentRatingLevels.add(value);
+                        btn.classList.add('active');
+                    }
+                    this.applyFilters();
+                });
+            });
+        }
+
+        const timeFilter = document.getElementById('time-filter');
+        if (timeFilter) {
+            timeFilter.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    this.currentTimeFilter = btn.getAttribute('data-value');
+                    timeFilter.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    this.applyFilters();
+                });
+            });
+        }
+    }
+
+    resetAdvancedFilterUI() {
+        const ratingStatusFilter = document.getElementById('rating-status-filter');
+        if (ratingStatusFilter) {
+            ratingStatusFilter.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-value') === 'rated');
+            });
+        }
+
+        const ratingLevelFilter = document.getElementById('rating-level-filter');
+        if (ratingLevelFilter) {
+            ratingLevelFilter.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        }
+
+        const timeFilter = document.getElementById('time-filter');
+        if (timeFilter) {
+            timeFilter.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-value') === 'all');
+            });
+        }
+
+        this.currentRegion = null;
+        this.renderRegionFilter();
+    }
+
+    renderRegionFilter() {
+        const container = document.getElementById('region-filter');
+        if (!container) return;
+
+        const items = this.getCategoryItems(this.currentCategory, this.currentStatus);
+        const regionCount = {};
+        items.forEach(item => {
+            if (item.region) {
+                item.region.split(/\s+/).forEach(r => {
+                    if (r) regionCount[r] = (regionCount[r] || 0) + 1;
+                });
+            }
+        });
+
+        const regions = Object.keys(regionCount).sort((a, b) => regionCount[b] - regionCount[a]);
+        if (regions.length === 0) {
+            container.parentElement.style.display = 'none';
+            return;
+        }
+        container.parentElement.style.display = '';
+
+        let html = `<button class="filter-btn ${!this.currentRegion ? 'active' : ''}" data-value="">全部</button>`;
+        regions.forEach(region => {
+            html += `<button class="filter-btn ${this.currentRegion === region ? 'active' : ''}" data-value="${this.escapeHtml(region)}">${this.escapeHtml(region)} (${regionCount[region]})</button>`;
+        });
+        container.innerHTML = html;
+
+        container.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.currentRegion = btn.getAttribute('data-value') || null;
+                container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.applyFilters();
+            });
+        });
     }
 
     checkUrlParams() {
@@ -241,6 +369,7 @@ class ReviewsManager {
         }
 
         this.renderTags();
+        this.renderRegionFilter();
         this.applyFilters();
     }
 
@@ -261,6 +390,34 @@ class ReviewsManager {
         const search = urlParams.get('search');
 
         let items = this.getCategoryItems(this.currentCategory, this.currentStatus);
+
+        // 评分状态筛选
+        if (this.currentRatingStatus === 'rated') {
+            items = items.filter(item => item.myRating && item.myRating > 0);
+        } else if (this.currentRatingStatus === 'unrated') {
+            items = items.filter(item => !item.myRating || item.myRating <= 0);
+        }
+
+        // 评分等级筛选（多选）
+        if (this.currentRatingLevels.size > 0) {
+            items = items.filter(item => this.currentRatingLevels.has(item.myRating));
+        }
+
+        // 时间范围筛选
+        if (this.currentTimeFilter !== 'all') {
+            items = items.filter(item => {
+                const dateStr = item.createdAt || '';
+                const year = parseInt(dateStr.substring(0, 4));
+                if (isNaN(year)) return false;
+                if (this.currentTimeFilter === 'earlier') return year < 2024;
+                return year === parseInt(this.currentTimeFilter);
+            });
+        }
+
+        // 地区筛选
+        if (this.currentRegion) {
+            items = items.filter(item => item.region && item.region.split(/\s+/).includes(this.currentRegion));
+        }
 
         if (tags.length > 0) {
             items = items.filter(item =>
@@ -327,9 +484,10 @@ class ReviewsManager {
 
     createRatingHTML(rating) {
         if (!rating || rating <= 0) return '<div class="review-rating"><span style="color:var(--light-text);font-size:0.8rem;">未评</span></div>';
-        let html = '';
+        const stars = Math.round(rating / 2);
+        let html = `<span class="rating-score">${rating}</span>`;
         for (let i = 1; i <= 5; i++) {
-            html += `<span class="star ${i <= rating ? 'filled' : 'empty'}">★</span>`;
+            html += `<span class="star ${i <= stars ? 'filled' : 'empty'}">★</span>`;
         }
         return html;
     }
@@ -451,7 +609,7 @@ class ReviewsManager {
     }
 
     updateActiveStates(tags) {
-        document.querySelectorAll('#tags-container .tag-badge').forEach(badge => {
+        document.querySelectorAll('#tags-container .filter-btn').forEach(badge => {
             const tag = badge.getAttribute('data-tag');
             badge.classList.toggle('active', tags.includes(tag));
         });

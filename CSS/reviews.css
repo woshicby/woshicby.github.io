@@ -67,6 +67,34 @@ body.reviews-page {
     flex-wrap: wrap;
 }
 
+.reviews-page .quick-filters {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.reviews-page .quick-filters .filter-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.reviews-page .quick-filters .filter-group-label {
+    display: inline;
+    font-size: 0.8rem;
+    color: var(--light-text);
+    font-weight: 600;
+    white-space: nowrap;
+    margin-bottom: 0;
+}
+
+.reviews-page .quick-filters .filter-group-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
 .reviews-page .status-tab {
     padding: 4px 12px;
     border: 1px solid var(--border-color);
@@ -95,6 +123,87 @@ body.reviews-page {
     margin-bottom: var(--spacing-md);
 }
 
+.reviews-page .advanced-filter {
+    margin-bottom: var(--spacing-md);
+}
+
+.reviews-page .advanced-filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background: var(--card-bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: var(--transition-default);
+}
+
+.reviews-page .advanced-filter-toggle:hover {
+    border-color: var(--secondary-color);
+}
+
+.reviews-page .advanced-filter-options {
+    margin-top: var(--spacing-sm);
+    overflow: hidden;
+    max-height: 800px;
+    opacity: 1;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.reviews-page .advanced-filter-options.collapsed {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.reviews-page .advanced-filter-options .filter-group {
+    margin-bottom: var(--spacing-sm);
+}
+
+.reviews-page .advanced-filter-options .filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.reviews-page .filter-group-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--light-text);
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.reviews-page .filter-group-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.reviews-page .filter-btn {
+    padding: 4px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    background: var(--card-bg-color);
+    color: var(--light-text);
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: var(--transition-default);
+    white-space: nowrap;
+}
+
+.reviews-page .filter-btn:hover {
+    border-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.reviews-page .filter-btn.active {
+    background: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
 .reviews-page #search-input {
     width: 100%;
     padding: var(--spacing-sm) var(--spacing-md);
@@ -112,48 +221,10 @@ body.reviews-page {
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-.reviews-page .tags-filter {
-    margin-bottom: var(--spacing-md);
-}
-
-.reviews-page .tags-filter h3 {
-    color: var(--heading-color);
-    margin-bottom: var(--spacing-sm);
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
 .reviews-page #tags-container {
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-xs);
-}
-
-.reviews-page #tags-container .tag-badge {
-    display: inline-block;
-    padding: 4px 12px;
-    background-color: var(--light-accent);
-    color: var(--secondary-color);
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: var(--transition-default);
-    border: 1px solid transparent;
-    cursor: pointer;
-}
-
-.reviews-page #tags-container .tag-badge:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-light);
-    border-color: var(--secondary-color);
-    background-color: var(--secondary-color);
-    color: white;
-}
-
-.reviews-page #tags-container .tag-badge.active {
-    background-color: var(--secondary-color);
-    color: white;
-    border-color: var(--secondary-color);
 }
 
 .reviews-page .filter-info {
@@ -354,8 +425,16 @@ body.reviews-page {
 
 .reviews-page .review-rating {
     display: flex;
+    align-items: center;
     gap: 2px;
     flex-shrink: 0;
+}
+
+.reviews-page .review-rating .rating-score {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #f39c12;
+    margin-right: 4px;
 }
 
 .reviews-page .review-rating .star {

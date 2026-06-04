@@ -80,12 +80,52 @@
                 <button class="category-tab" data-category="drama">🎭 舞台剧</button>
             </div>
             <div class="status-tabs" id="status-tabs"></div>
+            <div class="quick-filters">
+                <div class="filter-group">
+                    <label class="filter-group-label">评分状态</label>
+                    <div class="filter-group-btns" id="rating-status-filter">
+                        <button class="filter-btn active" data-value="rated">已评分</button>
+                        <button class="filter-btn" data-value="unrated">未评分</button>
+                        <button class="filter-btn" data-value="all">全部</button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-group-label">时间范围</label>
+                    <div class="filter-group-btns" id="time-filter">
+                        <button class="filter-btn active" data-value="all">全部</button>
+                        <button class="filter-btn" data-value="2026">2026</button>
+                        <button class="filter-btn" data-value="2025">2025</button>
+                        <button class="filter-btn" data-value="2024">2024</button>
+                        <button class="filter-btn" data-value="earlier">更早</button>
+                    </div>
+                </div>
+            </div>
             <div class="search-box">
                 <input type="text" id="search-input" placeholder="搜索标题、评论...">
             </div>
-            <div class="tags-filter" id="tags-section">
-                <h3>标签筛选</h3>
-                <div id="tags-container"></div>
+            <div class="advanced-filter">
+                <button class="advanced-filter-toggle" id="advanced-filter-toggle">⚙ 高级筛选</button>
+                <div class="advanced-filter-options collapsed" id="advanced-filter-options">
+                    <div class="filter-group">
+                        <label class="filter-group-label">评分等级</label>
+                        <div class="filter-group-btns" id="rating-level-filter">
+                            <button class="filter-btn" data-value="10">★★★★★</button>
+                            <button class="filter-btn" data-value="8">★★★★</button>
+                            <button class="filter-btn" data-value="6">★★★</button>
+                            <button class="filter-btn" data-value="4">★★</button>
+                            <button class="filter-btn" data-value="2">★</button>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-group-label">地区</label>
+                        <div class="filter-group-btns" id="region-filter">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-group-label">标签</label>
+                        <div id="tags-container"></div>
+                    </div>
+                </div>
             </div>
             <div id="filter-info" class="filter-info" style="display: none;">
                 <div id="filter-tags" class="filter-tags"></div>
