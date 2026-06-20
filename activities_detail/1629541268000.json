@@ -1,0 +1,1 @@
+{"run_id": 1629541268000, "start_time": "2021-08-21 10:21:08", "type": "training", "distance": 0, "elapsed_time": 64.0, "records": [{"hr": 160, "time": 0}, {"hr": 159, "time": 1}, {"hr": 158, "time": 2}, {"hr": 160, "time": 3}, {"hr": 160, "time": 4}, {"hr": 161, "time": 5}], "laps": [{"time": 64.0, "avg_hr": 159}]}

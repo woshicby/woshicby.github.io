@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>赛事 - BY的个人网站</title>
+   
+   <meta name="description" content="BY的赛事记录，包含马拉松、越野跑等赛事的成绩记录、赛事日历和数据分析�?>
+   <meta name="keywords" content="马拉松,越野跑等赛事记录,赛事日历,PB,SB,跑步成绩">
+   <meta name="author" content="woshicby">
+   <meta name="robots" content="index, follow">
+   
+   <meta property="og:title" content="赛事 - BY的个人网站>
+   <meta property="og:description" content="BY的赛事记录，包含马拉松、越野跑等赛事的成绩记录、赛事日历和数据分析�?>
+   <meta property="og:type" content="website">
+   <meta property="og:url" content="https://woshicby.github.io/races.html">
+   <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+   <meta property="og:site_name" content="BY的个人网站>
+   <meta property="og:locale" content="zh_CN">
+   
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="twitter:title" content="赛事 - BY的个人网站>
+   <meta name="twitter:description" content="BY的赛事记录，包含马拉松、越野跑、攀岩等赛事的成绩记录、赛事日历和数据分析�?>
+   <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+   
+   <link rel="stylesheet" href="./CSS/common.css">
+   <link rel="stylesheet" href="./CSS/races.css">
+   <link rel="stylesheet" href="./CSS/charts.css">
+   <link rel="stylesheet" href="./CSS/calendar.css">
+   <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+   <link rel="canonical" href="https://woshicby.github.io/races.html">
+   
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script><!-- 引入Chart.js CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script><!-- 引入Chart.js缩放插件 -->
+   <script>
+       // 夜间模式下设置图表文字颜色为白色
+       if (document.documentElement.classList.contains('dark-theme') || localStorage.getItem('theme') === 'dark') {
+           Chart.defaults.color = '#e0e0e0';
+           Chart.defaults.borderColor = 'rgba(255,255,255,0.1)';
+       }
+   </script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><!-- 引入Font Awesome CDN -->
+   
+   <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
+   <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
+   <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚�?-->
+   <script src="./JS/charts.js"></script><!-- 引入图表功能脚本 -->
+   <script src="./JS/calendar.js"></script><!-- 引入日历功能脚本 -->
+   <script src="./JS/races.js"></script><!-- 引入赛事页面脚本 -->
+</head>
+<!-- ==========================================
+        页面头部 - 网站标题和导�?        ==========================================
+        包含网站标志和主导航菜单，当前高�?赛事"选项
+        ========================================== -->
+
+<body>
+   <!-- 头部外套开始-->
+   <div class="header clearfix wrapper">
+       <!-- logo/大标题区域开始-->
+       <h1>赛事</h1>
+       <!-- logo/大标题区域结束 -->
+       <!-- 导航栏开始-->
+       <div class="nav">
+           <ul class="clearfix">
+                <li>
+                   <label class="theme-toggle">
+                       <input type="checkbox" id="themeToggle">
+                       <span class="theme-toggle-slider"></span>
+                   </label>
+               </li>
+            </ul>
+       </div>
+       <!-- 导航栏结束 -->
+   </div>
+   <!-- 头部外套结束 -->
+
+   <!-- 移动导航菜单切换按钮 -->
+   <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+       <span></span>
+       <span></span>
+       <span></span>
+   </button>
+   <!-- 主体外套开始-->
+   <!-- ==========================================
+            主体内容区域
+            ==========================================
+            展示个人赛事记录和成�?            ========================================== -->
+   <div class="mainbox clearfix wrapper">
+       <!-- 个人纪录部分 -->
+       <section class="personal-records">
+           <h2>个人最佳成绩 (PB)</h2>
+           <div class="personal-records-content" id="personal-records-content">
+               <!-- 个人最佳成绩将通过JavaScript动态生�?-->
+           </div>
+       </section>
+
+       <!-- 同一项目成绩变化对比功能 -->
+       <section id="project-comparison">
+           <h2>同一项目成绩变化对比</h2>
+           <div class="chart-controls">
+               <div>
+                   <label for="project-select">选择项目</label>
+                   <select id="project-select" class="chart-select">
+                       <!-- 项目选项将通过JavaScript动态生成 -->
+                   </select>
+               </div>
+               <button class="chart-btn" onclick="exportChart('project-comparison-chart', '赛事成绩-项目对比')">
+                   <i class="fas fa-download"></i> 下载图表
+               </button>
+           </div>
+           <div class="stats-container" id="project-stats">
+               <!-- 统计指标将通过JavaScript动态生成 -->
+           </div>
+           <div class="chart-container">
+               <canvas id="project-comparison-chart"></canvas>
+           </div>
+       </section>
+
+       <!-- 同一赛事成绩变化对比功能 -->
+       <section id="event-series-comparison">
+           <h2>同一赛事成绩变化对比</h2>
+           <div class="chart-controls">
+               <div>
+                   <label for="series-select">选择赛事系列</label>
+                   <select id="series-select" class="chart-select">
+                       <!-- 赛事系列选项将通过JavaScript动态生成 -->
+                   </select>
+               </div>
+               <button class="chart-btn"
+                   onclick="exportChart('event-series-comparison-chart', '赛事成绩-赛事系列对比')">
+                   <i class="fas fa-download"></i> 下载图表
+               </button>
+           </div>
+           <div class="stats-container" id="event-series-stats">
+               <!-- 统计指标将通过JavaScript动态生�?-->
+           </div>
+           <div class="chart-container">
+               <canvas id="event-series-comparison-chart"></canvas>
+           </div>
+       </section>
+
+       <!-- 赛事日历功能 -->
+       <section id="calendar-section">
+           <h2>赛事日历</h2>
+           <div id="calendar">
+               <!-- 日历将通过JavaScript动态生�?-->
+           </div>
+       </section>
+
+       <!-- 赛事信息列表 -->
+       <section id="race-records">
+           <h2>赛事记录</h2>
+           <div class="race-list">
+               <!-- 赛事记录将通过JavaScript动态生�?-->
+           </div>
+       </section>
+
+       <!-- 完赛证书部分 -->
+       <section id="finish-certificates">
+           <h2>完赛证书</h2>
+           <div class="certificates-container">
+               <div class="certificates-grid" id="certificates-grid">
+                   <!-- 证书内容将通过JavaScript动态生�?-->
+               </div>
+           </div>
+       </section>
+
+   </div>
+   <!-- 主体外套结束 -->
+   <!-- 脚注外套开始 -->
+   <!-- ==========================================
+            页脚区域
+            ==========================================
+            包含版权信息和社交链接
+            ========================================== -->
+   <div class="foot wrapper">
+       <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+   </div>
+   <!-- 脚注外套结束 -->
+</body>
+</html>

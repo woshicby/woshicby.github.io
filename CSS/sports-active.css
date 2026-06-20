@@ -1,0 +1,150 @@
+/* ==========================================
+   活跃统计图页面专用样式
+   ========================================== */
+
+.summary-page-container {
+    width: 90%;
+    margin: 0 auto;
+    padding: var(--spacing-md);
+}
+
+.summary-page-container .summary-filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.summary-content {
+    min-height: calc(100vh - 120px);
+}
+
+/* 卡片网格 */
+.active-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.active-card {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-light);
+}
+
+.active-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--spacing-sm);
+}
+
+.active-card-year {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--secondary-color);
+}
+
+.active-card-hours {
+    font-size: var(--font-size-sm);
+    color: var(--secondary-text-color);
+}
+
+/* 热力图 - 流式网格 */
+.active-heatmap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.heatmap-month-header {
+    font-size: var(--font-size-xs);
+    color: var(--secondary-text-color);
+    width: calc(var(--spacing-md) * 2 + var(--spacing-xs));
+    height: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    line-height: 1;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.heatmap-cell {
+    width: var(--spacing-md);
+    height: var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    flex-shrink: 0;
+}
+
+.heatmap-cell-empty {
+    background-color: var(--sports-empty);
+}
+
+.heatmap-cell:hover {
+    transform: scale(1.4);
+    box-shadow: 0 0 6px var(--primary-color);
+    z-index: 1;
+    position: relative;
+}
+
+/* Canvas 路线缩略图 */
+.summary-svg-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.grid-tracks-canvas {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* 响应式 */
+@media (min-width: 1800px) {
+    .summary-page-container {
+        width: 85%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .summary-page-container {
+        width: 95%;
+    }
+}
+
+@media (max-width: 900px) {
+    .summary-page-container {
+        width: 96%;
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .summary-page-container {
+        padding: var(--spacing-sm);
+    }
+
+    .active-card {
+        padding: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .summary-page-container {
+        width: 100%;
+        padding: var(--spacing-sm);
+    }
+
+    .active-card {
+        padding: var(--spacing-sm);
+    }
+
+    .active-card-year {
+        font-size: var(--font-size-lg);
+    }
+}

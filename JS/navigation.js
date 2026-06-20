@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
         { href: './study.html', label: '个人成果' },
         { href: './video.html', label: '视频展示' },
         { href: './tools.html', label: '小工具&小游戏' },
-        { href: './sports.html', label: '体育运动' }
+        { href: './sports.html', label: '体育运动' },
+        { href: './races.html', label: '赛事' }
     ];
 
     function renderNav() {

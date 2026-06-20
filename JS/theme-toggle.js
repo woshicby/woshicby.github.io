@@ -67,6 +67,10 @@ function toggleTheme() {
    // 设置data-theme属性以明确指定用户的主题选择
    // 这样可以覆盖系统默认的媒体查询样式
    document.documentElement.setAttribute('data-theme', newTheme);
+   
+   // 触发主题变化事件，通知其他组件
+   const event = new CustomEvent('themeChanged', { detail: { theme: newTheme } });
+   document.dispatchEvent(event);
 }
 
 /**

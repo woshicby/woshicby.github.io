@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');</script>
+    <title>运动主页</title>
+    <link rel="stylesheet" href="CSS/common.css">
+    <link rel="stylesheet" href="CSS/home.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="nav-link active" id="homeLink">首页</a>
+            <a href="summary-active.html" class="nav-link" id="activeLink">活跃统计</a>
+            <a href="summary-volume.html" class="nav-link" id="volumeLink">运动量统计</a>
+        </nav>
+        <button id="themeToggle" class="theme-toggle">切换主题</button>
+    </header>
+
+    <main class="container">
+        <div class="sidebar" id="homeSidebar">
+            <h1 class="title">运动主页</h1>
+            <p class="location-info">跑过了一些地方，不要停下来...</p>
+            <div class="filters" id="yearFilters">
+            </div>
+            <div class="sidebar-content" id="sidebarContent">
+            </div>
+        </div>
+
+        <div class="content" id="mapContainer">
+            <div id="map" class="map">
+                <div class="map-placeholder">地图加载中...</div>
+            </div>
+            <div id="activitiesTable" class="activities-table">
+            </div>
+        </div>
+    </main>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js" defer onerror="window.mapboxglLoadFailed=true"></script>
+    <script src="JS/config.js" defer></script>
+    <script src="JS/common.js" defer></script>
+    <script src="JS/home.js" defer></script>
+</body>
+</html>

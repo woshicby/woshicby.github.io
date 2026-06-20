@@ -13,7 +13,7 @@ async function loadPages() {
             { url: 'video.html', name: '视频展示' },
             { url: 'study.html', name: '个人成果' },
             { url: 'tools.html', name: '小工具&小游戏' },
-            { url: 'sports.html', name: '体育运动' }
+            { url: 'races.html', name: '赛事' }
         ];
     }
 }

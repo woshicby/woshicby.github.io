@@ -1,0 +1,243 @@
+/* ==========================================
+   运动详情页专用样式
+   ========================================== */
+
+/* 侧边栏活动信息 */
+.act-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-bottom: 0.3rem;
+    word-break: break-word;
+}
+
+.act-date {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-md);
+}
+
+.act-type-badge {
+    display: inline-block;
+    font-size: var(--font-size-xs);
+    padding: 0.15rem var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    background: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    margin-bottom: var(--spacing-md);
+}
+
+.act-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.act-stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.act-stat-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.act-stat-value {
+    font-size: var(--font-size-lg);
+    font-weight: bold;
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+.act-stat-unit {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    margin-left: 2px;
+}
+
+.act-divider {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 0.8rem 0;
+    opacity: 0.3;
+}
+
+.act-location {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    margin-top: var(--spacing-sm);
+}
+
+/* 图表区域 */
+.activity-charts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+/* 图表模式切换按钮栏 */
+.chart-toggle-bar {
+    display: flex;
+    gap: 0;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    width: fit-content;
+}
+
+.chart-toggle-btn {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-muted);
+    transition: var(--transition-default);
+}
+
+.chart-toggle-btn:hover {
+    background: var(--hover-background);
+}
+
+.chart-toggle-btn.active {
+    background: var(--primary-color);
+    color: white;
+    font-weight: var(--font-weight-semibold);
+}
+
+/* 高亮层 canvas 覆盖在主 canvas 之上 */
+.chart-canvas-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.chart-card {
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.chart-title {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Canvas 图表容器 */
+.chart-canvas-wrapper {
+    width: 100%;
+    height: 140px;
+    position: relative;
+}
+
+.chart-canvas {
+    display: block;
+}
+
+/* 图表悬停竖线 */
+.chart-canvas-vline {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: var(--primary-color);
+    opacity: 0.5;
+    pointer-events: none;
+    display: none;
+}
+
+/* 图表悬停提示 */
+.chart-canvas-tooltip {
+    position: absolute;
+    top: -2px;
+    background: var(--primary-color);
+    color: white;
+    font-size: var(--font-size-xs);
+    padding: 1px var(--spacing-xs);
+    border-radius: var(--border-radius-sm);
+    pointer-events: none;
+    display: none;
+    white-space: nowrap;
+    transform: translateX(-50%);
+}
+
+/* 无数据提示 */
+.chart-empty {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+}
+
+/* 地图在活动页面的样式 */
+#activityMap {
+    height: 350px;
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+}
+
+/* 响应式 */
+@media (min-width: 1800px) {
+    .activity-sidebar {
+        flex: 0 0 360px;
+    }
+
+    #activityMap {
+        height: 450px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .activity-sidebar {
+        flex: 0 0 280px;
+    }
+}
+
+@media (max-width: 900px) {
+    .activity-sidebar {
+        flex: 0 0 260px;
+    }
+
+    #activityMap {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sports-activity-container {
+        flex-direction: column;
+    }
+
+    .activity-sidebar {
+        flex: none;
+        width: 100%;
+    }
+
+    #activityMap {
+        height: 250px;
+    }
+
+    .act-stats-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .act-stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .act-name {
+        font-size: 1.2rem;
+    }
+}

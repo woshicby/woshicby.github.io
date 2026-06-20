@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');</script>
+    <title>运动量统计 - 运动主页</title>
+    <link rel="stylesheet" href="CSS/common.css">
+    <link rel="stylesheet" href="CSS/volume.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="nav-link" id="homeLink">首页</a>
+            <a href="summary-active.html" class="nav-link" id="activeLink">活跃统计</a>
+            <a href="summary-volume.html" class="nav-link active" id="volumeLink">运动量统计</a>
+        </nav>
+        <button id="themeToggle" class="theme-toggle">切换主题</button>
+    </header>
+
+    <main class="summary-page-container">
+        <div class="summary-filter-bar">
+            <select id="sportTypeFilter" class="filter-select">
+                <option value="all">全部运动</option>
+            </select>
+            <select id="intervalFilter" class="filter-select">
+                <option value="year">年</option>
+                <option value="month">月</option>
+                <option value="week">周</option>
+                <option value="day">日</option>
+            </select>
+        </div>
+        <div class="summary-content" id="volumeContent">
+            <div class="summary-loading">加载运动量统计中...</div>
+        </div>
+    </main>
+
+    <script src="JS/config.js" defer></script>
+    <script src="JS/common.js" defer></script>
+    <script src="JS/volume.js" defer></script>
+</body>
+</html>

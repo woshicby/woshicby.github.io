@@ -1,5 +1,16 @@
 // 图表相关功能实现
 
+// 监听主题切换，更新图表颜色
+document.addEventListener('themeChanged', function(e) {
+    var isDark = e.detail.theme === 'dark';
+    Chart.defaults.color = isDark ? '#e0e0e0' : '#666';
+    Chart.defaults.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+    // 刷新所有图表
+    Object.values(Chart.instances).forEach(function(chart) {
+        chart.update();
+    });
+});
+
 // 将时间格式的成绩转换为总秒数以便比较
 function convertResultToSeconds(result) {
    const parts = result.split(':').map(Number);
@@ -206,7 +217,7 @@ function createTimeSeriesChart(canvasId, data, stats, isTrailRun = false) {
    if (isTrailRun) {
        // 越野跑：显示ITRA表现分
        chartData.datasets.push({
-           label: '比赛表现分',
+           label: '赛事表现分',
            data: data.map(item => ({
                x: item.date,
                y: item.raceScore ? parseInt(item.raceScore) : 0,
@@ -340,7 +351,7 @@ function createTimeSeriesChart(canvasId, data, stats, isTrailRun = false) {
                                const raceScore = context.raw.raceScore;
                                const itraPerformanceScore = context.raw.itraPerformanceScore;
                                if (raceScore) {
-                                   return `比赛表现分: ${raceScore}`;
+                                   return `赛事表现分: ${raceScore}`;
                                } else if (itraPerformanceScore) {
                                    return `ITRA表现分: ${itraPerformanceScore}`;
                                }
@@ -651,11 +662,11 @@ function updateProjectComparisonChart(races) {
                    <p>${latestItraScore}</p>
                </div>
                <div class="stat-item">
-                   <h4>最佳比赛表现分</h4>
+                   <h4>最佳赛事表现分</h4>
                    <p>${stats.maxRaceScore || '-'}</p>
                </div>
                <div class="stat-item">
-                   <h4>最差比赛表现分</h4>
+                   <h4>最差赛事表现分</h4>
                    <p>${stats.minRaceScore || '-'}</p>
                </div>
                <div class="stat-item">

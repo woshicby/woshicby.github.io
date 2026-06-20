@@ -38,10 +38,10 @@
 - **视频播放器** (video.html): 视频内容展示和播放
 - **灵感碎片** (moments.html): 记录文字、图片、音频、视频等多种形式的灵感碎片，支持Markdown渲染和标签筛选
 
-### 4. 体育相关
-- **跑步记录** (sports.html): 展示个人跑步记录，支持赛季最佳(SB)和个人最佳(PB)标记，可折叠的赛季记录展示，完赛证书采用多列瀑布流布局展示，支持在certification字段添加"不计入PB/SB"标签排除特定赛事，比赛记录中显示比赛类型，越野跑支持raceScore和ITRA表现指数
-- **成绩变化对比** (sports.html): 支持同一项目成绩变化对比和同一赛事成绩变化对比，显示全部平均成绩、最佳成绩、最差成绩、变化趋势和上次参赛天数
-- **赛事日历** (sports.html): 展示不同类型的跑步比赛，支持按月/年切换视图，过去赛事显示成绩，未来赛事显示起跑时间，鼠标悬停显示详情提示框，包含赛事类型图例，支持待抽签赛事分区展示与出签日期显示
+### 4. 赛事相关
+- **跑步记录** (races.html): 展示个人跑步记录，支持赛季最佳(SB)和个人最佳(PB)标记，可折叠的赛季记录展示，完赛证书采用多列瀑布流布局展示，支持在certification字段添加"不计入PB/SB"标签排除特定赛事，赛事记录中显示赛事类型，越野跑支持raceScore和ITRA表现指数
+- **成绩变化对比** (races.html): 支持同一项目成绩变化对比和同一赛事成绩变化对比，显示全部平均成绩、最佳成绩、最差成绩、变化趋势和上次参赛天数
+- **赛事日历** (races.html): 展示不同类型的跑步赛事，支持按月/年切换视图，过去赛事显示成绩，未来赛事显示起跑时间，鼠标悬停显示详情提示框，包含赛事类型图例，支持待抽签赛事分区展示与出签日期显示
 
 ### 5. 学习资源
 - **学习页面** (study.html): 学习资料和笔记，支持动态加载与筛选
@@ -98,7 +98,7 @@ woshicby.github.io/
 │   ├── posts.css          # 文章列表样式
 │   ├── random-decision.css  # 随机决策器样式
 │   ├── seo-checker.css    # SEO检查器样式
-│   ├── sports.css         # 跑步记录样式
+│   ├── races.css          # 跑步记录样式
 │   ├── study.css          # 学习页面样式
 │   ├── style-comparison.css  # 样式比较器样式
 │   ├── time-calculator.css  # 时间计算器样式
@@ -139,7 +139,7 @@ woshicby.github.io/
 │   ├── posts.js           # 文章列表功能
 │   ├── random-decision.js # 随机决策器
 │   ├── seo-checker.js     # SEO检查器
-│   ├── sports.js          # 跑步记录功能
+│   ├── races.js           # 跑步记录功能
 │   ├── study.js           # 学习页面功能
 │   ├── theme-toggle.js    # 主题切换
 │   ├── time-calculator.js # 时间计算器
@@ -181,7 +181,7 @@ woshicby.github.io/
 ├── pace-calculator.html
 ├── time-calculator.html
 ├── life-path-calculator.html
-├── sports.html
+├── races.html
 ├── study.html
 ├── style-comparison.html
 ├── tools.html
@@ -225,7 +225,7 @@ woshicby.github.io/
 | 2025.12.15 | 完赛证书采用多列瀑布流布局展示，调整个人简介区域的HTML和CSS布局，优化标题和内容排列 |
 | 2025.12.16 | 修复夜间模式下nav-card和skill-card悬停效果的不一致问题，统一夜间模式悬停效果的视觉一致性 |
 | 2026.01.14 | 优化赛事日历功能，添加场地跑配色支持，实现数据驱动的动态配色方案，添加赛事类型图例，实现鼠标悬停提示框，支持长赛事名称自动换行，过去赛事显示成绩，未来赛事显示起跑时间 |
-| 2026.01.19 | 优化成绩变化对比功能，添加同一项目和同一赛事的成绩变化趋势分析，显示上次参赛多少天前；优化个人最佳成绩(PB)统计逻辑，支持在certification字段添加"不计入PB/SB"标签排除特定赛事；在比赛记录中添加比赛类型显示 |
+| 2026.01.19 | 优化成绩变化对比功能，添加同一项目和同一赛事的成绩变化趋势分析，显示上次参赛多少天前；优化个人最佳成绩(PB)统计逻辑，支持在certification字段添加"不计入PB/SB"标签排除特定赛事；在赛事记录中添加赛事类型显示 |
 | 2026.01.22-23 | 实现多文明演化模拟器(civilization-evolution.html)，自动模拟多个文明的发展历程；优化模拟器性能，添加文明颜色图例和文明卡片颜色指示器，提升用户体验 |
 | 2026.02.06 | 修正运动页面赛事日历图例的显示逻辑；删除博文文章H2标题的下划线；修正博文文章中图片的显示效果；修正博文详情页面中分类和标签的链接；博文列表页面分类和标签使用统一的badge样式；添加过滤信息显示和"清除所有"按钮；支持同时筛选多个分类和多个标签（OR逻辑）；优化跑步记录功能，为越野跑添加raceScore字段 |
 | 2026.02.20-21 | 实现博文自动化系统，支持直接读取Markdown文件并自动渲染；修复posts.html页面响应式问题；整理和统一各篇博文的categories和tags；优化表格斑马纹效果；修复图片404错误；给代码块添加行号显示；添加脚注功能支持 |
@@ -239,7 +239,7 @@ woshicby.github.io/
 | 2026.03.28 | 优化全站下载功能：统一文件名为中文命名，日期时间格式统一为yyyyMMdd.hhmmss；涉及骰子工具、随机决策器、刀剑锻造、文明演化模拟器、运动成绩图表等。博文系统增强：post-detail.js支持通过file参数直接访问博文文件；新增详细错误页面，支持FILE_NOT_FOUND、ID_NOT_FOUND、PARSE_ERROR、NETWORK_ERROR等错误类型显示 |
 | 2026.03.30 | 新增灵感碎片功能：（moments.html）支持记录文字、图片、音频、视频等多种形式的灵感碎片；支持Markdown格式渲染；支持标签筛选功能 |
 | 2026.04.17 | 添加本地大模型API对话工具(local-llm-api-chat.html)，支持与LM Studio服务器进行交互；重构Markdown解析逻辑，提取上下标处理为共享函数(markdown-utils.js)，优化上下标处理避免与数学公式冲突 |
-| 2026.04.20 | 添加时间计算器工具(time-calculator.html)；更新用户信息和比赛记录数据 |
+| 2026.04.20 | 添加时间计算器工具(time-calculator.html)；更新用户信息和赛事记录数据 |
 | 2026.04.23 | 新增生命灵数计算器(life-path-calculator.html)，支持生日输入、逐位相加计算过程展示、大师数识别及灵数含义说明 |
 | 2026.05.04 | 添加博文系列功能并优化博文列表页面：新增系列分类展示、时间线归档视图、无限滚动加载、回到顶部按钮，更新相关JSON和样式 |
 | 2026.05.08 | 添加武林外传接台词游戏(wulin-quotes.html)和台词查询工具，支持多难度模式、角色筛选、台词搜索功能 |
@@ -249,6 +249,7 @@ woshicby.github.io/
 | 2026.05.31 | 重构导航栏逻辑，新增动态生成导航菜单功能：重写navigation.js，使用配置化方式管理导航项；统一所有页面的导航栏结构，移除硬编码的导航链接；新增书影音记录页面(reviews.html)及相关配套资源；修复部分页面导航缩进不一致的问题 |
 | 2026.06.02 | 新增赛事待报名状态支持与筛选功能：新增待报名赛事样式与状态标识；重构赛事默认选中逻辑，按最新参赛日期选择默认项目/赛事系列；完善日历视图筛选功能，支持按全部/已参赛/未参赛状态筛选，未显示赛事日期以灰色标识；优化赛事提示框，支持多赛事同时展示并添加分隔线；新增TBC（待定）日期赛事支持，倒计时显示∞；更新赛事数据，修正部分赛事信息并新增赛事记录 |
 | 2026.06.03 | 书影音记录页面筛选系统增强：新增快速筛选（评分状态、时间范围）与高级筛选（评分等级、地区、标签）两级筛选体系；评分制从5星制改为10分制，均分统计排除未评分项目，默认仅显示已评分项目；地区筛选支持空格分隔的多地区匹配；更新赛事记录分数与名称格式；格式化JSON数据文件缩进 |
+| 2026.06.19 | 体育运动页面大升级：新增运动活动详情页(sports-activity.html)和运动量统计页(sports-volume.html)；数据文件整合迁移至项目根目录；HTML语义化重构，去除冗余包裹层；统一返回按钮样式，活动页返回按钮根据来源页面动态显示；侧边栏统计数据根据运动类型和时间间隔筛选同步更新，取消显示数量限制；修复导航按钮被浮动元素挤到右侧的问题；删除比赛页面底部"最近活动"section，统一"查看活动"按钮样式；修复夜间模式下比赛页面标签底色和图表文字颜色；将race-records.json中stravaLink替换为本地活动链接；修复活动页面URL参数(runId→id)；同步脚本配置统一到config.py，消除所有硬编码 |
 
 ## 使用方法
 
@@ -294,10 +295,10 @@ This is a personal website built with HTML, CSS, and JavaScript, designed to dem
 - **Video Player** (video.html): Video content display and playback
 - **Inspiration Moments** (moments.html): Record inspiration moments in various formats including text, images, audio, and video, with Markdown rendering and tag filtering support
 
-### 4. Sports-related
-- **Running Records** (sports.html): Displays personal running records with Season Best (SB) and Personal Best (PB) markers, featuring collapsible season records and multi-column waterfall layout for finisher certificates, supports adding "不计入PB/SB" tag in certification field to exclude specific races from PB calculation, shows race type in race records, trail running supports raceScore and ITRA performance index
-- **Race Performance Comparison** (sports.html): Supports same project performance comparison and same event series performance comparison, displays all-time average, best performance, worst performance, trend, and days since last race
-- **Race Calendar** (sports.html): Displays different types of running races, supports monthly/yearly view switching, shows results for past races and start times for future races, displays detailed tooltips on mouse hover, includes race type legend, supports pending lottery race section display with draw date
+### 4. Race-related
+- **Running Records** (races.html): Displays personal running records with Season Best (SB) and Personal Best (PB) markers, featuring collapsible season records and multi-column waterfall layout for finisher certificates, supports adding "不计入PB/SB" tag in certification field to exclude specific races from PB calculation, shows race type in race records, trail running supports raceScore and ITRA performance index
+- **Race Performance Comparison** (races.html): Supports same project performance comparison and same event series performance comparison, displays all-time average, best performance, worst performance, trend, and days since last race
+- **Race Calendar** (races.html): Displays different types of running races, supports monthly/yearly view switching, shows results for past races and start times for future races, displays detailed tooltips on mouse hover, includes race type legend, supports pending lottery race section display with draw date
 
 ### 5. Learning Resources
 - **Study Page** (study.html): Learning materials and notes, with dynamic loading and filtering support
@@ -354,7 +355,7 @@ woshicby.github.io/
 │   ├── posts.css          # Article list styles
 │   ├── random-decision.css  # Random decision maker styles
 │   ├── seo-checker.css    # SEO checker styles
-│   ├── sports.css         # Running records styles
+│   ├── races.css          # Running records styles
 │   ├── study.css          # Study page styles
 │   ├── style-comparison.css  # Style comparator styles
 │   ├── time-calculator.css  # Time calculator styles
@@ -395,7 +396,7 @@ woshicby.github.io/
 │   ├── posts.js           # Article list functionality
 │   ├── random-decision.js # Random decision maker
 │   ├── seo-checker.js     # SEO checker
-│   ├── sports.js          # Running records functionality
+│   ├── races.js           # Running records functionality
 │   ├── study.js           # Study page functionality
 │   ├── theme-toggle.js    # Theme switching
 │   ├── time-calculator.js # Time calculator
@@ -437,7 +438,7 @@ woshicby.github.io/
 ├── pace-calculator.html
 ├── time-calculator.html
 ├── life-path-calculator.html
-├── sports.html
+├── races.html
 ├── study.html
 ├── style-comparison.html
 ├── tools.html
@@ -505,6 +506,7 @@ woshicby.github.io/
 | 2026.05.31 | Refactored navigation logic, added dynamic navigation menu generation: rewrote navigation.js with configuration-based navigation item management; unified navigation structure across all pages, removed hardcoded navigation links; added Book/Movie/Music Reviews page (reviews.html) with supporting resources; fixed inconsistent navigation indentation on some pages |
 | 2026.06.02 | Added race pre-registration status support and filtering: new pre-registration race styles and status badges; refactored default selection logic to choose by latest race date; improved calendar filtering with all/finished/upcoming filters, dimmed dates for hidden races; enhanced race tooltip to display multiple races with dividers; added TBC (To Be Confirmed) date race support with ∞ countdown; updated race data and added new race records |
 | 2026.06.03 | Enhanced review page filtering system: added two-level filtering with quick filters (rating status, time range) and advanced filters (rating level, region, tags); changed rating system from 5-star to 10-point scale; average rating excludes unrated items; default view shows only rated items; region filter supports space-separated multi-region matching; updated race record scores and name format; formatted JSON data file indentation |
+| 2026.06.19 | Sports page major upgrade: added activity detail page (sports-activity.html) and volume statistics page (sports-volume.html); consolidated data files to project root directory; HTML semantic refactoring, removed redundant wrapper elements; unified back button style with dynamic display based on referrer page; sidebar statistics sync with sport type and time interval filters, removed display quantity limit; fixed navigation buttons pushed aside by floating elements; removed "Recent Activities" section from race page, unified "View Activity" button style; fixed dark mode tab background and chart text color on race page; replaced stravaLink in race-records.json with local activity links; fixed activity page URL parameter (runId→id); unified all sync script configurations to config.py, eliminated all hardcoded values |
 
 ## Usage
 
@@ -550,10 +552,10 @@ When adding new pages, please follow the existing file structure and naming conv
 - **ビデオプレイヤー** (video.html): ビデオコンテンツの表示と再生
 - **インスピレーション Moments** (moments.html): テキスト、画像、音声、動画など様々な形式のインスピレーションを記録、Markdownレンダリングとタグフィルタリングをサポート
 
-### 4. スポーツ関連
-- **ランニング記録** (sports.html): 個人のランニング記録を表示し、シーズンベスト(SB)とパーソナルベスト(PB)のマーカーをサポート、折りたたみ可能なシーズン記録機能を搭載、完走証明書は多列のウォーターフォールレイアウトで表示、特定のレースをPB計算から除外するためにcertificationフィールドに「不计入PB/SB」タグを追加できる、レース記録にレースタイプを表示、トレイルランはraceScoreとITRAパフォーマンス指数をサポート
-- **レース成績比較** (sports.html): 同一プロジェクトの成績変化比較と同一イベントシリーズの成績変化比較をサポート、全期間平均成績、最高成績、最低成績、傾向、および前回レースからの日数を表示
-- **レースカレンダー** (sports.html): 異なるタイプのランニングレースを表示、月/年ビュー切り替えに対応、過去のレースには結果を表示、未来のレースにはスタート時間を表示、マウスホバーで詳細ツールチップを表示、レースタイプの凡例を含む、抽選待ちレースのセクション表示と抽選日表示をサポート
+### 4. レース関連
+- **ランニング記録** (races.html): 個人のランニング記録を表示し、シーズンベスト(SB)とパーソナルベスト(PB)のマーカーをサポート、折りたたみ可能なシーズン記録機能を搭載、完走証明書は多列のウォーターフォールレイアウトで表示、特定のレースをPB計算から除外するためにcertificationフィールドに「不计入PB/SB」タグを追加できる、レース記録にレースタイプを表示、トレイルランはraceScoreとITRAパフォーマンス指数をサポート
+- **レース成績比較** (races.html): 同一プロジェクトの成績変化比較と同一イベントシリーズの成績変化比較をサポート、全期間平均成績、最高成績、最低成績、傾向、および前回レースからの日数を表示
+- **レースカレンダー** (races.html): 異なるタイプのランニングレースを表示、月/年ビュー切り替えに対応、過去のレースには結果を表示、未来のレースにはスタート時間を表示、マウスホバーで詳細ツールチップを表示、レースタイプの凡例を含む、抽選待ちレースのセクション表示と抽選日表示をサポート
 
 ### 5. 学習リソース
 - **学習ページ** (study.html): 学習資料とノート、動的読み込みとフィルタリングをサポート
@@ -610,7 +612,7 @@ woshicby.github.io/
 │   ├── posts.css          # 記事一覧スタイル
 │   ├── random-decision.css  # ランダム決定メーカースタイル
 │   ├── seo-checker.css    # SEOチェッカースタイル
-│   ├── sports.css         # ランニング記録スタイル
+│   ├── races.css          # ランニング記録スタイル
 │   ├── study.css          # 学習ページスタイル
 │   ├── style-comparison.css  # スタイル比較ツールスタイル
 │   ├── time-calculator.css  # 時間計算機スタイル
@@ -651,7 +653,7 @@ woshicby.github.io/
 │   ├── posts.js           # 記事一覧機能
 │   ├── random-decision.js # ランダム決定メーカー
 │   ├── seo-checker.js     # SEOチェッカー
-│   ├── sports.js          # ランニング記録機能
+│   ├── races.js           # ランニング記録機能
 │   ├── study.js           # 学習ページ機能
 │   ├── theme-toggle.js    # テーマ切り替え
 │   ├── time-calculator.js # 時間計算機
@@ -693,7 +695,7 @@ woshicby.github.io/
 ├── pace-calculator.html
 ├── time-calculator.html
 ├── life-path-calculator.html
-├── sports.html
+├── races.html
 ├── study.html
 ├── style-comparison.html
 ├── tools.html
@@ -761,6 +763,7 @@ woshicby.github.io/
 | 2026.05.31 | ナビゲーション論理をリファクタリング、動的ナビゲーションメニュー生成機能を追加：navigation.jsを設定ベースのナビゲーション項目管理で再作成；全ページのナビゲーション構造を統一、ハードコードされたナビゲーションリンクを削除；書影音記録ページ(reviews.html)と関連リソースを追加；一部ページのナビゲーションインデントの不一致を修正 |
 | 2026.06.02 | レース事前登録ステータスサポートとフィルタリング機能を追加：事前登録レースのスタイルとステータスバッジを新規追加；デフォルト選択論理をリファクタリング、最新レース日付でデフォルト項目/シリーズを選択；カレンダーフィルタリング機能を改善、全て/完走/未完走フィルタに対応、非表示レース日付をグレー表示；レースツールチップを最適化、複数レースの同時表示と区切り線を追加；TBC（未定）日付レースサポートを追加、カウントダウンに∞を表示；レースデータを更新、一部レース情報を修正し新規レース記録を追加 |
 | 2026.06.03 | レビューページフィルタリングシステム強化：クイックフィルター（評価ステータス、期間）と高度なフィルター（評価レベル、地域、タグ）の2段階フィルタリングを追加；評価制度を5スター制から10点制に変更；平均評価は未評価項目を除外；デフォルトで評価済み項目のみ表示；地域フィルターはスペース区切りの複数地域マッチングに対応；レース記録のスコアと名称フォーマットを更新；JSONデータファイルのインデントをフォーマット |
+| 2026.06.19 | スポーツページ大幅アップグレード：アクティビティ詳細ページ(sports-activity.html)と運動量統計ページ(sports-volume.html)を追加；データファイルをプロジェクトルートディレクトリに統合移行；HTMLセマンティックリファクタリング、冗長なラッパー要素を削除；戻るボタンのスタイルを統一、参照元ページに基づく動的表示を実装；サイドバー統計をスポーツタイプと時間間隔フィルターと同期、表示数制限を撤廃；フローティング要素によりナビゲーションボタンが押し出される問題を修正；レースページの「最近のアクティビティ」セクションを削除、「アクティビティを見る」ボタンスタイルを統一；ダークモードでのレースページのタブ背景色とチャート文字色を修正；race-records.jsonのstravaLinkをローカルアクティビティリンクに置き換え；アクティビティページURLパラメータを修正(runId→id)；同期スクリプトの設定をconfig.pyに統一、すべてのハードコード値を排除 |
 
 ## 使用方法
 

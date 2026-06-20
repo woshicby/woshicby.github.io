@@ -5,47 +5,30 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>体育运动 - BY的个人网站</title>
-   
-   <meta name="description" content="BY的体育运动记录，包含马拉松、越野跑、攀岩等运动的成绩记录、赛事日历和数据分析。">
-   <meta name="keywords" content="马拉松,越野跑,攀岩,运动记录,赛事日历,PB,SB,跑步成绩">
+
+   <meta name="description" content="BY的体育运动记录，包含跑步、骑行等运动的活动记录、活跃统计图和运动量统计。">
+   <meta name="keywords" content="运动记录,跑步,骑行,活动记录,活跃统计图,运动量统计">
    <meta name="author" content="woshicby">
    <meta name="robots" content="index, follow">
-   
-   <meta property="og:title" content="体育运动 - BY的个人网站">
-   <meta property="og:description" content="BY的体育运动记录，包含马拉松、越野跑、攀岩等运动的成绩记录、赛事日历和数据分析。">
-   <meta property="og:type" content="website">
-   <meta property="og:url" content="https://woshicby.github.io/sports.html">
-   <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
-   <meta property="og:site_name" content="BY的个人网站">
-   <meta property="og:locale" content="zh_CN">
-   
-   <meta name="twitter:card" content="summary_large_image">
-   <meta name="twitter:title" content="体育运动 - BY的个人网站">
-   <meta name="twitter:description" content="BY的体育运动记录，包含马拉松、越野跑、攀岩等运动的成绩记录、赛事日历和数据分析。">
-   <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
-   
+
    <link rel="stylesheet" href="./CSS/common.css">
+   <link rel="stylesheet" href="./CSS/sports-common.css">
    <link rel="stylesheet" href="./CSS/sports.css">
-   <link rel="stylesheet" href="./CSS/charts.css">
-   <link rel="stylesheet" href="./CSS/calendar.css">
+   <link rel="stylesheet" href="./CSS/sports-home.css">
    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-   <link rel="canonical" href="https://woshicby.github.io/sports.html">
-   
-   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script><!-- 引入Chart.js CDN -->
-   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script><!-- 引入Chart.js缩放插件 -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><!-- 引入Font Awesome CDN -->
-   
+
+   <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js" defer onerror="window.mapboxglLoadFailed=true"></script>
    <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
    <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
    <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
-   <script src="./JS/charts.js"></script><!-- 引入图表功能脚本 -->
-   <script src="./JS/calendar.js"></script><!-- 引入日历功能脚本 -->
-   <script src="./JS/sports.js"></script><!-- 引入体育页面脚本 -->
+   <script src="./JS/sports-config.js" defer></script>
+   <script src="./JS/sports-common.js" defer></script>
+   <script src="./JS/sports-home.js" defer></script>
 </head>
 <!-- ==========================================
         页面头部 - 网站标题和导航
         ==========================================
-        包含网站标志和主导航菜单，当前高亮"体育相关"选项
+        包含网站标志和主导航菜单，当前高亮"体育运动"选项
         ========================================== -->
 
 <body>
@@ -79,112 +62,37 @@
    <!-- ==========================================
             主体内容区域
             ==========================================
-            展示个人运动记录和成绩
+            展示个人运动记录和活跃统计数据
             ========================================== -->
    <div class="mainbox clearfix wrapper">
-       <!-- 个人纪录部分 -->
-       <section class="personal-records">
-           <h2>个人最佳成绩(PB)</h2>
-           <div class="personal-records-content" id="personal-records-content">
-               <!-- 个人最佳成绩将通过JavaScript动态生成 -->
-           </div>
-       </section>
+       <!-- 体育运动子页面导航 -->
+       <a href="sports.html" class="sports-tab-btn active">活动列表</a>
+       <a href="sports-active.html" class="sports-tab-btn">活跃统计</a>
+       <a href="sports-volume.html" class="sports-tab-btn">运动量统计</a>
 
-       <!-- 同一项目成绩变化对比功能 -->
-       <section id="project-comparison">
-           <h2>同一项目成绩变化对比</h2>
-           <div class="chart-controls">
-               <div>
-                   <label for="project-select">选择项目：</label>
-                   <select id="project-select" class="chart-select">
-                       <!-- 项目选项将通过JavaScript动态生成 -->
-                   </select>
+       <!-- 内容区域：左右布局 -->
+       <div class="sports-container">
+           <!-- 左侧：侧边栏 -->
+           <aside class="sports-sidebar" id="homeSidebar">
+               <p class="location-info">跑过了一些地方，不要停下来...</p>
+               <div class="filters" id="yearFilters">
                </div>
-               <button class="chart-btn" onclick="exportChart('project-comparison-chart', '运动成绩-项目对比')">
-                   <i class="fas fa-download"></i> 下载图表
-               </button>
-           </div>
-           <div class="stats-container" id="project-stats">
-               <!-- 统计指标将通过JavaScript动态生成 -->
-           </div>
-           <div class="chart-container">
-               <canvas id="project-comparison-chart"></canvas>
-           </div>
-       </section>
-
-       <!-- 同一赛事成绩变化对比功能 -->
-       <section id="event-series-comparison">
-           <h2>同一赛事成绩变化对比</h2>
-           <div class="chart-controls">
-               <div>
-                   <label for="series-select">选择赛事系列：</label>
-                   <select id="series-select" class="chart-select">
-                       <!-- 赛事系列选项将通过JavaScript动态生成 -->
-                   </select>
+               <div class="sidebar-content" id="sidebarContent">
                </div>
-               <button class="chart-btn"
-                   onclick="exportChart('event-series-comparison-chart', '运动成绩-赛事系列对比')">
-                   <i class="fas fa-download"></i> 下载图表
-               </button>
-           </div>
-           <div class="stats-container" id="event-series-stats">
-               <!-- 统计指标将通过JavaScript动态生成 -->
-           </div>
-           <div class="chart-container">
-               <canvas id="event-series-comparison-chart"></canvas>
-           </div>
-       </section>
+           </aside>
 
-       <!-- 赛事日历功能 -->
-       <section id="calendar-section">
-           <h2>赛事日历</h2>
-           <div id="calendar">
-               <!-- 日历将通过JavaScript动态生成 -->
-           </div>
-       </section>
-
-       <!-- 比赛信息列表 -->
-       <section id="race-records">
-           <h2>比赛记录</h2>
-           <div class="race-list">
-               <!-- 比赛记录将通过JavaScript动态生成 -->
-           </div>
-       </section>
-
-       <!-- 完赛证书部分 -->
-       <section id="finish-certificates">
-           <h2>完赛证书</h2>
-           <div class="certificates-container">
-               <div class="certificates-grid" id="certificates-grid">
-                   <!-- 证书内容将通过JavaScript动态生成 -->
+           <!-- 右侧：主内容 -->
+           <section class="sports-content" id="mapContainer">
+               <div id="map" class="map">
+                   <div class="map-placeholder">地图加载中...</div>
                </div>
-           </div>
-       </section>
-
-       <!-- Strava最近活动模块 -->
-       <section>
-           <h2>我的最近活动</h2>
-           <p>以下是我在Strava上记录的最近运动活动，包括跑步、骑行和其他户外运动的数据统计和轨迹记录：</p>
-           <div class="strava-embed-container">
-               <!-- Strava活动iframe -->
-               <iframe height='200' width='48%' frameborder='0' allowtransparency='true' scrolling='no'
-                   src='https://www.strava.com/athletes/136063170/activity-summary/91c522e2bd1fc757476b5585858c75a0201905ac'></iframe>
-               <iframe height='500' width='48%' frameborder='0' allowtransparency='true' scrolling='no'
-                   src='https://www.strava.com/athletes/136063170/latest-rides/91c522e2bd1fc757476b5585858c75a0201905ac'></iframe>
-           </div>
-           <p class="strava-note">
-               <small>查看更多活动，请访问我的 <a href="https://www.strava.com/athletes/136063170"
-                       target="_blank">Strava个人主页</a></small>
-           </p>
-       </section>
+               <div id="activitiesTable" class="activities-table">
+               </div>
+           </section>
+       </div>
    </div>
    <!-- 主体外套结束 -->
    <!-- 脚注外套开始 -->
-   <!-- ==========================================
-            页脚区域
-            ==========================================
-            包含版权信息和社交链接
-            ========================================== -->
    <div class="foot wrapper">
        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
    </div>

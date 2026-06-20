@@ -822,9 +822,9 @@ function renderCurrentViewRaces(viewRaces, allViewRaces) {
     filterOptions.className = 'race-filter-options collapsed';
     
     const filters = [
-        { key: 'all', label: '全部比赛' },
-        { key: 'finished', label: '已参赛比赛' },
-        { key: 'unfinished', label: '未参赛比赛' }
+        { key: 'all', label: '全部赛事' },
+        { key: 'finished', label: '已参赛赛事' },
+        { key: 'unfinished', label: '未参赛赛事' }
     ];
     
     filters.forEach(f => {
@@ -959,7 +959,7 @@ function createRaceItemElement(race, isPendingLottery = false) {
 
 // 格式化倒计时
 function formatCountdown(ms) {
-    if (ms <= 0) return '比赛进行中或已结束';
+    if (ms <= 0) return '赛事进行中或已结束';
     
     const days = Math.floor(ms / (1000 * 60 * 60 * 24));
     const hours = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

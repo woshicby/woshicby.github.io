@@ -6,6 +6,7 @@
    { "url": "study.html", "name": "个人成果" },
    { "url": "tools.html", "name": "小工具&小游戏" },
    { "url": "sports.html", "name": "体育运动" },
+   { "url": "races.html", "name": "赛事" },
    { "url": "pace-calculator.html", "name": "配速计算器" },
    { "url": "civilization-evolution.html", "name": "文明演化模拟器" },
    { "url": "touken-forge.html", "name": "锻刀模拟器" },

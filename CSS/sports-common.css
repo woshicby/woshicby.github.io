@@ -1,0 +1,119 @@
+/* ==========================================
+   体育运动页面专用样式
+   ==========================================
+   注意：此文件应放在 common.css 之后加载
+   只包含体育运动特有的样式，通用样式由 common.css 提供
+   ========================================== */
+
+/* ---- 体育运动专用颜色变量 ---- */
+:root {
+    /* 活跃统计图专用颜色 - 默认亮色模式 */
+    --sports-active-cell: #737373;
+    --sports-special-color: #d4a574;
+    --sports-special-color2: #c5756b;
+    --sports-run-date: #171717;
+    --sports-table-thead: #171717;
+    --sports-row-hover: #e5e5e5;
+    --sports-dim: #999999;
+    --sports-empty: #cccccc;
+
+    /* 额外间距变量 */
+    --spacing-2xs: 2px;
+}
+
+body.dark-theme {
+    --sports-active-cell: #4dd2ff;
+    --sports-special-color: #f7d02c;
+    --sports-special-color2: #f56c6c;
+    --sports-run-date: #d4d4d4;
+    --sports-table-thead: #fafafa;
+    --sports-row-hover: #262626;
+    --sports-dim: #888888;
+    --sports-empty: #333333;
+}
+
+/* ---- 悬停提示框（体育运动特有）---- */
+.hover-tooltip {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    background: var(--card-bg-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
+    pointer-events: none;
+    box-shadow: var(--shadow-medium);
+    max-width: 280px;
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+}
+
+.ht-date {
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.ht-empty {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.ht-summary {
+    color: var(--secondary-text-color);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-xs);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ht-activity {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+    padding: var(--spacing-2xs) 0;
+}
+
+.ht-type {
+    background: var(--sports-active-cell);
+    color: white;
+    padding: 1px var(--spacing-xs);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: bold;
+}
+
+.ht-dist {
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.ht-time {
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+}
+
+/* ---- 地图容器（体育运动特有）---- */
+.map {
+    width: 100%;
+    height: 400px;
+    background: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.map-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-muted);
+}
+
+/* ---- 响应式调整 ---- */
+@media (max-width: 768px) {
+    .map {
+        height: 300px;
+    }
+}
