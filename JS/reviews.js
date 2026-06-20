@@ -1,5 +1,6 @@
-class ReviewsManager {
+class ReviewsManager extends FilterableListManager {
     constructor() {
+        super();
         this.allData = {};
         this.currentCategory = 'movie';
         this.currentStatus = null;
@@ -8,7 +9,6 @@ class ReviewsManager {
         this.currentTimeFilter = 'all';
         this.currentRegion = null;
         this.currentItems = [];
-        this.md = null;
         this.init();
     }
 
@@ -27,31 +27,11 @@ class ReviewsManager {
         }
     }
 
-    initMarkdown() {
-        if (window.markdownit && typeof window.markdownit === 'function') {
-            this.md = new markdownit({
-                html: true,
-                breaks: true,
-                linkify: true,
-                typographer: true,
-                xhtmlOut: true
-            });
-        }
-    }
-
     async loadAllData() {
         const categories = ['movie', 'book', 'music', 'game', 'drama'];
         const promises = categories.map(async (cat) => {
-            try {
-                const response = await fetch(`JSON/douban-${cat}s.json`);
-                if (response.ok) {
-                    this.allData[cat] = await response.json();
-                } else {
-                    this.allData[cat] = {};
-                }
-            } catch (e) {
-                this.allData[cat] = {};
-            }
+            const data = await fetchJSON(`JSON/review-${cat}s.json`, {});
+            this.allData[cat] = data;
         });
         await Promise.all(promises);
     }
@@ -175,43 +155,8 @@ class ReviewsManager {
 
         tagsContainer.querySelectorAll('.filter-btn').forEach(badge => {
             badge.addEventListener('click', () => {
-                this.toggleTagFilter(badge.getAttribute('data-tag'));
+                this.filterByTag(badge.getAttribute('data-tag'));
             });
-        });
-    }
-
-    toggleTagFilter(tag) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const tags = urlParams.getAll('tag');
-
-        if (tags.includes(tag)) {
-            const newTags = tags.filter(t => t !== tag);
-            urlParams.delete('tag');
-            newTags.forEach(t => urlParams.append('tag', t));
-        } else {
-            urlParams.append('tag', tag);
-        }
-
-        urlParams.delete('search');
-        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
-        this.applyFilters();
-    }
-
-    bindSearch() {
-        const searchInput = document.getElementById('search-input');
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value;
-            const urlParams = new URLSearchParams(window.location.search);
-
-            if (!searchTerm.trim()) {
-                urlParams.delete('search');
-            } else {
-                urlParams.set('search', searchTerm);
-                urlParams.delete('tag');
-            }
-
-            window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
-            this.applyFilters();
         });
     }
 
@@ -219,7 +164,7 @@ class ReviewsManager {
         const clearFilterBtn = document.getElementById('clear-filter');
         if (clearFilterBtn) {
             clearFilterBtn.addEventListener('click', () => {
-                window.history.replaceState({}, '', window.location.pathname);
+                setUrlParams(new URLSearchParams());
                 document.getElementById('search-input').value = '';
                 this.currentRatingStatus = 'rated';
                 this.currentRatingLevels.clear();
@@ -328,7 +273,7 @@ class ReviewsManager {
 
         let html = `<button class="filter-btn ${!this.currentRegion ? 'active' : ''}" data-value="">全部</button>`;
         regions.forEach(region => {
-            html += `<button class="filter-btn ${this.currentRegion === region ? 'active' : ''}" data-value="${this.escapeHtml(region)}">${this.escapeHtml(region)} (${regionCount[region]})</button>`;
+            html += `<button class="filter-btn ${this.currentRegion === region ? 'active' : ''}" data-value="${escapeHtml(region)}">${escapeHtml(region)} (${regionCount[region]})</button>`;
         });
         container.innerHTML = html;
 
@@ -343,7 +288,7 @@ class ReviewsManager {
     }
 
     checkUrlParams() {
-        const urlParams = new URLSearchParams(window.location.search);
+        const urlParams = getUrlParams();
         const category = urlParams.get('category');
         const status = urlParams.get('status');
         const search = urlParams.get('search');
@@ -374,18 +319,18 @@ class ReviewsManager {
     }
 
     updateUrlParams() {
-        const urlParams = new URLSearchParams(window.location.search);
+        const urlParams = getUrlParams();
         urlParams.set('category', this.currentCategory);
         if (this.currentStatus) {
             urlParams.set('status', this.currentStatus);
         } else {
             urlParams.delete('status');
         }
-        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+        setUrlParams(urlParams);
     }
 
     applyFilters() {
-        const urlParams = new URLSearchParams(window.location.search);
+        const urlParams = getUrlParams();
         const tags = urlParams.getAll('tag');
         const search = urlParams.get('search');
 
@@ -450,44 +395,102 @@ class ReviewsManager {
     renderReviewsList(items) {
         const container = document.getElementById('reviews-list');
 
+        // 销毁之前的瀑布流实例
+        if (this.masonryDestroy) this.masonryDestroy();
+
         if (items.length === 0) {
             container.innerHTML = '<div class="no-reviews">没有找到相关记录</div>';
             return;
         }
 
-        container.innerHTML = items.map(item => this.createReviewHTML(item)).join('');
+        const elements = items.map(item => this.createReviewElement(item));
+
+        this.masonryDestroy = MasonryLayout({
+            container: container,
+            items: elements,
+            columnMinWidth: 340,
+            columnGap: 20
+        });
+
         this.bindReviewEvents();
     }
 
-    createReviewHTML(item) {
-        const ratingHTML = this.createRatingHTML(item.myRating);
-        const metaHTML = this.createMetaHTML(item);
-        const genresHTML = this.createGenresHTML(item);
-        const contentHTML = this.createContentHTML(item.review);
-        const footerHTML = this.createFooterHTML(item);
+    createReviewElement(item) {
+        const article = document.createElement('article');
+        article.className = 'review-item';
+        article.dataset.category = item.category;
+        article.dataset.id = item.link;
 
-        return `
-            <article class="review-item" data-category="${item.category}" data-id="${item.link}">
-                <div class="review-header">
-                    <h3 class="review-title">
-                        <a href="${item.link}" target="_blank" rel="noopener noreferrer">${this.escapeHtml(item.title)}</a>
-                    </h3>
-                    <div class="review-rating">${ratingHTML}</div>
-                </div>
-                ${metaHTML}
-                ${genresHTML}
-                ${contentHTML}
-                ${footerHTML}
-            </article>
-        `;
+        // header
+        const header = document.createElement('div');
+        header.className = 'review-header';
+
+        const title = document.createElement('h3');
+        title.className = 'review-title';
+        const link = document.createElement('a');
+        link.href = item.link;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = item.title;
+        title.appendChild(link);
+        header.appendChild(title);
+
+        const ratingDiv = document.createElement('div');
+        ratingDiv.className = 'review-rating';
+        ratingDiv.innerHTML = this.createRatingHTML(item.myRating);
+        header.appendChild(ratingDiv);
+
+        article.appendChild(header);
+
+        // meta
+        const metaHTML = this.createMetaHTML(item);
+        if (metaHTML) {
+            const metaDiv = document.createElement('div');
+            metaDiv.innerHTML = metaHTML;
+            article.appendChild(metaDiv.firstElementChild);
+        }
+
+        // genres
+        const genresHTML = this.createGenresHTML(item);
+        if (genresHTML) {
+            const genresDiv = document.createElement('div');
+            genresDiv.innerHTML = genresHTML;
+            article.appendChild(genresDiv.firstElementChild);
+        }
+
+        // content
+        const contentHTML = this.createContentHTML(item.review);
+        if (contentHTML) {
+            const contentDiv = document.createElement('div');
+            contentDiv.innerHTML = contentHTML;
+            article.appendChild(contentDiv.firstElementChild);
+        }
+
+        // footer
+        const footerHTML = this.createFooterHTML(item);
+        if (footerHTML) {
+            const footerDiv = document.createElement('div');
+            footerDiv.innerHTML = footerHTML;
+            article.appendChild(footerDiv.firstElementChild);
+        }
+
+        return article;
     }
 
     createRatingHTML(rating) {
         if (!rating || rating <= 0) return '<div class="review-rating"><span style="color:var(--light-text);font-size:0.8rem;">未评</span></div>';
-        const stars = Math.round(rating / 2);
+        const starRating = rating / 2; // 10分制转5星制
+        const fullStars = Math.floor(starRating);
+        const hasHalf = (starRating - fullStars) >= 0.25;
         let html = `<span class="rating-score">${rating}</span>`;
         for (let i = 1; i <= 5; i++) {
-            html += `<span class="star ${i <= stars ? 'filled' : 'empty'}">★</span>`;
+            if (i <= fullStars) {
+                html += `<span class="star filled">★</span>`;
+            } else if (i === fullStars + 1 && hasHalf) {
+                html += `<span class="star half">★</span>`;
+            } else {
+                html += `<span class="star empty">★</span>`;
+            }
         }
         return html;
     }
@@ -518,13 +521,13 @@ class ReviewsManager {
                 break;
         }
         if (parts.length === 0) return '';
-        return `<div class="review-meta">${parts.map(p => `<span class="review-meta-item">${this.escapeHtml(p)}</span>`).join('<span class="review-meta-item">·</span>')}</div>`;
+        return `<div class="review-meta">${parts.map(p => `<span class="review-meta-item">${escapeHtml(p)}</span>`).join('<span class="review-meta-item">·</span>')}</div>`;
     }
 
     createGenresHTML(item) {
         const genres = item.genres || [];
         if (genres.length === 0) return '';
-        return `<div class="review-genres">${genres.map(g => `<span class="review-genre" data-tag="${this.escapeHtml(g)}">${this.escapeHtml(g)}</span>`).join('')}</div>`;
+        return `<div class="review-genres">${genres.map(g => `<span class="review-genre" data-tag="${escapeHtml(g)}">${escapeHtml(g)}</span>`).join('')}</div>`;
     }
 
     createContentHTML(review) {
@@ -537,10 +540,10 @@ class ReviewsManager {
     }
 
     createFooterHTML(item) {
-        const date = this.formatDate(item.createdAt);
+        const date = formatDate(item.createdAt);
         const doubanRating = item.doubanRating ? `豆瓣 <strong>${item.doubanRating}</strong>` : '';
         const tagsHTML = (item.tags && item.tags.length > 0) ?
-            item.tags.map(t => `<span class="review-tag" data-tag="${this.escapeHtml(t)}">${this.escapeHtml(t)}</span>`).join('') : '';
+            item.tags.map(t => `<span class="review-tag" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</span>`).join('') : '';
 
         return `
             <div class="review-footer">
@@ -594,20 +597,6 @@ class ReviewsManager {
         filterInfo.style.display = filterTags.children.length > 0 ? 'flex' : 'none';
     }
 
-    removeFilter(paramType, value = null) {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (value) {
-            const values = urlParams.getAll(paramType);
-            const newValues = values.filter(v => v !== value);
-            urlParams.delete(paramType);
-            newValues.forEach(v => urlParams.append(paramType, v));
-        } else {
-            urlParams.delete(paramType);
-        }
-        window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
-        this.applyFilters();
-    }
-
     updateActiveStates(tags) {
         document.querySelectorAll('#tags-container .filter-btn').forEach(badge => {
             const tag = badge.getAttribute('data-tag');
@@ -624,28 +613,14 @@ class ReviewsManager {
         document.querySelectorAll('.review-genre, .review-tag').forEach(el => {
             el.addEventListener('click', (e) => {
                 e.preventDefault();
-                this.toggleTagFilter(el.getAttribute('data-tag'));
+                this.filterByTag(el.getAttribute('data-tag'));
             });
         });
     }
 
-    formatDate(dateString) {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        return date.toLocaleDateString('zh-CN', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    }
-
-    escapeHtml(str) {
-        if (!str) return '';
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
-    }
 }
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
     new ReviewsManager();

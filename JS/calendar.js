@@ -1,5 +1,13 @@
 // 赛事日历功能实现
 
+// 将十六进制颜色转换为rgba格式
+function hexToRgba(hex, alpha = 0.3) {
+   const r = parseInt(hex.slice(1, 3), 16);
+   const g = parseInt(hex.slice(3, 5), 16);
+   const b = parseInt(hex.slice(5, 7), 16);
+   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 // 赛事数据
 let upcomingRaces = [];
 
@@ -209,14 +217,6 @@ function generateRaceTypeCSS() {
    // 生成CSS内容
    let cssContent = '';
    Object.entries(raceTypeConfig).forEach(([type, config]) => {
-       // 将十六进制颜色转换为rgba格式，添加透明度
-       const hexToRgba = (hex, alpha = 0.3) => {
-           const r = parseInt(hex.slice(1, 3), 16);
-           const g = parseInt(hex.slice(3, 5), 16);
-           const b = parseInt(hex.slice(5, 7), 16);
-           return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-       };
-       
        cssContent += `.${config.class} { --race-color: ${hexToRgba(config.color)}; }
 `;
    });
@@ -332,14 +332,7 @@ function renderLegend(calendarContainer, viewRaces) {
            // 创建颜色方块
            const colorSquare = document.createElement('span');
            colorSquare.className = 'legend-color';
-           // 使用与日历中相同的rgba格式，确保颜色一致
-           const hexToRgba = (hex, alpha = 0.8) => {
-               const r = parseInt(hex.slice(1, 3), 16);
-               const g = parseInt(hex.slice(3, 5), 16);
-               const b = parseInt(hex.slice(5, 7), 16);
-               return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-           };
-           colorSquare.style.backgroundColor = hexToRgba(config.color);
+           colorSquare.style.backgroundColor = hexToRgba(config.color, 0.8);
            legendItem.appendChild(colorSquare);
            
            // 创建类型名称

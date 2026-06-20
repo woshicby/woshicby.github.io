@@ -1,6 +1,7 @@
 // 个人成果数据管理和渲染
-class StudyManager {
+class StudyManager extends FilterableListManager {
    constructor() {
+       super();
        this.data = null;
        this.publications = [];
        this.categories = [
@@ -8,7 +9,6 @@ class StudyManager {
            { type: 'journal', name: '期刊论文' },
            { type: 'conference', name: '会议论文' }
        ];
-       this.tags = [];
        this.init();
    }
 
@@ -34,16 +34,12 @@ class StudyManager {
    }
 
    async loadData() {
-       try {
-           const response = await fetch('JSON/study-data.json');
-           if (!response.ok) {
-               throw new Error(`HTTP错误! 状态码: ${response.status}`);
-           }
-           this.data = await response.json();
+       const data = await fetchJSON('JSON/study-data.json', null);
+       if (data) {
+           this.data = data;
            this.publications = this.data.publications || [];
            console.log('成功从JSON文件加载数据');
-       } catch (error) {
-           console.error('加载JSON文件失败:', error);
+       } else {
            console.warn('使用示例数据');
            this.data = this.getSampleData();
            this.publications = this.data.publications;
@@ -189,16 +185,6 @@ class StudyManager {
        });
    }
 
-   bindSearch() {
-       const searchInput = document.getElementById('search-input');
-       if (!searchInput) return;
-       
-       searchInput.addEventListener('input', (e) => {
-           const searchTerm = e.target.value;
-           this.searchPublications(searchTerm);
-       });
-   }
-
    bindPublicationFilterEvents() {
        const container = document.getElementById('achievements-list');
        if (!container) return;
@@ -213,77 +199,23 @@ class StudyManager {
        });
    }
 
-   bindClearFilter() {
-       const clearBtn = document.getElementById('clear-filter');
-       if (clearBtn) {
-           clearBtn.addEventListener('click', () => {
-               this.clearFilter();
-           });
-       }
-   }
-
    filterByType(type) {
-       const urlParams = new URLSearchParams(window.location.search);
+       const urlParams = getUrlParams();
        urlParams.delete('type');
        if (type !== 'all') {
            urlParams.append('type', type);
        }
        urlParams.delete('search');
-       window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
+       setUrlParams(urlParams);
        this.applyFilters();
    }
 
-   filterByTag(tag) {
-       const urlParams = new URLSearchParams(window.location.search);
-       const tags = urlParams.getAll('tag');
-       
-       if (tags.includes(tag)) {
-           const newTags = tags.filter(t => t !== tag);
-           urlParams.delete('tag');
-           newTags.forEach(t => urlParams.append('tag', t));
-       } else {
-           urlParams.append('tag', tag);
-       }
-       
-       urlParams.delete('search');
-       window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
-       this.applyFilters();
-   }
+   getSearchClearParams() { return ['tag', 'type']; }
 
-   searchPublications(searchTerm) {
-       const urlParams = new URLSearchParams(window.location.search);
-       
-       if (!searchTerm.trim()) {
-           urlParams.delete('search');
-           window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
-           this.applyFilters();
-           return;
-       }
-
-       urlParams.set('search', searchTerm);
-       urlParams.delete('tag');
-       urlParams.delete('type');
-       window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
-       
-       this.applyFilters();
-   }
-
-   checkUrlParams() {
-       const urlParams = new URLSearchParams(window.location.search);
-       const search = urlParams.get('search');
-       
-       if (search) {
-           const searchInput = document.getElementById('search-input');
-           if (searchInput) {
-               searchInput.value = search;
-           }
-       }
-       
-       this.applyFilters();
-   }
+   getClearFilterParams() { return ['tag', 'search', 'type']; }
 
    applyFilters() {
-       const urlParams = new URLSearchParams(window.location.search);
+       const urlParams = getUrlParams();
        const type = urlParams.get('type') || 'all';
        const tags = urlParams.getAll('tag');
        const search = urlParams.get('search');
@@ -316,78 +248,11 @@ class StudyManager {
    }
 
    updateFilterInfo(type, tags, search) {
-       const filterInfo = document.getElementById('filter-info');
-       const filterTags = document.getElementById('filter-tags');
-       
-       if (!filterInfo || !filterTags) {
-           return;
-       }
-
-       filterTags.innerHTML = '';
-
-       if (type !== 'all') {
-           const categoryName = this.categories.find(c => c.type === type)?.name || type;
-           const tagElement = this.createFilterTag('分类', categoryName, 'type');
-           filterTags.appendChild(tagElement);
-       }
-
-       tags.forEach(tag => {
-           const tagElement = this.createFilterTag('标签', tag, 'tag');
-           filterTags.appendChild(tagElement);
-       });
-
-       if (search) {
-           const tagElement = this.createFilterTag('搜索', search, 'search');
-           filterTags.appendChild(tagElement);
-       }
-
-       if (filterTags.children.length > 0) {
-           filterInfo.style.display = 'flex';
-       } else {
-           filterInfo.style.display = 'none';
-       }
-   }
-
-   createFilterTag(type, value, paramType) {
-       const tag = document.createElement('div');
-       tag.className = 'filter-tag';
-       tag.innerHTML = `
-           <span>${type}: ${value}</span>
-           <button class="filter-tag-remove" data-type="${paramType}" data-value="${value}" title="移除此过滤条件">×</button>
-       `;
-       
-       tag.querySelector('.filter-tag-remove').addEventListener('click', () => {
-           this.removeFilter(paramType, value);
-       });
-       
-       return tag;
-   }
-
-   removeFilter(paramType, value = null) {
-       const urlParams = new URLSearchParams(window.location.search);
-       
-       if (value) {
-           const values = urlParams.getAll(paramType);
-           const newValues = values.filter(v => v !== value);
-           urlParams.delete(paramType);
-           newValues.forEach(v => urlParams.append(paramType, v));
-       } else {
-           urlParams.delete(paramType);
-       }
-       
-       window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
-       this.applyFilters();
-   }
-
-   clearFilter() {
-       window.history.replaceState({}, '', window.location.pathname);
-       
-       const searchInput = document.getElementById('search-input');
-       if (searchInput) {
-           searchInput.value = '';
-       }
-       
-       this.applyFilters();
+       const entries = [];
+       if (type && type !== 'all') entries.push({ type: '类型', value: type, paramType: 'type' });
+       tags.forEach(tag => entries.push({ type: '标签', value: tag, paramType: 'tag' }));
+       if (search) entries.push({ type: '搜索', value: search, paramType: 'search' });
+       super.updateFilterInfo(entries);
    }
 
    updateActiveStates(type, tags) {

@@ -331,14 +331,18 @@ body.reviews-page {
 }
 
 .reviews-page .reviews-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 20px;
+    position: relative;
     padding: 0;
     margin: 0;
     background: none;
     box-shadow: none;
     border: none;
+}
+
+.reviews-page .reviews-list .masonry-column {
+    position: absolute;
+    top: 0;
+    box-sizing: border-box;
 }
 
 .reviews-page .review-item {
@@ -448,6 +452,21 @@ body.reviews-page {
 
 .reviews-page .review-rating .star.empty {
     color: var(--border-color);
+}
+
+.reviews-page .review-rating .star.half {
+    position: relative;
+    color: var(--border-color);
+}
+
+.reviews-page .review-rating .star.half::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
+    color: #f39c12;
 }
 
 .reviews-page .review-meta {
@@ -585,15 +604,11 @@ body.reviews-page {
 }
 
 @media (max-width: 900px) {
-    .reviews-page .reviews-list {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }
+    /* 瀑布流列数由JS自动适配 */
 }
 
 @media (max-width: 600px) {
-    .reviews-page .reviews-list {
-        grid-template-columns: 1fr;
-    }
+    /* 瀑布流列数由JS自动适配 */
 
     .reviews-page .review-header {
         flex-direction: column;

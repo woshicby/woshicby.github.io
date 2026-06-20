@@ -162,19 +162,6 @@ const mockRaceRecords = [
    }
 ];
 
-// 将时间格式的成绩转换为总秒数以便比较
-function convertResultToSeconds(result) {
-   const parts = result.split(':').map(Number);
-   if (parts.length === 3) {
-       // 格式为 时:分:秒
-       return parts[0] * 3600 + parts[1] * 60 + parts[2];
-   } else if (parts.length === 2) {
-       // 格式为 分:秒
-       return parts[0] * 60 + parts[1];
-   }
-   return 0;
-}
-
 // 从距离字符串中提取公里数
 function extractDistanceInKm(distanceStr) {
    // 匹配数字部分，支持小数
@@ -636,12 +623,17 @@ function loadCertificatesData() {
 }
 
 // 生成完赛证书HTML
+let certificateMasonryDestroy = null;
+
 function generateCertificates(certificates) {
-   const certificatesGrid = document.getElementById('certificates-grid');
-   if (!certificatesGrid) return;
+   const grid = document.getElementById('certificates-grid');
+   if (!grid) return;
+   
+   // 销毁之前的瀑布流实例
+   if (certificateMasonryDestroy) certificateMasonryDestroy();
    
    // 清空现有内容
-   certificatesGrid.innerHTML = '';
+   grid.innerHTML = '';
    
    // 按日期倒序排序证书
    certificates.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -649,7 +641,8 @@ function generateCertificates(certificates) {
    // 定义可能的文件扩展名
    const extensions = ['.png', '.jpg', '.jpeg'];
    
-   certificates.forEach(certificate => {
+   // 创建所有卡片元素（先不插入DOM）
+   const items = certificates.map(certificate => {
        const certificateItem = document.createElement('div');
        certificateItem.className = 'certificate-item';
        
@@ -717,11 +710,6 @@ function generateCertificates(certificates) {
        // 设置图片加载失败事件处理程序
        certificateImage.onerror = tryNextExtension;
        
-       // 设置图片加载成功事件处理程序
-       certificateImage.onload = () => {
-           // 图片加载成功，不需要隐藏
-       };
-       
        // 开始尝试第一个扩展名
        tryNextExtension();
        
@@ -731,7 +719,15 @@ function generateCertificates(certificates) {
        certificateItem.appendChild(certificateLink);
        certificateItem.appendChild(certificateInfo);
        
-       // 添加到证书网格
-       certificatesGrid.appendChild(certificateItem);
+       return certificateItem;
+   });
+   
+   // 使用公共瀑布流布局
+   certificateMasonryDestroy = MasonryLayout({
+       container: grid,
+       items: items,
+       columnMinWidth: 300,
+       columnGap: 20,
+       watchImages: true
    });
 }

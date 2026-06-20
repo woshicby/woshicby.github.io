@@ -1,0 +1,243 @@
+﻿{
+    "played":  [
+                   {
+                       "title":  "底特律：变人 Detroit: Become Human",
+                       "doubanRating":  9.4,
+                       "myRating":  0,
+                       "review":  "",
+                       "tags":  [
+
+                                ],
+                       "link":  "https://www.douban.com/game/26652745/",
+                       "createdAt":  "2022-10-08 12:35:15",
+                       "category":  "game",
+                       "status":  "played",
+                       "genres":  [
+                                      "冒险",
+                                      "动作"
+                                  ],
+                       "platforms":  [
+                                         "PC",
+                                         "PlayStation 5",
+                                         "PlayStation 4"
+                                     ],
+                       "developer":  "Quantic Dream",
+                       "releaseDate":  "2018-05-25"
+                   },
+                   {
+                       "title":  "隐形守护者",
+                       "doubanRating":  9.6,
+                       "myRating":  0,
+                       "review":  "",
+                       "tags":  [
+
+                                ],
+                       "link":  "https://www.douban.com/game/30421907/",
+                       "createdAt":  "2022-10-07 23:15:39",
+                       "category":  "game",
+                       "status":  "played",
+                       "genres":  [
+
+                                  ],
+                       "platforms":  [
+                                         "PC",
+                                         "Mac",
+                                         "iPhone",
+                                         "iPad",
+                                         "Android"
+                                     ],
+                       "developer":  "文字冒险",
+                       "releaseDate":  "2019-01-23"
+                   },
+                   {
+                       "title":  "赛博朋克 2077 Cyberpunk 2077",
+                       "doubanRating":  8.6,
+                       "myRating":  0,
+                       "review":  "",
+                       "tags":  [
+
+                                ],
+                       "link":  "https://www.douban.com/game/25931998/",
+                       "createdAt":  "2022-10-07 23:08:46",
+                       "category":  "game",
+                       "status":  "played",
+                       "genres":  [
+                                      "電馭叛客 2077",
+                                      "冒险",
+                                      "动作"
+                                  ],
+                       "platforms":  [
+                                         "PC",
+                                         "Mac",
+                                         "PlayStation 5",
+                                         "Xbox Series X",
+                                         "Nintendo Switch 2",
+                                         "Steam Deck",
+                                         "PlayStation 4",
+                                         "Xbox One"
+                                     ],
+                       "developer":  "CD Projekt RED Sp. z o.o.",
+                       "releaseDate":  "2020-12-10"
+                   },
+                   {
+                       "title":  "尼尔：人工生命 NieR Replicant™ ver.1.22474487139...",
+                       "doubanRating":  7.6,
+                       "myRating":  0,
+                       "review":  "",
+                       "tags":  [
+
+                                ],
+                       "link":  "https://www.douban.com/game/35210066/",
+                       "createdAt":  "2022-10-07 23:06:58",
+                       "category":  "game",
+                       "status":  "played",
+                       "genres":  [
+                                      "尼尔 复制体",
+                                      "冒险",
+                                      "动作"
+                                  ],
+                       "platforms":  [
+                                         "PC",
+                                         "PlayStation 4",
+                                         "Xbox One"
+                                     ],
+                       "developer":  "角色扮演",
+                       "releaseDate":  "2021-04-22"
+                   },
+                   {
+                       "title":  "尼尔：机械纪元 NieR:Automata",
+                       "doubanRating":  8.9,
+                       "myRating":  0,
+                       "review":  "",
+                       "tags":  [
+
+                                ],
+                       "link":  "https://www.douban.com/game/26426281/",
+                       "createdAt":  "2022-10-07 23:06:55",
+                       "category":  "game",
+                       "status":  "played",
+                       "genres":  [
+                                      "ニーア オートマタ",
+                                      "射击",
+                                      "冒险",
+                                      "动作",
+                                      "8-4, Ltd.",
+                                      "PlatinumGames"
+                                  ],
+                       "platforms":  [
+                                         "PC",
+                                         "Nintendo Switch",
+                                         "PlayStation 4",
+                                         "Xbox One"
+                                     ],
+                       "developer":  "角色扮演",
+                       "releaseDate":  "2017-02-23"
+                   },
+                   {
+                       "title":  "戴森球计划 Dyson Sphere Program",
+                       "doubanRating":  9.3,
+                       "myRating":  0,
+                       "review":  "",
+                       "tags":  [
+
+                                ],
+                       "link":  "https://www.douban.com/game/35244867/",
+                       "createdAt":  "2022-10-07 23:06:46",
+                       "category":  "game",
+                       "status":  "played",
+                       "genres":  [
+                                      "模拟"
+                                  ],
+                       "platforms":  [
+                                         "PC"
+                                     ],
+                       "developer":  "策略",
+                       "releaseDate":  "2021-01-21"
+                   }
+               ],
+    "playing":  [
+                    {
+                        "title":  "刀剑乱舞 刀剣乱舞-ONLINE-",
+                        "doubanRating":  8,
+                        "myRating":  0,
+                        "review":  "",
+                        "tags":  [
+
+                                 ],
+                        "link":  "https://www.douban.com/game/26311841/",
+                        "createdAt":  "2022-10-07 23:04:42",
+                        "category":  "game",
+                        "status":  "playing",
+                        "genres":  [
+                                       "刀剣乱舞 Pocket",
+                                       "卡牌",
+                                       "模拟",
+                                       "策略",
+                                       "Browser"
+                                   ],
+                        "platforms":  [
+                                          "iPhone",
+                                          "iPad",
+                                          "Android"
+                                      ],
+                        "developer":  "刀男人",
+                        "releaseDate":  "2015-01-14"
+                    }
+                ],
+    "wantToPlay":  [
+                       {
+                           "title":  "双人成行 It Takes Two",
+                           "doubanRating":  9.7,
+                           "myRating":  0,
+                           "review":  "",
+                           "tags":  [
+
+                                    ],
+                           "link":  "https://www.douban.com/game/35110438/",
+                           "createdAt":  "2022-10-07 23:09:28",
+                           "category":  "game",
+                           "status":  "wantToPlay",
+                           "genres":  [
+                                          "益智",
+                                          "冒险",
+                                          "动作"
+                                      ],
+                           "platforms":  [
+                                             "PC",
+                                             "PlayStation 5",
+                                             "Xbox Series X",
+                                             "Nintendo Switch",
+                                             "PlayStation 4",
+                                             "Xbox One"
+                                         ],
+                           "developer":  "雙人成行",
+                           "releaseDate":  "2021-03-26"
+                       },
+                       {
+                           "title":  "荒野大镖客：救赎2 Red Dead Redemption 2",
+                           "doubanRating":  9.7,
+                           "myRating":  0,
+                           "review":  "",
+                           "tags":  [
+
+                                    ],
+                           "link":  "https://www.douban.com/game/26815212/",
+                           "createdAt":  "2022-10-07 23:09:05",
+                           "category":  "game",
+                           "status":  "wantToPlay",
+                           "genres":  [
+                                          "射击",
+                                          "冒险",
+                                          "动作",
+                                          "Stadia"
+                                      ],
+                           "platforms":  [
+                                             "PC",
+                                             "PlayStation 4",
+                                             "Xbox One"
+                                         ],
+                           "developer":  "Rockstar Games",
+                           "releaseDate":  "2018-10-26"
+                       }
+                   ]
+}

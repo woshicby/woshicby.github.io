@@ -967,29 +967,6 @@ function buildYearStatGrid(filteredActivities) {
   return html;
 }
 
-function calcStreak(filteredActivities) {
-  if (filteredActivities.length === 0) return 0;
-  var dates = [];
-  filteredActivities.forEach(function(a) {
-    var d = a.start_date_local ? a.start_date_local.substring(0, 10) : '';
-    if (d && dates.indexOf(d) === -1) dates.push(d);
-  });
-  dates.sort();
-  var maxStreak = 1, streak = 1;
-  for (var i = 1; i < dates.length; i++) {
-    var prev = new Date(dates[i - 1]);
-    var curr = new Date(dates[i]);
-    var diff = (curr - prev) / (1000 * 60 * 60 * 24);
-    if (diff === 1) {
-      streak++;
-      if (streak > maxStreak) maxStreak = streak;
-    } else {
-      streak = 1;
-    }
-  }
-  return maxStreak;
-}
-
 // 用指定活动列表更新地图
 function updateMapActivitiesWithList(filteredActivities) {
   if (!map || !map.loaded()) return;
@@ -1100,22 +1077,11 @@ function changeFilter(year) {
 }
 
 function onThemeChange() {
-  if (map) {
-    var center = map.getCenter();
-    var zoom = map.getZoom();
-    var bearing = map.getBearing();
-    var pitch = map.getPitch();
-    map.setStyle(getCurrentMapStyle());
-    map.once('styledata', function() {
-      map.setCenter(center);
-      map.setZoom(zoom);
-      map.setBearing(bearing);
-      map.setPitch(pitch);
-      updateMapActivities();
-      updateProvinceFill();
-      addTileVendorControl(map, 'map', onHomeTileSwitch);
-    });
-  }
+  redrawMapOnThemeChange(map, function() {
+    updateMapActivities();
+    updateProvinceFill();
+    addTileVendorControl(map, 'map', onHomeTileSwitch);
+  });
 }
 
 function initHomePage() {

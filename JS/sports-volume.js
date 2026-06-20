@@ -299,15 +299,7 @@ function renderYearSummary(container, year, optTracks) {
   }
 
   // 连续天数
-  var dateSet = [];
-  yearTracks.forEach(function(a) { var d = a.start_date_local.substring(0,10); if (dateSet.indexOf(d)===-1) dateSet.push(d); });
-  dateSet.sort();
-  var maxStreak = 1, curStreak = 1;
-  for (var i = 1; i < dateSet.length; i++) {
-    var d1 = new Date(dateSet[i-1]), d2 = new Date(dateSet[i]);
-    if ((d2-d1)/(1000*60*60*24) === 1) { curStreak++; maxStreak = Math.max(maxStreak, curStreak); }
-    else curStreak = 1;
-  }
+  var maxStreak = calcStreak(yearTracks);
 
   // 赛事统计
   var marathonCount = yearTracks.filter(function(a){ return (a.distance||0) >= 42000; }).length;

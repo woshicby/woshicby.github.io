@@ -175,10 +175,10 @@ function convert() {
     });
 
     for (const [category, statuses] of Object.entries(result)) {
-        const outputPath = path.join(projectRoot, 'JSON', `douban-${category}s.json`);
+        const outputPath = path.join(projectRoot, 'JSON', `review-${category}s.json`);
         fs.writeFileSync(outputPath, JSON.stringify(statuses, null, 2), 'utf8');
         const totalItems = Object.values(statuses).reduce((sum, arr) => sum + arr.length, 0);
-        console.log(`Written: douban-${category}s.json (${totalItems} total items)`);
+        console.log(`Written: review-${category}s.json (${totalItems} total items)`);
     }
 
     console.log('\nDone!');

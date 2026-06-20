@@ -60,9 +60,9 @@ function renderActivityInfo(act) {
   var location = act.location_country || '';
 
   var html = '';
-  html += '<div class="act-name">' + escHtml(name) + '</div>';
-  html += '<div class="act-date">' + escHtml(date) + '</div>';
-  html += '<span class="act-type-badge">' + escHtml(typeDisplay(type)) + '</span>';
+  html += '<div class="act-name">' + escapeHtml(name) + '</div>';
+  html += '<div class="act-date">' + escapeHtml(date) + '</div>';
+  html += '<span class="act-type-badge">' + escapeHtml(typeDisplay(type)) + '</span>';
 
   html += '<div class="act-stats-grid">';
   html += statItem('距离', dist.toFixed(2), '公里');
@@ -75,7 +75,7 @@ function renderActivityInfo(act) {
 
   if (location) {
     html += '<hr class="act-divider">';
-    html += '<div class="act-location">' + escHtml(location) + '</div>';
+    html += '<div class="act-location">' + escapeHtml(location) + '</div>';
   }
 
   container.innerHTML = html;
@@ -88,11 +88,7 @@ function statItem(label, value, unit) {
     '</div>';
 }
 
-function escHtml(s) {
-  var d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
-}
+// escapeHtml 已移至 common.js 的 escapeHtml
 
 // ============ 地图 ============
 
@@ -665,42 +661,34 @@ function formatXVal(v, xLabel) {
 // ============ 主题切换 ============
 
 function onThemeChange() {
-  if (activityMap) {
-    var center = activityMap.getCenter();
-    var zoom = activityMap.getZoom();
-
-    activityMap.setStyle(getCurrentMapStyle());
-    activityMap.once('styledata', function() {
-      activityMap.setCenter(center);
-      activityMap.setZoom(zoom);
-      // 重新加载活动数据（坐标可能需要 GCJ-02 转换）
-      var params = new URLSearchParams(window.location.search);
-      var runId = params.get('id');
-      if (runId) {
-        var act = activities.find(function(a) { return String(a.run_id) === String(runId); });
-        if (act) {
-          var coords = pathForActivity(act);
-          if (coords && coords.length > 0) {
-            activityMap.addSource('route-bg', {
-              type: 'geojson',
-              data: { type: 'Feature', geometry: { type: 'LineString', coordinates: coords } }
-            });
-            activityMap.addLayer({
-              id: 'route-bg',
-              type: 'line',
-              source: 'route-bg',
-              layout: { 'line-join': 'round', 'line-cap': 'round' },
-              paint: {
-                'line-color': getThemeColors().brand,
-                'line-width': 4,
-                'line-opacity': 0.9
-              }
-            });
-            addActivityMarkers(coords);
-          }
+  redrawMapOnThemeChange(activityMap, function() {
+    // 重新加载活动数据（坐标可能需要 GCJ-02 转换）
+    var params = new URLSearchParams(window.location.search);
+    var runId = params.get('id');
+    if (runId) {
+      var act = activities.find(function(a) { return String(a.run_id) === String(runId); });
+      if (act) {
+        var coords = pathForActivity(act);
+        if (coords && coords.length > 0) {
+          activityMap.addSource('route-bg', {
+            type: 'geojson',
+            data: { type: 'Feature', geometry: { type: 'LineString', coordinates: coords } }
+          });
+          activityMap.addLayer({
+            id: 'route-bg',
+            type: 'line',
+            source: 'route-bg',
+            layout: { 'line-join': 'round', 'line-cap': 'round' },
+            paint: {
+              'line-color': getThemeColors().brand,
+              'line-width': 4,
+              'line-opacity': 0.9
+            }
+          });
+          addActivityMarkers(coords);
         }
       }
-      addTileVendorControl(activityMap, 'activityMap', onActivityTileSwitch);
-    });
-  }
+    }
+    addTileVendorControl(activityMap, 'activityMap', onActivityTileSwitch);
+  });
 }

@@ -11,19 +11,6 @@ document.addEventListener('themeChanged', function(e) {
     });
 });
 
-// 将时间格式的成绩转换为总秒数以便比较
-function convertResultToSeconds(result) {
-   const parts = result.split(':').map(Number);
-   if (parts.length === 3) {
-       // 格式为 时:分:秒
-       return parts[0] * 3600 + parts[1] * 60 + parts[2];
-   } else if (parts.length === 2) {
-       // 格式为 分:秒
-       return parts[0] * 60 + parts[1];
-   }
-   return 0;
-}
-
 // 将秒数转换为时间格式（hh:mm:ss）
 function convertSecondsToTime(seconds) {
    const hours = Math.floor(seconds / 3600);

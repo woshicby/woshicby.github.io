@@ -1,8 +1,7 @@
-class MomentsManager {
+class MomentsManager extends FilterableListManager {
    constructor() {
+       super();
        this.moments = [];
-       this.tags = [];
-       this.md = null;
        this.init();
    }
 
@@ -23,30 +22,12 @@ class MomentsManager {
        }
    }
 
-   initMarkdown() {
-       if (window.markdownit && typeof window.markdownit === 'function') {
-           this.md = new markdownit({
-               html: true,
-               breaks: true,
-               linkify: true,
-               typographer: true,
-               xhtmlOut: true
-           });
-       }
-   }
-
    async loadMoments() {
-       try {
-           const response = await fetch('JSON/moments.json');
-           if (response.ok) {
-               this.moments = await response.json();
-               this.moments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-           } else {
-               console.warn('moments.json 不存在，使用示例数据');
-               this.moments = this.getSampleMoments();
-           }
-       } catch (error) {
-           console.error('加载灵感碎片数据失败:', error.message);
+       const data = await fetchJSON('JSON/moments.json', null);
+       if (data) {
+           this.moments = data;
+           this.moments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+       } else {
            this.moments = this.getSampleMoments();
        }
    }
@@ -65,37 +46,60 @@ class MomentsManager {
        const momentsToRender = filteredMoments || this.moments;
        const momentsListElement = document.getElementById('moments-list');
 
+       // 销毁之前的瀑布流实例
+       if (this.masonryDestroy) this.masonryDestroy();
+
        if (momentsToRender.length === 0) {
            momentsListElement.innerHTML = '<div class="no-moments">没有找到相关的灵感碎片</div>';
            return;
        }
 
-       const momentsHTML = momentsToRender.map(moment => this.createMomentHTML(moment)).join('');
-       momentsListElement.innerHTML = momentsHTML;
+       const items = momentsToRender.map(moment => this.createMomentElement(moment));
+
+       this.masonryDestroy = MasonryLayout({
+           container: momentsListElement,
+           items: items,
+           columnMinWidth: 320,
+           columnGap: 20
+       });
 
        this.bindMomentFilterEvents();
    }
 
-   createMomentHTML(moment) {
-       const tagsHTML = moment.tags ? 
-           `<div class="moment-tags">${moment.tags.map(tag => 
-               `<span class="moment-tag" data-tag="${tag}">${tag}</span>`
-           ).join('')}</div>` : '';
+   createMomentElement(moment) {
+       const article = document.createElement('article');
+       article.className = 'moment-item';
+       article.dataset.id = moment.id;
 
-       let contentHTML = moment.content || '';
-       if (this.md) {
-           contentHTML = this.md.render(contentHTML);
+       const meta = document.createElement('div');
+       meta.className = 'moment-meta';
+
+       const date = document.createElement('span');
+       date.className = 'moment-date';
+       date.textContent = this.formatDateTime(moment.created_at);
+       meta.appendChild(date);
+
+       if (moment.tags && moment.tags.length > 0) {
+           const tagsDiv = document.createElement('div');
+           tagsDiv.className = 'moment-tags';
+           moment.tags.forEach(tag => {
+               const span = document.createElement('span');
+               span.className = 'moment-tag';
+               span.dataset.tag = tag;
+               span.textContent = tag;
+               tagsDiv.appendChild(span);
+           });
+           meta.appendChild(tagsDiv);
        }
 
-       return `
-           <article class="moment-item" data-id="${moment.id}">
-               <div class="moment-meta">
-                   <span class="moment-date">${this.formatDate(moment.created_at)}</span>
-                   ${tagsHTML}
-               </div>
-               <div class="moment-content">${contentHTML}</div>
-           </article>
-       `;
+       article.appendChild(meta);
+
+       const content = document.createElement('div');
+       content.className = 'moment-content';
+       content.innerHTML = this.md ? this.md.render(moment.content || '') : (moment.content || '');
+       article.appendChild(content);
+
+       return article;
    }
 
    renderTags() {
@@ -125,14 +129,6 @@ class MomentsManager {
        if (statTags) statTags.textContent = totalTags;
    }
 
-   bindSearch() {
-       const searchInput = document.getElementById('search-input');
-       searchInput.addEventListener('input', (e) => {
-           const searchTerm = e.target.value;
-           this.searchMoments(searchTerm);
-       });
-   }
-
    bindMomentFilterEvents() {
        const momentsList = document.getElementById('moments-list');
        
@@ -145,55 +141,8 @@ class MomentsManager {
        });
    }
 
-   filterByTag(tag) {
-       const urlParams = new URLSearchParams(window.location.search);
-       const tags = urlParams.getAll('tag');
-       
-       if (tags.includes(tag)) {
-           const newTags = tags.filter(t => t !== tag);
-           urlParams.delete('tag');
-           newTags.forEach(t => urlParams.append('tag', t));
-       } else {
-           urlParams.append('tag', tag);
-       }
-       
-       urlParams.delete('search');
-       window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
-       
-       this.applyFilters();
-   }
-
-   searchMoments(searchTerm) {
-       const urlParams = new URLSearchParams(window.location.search);
-       
-       if (!searchTerm.trim()) {
-           urlParams.delete('search');
-           window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
-           this.applyFilters();
-           return;
-       }
-
-       urlParams.set('search', searchTerm);
-       urlParams.delete('tag');
-       window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
-       
-       this.applyFilters();
-   }
-
-   checkUrlParams() {
-       const urlParams = new URLSearchParams(window.location.search);
-       const search = urlParams.get('search');
-       
-       if (search) {
-           document.getElementById('search-input').value = search;
-       }
-       
-       this.applyFilters();
-   }
-
-   formatDate(dateString) {
-       const date = new Date(dateString);
-       return date.toLocaleDateString('zh-CN', {
+   formatDateTime(dateString) {
+       return formatDate(dateString, {
            year: 'numeric',
            month: 'long',
            day: 'numeric',
@@ -203,7 +152,7 @@ class MomentsManager {
    }
 
    applyFilters() {
-       const urlParams = new URLSearchParams(window.location.search);
+       const urlParams = getUrlParams();
        const tags = urlParams.getAll('tag');
        const search = urlParams.get('search');
 
@@ -229,81 +178,10 @@ class MomentsManager {
    }
 
    updateFilterInfo(tags, search) {
-       const filterInfo = document.getElementById('filter-info');
-       const filterTags = document.getElementById('filter-tags');
-       
-       if (!filterInfo || !filterTags) {
-           return;
-       }
-
-       filterTags.innerHTML = '';
-
-       tags.forEach(tag => {
-           const tagElement = this.createFilterTag('标签', tag, 'tag');
-           filterTags.appendChild(tagElement);
-       });
-
-       if (search) {
-           const tagElement = this.createFilterTag('搜索', search, 'search');
-           filterTags.appendChild(tagElement);
-       }
-
-       if (filterTags.children.length > 0) {
-           filterInfo.style.display = 'flex';
-       } else {
-           filterInfo.style.display = 'none';
-       }
-   }
-
-   createFilterTag(type, value, paramType) {
-       const tag = document.createElement('div');
-       tag.className = 'filter-tag';
-       tag.innerHTML = `
-           <span>${type}: ${value}</span>
-           <button class="filter-tag-remove" data-type="${paramType}" data-value="${value}" title="移除此过滤条件">×</button>
-       `;
-       
-       tag.querySelector('.filter-tag-remove').addEventListener('click', () => {
-           this.removeFilter(paramType, value);
-       });
-       
-       return tag;
-   }
-
-   removeFilter(paramType, value = null) {
-       const urlParams = new URLSearchParams(window.location.search);
-       
-       if (value) {
-           const values = urlParams.getAll(paramType);
-           const newValues = values.filter(v => v !== value);
-           urlParams.delete(paramType);
-           newValues.forEach(v => urlParams.append(paramType, v));
-       } else {
-           urlParams.delete(paramType);
-       }
-       
-       window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
-       
-       this.applyFilters();
-   }
-
-   bindClearFilter() {
-       const clearFilterBtn = document.getElementById('clear-filter');
-       if (clearFilterBtn) {
-           clearFilterBtn.addEventListener('click', () => {
-               this.clearFilter();
-           });
-       }
-   }
-
-   clearFilter() {
-       const urlParams = new URLSearchParams(window.location.search);
-       urlParams.delete('tag');
-       urlParams.delete('search');
-       window.history.replaceState({}, '', window.location.pathname);
-       
-       this.applyFilters();
-       document.getElementById('search-input').value = '';
+       const entries = [];
+       tags.forEach(tag => entries.push({ type: '标签', value: tag, paramType: 'tag' }));
+       if (search) entries.push({ type: '搜索', value: search, paramType: 'search' });
+       super.updateFilterInfo(entries);
    }
 
    updateActiveStates(tags) {

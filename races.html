@@ -44,14 +44,16 @@
    
    <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
    <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
-   <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚�?-->
+   <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本?-->
+   <script src="./JS/common.js"></script>
    <script src="./JS/charts.js"></script><!-- 引入图表功能脚本 -->
    <script src="./JS/calendar.js"></script><!-- 引入日历功能脚本 -->
    <script src="./JS/races.js"></script><!-- 引入赛事页面脚本 -->
 </head>
 <!-- ==========================================
-        页面头部 - 网站标题和导�?        ==========================================
-        包含网站标志和主导航菜单，当前高�?赛事"选项
+        页面头部 - 网站标题和导航栏
+        ==========================================
+        包含网站标志和主导航菜单，当前高亮"赛事"选项
         ========================================== -->
 
 <body>
@@ -85,13 +87,14 @@
    <!-- ==========================================
             主体内容区域
             ==========================================
-            展示个人赛事记录和成�?            ========================================== -->
+            展示个人赛事记录和成绩对比功能
+            ========================================== -->
    <div class="mainbox clearfix wrapper">
        <!-- 个人纪录部分 -->
        <section class="personal-records">
            <h2>个人最佳成绩 (PB)</h2>
            <div class="personal-records-content" id="personal-records-content">
-               <!-- 个人最佳成绩将通过JavaScript动态生�?-->
+               <!-- 个人最佳成绩将通过JavaScript动态生成 -->
            </div>
        </section>
 
@@ -133,7 +136,7 @@
                </button>
            </div>
            <div class="stats-container" id="event-series-stats">
-               <!-- 统计指标将通过JavaScript动态生�?-->
+               <!-- 统计指标将通过JavaScript动态生成 -->
            </div>
            <div class="chart-container">
                <canvas id="event-series-comparison-chart"></canvas>
@@ -144,7 +147,7 @@
        <section id="calendar-section">
            <h2>赛事日历</h2>
            <div id="calendar">
-               <!-- 日历将通过JavaScript动态生�?-->
+               <!-- 日历将通过JavaScript动态生成 -->
            </div>
        </section>
 
@@ -152,7 +155,7 @@
        <section id="race-records">
            <h2>赛事记录</h2>
            <div class="race-list">
-               <!-- 赛事记录将通过JavaScript动态生�?-->
+               <!-- 赛事记录将通过JavaScript动态生成 -->
            </div>
        </section>
 
@@ -161,7 +164,7 @@
            <h2>完赛证书</h2>
            <div class="certificates-container">
                <div class="certificates-grid" id="certificates-grid">
-                   <!-- 证书内容将通过JavaScript动态生�?-->
+                   <!-- 证书内容将通过JavaScript动态生成 -->
                </div>
            </div>
        </section>

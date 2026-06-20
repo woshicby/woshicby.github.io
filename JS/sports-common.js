@@ -62,12 +62,59 @@ function sortDateFunc(a, b) {
          new Date(a.start_date_local.replace(' ', 'T'));
 }
 
+// ============ 连续运动天数 ============
+
+function calcStreak(filteredActivities) {
+  if (filteredActivities.length === 0) return 0;
+  var dates = [];
+  filteredActivities.forEach(function(a) {
+    var d = a.start_date_local ? a.start_date_local.substring(0, 10) : '';
+    if (d && dates.indexOf(d) === -1) dates.push(d);
+  });
+  dates.sort();
+  var maxStreak = 1, streak = 1;
+  for (var i = 1; i < dates.length; i++) {
+    var prev = new Date(dates[i - 1]);
+    var curr = new Date(dates[i]);
+    var diff = (curr - prev) / (1000 * 60 * 60 * 24);
+    if (diff === 1) {
+      streak++;
+      if (streak > maxStreak) maxStreak = streak;
+    } else {
+      streak = 1;
+    }
+  }
+  return maxStreak;
+}
+
 // ============ 主题 ============
 
 function isDarkTheme() {
   var dataTheme = document.documentElement.getAttribute('data-theme');
   var savedTheme = localStorage.getItem('theme');
   return dataTheme === 'dark' || (!dataTheme && savedTheme === 'dark') || (!dataTheme && !savedTheme);
+}
+
+/**
+ * 主题切换时重绘地图的通用逻辑
+ * 保存地图状态 → 设置新样式 → styledata 后恢复状态并执行回调
+ * @param {Object} mapInstance - mapboxgl.Map 实例
+ * @param {Function} onRedraw - 样式加载完成后的重绘回调
+ */
+function redrawMapOnThemeChange(mapInstance, onRedraw) {
+  if (!mapInstance) return;
+  var center = mapInstance.getCenter();
+  var zoom = mapInstance.getZoom();
+  var bearing = mapInstance.getBearing();
+  var pitch = mapInstance.getPitch();
+  mapInstance.setStyle(getCurrentMapStyle());
+  mapInstance.once('styledata', function() {
+    mapInstance.setCenter(center);
+    mapInstance.setZoom(zoom);
+    if (bearing) mapInstance.setBearing(bearing);
+    if (pitch) mapInstance.setPitch(pitch);
+    if (typeof onRedraw === 'function') onRedraw();
+  });
 }
 
 function getThemeColors() {

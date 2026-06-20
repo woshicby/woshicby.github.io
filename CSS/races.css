@@ -496,9 +496,14 @@ body.dark-theme .race-item:hover {
 }
 
 .certificates-grid {
-    columns: 300px;
-    column-gap: 20px;
+    position: relative;
     margin-top: 20px;
+}
+
+.certificates-grid .masonry-column {
+    position: absolute;
+    top: 0;
+    box-sizing: border-box;
 }
 
 .certificate-item {
@@ -509,7 +514,6 @@ body.dark-theme .race-item:hover {
     transition: var(--transition-default);
     display: flex;
     flex-direction: column;
-    break-inside: avoid;
     margin-bottom: 20px;
     border: 2px solid transparent;
 }
@@ -562,7 +566,7 @@ body.dark-theme .certificate-placeholder {
 /* 响应式样式 - 证书模块 */
 @media (max-width: 768px) {
     .certificates-grid {
-        columns: 1;
+        /* 单列时无需特殊处理，JS会自动适配 */
     }
 }
 
