@@ -301,6 +301,9 @@ async function loadDetailAndRenderCharts(runId, summaryAct) {
 
   // 创建各图表
   appendChartCards(records, hasAlt, hasSpeed, hasHR, hasCadence);
+
+  // 渲染每公里分段表格（在图表下方）
+  renderSplitsTable(records, chartsContainer);
 }
 
 function appendChartCards(records, hasAlt, hasSpeed, hasHR, hasCadence) {
@@ -333,7 +336,7 @@ function appendChartCards(records, hasAlt, hasSpeed, hasHR, hasCadence) {
   }
 
   if (hasCadence) {
-    var cadData = records.map(function(r) { return r.cadence; });
+    var cadData = records.map(function(r) { return r.cadence ? r.cadence * 2 : r.cadence; });
     chartsContainer.appendChild(createChartCard('步频', xLabel, '步/分', xData, cadData, '#a78bfa'));
   }
 }
@@ -690,5 +693,217 @@ function onThemeChange() {
       }
     }
     addTileVendorControl(activityMap, 'activityMap', onActivityTileSwitch);
+  });
+}
+
+// ============ 每公里分段表格 ============
+
+function renderSplitsTable(records, container) {
+  var hasDist = records.some(function(r) { return r.dist !== undefined && r.dist > 0; });
+  if (!hasDist) return;
+
+  var splits = computeSplits(records);
+  if (splits.length === 0) return;
+
+  var hasHR = splits.some(function(s) { return s.avgHR > 0; });
+  var hasCadence = splits.some(function(s) { return s.avgCadence > 0; });
+  var hasElev = splits.some(function(s) { return s.elevGain > 0 || s.elevLoss > 0; });
+
+  var card = document.createElement('div');
+  card.className = 'chart-card splits-card';
+
+  var titleEl = document.createElement('div');
+  titleEl.className = 'chart-title';
+  titleEl.textContent = '每公里分段数据';
+  card.appendChild(titleEl);
+
+  var tableWrap = document.createElement('div');
+  tableWrap.className = 'splits-table-wrap';
+
+  var html = '<table class="splits-table">';
+  html += '<thead><tr>';
+  html += '<th>公里</th>';
+  html += '<th>用时</th>';
+  html += '<th>累积时间</th>';
+  html += '<th>距离</th>';
+  html += '<th>平均速度</th>';
+  if (hasHR) html += '<th>平均心率</th>';
+  if (hasElev) html += '<th>爬升</th>';
+  if (hasElev) html += '<th>下降</th>';
+  if (hasCadence) html += '<th>平均步频</th>';
+  html += '</tr></thead>';
+  html += '<tbody>';
+
+  splits.forEach(function(s) {
+    html += '<tr>';
+    html += '<td>' + s.label + '</td>';
+    html += '<td>' + formatDuration(s.elapsed) + '</td>';
+    html += '<td>' + formatDuration(s.cumTime) + '</td>';
+    html += '<td>' + s.distDisplay + ' km</td>';
+    html += '<td>' + s.avgSpeedDisplay + '</td>';
+    if (hasHR) html += '<td>' + (s.avgHR > 0 ? Math.round(s.avgHR) + ' bpm' : '-') + '</td>';
+    if (hasElev) html += '<td>' + (s.elevGain > 0 ? '+' + s.elevGain.toFixed(0) + ' m' : '-') + '</td>';
+    if (hasElev) html += '<td>' + (s.elevLoss > 0 ? '-' + s.elevLoss.toFixed(0) + ' m' : '-') + '</td>';
+    if (hasCadence) html += '<td>' + (s.avgCadence > 0 ? Math.round(s.avgCadence) + ' spm' : '-') + '</td>';
+    html += '</tr>';
+  });
+
+  // 总计行
+  var totalDist = 0, totalTime = 0, totalElevGain = 0, totalElevLoss = 0;
+  var totalHR = 0, hrCount = 0, totalCad = 0, cadCount = 0;
+  splits.forEach(function(s) {
+    totalDist += s.dist;
+    totalTime = Math.max(totalTime, s.cumTime);
+    totalElevGain += s.elevGain;
+    totalElevLoss += s.elevLoss;
+    if (s.avgHR > 0) { totalHR += s.avgHR; hrCount++; }
+    if (s.avgCadence > 0) { totalCad += s.avgCadence; cadCount++; }
+  });
+  var totalAvgSpeed = totalTime > 0 ? (totalDist / totalTime) * 3.6 : 0;
+
+  html += '<tr class="splits-total">';
+  html += '<td>总计</td>';
+  html += '<td>' + formatDuration(totalTime) + '</td>';
+  html += '<td>' + formatDuration(totalTime) + '</td>';
+  html += '<td>' + (totalDist / 1000).toFixed(3) + ' km</td>';
+  html += '<td>' + (totalAvgSpeed > 0 ? totalAvgSpeed.toFixed(1) + ' km/h' : '-') + '</td>';
+  if (hasHR) html += '<td>' + (hrCount > 0 ? Math.round(totalHR / hrCount) + ' bpm' : '-') + '</td>';
+  if (hasElev) html += '<td>' + (totalElevGain > 0 ? '+' + totalElevGain.toFixed(0) + ' m' : '-') + '</td>';
+  if (hasElev) html += '<td>' + (totalElevLoss > 0 ? '-' + totalElevLoss.toFixed(0) + ' m' : '-') + '</td>';
+  if (hasCadence) html += '<td>' + (cadCount > 0 ? Math.round(totalCad / cadCount) + ' spm' : '-') + '</td>';
+  html += '</tr>';
+
+  html += '</tbody></table>';
+  tableWrap.innerHTML = html;
+  card.appendChild(tableWrap);
+  container.appendChild(card);
+}
+
+function computeSplits(records) {
+  var splits = [];
+  var splitDist = 1000; // 1公里
+  var currentSplit = null;
+
+  for (var i = 0; i < records.length; i++) {
+    var r = records[i];
+    if (r.dist === undefined || r.dist <= 0) continue;
+
+    var kmIndex = Math.floor(r.dist / splitDist);
+
+    if (!currentSplit) {
+      currentSplit = {
+        kmIndex: kmIndex,
+        startDist: kmIndex * splitDist,
+        startTime: r.time,
+        startAlt: r.alt,
+        records: []
+      };
+    }
+
+    // 当距离跨过下一个公里标记时，完成当前分段并开始新的
+    while (r.dist >= (currentSplit.kmIndex + 1) * splitDist && currentSplit.kmIndex < kmIndex) {
+      // 插值计算公里标记点的数据
+      var nextKmDist = (currentSplit.kmIndex + 1) * splitDist;
+      var prevR = currentSplit.records.length > 0 ? currentSplit.records[currentSplit.records.length - 1] : r;
+      var ratio = (nextKmDist - prevR.dist) / (r.dist - prevR.dist);
+      if (ratio < 0 || !isFinite(ratio)) ratio = 1;
+
+      var interpTime = prevR.time + (r.time - prevR.time) * ratio;
+      var interpAlt = prevR.alt !== undefined && r.alt !== undefined ? prevR.alt + (r.alt - prevR.alt) * ratio : undefined;
+
+      // 把插值点加入当前分段
+      currentSplit.records.push({
+        time: interpTime,
+        alt: interpAlt,
+        hr: r.hr,
+        speed: r.speed,
+        cadence: r.cadence,
+        dist: nextKmDist
+      });
+
+      // 完成当前分段
+      finishSplit(currentSplit, splits, splitDist);
+
+      // 开始新分段
+      currentSplit = {
+        kmIndex: currentSplit.kmIndex + 1,
+        startDist: nextKmDist,
+        startTime: interpTime,
+        startAlt: interpAlt,
+        records: []
+      };
+    }
+
+    currentSplit.records.push(r);
+  }
+
+  // 最后一个不完整分段
+  if (currentSplit && currentSplit.records.length > 0) {
+    finishSplit(currentSplit, splits, splitDist);
+  }
+
+  return splits;
+}
+
+function finishSplit(split, splits, splitDist) {
+  var recs = split.records;
+  if (recs.length === 0) return;
+
+  var startTime = split.startTime;
+  var endTime = recs[recs.length - 1].time;
+  var elapsed = endTime - startTime;
+
+  var startDist = split.startDist;
+  var endDist = recs[recs.length - 1].dist;
+  var dist = endDist - startDist;
+
+  // 平均速度 (km/h)
+  var avgSpeed = elapsed > 0 ? (dist / elapsed) * 3.6 : 0;
+  var avgSpeedDisplay = avgSpeed > 0 ? avgSpeed.toFixed(1) + ' km/h' : '-';
+
+  // 平均心率
+  var hrSum = 0, hrCount = 0;
+  recs.forEach(function(r) {
+    if (r.hr && r.hr > 0) { hrSum += r.hr; hrCount++; }
+  });
+  var avgHR = hrCount > 0 ? hrSum / hrCount : 0;
+
+  // 平均步频（原始数据为踏频，乘2得到步频）
+  var cadSum = 0, cadCount = 0;
+  recs.forEach(function(r) {
+    if (r.cadence && r.cadence > 0) { cadSum += r.cadence * 2; cadCount++; }
+  });
+  var avgCadence = cadCount > 0 ? cadSum / cadCount : 0;
+
+  // 爬升和下降
+  var elevGain = 0, elevLoss = 0;
+  for (var i = 1; i < recs.length; i++) {
+    if (recs[i].alt !== undefined && recs[i - 1].alt !== undefined) {
+      var diff = recs[i].alt - recs[i - 1].alt;
+      if (diff > 0) elevGain += diff;
+      else elevLoss += Math.abs(diff);
+    }
+  }
+
+  // 累积时间
+  var cumTime = endTime;
+
+  // 标签
+  var isLast = dist < splitDist * 0.99;
+  var label = isLast
+    ? (split.kmIndex + ' - ' + (split.kmIndex + dist / splitDist).toFixed(2))
+    : (split.kmIndex + 1).toString();
+
+  splits.push({
+    label: label,
+    elapsed: elapsed,
+    cumTime: cumTime,
+    dist: dist,
+    distDisplay: (dist / 1000).toFixed(3),
+    avgSpeedDisplay: avgSpeedDisplay,
+    avgHR: avgHR,
+    avgCadence: avgCadence,
+    elevGain: elevGain,
+    elevLoss: elevLoss
   });
 }

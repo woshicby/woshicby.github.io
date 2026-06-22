@@ -241,3 +241,75 @@
         font-size: 1.2rem;
     }
 }
+
+/* 每公里分段表格 */
+.splits-card {
+    overflow: hidden;
+}
+
+.splits-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.splits-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+}
+
+.splits-table th {
+    padding: 0.4rem 0.6rem;
+    text-align: right;
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.splits-table th:first-child {
+    text-align: center;
+}
+
+.splits-table td {
+    padding: 0.35rem 0.6rem;
+    text-align: right;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--secondary-color);
+    font-variant-numeric: tabular-nums;
+}
+
+.splits-table td:first-child {
+    text-align: center;
+    font-weight: var(--font-weight-semibold);
+    color: var(--primary-color);
+}
+
+.splits-table tbody tr:hover {
+    background: var(--hover-background);
+}
+
+.splits-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.splits-table tr.splits-total td {
+    border-top: 2px solid var(--border-color);
+    border-bottom: none;
+    font-weight: var(--font-weight-semibold);
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .splits-table {
+        font-size: var(--font-size-xs);
+    }
+
+    .splits-table th,
+    .splits-table td {
+        padding: 0.25rem 0.4rem;
+    }
+}
