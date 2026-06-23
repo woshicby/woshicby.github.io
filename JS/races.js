@@ -15,7 +15,7 @@ const mockRaceRecords = [
        "result": "25:37",
        "distance": "5公里",
        "pace": "5'07\"/公里",
-       "stravaLink": "https://www.strava.com/activities/example1",
+       "activityLink": "https://www.strava.com/activities/example1",
        "season": "2023秋季",
        "certification": [],
        "category": "路跑",
@@ -30,7 +30,7 @@ const mockRaceRecords = [
        "result": "1:50:40",
        "distance": "21.0975公里",
        "pace": "5'14\"/公里",
-       "stravaLink": "https://www.strava.com/activities/example2",
+       "activityLink": "https://www.strava.com/activities/example2",
        "season": "2023秋季",
        "certification": ["A1","国际标牌"],
        "category": "路跑",
@@ -45,7 +45,7 @@ const mockRaceRecords = [
        "result": "12:41",
        "distance": "3公里",
        "pace": "4'14\"/公里",
-       "stravaLink": "https://www.strava.com/activities/example3",
+       "activityLink": "https://www.strava.com/activities/example3",
        "season": "2024春季",
        "certification": [],
        "category": "路跑",
@@ -60,7 +60,7 @@ const mockRaceRecords = [
        "result": "24:19",
        "distance": "3.4公里",
        "pace": "7'08\"/公里",
-       "stravaLink": "",
+       "activityLink": "",
        "season": "2024春季",
        "certification": [],
        "category": "越野跑",
@@ -75,7 +75,7 @@ const mockRaceRecords = [
        "result": "4:56:02",
        "distance": "28公里",
        "pace": "10'34\"/公里",
-       "stravaLink": "https://www.strava.com/activities/example4",
+       "activityLink": "https://www.strava.com/activities/example4",
        "season": "2025秋季",
        "certification": ["ITRA 1分"],
        "category": "越野跑",
@@ -92,7 +92,7 @@ const mockRaceRecords = [
        "result": "1:44:17",
        "distance": "21.0975公里",
        "pace": "4'58\"/公里",
-       "stravaLink": "https://www.strava.com/activities/example5",
+       "activityLink": "https://www.strava.com/activities/example5",
        "season": "2025秋季",
        "certification": ["A1","国际金标"],
        "category": "路跑",
@@ -107,7 +107,7 @@ const mockRaceRecords = [
        "result": "1:49:43",
        "distance": "21.0975公里",
        "pace": "5'13\"/公里",
-       "stravaLink": "",
+       "activityLink": "",
        "season": "2025秋季",
        "certification": ["B"],
        "category": "路跑",
@@ -122,7 +122,7 @@ const mockRaceRecords = [
        "result": "",
        "distance": "3公里",
        "pace": "",
-       "stravaLink": "",
+       "activityLink": "",
        "season": "2026春季",
        "certification": [],
        "category": "路跑",
@@ -137,7 +137,7 @@ const mockRaceRecords = [
        "result": "",
        "distance": "21.0975公里",
        "pace": "",
-       "stravaLink": "",
+       "activityLink": "",
        "season": "2026春季",
        "certification": ["A1","国际标牌"],
        "category": "路跑",
@@ -152,7 +152,7 @@ const mockRaceRecords = [
        "result": "",
        "distance": "50公里",
        "pace": "",
-       "stravaLink": "",
+       "activityLink": "",
        "season": "2026夏季",
        "certification": ["ITRA 3分"],
        "category": "越野跑",
@@ -530,7 +530,7 @@ function generateRaceRecords() {
                        <strong>配速:</strong> ${race.pace}
                    </div>
                    <div class="race-links">
-                       <a href="${race.stravaLink}" class="race-link-btn" target="_blank">查看活动</a>
+                       <a href="${race.activityLink}" class="race-link-btn" target="_blank">查看活动</a>
                    </div>
                </div>
            `;

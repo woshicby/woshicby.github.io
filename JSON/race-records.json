@@ -14,7 +14,7 @@
       "season": "2023秋季",
       "certification": [],
       "eventSeries": "海南城市夜跑",
-      "stravaLink": "sports-activity.html?id=1692364432000"
+      "activityLink": "sports-activity.html?id=1692364432000"
    },
    {
       "id": 2,
@@ -34,7 +34,7 @@
          "国际标牌"
       ],
       "eventSeries": "海南儋州马拉松",
-      "stravaLink": "sports-activity.html?id=1702769634000"
+      "activityLink": "sports-activity.html?id=1702769634000"
    },
    {
       "id": 3,
@@ -53,7 +53,7 @@
          "A1"
       ],
       "eventSeries": "茂名马拉松",
-      "stravaLink": "sports-activity.html?id=1711237528000"
+      "activityLink": "sports-activity.html?id=1711237528000"
    },
    {
       "id": 4,
@@ -72,7 +72,7 @@
          "A1"
       ],
       "eventSeries": "陵水半程马拉松",
-      "stravaLink": "sports-activity.html?id=1711837834000"
+      "activityLink": "sports-activity.html?id=1711837834000"
    },
    {
       "id": 5,
@@ -91,7 +91,7 @@
          "不计入PB/SB"
       ],
       "eventSeries": "海南大学荧光夜跑",
-      "stravaLink": "sports-activity.html?id=1713613121000"
+      "activityLink": "sports-activity.html?id=1713613121000"
    },
    {
       "id": 6,
@@ -110,7 +110,7 @@
          "不计入PB/SB"
       ],
       "eventSeries": "海南万人健步大会",
-      "stravaLink": "sports-activity.html?id=1714174820000"
+      "activityLink": "sports-activity.html?id=1714174820000"
    },
    {
       "id": 7,
@@ -127,7 +127,7 @@
       "season": "2024春季",
       "certification": [],
       "eventSeries": "海口湾路跑段位赛",
-      "stravaLink": "sports-activity.html?id=1714559862000"
+      "activityLink": "sports-activity.html?id=1714559862000"
    },
    {
       "id": 8,
@@ -144,7 +144,7 @@
       "season": "2024春季",
       "certification": [],
       "eventSeries": "海南定安幸福跑",
-      "stravaLink": "sports-activity.html?id=1715465417000"
+      "activityLink": "sports-activity.html?id=1715465417000"
    },
    {
       "id": 9,
@@ -161,7 +161,7 @@
       "season": "2024春季",
       "certification": [],
       "eventSeries": "高校百英里资格赛",
-      "stravaLink": "sports-activity.html?id=1716029111000"
+      "activityLink": "sports-activity.html?id=1716029111000"
    },
    {
       "id": 10,
@@ -178,7 +178,7 @@
       "season": "2024春季",
       "certification": [],
       "eventSeries": "高校百英里资格赛",
-      "stravaLink": "sports-activity.html?id=1718013603000"
+      "activityLink": "sports-activity.html?id=1718013603000"
    },
    {
       "id": 11,
@@ -195,7 +195,7 @@
       "season": "2024春季",
       "certification": [],
       "eventSeries": "莆田木兰溪马拉松",
-      "stravaLink": "sports-activity.html?id=1722696736000"
+      "activityLink": "sports-activity.html?id=1722696736000"
    },
    {
       "id": 12,
@@ -212,7 +212,7 @@
       "season": "2024秋季",
       "certification": [],
       "eventSeries": "全民健康跑",
-      "stravaLink": "sports-activity.html?id=1728294658000"
+      "activityLink": "sports-activity.html?id=1728294658000"
    },
    {
       "id": 13,
@@ -231,7 +231,7 @@
          "A1"
       ],
       "eventSeries": "澄迈半程马拉松",
-      "stravaLink": "sports-activity.html?id=1731799828000"
+      "activityLink": "sports-activity.html?id=1731799828000"
    },
    {
       "id": 14,
@@ -251,7 +251,7 @@
          "国际标牌"
       ],
       "eventSeries": "海南儋州马拉松",
-      "stravaLink": "sports-activity.html?id=1734219123000"
+      "activityLink": "sports-activity.html?id=1734219123000"
    },
    {
       "id": 15,
@@ -270,7 +270,7 @@
          "A1"
       ],
       "eventSeries": "莆田木兰溪马拉松",
-      "stravaLink": "sports-activity.html?id=1735428728000"
+      "activityLink": "sports-activity.html?id=1735428728000"
    },
    {
       "id": 16,
@@ -289,7 +289,7 @@
          "C"
       ],
       "eventSeries": "万宁马拉松",
-      "stravaLink": "sports-activity.html?id=1740870138000"
+      "activityLink": "sports-activity.html?id=1740870138000"
    },
    {
       "id": 17,
@@ -308,7 +308,7 @@
          "C"
       ],
       "eventSeries": "陵水半程马拉松",
-      "stravaLink": "sports-activity.html?id=1741474872000"
+      "activityLink": "sports-activity.html?id=1741474872000"
    },
    {
       "id": 18,
@@ -327,7 +327,7 @@
          "不计入PB/SB"
       ],
       "eventSeries": "海南大学荧光夜跑",
-      "stravaLink": "sports-activity.html?id=1745063313000"
+      "activityLink": "sports-activity.html?id=1745063313000"
    },
    {
       "id": 19,
@@ -344,7 +344,7 @@
       "season": "2025春季",
       "certification": [],
       "eventSeries": "海南定安幸福跑",
-      "stravaLink": "sports-activity.html?id=1746915089000"
+      "activityLink": "sports-activity.html?id=1746915089000"
    },
    {
       "id": 20,
@@ -363,7 +363,7 @@
          "C"
       ],
       "eventSeries": "中国热带雨林健步走公开赛",
-      "stravaLink": "sports-activity.html?id=1748734236000"
+      "activityLink": "sports-activity.html?id=1748734236000"
    },
    {
       "id": 21,
@@ -382,7 +382,7 @@
          "C"
       ],
       "eventSeries": "莱州半程马拉松",
-      "stravaLink": "sports-activity.html?id=1757800838000"
+      "activityLink": "sports-activity.html?id=1757800838000"
    },
    {
       "id": 22,
@@ -403,7 +403,7 @@
       "eventSeries": "昆嵛50越野挑战赛",
       "raceScore": "335",
       "itraPerformanceScore": "324",
-      "stravaLink": "sports-activity.html?id=1758409180000"
+      "activityLink": "sports-activity.html?id=1758409180000"
    },
    {
       "id": 23,
@@ -424,7 +424,7 @@
       "eventSeries": "烟台山星空越野赛",
       "raceScore": "374",
       "itraPerformanceScore": "362",
-      "stravaLink": "sports-activity.html?id=1759676436000"
+      "activityLink": "sports-activity.html?id=1759676436000"
    },
    {
       "id": 24,
@@ -444,7 +444,7 @@
          "C"
       ],
       "eventSeries": "栖霞环湖赛",
-      "stravaLink": "sports-activity.html?id=1760229034000"
+      "activityLink": "sports-activity.html?id=1760229034000"
    },
    {
       "id": 25,
@@ -464,7 +464,7 @@
          "国际金标"
       ],
       "eventSeries": "黄河口马拉松",
-      "stravaLink": "sports-activity.html?id=1760831437000"
+      "activityLink": "sports-activity.html?id=1760831437000"
    },
    {
       "id": 26,
@@ -483,7 +483,7 @@
          "B"
       ],
       "eventSeries": "日照马拉松",
-      "stravaLink": "sports-activity.html?id=1761435013000"
+      "activityLink": "sports-activity.html?id=1761435013000"
    },
    {
       "id": 27,
@@ -502,7 +502,7 @@
          "A1"
       ],
       "eventSeries": "莆田木兰溪马拉松",
-      "stravaLink": "sports-activity.html?id=1766878363000"
+      "activityLink": "sports-activity.html?id=1766878363000"
    },
    {
       "id": 28,
@@ -519,7 +519,7 @@
       "season": "2025秋季",
       "certification": [],
       "eventSeries": "威海迎新跑",
-      "stravaLink": "sports-activity.html?id=1767223759000"
+      "activityLink": "sports-activity.html?id=1767223759000"
    },
    {
       "id": 29,
@@ -538,7 +538,7 @@
          "A1"
       ],
       "eventSeries": "荣成马拉松",
-      "stravaLink": "sports-activity.html?id=1776555063000"
+      "activityLink": "sports-activity.html?id=1776555063000"
    },
    {
       "id": 30,
@@ -555,7 +555,7 @@
       "season": "2026春季",
       "certification": [],
       "eventSeries": "青岛山海四季跑",
-      "stravaLink": "sports-activity.html?id=1778375137000"
+      "activityLink": "sports-activity.html?id=1778375137000"
    },
    {
       "id": 31,
@@ -576,11 +576,11 @@
       "eventSeries": "威海100",
       "raceScore": "298",
       "itraPerformanceScore": "362",
-      "stravaLink": "sports-activity.html?id=1778970626000"
+      "activityLink": "sports-activity.html?id=1778970626000"
    },
    {
       "id": 32,
-      "name": "2026户外特工山顶见训练赛（青岛站）",
+      "name": "2026户外特工山顶见系列赛（青岛站）",
       "date": "2026-06-21",
       "startTime": "07:30",
       "location": "山东省青岛李沧区竹子庵公园",
@@ -594,10 +594,10 @@
       "certification": [
          "ITRA 1分"
       ],
-      "eventSeries": "户外特工山顶见训练赛",
+      "eventSeries": "户外特工山顶见系列赛]",
       "raceScore": "",
       "itraPerformanceScore": "",
-      "stravaLink": "sports-activity.html?id=1781998222000"
+      "activityLink": "sports-activity.html?id=1781998222000"
    },
    {
       "id": 33,
@@ -614,7 +614,7 @@
       "season": "2026春季",
       "certification": [],
       "eventSeries": "青岛山海四季跑",
-      "stravaLink": ""
+      "activityLink": ""
    },
    {
       "id": 34,
@@ -635,7 +635,7 @@
       "eventSeries": "咔哒寻山群英赛",
       "raceScore": "",
       "itraPerformanceScore": "",
-      "stravaLink": ""
+      "activityLink": ""
    },
    {
       "id": 35,
@@ -654,7 +654,7 @@
          "A1"
       ],
       "eventSeries": "日照马拉松",
-      "stravaLink": ""
+      "activityLink": ""
    },
    {
       "id": 36,
@@ -673,7 +673,7 @@
          "A1"
       ],
       "eventSeries": "烟台马拉松",
-      "stravaLink": ""
+      "activityLink": ""
    },
    {
       "id": 37,
@@ -693,7 +693,7 @@
          "国际金标"
       ],
       "eventSeries": "上海马拉松",
-      "stravaLink": ""
+      "activityLink": ""
    },
    {
       "id": 38,
@@ -712,7 +712,7 @@
          "A1"
       ],
       "eventSeries": "莆田木兰溪马拉松",
-      "stravaLink": ""
+      "activityLink": ""
    },
    {
       "id": 39,
@@ -731,7 +731,7 @@
          "A1"
       ],
       "eventSeries": "临沂马拉松",
-      "stravaLink": ""
+      "activityLink": ""
    },
    {
       "id": 40,
@@ -748,7 +748,7 @@
       "season": "2026秋季",
       "certification": [],
       "eventSeries": "青岛山海四季跑",
-      "stravaLink": ""
+      "activityLink": ""
    },
    {
       "id": 41,
@@ -765,6 +765,25 @@
       "season": "2026秋季",
       "certification": [],
       "eventSeries": "青岛山海四季跑",
-      "stravaLink": ""
+      "activityLink": ""
+   },
+   {
+      "id": 42,
+      "name": "2026威海半程马拉松",
+      "date": "2026-10-25",
+      "startTime": "07:30",
+      "location": "山东省威海市环翠区至海港湾海上足球场",
+      "category": "路跑",
+      "event": "半程马拉松",
+      "distance": "21.0975公里",
+      "status": "2026-07-25",
+      "result": "",
+      "pace": "",
+      "season": "2026秋季",
+      "certification": [
+         "B"
+      ],
+      "eventSeries": "威海半程马拉松",
+      "activityLink": ""
    }
 ]
