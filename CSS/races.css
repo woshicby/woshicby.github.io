@@ -667,6 +667,11 @@ body.dark-theme .certificate-placeholder {
     color: white;
 }
 
+.status-badge.not-selected {
+    background-color: #e74c3c;
+    color: white;
+}
+
 .upcoming-race-meta {
     display: flex;
     flex-direction: column;
@@ -702,6 +707,218 @@ body.dark-theme .upcoming-race-category,
 body.dark-theme .upcoming-race-event,
 body.dark-theme .upcoming-race-distance {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 额外信息样式（报名时间、出签时间、定房状态等统一显示） */
+.upcoming-race-extra-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.85rem;
+}
+
+.race-info-item {
+    padding: 3px 10px;
+    border-radius: var(--border-radius-sm);
+    color: var(--text-color);
+}
+
+.race-info-item.reg-open,
+.race-info-item.reg-close {
+    background-color: rgba(52, 152, 219, 0.1);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.race-info-item.lottery-date {
+    background-color: rgba(243, 156, 18, 0.1);
+    border: 1px solid rgba(243, 156, 18, 0.3);
+}
+
+.race-info-item.acc-booked {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+}
+
+.race-info-item.acc-not-booked {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+}
+
+.race-info-item.acc-not-needed {
+    background-color: rgba(149, 165, 166, 0.1);
+    color: #7f8c8d;
+}
+
+body.dark-theme .race-info-item.reg-open,
+body.dark-theme .race-info-item.reg-close {
+    background-color: rgba(52, 152, 219, 0.15);
+}
+
+body.dark-theme .race-info-item.lottery-date {
+    background-color: rgba(243, 156, 18, 0.15);
+}
+
+body.dark-theme .race-info-item.acc-booked {
+    background-color: rgba(39, 174, 96, 0.15);
+}
+
+body.dark-theme .race-info-item.acc-not-booked {
+    background-color: rgba(231, 76, 60, 0.15);
+}
+
+body.dark-theme .race-info-item.acc-not-needed {
+    background-color: rgba(149, 165, 166, 0.15);
+}
+
+/* 签运记录样式 */
+.lottery-graveyard-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.lottery-graveyard-empty {
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+/* 总体统计 */
+.graveyard-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.graveyard-summary-item.won {
+    color: #27ae60;
+}
+
+.graveyard-summary-item.lost {
+    color: #e74c3c;
+}
+
+/* 系列卡片 */
+.graveyard-card {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.graveyard-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: var(--spacing-xs);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.graveyard-series-name {
+    color: var(--text-color);
+}
+
+.graveyard-prob {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+    padding: 2px 10px;
+    border-radius: var(--border-radius-sm);
+    background-color: rgba(149, 165, 166, 0.1);
+}
+
+.graveyard-prob.pending {
+    font-style: italic;
+}
+
+/* 历程展示 */
+.graveyard-history {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.graveyard-year-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+}
+
+.graveyard-year {
+    font-weight: 600;
+    min-width: 56px;
+    color: var(--text-color);
+}
+
+.graveyard-history-item {
+    padding: 2px 8px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+}
+
+.graveyard-history-item.won {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+}
+
+.graveyard-history-item.lost {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+}
+
+.graveyard-history-item.pending {
+    background-color: rgba(243, 156, 18, 0.1);
+    color: #f39c12;
+}
+
+.graveyard-arrow {
+    color: var(--secondary-color);
+    font-size: 0.8rem;
+}
+
+.graveyard-final {
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.graveyard-final.won {
+    color: #27ae60;
+}
+
+.graveyard-final.lost {
+    color: #e74c3c;
+}
+
+.graveyard-final.pending {
+    color: #f39c12;
+}
+
+body.dark-theme .graveyard-card {
+    background-color: var(--card-background-dark, rgba(255, 255, 255, 0.05));
+}
+
+body.dark-theme .graveyard-history-item.won {
+    background-color: rgba(39, 174, 96, 0.15);
+}
+
+body.dark-theme .graveyard-history-item.lost {
+    background-color: rgba(231, 76, 60, 0.15);
+}
+
+body.dark-theme .graveyard-history-item.pending {
+    background-color: rgba(243, 156, 18, 0.15);
 }
 
 .upcoming-race-countdown {

@@ -485,6 +485,13 @@
    font-weight: bold;
 }
 
+/* 日历中未中签赛事单元格样式 */
+.calendar-day.race-not-selected {
+   border: 2px dashed #e74c3c;
+   font-weight: bold;
+   opacity: 0.6;
+}
+
 .calendar-day.race-dimmed {
    opacity: 0.35;
    border: none;

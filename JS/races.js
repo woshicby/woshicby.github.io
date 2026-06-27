@@ -581,6 +581,8 @@ document.addEventListener('DOMContentLoaded', async () => {
        initEventSeriesComparison(raceRecords);
        // 初始化赛事日历功能
        initCalendar();
+       // 加载签运记录
+       loadLotteryGraveyard();
    } catch (error) {
        console.error('加载赛事记录数据失败，使用模拟数据:', error);
        // 使用模拟数据
@@ -597,8 +599,117 @@ document.addEventListener('DOMContentLoaded', async () => {
        initEventSeriesComparison(raceRecords);
        // 初始化赛事日历功能
        initCalendar();
+       // 加载签运记录
+       loadLotteryGraveyard();
    }
 });
+
+// 加载签运记录
+async function loadLotteryGraveyard() {
+   const container = document.getElementById('lottery-graveyard-container');
+   if (!container) return;
+   
+   try {
+       const response = await fetch('JSON/race-series.json');
+       if (!response.ok) throw new Error(`HTTP错误! 状态码: ${response.status}`);
+       const seriesData = await response.json();
+       
+       if (!seriesData || seriesData.length === 0) {
+           container.innerHTML = '<p class="lottery-graveyard-empty">暂无签运记录</p>';
+           return;
+       }
+       
+       // 计算单条记录的最终结果
+       function getFinalResult(h) {
+           if (h.lottery === '中签') return '中签';
+           if (h.lottery === '待抽签') return '待抽签';
+           // lottery === '未中签'
+           if (h.waitlist && h.waitlist.some(w => w.result === '中签')) return '中签';
+           return '未中签';
+       }
+       
+       // 构建单年的签运历程HTML
+       function buildYearJourney(h) {
+           const parts = [`<span class="graveyard-year">${h.year}年</span>`];
+           // 初始抽签结果
+           const lotteryClass = h.lottery === '中签' ? 'won' : (h.lottery === '未中签' ? 'lost' : 'pending');
+           parts.push(`<span class="graveyard-history-item ${lotteryClass}">抽签${h.lottery}</span>`);
+           // 候补轮次
+           if (h.waitlist && h.waitlist.length > 0) {
+               h.waitlist.forEach((w, idx) => {
+                   const wClass = w.result === '中签' ? 'won' : 'lost';
+                   parts.push(`<span class="graveyard-arrow">→</span>`);
+                   parts.push(`<span class="graveyard-history-item ${wClass}">候补第${idx + 1}轮${w.result}</span>`);
+               });
+           }
+           // 最终结果标记
+           const finalRes = getFinalResult(h);
+           if (finalRes === '中签') {
+               parts.push(`<span class="graveyard-final won">✓</span>`);
+           } else if (finalRes === '未中签') {
+               parts.push(`<span class="graveyard-final lost">✗</span>`);
+           } else {
+               parts.push(`<span class="graveyard-final pending">⏳</span>`);
+           }
+           return parts.join('');
+       }
+       
+       // 计算统计
+       let totalWon = 0, totalLost = 0;
+       
+       const cardsHTML = seriesData.map(series => {
+           const history = series.lotteryHistory || [];
+           // 按年份排序
+           const sorted = [...history].sort((a, b) => a.year - b.year);
+           
+           let won = 0, lost = 0;
+           sorted.forEach(h => {
+               const finalRes = getFinalResult(h);
+               if (finalRes === '中签') won++;
+               else if (finalRes === '未中签') lost++;
+           });
+           totalWon += won;
+           totalLost += lost;
+           
+           const total = won + lost;
+           const prob = total > 0 ? Math.round((won / total) * 100) : 0;
+           
+           const journeyHTML = sorted.map(h => 
+               `<div class="graveyard-year-row">${buildYearJourney(h)}</div>`
+           ).join('');
+           
+           const probHTML = total > 0 
+               ? `<span class="graveyard-prob">${won}中/${lost}未 · ${prob}%</span>`
+               : `<span class="graveyard-prob pending">待抽签</span>`;
+           
+           return `
+               <div class="graveyard-card">
+                   <div class="graveyard-card-header">
+                       <span class="graveyard-series-name">${series.eventSeries}</span>
+                       ${probHTML}
+                   </div>
+                   <div class="graveyard-history">${journeyHTML}</div>
+               </div>
+           `;
+       }).join('');
+       
+       // 总体统计
+       const grandTotal = totalWon + totalLost;
+       const grandProb = grandTotal > 0 ? Math.round((totalWon / grandTotal) * 100) : 0;
+       const summaryHTML = `
+           <div class="graveyard-summary">
+               <span class="graveyard-summary-item won">中签 ${totalWon}</span>
+               <span class="graveyard-summary-item lost">未中签 ${totalLost}</span>
+               <span class="graveyard-summary-item">中签率 ${grandProb}%</span>
+           </div>
+       `;
+       
+       container.innerHTML = summaryHTML + cardsHTML;
+   } catch (error) {
+       console.error('加载签运记录失败:', error);
+       container.innerHTML = '';
+   }
+}
 
 // 加载完赛证书数据 - 现在从raceRecords中获取信息
 function loadCertificatesData() {

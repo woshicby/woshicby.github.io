@@ -468,45 +468,22 @@ woshicby.github.io/
 
 ## Update History
 
-| Date | Update Content |
-|------|----------------|
+| Date | Updates |
+|------|---------|
 | 2023.02.22 | Project initialization |
-| 2025.07.18 | Added style comparator tool |
-| 2025.07.19 | Improved project documentation structure, optimized image resource management |
-| 2025.07.20 | Updated responsive navigation system |
-| 2025.11.20 | Added theme switching functionality (theme-toggle.js) |
-| 2025.11.21 | Enhanced user experience and interactive features |
-| 2025.11.23 | Refactored CSS and JS directory structure with subdirectories, updated HTML file locations to root directory |
-| 2025.11.27 | Implemented blog article functionality (posts.html, post-detail.html), added Markdown support and mathematical formula rendering, implemented code highlighting functionality, added Markdown to JSON converter (convert-md-to-json.html) |
-| 2025.12.14 | Added running records feature (sports.html) with SB and PB markers |
-| 2025.12.15 | Implemented multi-column waterfall layout for finisher certificates, adjusted HTML and CSS layout of "About Me" section |
-| 2025.12.16 | Fixed inconsistent hover effects between nav-card and skill-card in dark mode, unified visual consistency of hover effects in dark mode |
-| 2026.01.14 | Optimized race calendar functionality, added track run color support, implemented data-driven dynamic color scheme, added race type legend, implemented mouse hover tooltips, supported auto-wrapping for long race names, showed results for past races and start times for future races |
-| 2026.01.19 | Optimized race performance comparison functionality, added performance trend analysis for same project and same event, displayed days since last race; optimized Personal Best (PB) calculation logic, supported adding "不计入PB/SB" tag in certification field; added race type display in race records |
-| 2026.01.22-23 | Implemented Civilization Evolution Simulator (civilization-evolution.html), optimized simulator performance, added civilization color legend and civilization card color indicators |
-| 2026.02.06 | Fixed race calendar legend display logic on sports page; removed underline from blog post H2 titles; fixed image display effects in blog posts; fixed category and tag links in blog detail page; unified badge style for categories and tags; added filter info display and "Clear All" button; supported filtering multiple categories and tags simultaneously (OR logic); optimized running records functionality, added raceScore field for trail running |
-| 2026.02.20-21 | Implemented blog automation system, supports direct reading of Markdown files and automatic rendering; fixed posts.html page responsiveness issue; organized and unified categories and tags across blog posts; optimized table zebra stripe effect; fixed image 404 errors; added line number display to code blocks; added footnote functionality support |
-| 2026.02.24 | Implemented dynamic loading and filtering functionality for study.html page; optimized site-wide animation performance; unified site-wide title styles (h2, h3), optimized paragraph spacing and line height |
-| 2026.02.25 | Fixed Bilibili API CORS issues, replaced with static user data; updated Bilibili user avatar to local image; added likes and plays counts to user statistics; optimized user card layout |
-| 2026.03.10 | Added update_date field support to the blog system, added update date field in article metadata; modified homepage skill cards, added links to corresponding pages |
-| 2026.03.13 | Added SEO metadata checker tool (seo-checker.html); added random decision maker (random-decision.html); added dice tool (dice-tool.html) |
-| 2026.03.14 | Unified section class naming convention across all tool pages; merged pace calculator modular CSS files; added dynamic tabs navigation module to all tool pages; enhanced sitemap.xml with all tools and games pages |
-| 2026.03.16 | Civilization Evolution Simulator: Added simulation log recording system with JSON export support; optimized civilization split mechanism with cooldown period and stability correction; adjusted stability calculation formula to balance large civilization penalties; optimized war probability calculation with strength gap and territory competition factors |
-| 2026.03.17 | Civilization Evolution Simulator core refactoring: Added simulation log system, civilization behavior system, stability correction mechanism; optimized split/merge/extinction/revival conditions; removed tech tree module. Site-wide style unification: Unified form element styles, added CSS variables. Added Markdown to JSON tool, optimized tool page navigation structure |
-| 2026.03.28 | Optimized site-wide download functionality: Unified filenames to Chinese, standardized datetime format to yyyyMMdd.hhmmss; affected dice tool, random decision maker, sword forging, civilization evolution simulator, sports charts. Blog system enhancement: post-detail.js now supports direct access to blog files via file parameter; added detailed error page with FILE_NOT_FOUND, ID_NOT_FOUND, PARSE_ERROR, NETWORK_ERROR error types |
-| 2026.03.30 | Added Inspiration Moments feature (moments.html): Supports recording text, images, audio, video and other forms of inspiration moments; supports Markdown format rendering; supports tag filtering |
-| 2026.04.17 | Added local LLM API chat tool (local-llm-api-chat.html), supporting interaction with LM Studio servers; refactored Markdown parsing logic, extracted subscript/superscript handling into a shared function (markdown-utils.js), optimized subscript/superscript processing to avoid conflicts with mathematical formulas |
-| 2026.04.20 | Added time calculator tool (time-calculator.html); updated user information and race records data |
-| 2026.04.23 | Added life path number calculator (life-path-calculator.html), supporting birthday input, step-by-step digit addition display, master number identification, and number meaning descriptions |
-| 2026.05.04 | Added blog series feature and optimized posts list page: series classification, timeline archive view, infinite scroll loading, back-to-top button, updated related JSON and styles |
-| 2026.05.08 | Added My Own Swordsman quote guessing game (wulin-quotes.html) and dialogue search tool, supporting multiple difficulty modes, character filtering, and dialogue search |
-| 2026.05.20 | Added pending lottery race management and display: new pending lottery status logic and calendar styles; filter finished races for PB/SB calculation and chart statistics; added status field to all race records and new pending lottery races |
-| 2026.05.26 | Added Emoji Renderer tool (emoji-renderer.html) with multi-platform style rendering and high-resolution export; updated race records data|
-| 2026.05.29 | Refactored race calendar module: added real-time countdown system with page visibility adaptation; card-style UI replacing legacy layout; added status badges for registered/pending lottery/finished states; completed startTime field; optimized mobile responsive layout |
-| 2026.05.31 | Refactored navigation logic, added dynamic navigation menu generation: rewrote navigation.js with configuration-based navigation item management; unified navigation structure across all pages, removed hardcoded navigation links; added Book/Movie/Music Reviews page (reviews.html) with supporting resources; fixed inconsistent navigation indentation on some pages |
-| 2026.06.02 | Added race pre-registration status support and filtering: new pre-registration race styles and status badges; refactored default selection logic to choose by latest race date; improved calendar filtering with all/finished/upcoming filters, dimmed dates for hidden races; enhanced race tooltip to display multiple races with dividers; added TBC (To Be Confirmed) date race support with ∞ countdown; updated race data and added new race records |
-| 2026.06.03 | Enhanced review page filtering system: added two-level filtering with quick filters (rating status, time range) and advanced filters (rating level, region, tags); changed rating system from 5-star to 10-point scale; average rating excludes unrated items; default view shows only rated items; region filter supports space-separated multi-region matching; updated race record scores and name format; formatted JSON data file indentation |
-| 2026.06.19 | Sports page major upgrade: added activity detail page (sports-activity.html) and volume statistics page (sports-volume.html); consolidated data files to project root directory; HTML semantic refactoring, removed redundant wrapper elements; unified back button style with dynamic display based on referrer page; sidebar statistics sync with sport type and time interval filters, removed display quantity limit; fixed navigation buttons pushed aside by floating elements; removed "Recent Activities" section from race page, unified "View Activity" button style; fixed dark mode tab background and chart text color on race page; replaced stravaLink in race-records.json with local activity links; fixed activity page URL parameter (runId→id); unified all sync script configurations to config.py, eliminated all hardcoded values |
+| 2025.07.18-20 | Added style comparator tool; improved project documentation structure and image resource management; updated responsive navigation system |
+| 2025.11.20-27 | Added theme toggle; refactored CSS/JS directory structure, moved HTML files to root; implemented blog post system (Markdown support, math formula rendering, code highlighting, conversion tool) |
+| 2025.12.14-16 | Added running record feature (season best/personal best markers); implemented masonry layout for completion certificates; optimized bio section layout; unified hover effects in dark mode |
+| 2026.01.14-23 | Optimized race calendar (data-driven color scheme, category legend, tooltips, result/start time display); implemented performance change comparison and PB statistics logic; developed multi-civilization evolution simulator |
+| 2026.02.06-25 | Fixed display issues for race calendar legend, blog images/links, etc.; blog list now supports multi-category/tag filtering (OR logic); implemented automated blog rendering system; organized site-wide blog metadata; added dynamic loading & filtering for study.html; optimized site-wide animations, heading styles, and paragraph spacing; fixed Bilibili API issues and improved user card layout |
+| 2026.03.10-17 | Added update_date field to blog system; added links to homepage skill cards; added SEO checker tool, random decision maker, dice tool; unified tool page naming conventions and navigation modules; improved sitemap.xml; core refactoring of multi-civilization evolution simulator (run log system, civilization behavior system, stability fixes, removed tech tree); unified form styles across site |
+| 2026.03.28-30 | Unified file naming and date format for site-wide download functions; blog system now supports direct access via file parameter, added error pages; added inspiration fragments feature (moments.html) supporting multimedia, Markdown, and tag filtering |
+| 2026.04.17-23 | Added local LLM API chat tool; refactored Markdown parsing (superscript/subscript handling); added time calculator and life path number calculator |
+| 2026.05.04-20 | Blog gains series feature, timeline archive, and infinite scroll loading; added "My Own Swordsman" quote game and quote query tool; added lottery-pending race management and display |
+| 2026.05.26-31 | Added Emoji renderer tool; refactored race calendar module (real-time countdown, card UI, status badges, mobile adaptation); refactored navigation bar to config-driven dynamic generation; added Books, Movies & Music records page (reviews.html) |
+| 2026.06.02-03 | Race system added "pending registration" status and TBC date support; improved calendar filtering; reviews page filter system refactored (two-level filter, 10-point rating scale) |
+| 2026.06.19 | Major sports page upgrade: added sports activity detail page and volume statistics page; migrated data files to root directory; HTML semantic refactoring; unified back button and sidebar logic; centralized site configuration to config.py |
+| 2026.06.24 | Added lottery record module; improved race calendar and list information layout |
 
 ## Usage
 
@@ -728,42 +705,19 @@ woshicby.github.io/
 | 日付 | 更新内容 |
 |------|----------|
 | 2023.02.22 | プロジェクト初期化 |
-| 2025.07.18 | スタイル比較ツールの追加 |
-| 2025.07.19 | プロジェクトドキュメント構造の改善、画像リソース管理の最適化 |
-| 2025.07.20 | レスポンシブナビゲーションシステムの更新 |
-| 2025.11.20 | テーマ切り替え機能の追加 (theme-toggle.js) |
-| 2025.11.21 | ユーザーエクスペリエンスとインタラクティブ機能の強化 |
-| 2025.11.23 | CSSとJSのディレクトリ構造をリファクタリング、サブディレクトリ管理を追加、HTMLファイルの位置をルートディレクトリに更新 |
-| 2025.11.27 | ブログ記事機能 (posts.html, post-detail.html) の実装、Markdownサポートと数式レンダリングの追加、コードハイライト機能の実装、MarkdownからJSONへの変換ツールの追加 (convert-md-to-json.html) |
-| 2025.12.14 | ランニング記録機能 (sports.html) の追加、SBとPBのマーカーをサポート |
-| 2025.12.15 | 完走証明書に多列のウォーターフォールレイアウトを実装、「About Me」セクションのHTMLとCSSレイアウトを調整 |
-| 2025.12.16 | ダークモードでのnav-cardとskill-cardのホバー効果の不一致を修正、ダークモードでのホバー効果の視覚的一貫性を統一 |
-| 2026.01.14 | レースカレンダー機能を最適化、トラックランの配色サポートを追加、データ駆動の動的配色スキームを実装、レースタイプ凡例を追加、マウスホバーツールチップを実装、長いレース名の自動折り返しをサポート、過去のレースには結果を表示、未来のレースにはスタート時間を表示 |
-| 2026.01.19 | レース成績比較機能を最適化、同一プロジェクトと同一イベントの成績傾向分析を追加、前回レースからの日数を表示；パーソナルベスト(PB)計算ロジックを最適化、特定のレースをPB計算から除外するタグを追加；レース記録にレースタイプ表示を追加 |
-| 2026.01.22-23 | 多文明演化シミュレーター(civilization-evolution.html)を実装、複数の文明の発展プロセスを自動的にシミュレート；シミュレーターのパフォーマンスを最適化、文明の色の凡例と文明カードの色インジケーターを追加 |
-| 2026.02.06 | スポーツページのレースカレンダー凡例の表示ロジックを修正；ブログ記事のH2タイトルの下線を削除；ブログ記事の画像表示効果を修正；ブログ詳細ページのカテゴリとタグのリンクを修正；統一されたbadgeスタイルに変更；フィルター情報表示と「すべてクリア」ボタンを追加；複数のカテゴリとタグを同時にフィルタリング可能に；ランニング記録機能を最適化、トレイルランにraceScoreフィールドを追加 |
-| 2026.02.20-21 | ブログ自動化システムを実装、Markdownファイルを直接読み込み自動レンダリングをサポート；posts.htmlページのレスポンシブ問題を修正；各ブログ記事のcategoriesとtagsを整理して統一；テーブルのゼブラストライプ効果を最適化；画像404エラーを修正；コードブロックに行番号表示を追加；脚注機能サポートを追加 |
-| 2026.02.24 | study.htmlページの動的読み込みとフィルタリング機能を実装；サイト全体のアニメーションパフォーマンスを最適化；サイト全体のタイトルスタイル(h2, h3)を統一し、段落の間隔と行間を最適化 |
-| 2026.02.25 | Bilibili API CORS問題を修正し、静的ユーザーデータに置き換え；Bilibiliユーザーアバターをローカル画像に更新；ユーザー統計情報にいいね数と再生数を追加；ユーザーカードレイアウトを最適化 |
-| 2026.03.10 | ブログシステムにupdate_dateフィールドサポートを追加、記事メタデータに更新日フィールドを新規追加；ホームページのスキルカードを変更し、対応するページへのリンクを追加 |
-| 2026.03.13 | SEOメタデータチェッカーツール(seo-checker.html)を追加；ランダム決定メーカー(random-decision.html)を追加；ダイスツール(dice-tool.html)を追加 |
-| 2026.03.14 | すべてのツールページのセクションクラス命名規則を統一；ペース計算機のモジュラーCSSファイルを統合；すべてのツールページに動的タブナビゲーションモジュールを追加；sitemap.xmlを強化、すべてのツールとゲームページを追加 |
-| 2026.03.16 | 多文明演化シミュレーター：シミュレーションログ記録システムを追加、JSONエクスポート対応；文明分裂メカニズムを最適化、クールダウン期間と安定性補正を追加；安定性計算式を調整；戦争確率計算を最適化 |
-| 2026.03.17 | 多文明演化シミュレーター核心リファクタリング：シミュレーションログシステム、文明行動システム、安定性補正メカニズムを追加；分裂/統合/滅亡/復興条件を最適化；テクツリーモジュールを削除。サイト全体のスタイル統一：フォーム要素スタイルを統一、CSS変数を追加。MarkdownからJSONツールを追加、ツールページナビゲーション構造を最適化 |
-| 2026.03.28 | サイト全体のダウンロード機能を最適化：ファイル名を中国語に統一、日時形式をyyyyMMdd.hhmmssに統一；ダイスツール、ランダム決定メーカー、刀剣鍛造、文明演化シミュレーター、スポーツ成績チャートなどが対象。ブログシステム強化：post-detail.jsがfileパラメータによるブログファイルへの直接アクセスをサポート；詳細エラーページを追加、FILE_NOT_FOUND、ID_NOT_FOUND、PARSE_ERROR、NETWORK_ERRORなどのエラータイプ表示に対応 |
-| 2026.03.30 | インスピレーション Moments機能(moments.html)を追加：テキスト、画像、音声、動画など様々な形式のインスピレーションを記録；Markdown形式のレンダリングに対応；タグフィルタリング機能をサポート |
-| 2026.04.17 | ローカルLLM APIチャットツール(local-llm-api-chat.html)を追加、LM Studioサーバーとの対話をサポート；Markdown解析ロジックをリファクタリング、下付き・上付き文字処理を共有関数(markdown-utils.js)に抽出、数式との競合を回避するよう下付き・上付き文字処理を最適化 |
-| 2026.04.20 | 時間計算機ツール(time-calculator.html)を追加；ユーザー情報とレース記録データを更新 |
-| 2026.04.23 | ライフパスナンバー計算機(life-path-calculator.html)を追加、誕生日入力、桁ごとの加算過程表示、マスター番号識別、ナンバーの意味説明をサポート |
-| 2026.05.04 | ブログシリーズ機能を追加し投稿一覧ページを最適化：シリーズ分類表示、タイムラインアーカイブビュー、無限スクロール読み込み、トップへ戻るボタン、関連JSONとスタイルを更新 |
-| 2026.05.08 | 武林外伝セリフ当てゲーム(wulin-quotes.html)とセリフ検索ツールを追加、複数難易度モード、キャラクターフィルタリング、セリフ検索機能をサポート |
-| 2026.05.20 | 抽選待ちレース管理・表示機能を追加：抽選待ちレースステータス判定ロジックとカレンダースタイルを新規追加；PB/SB計算とチャート統計に完了レースのみをフィルタリング；全レースデータにstatusフィールドを追加し、抽選待ちレースを新規追加 |
-| 2026.05.26 | Emojiレンダラーツール(emoji-renderer.html)を追加、マルチプラットフォームスタイルレンダリングと高解像度エクスポートに対応；レース記録データを更新 |
-| 2026.05.29 | レースカレンダーモジュールをリファクタリング：リアルタイムカウントダウンシステム（ページ表示状態適応）を追加；カード式UIで旧レイアウトを置き換え；登録済み/抽選待ち/完走などのステータスバッジを追加；startTimeフィールドを補完；モバイルレスポンシブレイアウトを最適化 |
-| 2026.05.31 | ナビゲーション論理をリファクタリング、動的ナビゲーションメニュー生成機能を追加：navigation.jsを設定ベースのナビゲーション項目管理で再作成；全ページのナビゲーション構造を統一、ハードコードされたナビゲーションリンクを削除；書影音記録ページ(reviews.html)と関連リソースを追加；一部ページのナビゲーションインデントの不一致を修正 |
-| 2026.06.02 | レース事前登録ステータスサポートとフィルタリング機能を追加：事前登録レースのスタイルとステータスバッジを新規追加；デフォルト選択論理をリファクタリング、最新レース日付でデフォルト項目/シリーズを選択；カレンダーフィルタリング機能を改善、全て/完走/未完走フィルタに対応、非表示レース日付をグレー表示；レースツールチップを最適化、複数レースの同時表示と区切り線を追加；TBC（未定）日付レースサポートを追加、カウントダウンに∞を表示；レースデータを更新、一部レース情報を修正し新規レース記録を追加 |
-| 2026.06.03 | レビューページフィルタリングシステム強化：クイックフィルター（評価ステータス、期間）と高度なフィルター（評価レベル、地域、タグ）の2段階フィルタリングを追加；評価制度を5スター制から10点制に変更；平均評価は未評価項目を除外；デフォルトで評価済み項目のみ表示；地域フィルターはスペース区切りの複数地域マッチングに対応；レース記録のスコアと名称フォーマットを更新；JSONデータファイルのインデントをフォーマット |
-| 2026.06.19 | スポーツページ大幅アップグレード：アクティビティ詳細ページ(sports-activity.html)と運動量統計ページ(sports-volume.html)を追加；データファイルをプロジェクトルートディレクトリに統合移行；HTMLセマンティックリファクタリング、冗長なラッパー要素を削除；戻るボタンのスタイルを統一、参照元ページに基づく動的表示を実装；サイドバー統計をスポーツタイプと時間間隔フィルターと同期、表示数制限を撤廃；フローティング要素によりナビゲーションボタンが押し出される問題を修正；レースページの「最近のアクティビティ」セクションを削除、「アクティビティを見る」ボタンスタイルを統一；ダークモードでのレースページのタブ背景色とチャート文字色を修正；race-records.jsonのstravaLinkをローカルアクティビティリンクに置き換え；アクティビティページURLパラメータを修正(runId→id)；同期スクリプトの設定をconfig.pyに統一、すべてのハードコード値を排除 |
+| 2025.07.18-20 | スタイル比較ツール追加、プロジェクト文書構造と画像リソース管理の整備、レスポンシブナビゲーションシステムの更新 |
+| 2025.11.20-27 | テーマ切り替え機能追加、CSS/JSディレクトリ構造の再構築とHTMLファイルのルート移動、ブログ記事システム実装（Markdown対応、数式レンダリング、コードハイライト、変換ツール） |
+| 2025.12.14-16 | ランニング記録機能追加（シーズンベスト/自己ベストマーク）、完走証のウォーターフォールレイアウト実装、自己紹介エリアのレイアウト最適化、ダークモードのホバー効果統一 |
+| 2026.01.14-23 | レースカレンダー最適化（データ駆動カラー、種目凡例、ツールチップ、成績/スタート時間表示）、成績変化比較とPB統計ロジックの実装、多文明進化シミュレーター開発 |
+| 2026.02.06-25 | レースカレンダー凡例やブログ画像/リンクなどの表示問題を修正、ブログリストの複数カテゴリ・タグフィルタリング対応（OR論理）、ブログ自動レンダリングシステム実装、全サイトブログのメタデータ整理、study.htmlの動的読み込みとフィルタリング追加、サイト全体のアニメーション・見出しスタイル・段落レイアウトの最適化、Bilibili API問題修正とユーザーカードの改善 |
+| 2026.03.10-17 | ブログシステムにupdate_dateフィールド追加、ホームのスキルカードにリンク追加、SEOチェッカー・ランダム意思決定ツール・サイコロツール追加、ツールページの命名規則とナビゲーションモジュールの統一、sitemap.xmlの充実、多文明進化シミュレーターのコア再構築（ログシステム、文明行動システム、安定性修正、技術ツリー削除）、全サイトのフォームスタイル統一 |
+| 2026.03.28-30 | ダウンロード機能のファイル名と日付形式を統一、ブログシステムのfileパラメータ直接アクセス対応とエラーページ追加、インスピレーションフラグメント機能追加（moments.html、マルチメディア・Markdown・タグ絞り込み対応） |
+| 2026.04.17-23 | ローカル大規模言語モデルAPI対話ツール追加、Markdown解析ロジック再構築（上付き・下付き文字処理）、時間計算機とライフパスナンバー計算機を追加 |
+| 2026.05.04-20 | ブログにシリーズ機能・タイムラインアーカイブ・無限スクロール読み込み追加、「武林外伝」セリフゲームとセリフ検索ツール追加、抽選待ちレース管理・表示を追加 |
+| 2026.05.26-31 | Emojiレンダラーツール追加、レースカレンダーモジュール再構築（リアルタイムカウントダウン、カードUI、ステータスバッジ、モバイル対応）、ナビゲーションバーを設定ベースの動的生成に再構築、本・映画・音楽の記録ページ(reviews.html)追加 |
+| 2026.06.02-03 | レースシステムに「申込待ち」状態とTBC日付対応を追加、カレンダーフィルター機能改善、レビューページのフィルターシステム再構築（二段階フィルター、10点満点評価） |
+| 2026.06.19 | スポーツページ大幅アップグレード：アクティビティ詳細ページと運動量統計ページ追加、データファイルをルートディレクトリに移行、HTMLセマンティック再構築、戻るボタンとサイドバーのロジック統一、全サイト設定をconfig.pyに統一 |
+| 2026.06.24 | 抽選記録モジュール追加、レースカレンダーとリストの情報レイアウト改善 |
 
 ## 使用方法
 

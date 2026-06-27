@@ -1,0 +1,65 @@
+[
+   {
+      "eventSeries": "青岛马拉松",
+      "lotteryHistory": [
+         {"year": 2026, "lottery": "未中签", "waitlist": [{"result": "未中签"}]}
+      ]
+   },
+   {
+      "eventSeries": "顺德半程马拉松",
+      "lotteryHistory": [
+         {"year": 2024, "lottery": "未中签"}
+      ]
+   },
+   {
+      "eventSeries": "茂名马拉松",
+      "lotteryHistory": [
+         {"year": 2024, "lottery": "中签"}
+      ]
+   },
+   {
+      "eventSeries": "龙口马拉松",
+      "lotteryHistory": [
+         {"year": 2025, "lottery": "未中签"}
+      ]
+   },
+   {
+      "eventSeries": "荣成马拉松",
+      "lotteryHistory": [
+         {"year": 2026, "lottery": "未中签", "waitlist": [{"result": "中签"}]}
+      ]
+   },
+   {
+      "eventSeries": "海南儋州马拉松",
+      "lotteryHistory": [
+         {"year": 2023, "lottery": "中签"},
+         {"year": 2024, "lottery": "中签"}
+      ]
+   },
+   {
+      "eventSeries": "黄河口马拉松",
+      "lotteryHistory": [
+         {"year": 2025, "lottery": "中签"},
+         {"year": 2026, "lottery": "待抽签"}
+      ]
+   },
+   {
+      "eventSeries": "威海半程马拉松",
+      "lotteryHistory": [
+         {"year": 2025, "lottery": "中签"},
+         {"year": 2026, "lottery": "待抽签"}
+      ]
+   },
+   {
+      "eventSeries": "烟台马拉松",
+      "lotteryHistory": [
+         {"year": 2026, "lottery": "待抽签"}
+      ]
+   },
+   {
+      "eventSeries": "上海马拉松",
+      "lotteryHistory": [
+         {"year": 2026, "lottery": "待抽签"}
+      ]
+   }
+]
