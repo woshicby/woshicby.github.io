@@ -54,7 +54,7 @@ class PostDetailManager {
                 const postInfo = postsList.find(p => p.id.toString() === this.postId.toString());
                 
                 if (postInfo) {
-                    const mdResponse = await fetch(`posts/${postInfo.file}`);
+                    const mdResponse = await fetch(`posts/${encodeURIComponent(postInfo.file)}`);
                     if (mdResponse.ok) {
                         const mdContent = await mdResponse.text();
                         const parsedPost = this.parseMarkdown(mdContent);
@@ -77,13 +77,7 @@ class PostDetailManager {
                     detail: '请在博文列表中查找正确的博文'
                 };
             } else {
-                console.log('posts-list.json 不存在，尝试从 posts.json 加载');
-                const response = await fetch('JSON/posts.json');
-                if (response.ok) {
-                    const posts = await response.json();
-                    return { success: true, posts: posts };
-                }
-                console.warn('posts.json 也不存在，使用示例数据');
+                console.warn('posts-list.json 不存在，使用示例数据');
                 return { success: true, posts: this.getSamplePosts() };
             }
         } catch (error) {
@@ -99,7 +93,7 @@ class PostDetailManager {
 
     async loadPostByFile(filename) {
         try {
-            const mdResponse = await fetch(`posts/${filename}`);
+            const mdResponse = await fetch(`posts/${encodeURIComponent(filename)}`);
             if (mdResponse.ok) {
                 const mdContent = await mdResponse.text();
                 try {
@@ -599,20 +593,24 @@ applySubSupRules(md);
     getSampleContent(title) {
         return `
 <p>这是博文《${title}》的示例内容。</p>
-<p>在实际使用中，您可以在posts.json文件中为每篇博文添加content字段，以显示完整的博文内容。</p>
-<h2>如何添加完整博文内容</h2>
-<p>要添加完整的博文内容，请编辑JSON/posts.json文件，为每篇博文添加content字段，格式如下：</p>
+<p>博文内容来自 <code>posts/</code> 目录下的 Markdown 文件，通过 <code>JSON/posts-list.json</code> 索引加载。</p>
+<h2>如何添加博文</h2>
+<p>1. 在 <code>posts/</code> 目录下创建 .md 文件（含 YAML frontmatter）：</p>
+<pre>
+---
+title: 示例博文
+date: 2024-01-01
+categories: [技术]
+tags: [JavaScript]
+excerpt: 这是摘要...
+---
+这里是 Markdown 正文内容。</pre>
+<p>2. 在 <code>JSON/posts-list.json</code> 中添加该文件的索引：</p>
 <pre>
 {
-  "id": 1,
-  "title": "示例博文 1",
-  "date": "2024-01-01",
-  "excerpt": "这是摘要...",
-  "content": "这是完整的博文内容，可以包含HTML标签。",
-  "categories": ["技术", "教程"],
-  "tags": ["JavaScript", "Web开发"]
+  "file": "示例博文.md",
+  "id": 1
 }</pre>
-<p>content字段可以包含HTML标签，以便更好地格式化您的博文内容。</p>
         `;
     }
 

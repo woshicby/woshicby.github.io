@@ -396,82 +396,88 @@ body.reviews-page {
     background: linear-gradient(180deg, #e74c3c, #c0392b);
 }
 
-.reviews-page .review-item[data-rating^="9"]::before {
-    background: linear-gradient(180deg, #f39c12, #e67e22);
+.reviews-page .review-item[data-rating="9"]::before {
+    background: linear-gradient(180deg, #e67e22, #ca6f1e);
 }
 
-.reviews-page .review-item[data-rating^="8"]::before {
-    background: linear-gradient(180deg, #f39c12, #e67e22);
+.reviews-page .review-item[data-rating="8"]::before {
+    background: linear-gradient(180deg, #f39c12, #d68910);
 }
 
-.reviews-page .review-item[data-rating^="7"]::before {
-    background: linear-gradient(180deg, #f1c40f, #f39c12);
+.reviews-page .review-item[data-rating="7"]::before {
+    background: linear-gradient(180deg, #f1c40f, #d4ac0d);
 }
 
-.reviews-page .review-item[data-rating^="6"]::before {
-    background: linear-gradient(180deg, #f1c40f, #f39c12);
-}
-
-.reviews-page .review-item[data-rating^="5"]::before {
+.reviews-page .review-item[data-rating="6"]::before {
     background: linear-gradient(180deg, #2ecc71, #27ae60);
 }
 
-.reviews-page .review-item[data-rating^="4"]::before {
-    background: linear-gradient(180deg, #2ecc71, #27ae60);
+.reviews-page .review-item[data-rating="5"]::before {
+    background: linear-gradient(180deg, #16a085, #117a65);
 }
 
-.reviews-page .review-item[data-rating^="3"]::before {
+.reviews-page .review-item[data-rating="4"]::before {
     background: linear-gradient(180deg, #1abc9c, #16a085);
 }
 
-.reviews-page .review-item[data-rating^="2"]::before {
-    background: linear-gradient(180deg, #1abc9c, #16a085);
+.reviews-page .review-item[data-rating="3"]::before {
+    background: linear-gradient(180deg, #3498db, #2874a6);
 }
 
-.reviews-page .review-item[data-rating="1"]::before,
+.reviews-page .review-item[data-rating="2"]::before {
+    background: linear-gradient(180deg, #95a5a6, #7f8c8d);
+}
+
+.reviews-page .review-item[data-rating="1"]::before {
+    background: linear-gradient(180deg, #7f8c8d, #566577);
+}
+
 .reviews-page .review-item[data-rating="0"]::before {
-    background: linear-gradient(180deg, #7f8c8d, #95a5a6);
+    background: linear-gradient(180deg, #000000, #1a1a1a);
 }
 
 .reviews-page .review-item[data-rating="10"] .review-stamp {
     color: #e74c3c;
 }
 
-.reviews-page .review-item[data-rating^="9"] .review-stamp {
+.reviews-page .review-item[data-rating="9"] .review-stamp {
+    color: #e67e22;
+}
+
+.reviews-page .review-item[data-rating="8"] .review-stamp {
     color: #f39c12;
 }
 
-.reviews-page .review-item[data-rating^="8"] .review-stamp {
-    color: #f39c12;
-}
-
-.reviews-page .review-item[data-rating^="7"] .review-stamp {
+.reviews-page .review-item[data-rating="7"] .review-stamp {
     color: #f1c40f;
 }
 
-.reviews-page .review-item[data-rating^="6"] .review-stamp {
-    color: #f1c40f;
-}
-
-.reviews-page .review-item[data-rating^="5"] .review-stamp {
+.reviews-page .review-item[data-rating="6"] .review-stamp {
     color: #2ecc71;
 }
 
-.reviews-page .review-item[data-rating^="4"] .review-stamp {
-    color: #27ae60;
-}
-
-.reviews-page .review-item[data-rating^="3"] .review-stamp {
-    color: #1abc9c;
-}
-
-.reviews-page .review-item[data-rating^="2"] .review-stamp {
+.reviews-page .review-item[data-rating="5"] .review-stamp {
     color: #16a085;
 }
 
-.reviews-page .review-item[data-rating="1"] .review-stamp,
-.reviews-page .review-item[data-rating="0"] .review-stamp {
+.reviews-page .review-item[data-rating="4"] .review-stamp {
+    color: #1abc9c;
+}
+
+.reviews-page .review-item[data-rating="3"] .review-stamp {
+    color: #3498db;
+}
+
+.reviews-page .review-item[data-rating="2"] .review-stamp {
+    color: #95a5a6;
+}
+
+.reviews-page .review-item[data-rating="1"] .review-stamp {
     color: #7f8c8d;
+}
+
+.reviews-page .review-item[data-rating="0"] .review-stamp {
+    color: #000000;
 }
 
 .reviews-page .review-item:not([data-rating])[data-category]::before {
@@ -620,6 +626,102 @@ body.reviews-page {
 
 .reviews-page .review-content p:last-child {
     margin-bottom: 0;
+}
+
+/* 多次观看（多刷/重映）评价区块 */
+.reviews-page .review-view-block {
+    position: relative;
+    padding: var(--spacing-sm) 0;
+    border-top: 1px dashed var(--border-color);
+}
+
+.reviews-page .review-view-block:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+
+.reviews-page .review-view-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+}
+
+.reviews-page .review-view-label {
+    display: inline-block;
+    padding: 1px 8px;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: var(--border-radius-md);
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.reviews-page .review-view-date {
+    font-size: 0.75rem;
+    color: var(--light-text);
+}
+
+.reviews-page .review-view-rating {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: auto;
+}
+
+.reviews-page .review-view-rating .rating-score {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #f39c12;
+    margin-right: 4px;
+}
+
+.reviews-page .review-view-rating .star {
+    font-size: 0.8rem;
+    line-height: 1;
+}
+
+.reviews-page .review-view-rating .star.filled {
+    color: #f39c12;
+}
+
+.reviews-page .review-view-rating .star.empty {
+    color: var(--border-color);
+}
+
+.reviews-page .review-view-rating .star.half {
+    position: relative;
+    color: var(--border-color);
+}
+
+.reviews-page .review-view-rating .star.half::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
+    color: #f39c12;
+}
+
+/* 多视图中每个评分视图结尾的等级盖章（与角落大印章同风格） */
+.reviews-page .review-view-stamp {
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%) rotate(-15deg);
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1;
+    padding: 10px;
+    border: 5px solid currentColor;
+    border-radius: 18px;
+    opacity: 0.15;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 0;
 }
 
 .reviews-page .review-footer {

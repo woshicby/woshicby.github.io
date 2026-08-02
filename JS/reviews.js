@@ -9,6 +9,7 @@ class ReviewsManager extends FilterableListManager {
         this.currentTimeFilter = 'all';
         this.currentRegion = null;
         this.currentSort = 'time';
+        this.currentMonth = null;
         this.currentItems = [];
         this.init();
     }
@@ -76,6 +77,7 @@ class ReviewsManager extends FilterableListManager {
         this.renderStatusTabs();
         this.renderTags();
         this.renderRegionFilter();
+        this.renderTimeFilter();
         this.applyFilters();
         this.updateUrlParams();
     }
@@ -106,10 +108,14 @@ class ReviewsManager extends FilterableListManager {
             tab.addEventListener('click', () => {
                 const status = tab.getAttribute('data-status') || null;
                 this.currentStatus = status;
+                // 切换状态后数据集变化，重置时间筛选
+                this.currentTimeFilter = 'all';
+                this.currentMonth = null;
                 container.querySelectorAll('.status-tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 this.renderTags();
                 this.renderRegionFilter();
+                this.renderTimeFilter();
                 this.applyFilters();
                 this.updateUrlParams();
             });
@@ -170,7 +176,9 @@ class ReviewsManager extends FilterableListManager {
                 this.currentRatingStatus = 'rated';
                 this.currentRatingLevels.clear();
                 this.currentTimeFilter = 'all';
+                this.currentMonth = null;
                 this.resetAdvancedFilterUI();
+                this.renderTimeFilter();
                 this.applyFilters();
             });
         }
@@ -214,25 +222,17 @@ class ReviewsManager extends FilterableListManager {
             });
         }
 
-        const timeFilter = document.getElementById('time-filter');
-        if (timeFilter) {
-            timeFilter.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    this.currentTimeFilter = btn.getAttribute('data-value');
-                    timeFilter.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    this.applyFilters();
-                });
-            });
-        }
-
         const sortFilter = document.getElementById('sort-filter');
         if (sortFilter) {
             sortFilter.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     this.currentSort = btn.getAttribute('data-value');
+                    // 切换排序方式后，时间字段含义改变，重置时间筛选
+                    this.currentTimeFilter = 'all';
+                    this.currentMonth = null;
                     sortFilter.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
+                    this.renderTimeFilter();
                     this.applyFilters();
                 });
             });
@@ -258,6 +258,9 @@ class ReviewsManager extends FilterableListManager {
                 btn.classList.toggle('active', btn.getAttribute('data-value') === 'all');
             });
         }
+
+        const monthFilterGroup = document.getElementById('month-filter-group');
+        if (monthFilterGroup) monthFilterGroup.style.display = 'none';
 
         this.currentRegion = null;
         this.renderRegionFilter();
@@ -300,6 +303,114 @@ class ReviewsManager extends FilterableListManager {
         });
     }
 
+    renderTimeFilter() {
+        const container = document.getElementById('time-filter');
+        if (!container) return;
+
+        const items = this.getCategoryItems(this.currentCategory, this.currentStatus);
+
+        // 根据排序方式决定时间字段
+        const getYear = (item) => {
+            if (this.currentSort === 'year') {
+                return item.year;
+            } else {
+                const dateStr = item.createdAt || '';
+                return parseInt(dateStr.substring(0, 4));
+            }
+        };
+
+        // 收集所有年份
+        const yearCount = {};
+        let unknownCount = 0;
+        items.forEach(item => {
+            const year = getYear(item);
+            if (isNaN(year)) {
+                unknownCount++;
+            } else {
+                yearCount[year] = (yearCount[year] || 0) + 1;
+            }
+        });
+
+        // 排序年份（从新到旧）
+        const years = Object.keys(yearCount).map(Number).sort((a, b) => b - a);
+
+        // 生成按钮
+        let html = `<button class="filter-btn ${this.currentTimeFilter === 'all' ? 'active' : ''}" data-value="all">全部</button>`;
+        years.forEach(year => {
+            html += `<button class="filter-btn ${this.currentTimeFilter === String(year) ? 'active' : ''}" data-value="${year}">${year} (${yearCount[year]})</button>`;
+        });
+        if (unknownCount > 0) {
+            html += `<button class="filter-btn ${this.currentTimeFilter === 'unknown' ? 'active' : ''}" data-value="unknown">未知 (${unknownCount})</button>`;
+        }
+
+        container.innerHTML = html;
+
+        // 绑定事件
+        container.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.currentTimeFilter = btn.getAttribute('data-value');
+                this.currentMonth = null;
+                container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.renderMonthFilter();
+                this.applyFilters();
+            });
+        });
+
+        this.renderMonthFilter();
+    }
+
+    renderMonthFilter() {
+        const group = document.getElementById('month-filter-group');
+        const container = document.getElementById('month-filter');
+        if (!group || !container) return;
+
+        // 只在选中具体年份且按评论时间排序时显示月份筛选
+        if (this.currentTimeFilter === 'all' || this.currentTimeFilter === 'unknown' || this.currentSort === 'year') {
+            group.style.display = 'none';
+            return;
+        }
+
+        const items = this.getCategoryItems(this.currentCategory, this.currentStatus);
+        const year = parseInt(this.currentTimeFilter);
+
+        // 收集该年份的月份
+        const monthCount = {};
+        items.forEach(item => {
+            const dateStr = item.createdAt || '';
+            const y = parseInt(dateStr.substring(0, 4));
+            if (y === year) {
+                const m = parseInt(dateStr.substring(5, 7));
+                if (!isNaN(m)) {
+                    monthCount[m] = (monthCount[m] || 0) + 1;
+                }
+            }
+        });
+
+        const months = Object.keys(monthCount).map(Number).sort((a, b) => a - b);
+        if (months.length <= 1) {
+            group.style.display = 'none';
+            return;
+        }
+
+        group.style.display = '';
+        let html = `<button class="filter-btn ${!this.currentMonth ? 'active' : ''}" data-value="">全部</button>`;
+        months.forEach(month => {
+            html += `<button class="filter-btn ${this.currentMonth === String(month) ? 'active' : ''}" data-value="${month}">${month}月 (${monthCount[month]})</button>`;
+        });
+
+        container.innerHTML = html;
+
+        container.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.currentMonth = btn.getAttribute('data-value') || null;
+                container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.applyFilters();
+            });
+        });
+    }
+
     checkUrlParams() {
         const urlParams = getUrlParams();
         const category = urlParams.get('category');
@@ -328,6 +439,7 @@ class ReviewsManager extends FilterableListManager {
 
         this.renderTags();
         this.renderRegionFilter();
+        this.renderTimeFilter();
         this.applyFilters();
     }
 
@@ -371,10 +483,22 @@ class ReviewsManager extends FilterableListManager {
                     const dateStr = item.createdAt || '';
                     year = parseInt(dateStr.substring(0, 4));
                 }
+                if (this.currentTimeFilter === 'unknown') return isNaN(year);
                 if (isNaN(year)) return false;
-                if (this.currentTimeFilter === 'earlier') return year < 2024;
                 return year === parseInt(this.currentTimeFilter);
             });
+
+            // 月份筛选（仅在按评论时间排序且选了具体月份时生效）
+            if (this.currentMonth && this.currentSort !== 'year') {
+                const year = parseInt(this.currentTimeFilter);
+                const month = parseInt(this.currentMonth);
+                items = items.filter(item => {
+                    const dateStr = item.createdAt || '';
+                    const y = parseInt(dateStr.substring(0, 4));
+                    const m = parseInt(dateStr.substring(5, 7));
+                    return y === year && m === month;
+                });
+            }
         }
 
         // 地区筛选
@@ -394,6 +518,7 @@ class ReviewsManager extends FilterableListManager {
             items = items.filter(item =>
                 (item.title && item.title.toLowerCase().includes(term)) ||
                 (item.review && item.review.toLowerCase().includes(term)) ||
+                (item.views && item.views.some(v => v.review && v.review.toLowerCase().includes(term))) ||
                 (item.directors && item.directors.toLowerCase().includes(term)) ||
                 (item.actors && item.actors.toLowerCase().includes(term)) ||
                 (item.author && item.author.toLowerCase().includes(term)) ||
@@ -489,12 +614,14 @@ class ReviewsManager extends FilterableListManager {
             article.appendChild(genresDiv.firstElementChild);
         }
 
-        // content
-        const contentHTML = this.createContentHTML(item.review);
+        // content（多视图时 createContentHTML 会返回多个块，需全部插入）
+        const contentHTML = this.createContentHTML(item);
         if (contentHTML) {
             const contentDiv = document.createElement('div');
             contentDiv.innerHTML = contentHTML;
-            article.appendChild(contentDiv.firstElementChild);
+            while (contentDiv.firstChild) {
+                article.appendChild(contentDiv.firstChild);
+            }
         }
 
         // footer
@@ -526,25 +653,25 @@ class ReviewsManager extends FilterableListManager {
         return html;
     }
 
+    getStampInfo(rating) {
+        if (rating === null || rating === undefined) return null;
+        const texts = {
+            10: '夯', 9: '顶级', 8: '上佳', 7: '人上人', 6: '不错',
+            5: 'NPC', 4: '不行', 3: '拉', 2: '拉胯', 1: '拉完了', 0: '纯垃圾'
+        };
+        const colors = {
+            10: '#e74c3c', 9: '#e67e22', 8: '#f39c12', 7: '#f1c40f', 6: '#2ecc71',
+            5: '#16a085', 4: '#1abc9c', 3: '#3498db', 2: '#95a5a6', 1: '#7f8c8d', 0: '#000000'
+        };
+        return { text: texts[rating] || '拉完了', color: colors[rating] || '#7f8c8d' };
+    }
+
     createStampElement(item) {
         const stamp = document.createElement('div');
         stamp.className = 'review-stamp';
-        
-        if (item.myRating !== null && item.myRating !== undefined) {
-            const rating = item.myRating;
-            if (rating === 10) {
-                stamp.textContent = '夯';
-            } else if (rating >= 8 && rating <= 9) {
-                stamp.textContent = '顶级';
-            } else if (rating >= 6 && rating <= 7) {
-                stamp.textContent = '人上人';
-            } else if (rating >= 4 && rating <= 5) {
-                stamp.textContent = 'NPC';
-            } else if (rating >= 2 && rating <= 3) {
-                stamp.textContent = '拉';
-            } else if (rating >= 0 && rating <= 1) {
-                stamp.textContent = '拉完了';
-            }
+        const info = this.getStampInfo(item.myRating);
+        if (info) {
+            stamp.textContent = info.text;
         } else {
             switch (item.category) {
                 case 'movie':
@@ -566,7 +693,7 @@ class ReviewsManager extends FilterableListManager {
                     stamp.textContent = '记';
             }
         }
-        
+
         return stamp;
     }
 
@@ -605,9 +732,38 @@ class ReviewsManager extends FilterableListManager {
         return `<div class="review-genres">${genres.map(g => `<span class="review-genre" data-tag="${escapeHtml(g)}">${escapeHtml(g)}</span>`).join('')}</div>`;
     }
 
-    createContentHTML(review) {
-        if (!review) return '';
-        let html = review;
+    createContentHTML(item) {
+        // 多次观看：分块渲染
+        if (item.views && item.views.length > 0) {
+            return item.views.map((view, index) => {
+                let reviewHtml = view.review || '';
+                if (this.md) reviewHtml = this.md.render(reviewHtml);
+                const label = view.label || (index === 0 ? '首刷' : `第${index + 1}刷`);
+                const date = view.date ? formatDate(view.date) : '';
+                const ratingHtml = (view.rating !== null && view.rating !== undefined)
+                    ? `<span class="review-view-rating">${this.createRatingHTML(view.rating)}</span>`
+                    : '';
+                // 有评分的视图在评价结尾盖等级章；最后一次影评的等级由卡片角落大章（myRating）代表，避免重复
+                const isLast = index === item.views.length - 1;
+                const stampInfo = isLast ? null : this.getStampInfo(view.rating);
+                const stampHtml = stampInfo
+                    ? `<span class="review-view-stamp" style="color:${stampInfo.color}">${escapeHtml(stampInfo.text)}</span>`
+                    : '';
+                return `<div class="review-view-block">
+                    <div class="review-view-header">
+                        <span class="review-view-label">${escapeHtml(label)}</span>
+                        ${date ? `<span class="review-view-date">${date}</span>` : ''}
+                        ${ratingHtml}
+                    </div>
+                    <div class="review-content">${reviewHtml}</div>
+                    ${stampHtml}
+                </div>`;
+            }).join('');
+        }
+
+        // 单次观看：保持原逻辑
+        if (!item.review) return '';
+        let html = item.review;
         if (this.md) {
             html = this.md.render(html);
         }
@@ -615,14 +771,18 @@ class ReviewsManager extends FilterableListManager {
     }
 
     createFooterHTML(item) {
-        const date = formatDate(item.createdAt);
+        const hasViews = item.views && item.views.length > 0;
+        const date = hasViews ? '' : formatDate(item.createdAt);
         const doubanRating = item.doubanRating ? `豆瓣 <strong>${item.doubanRating}</strong>` : '';
         const tagsHTML = (item.tags && item.tags.length > 0) ?
             item.tags.map(t => `<span class="review-tag" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</span>`).join('') : '';
 
+        // 多视图时日期已在各视图块内显示；无任何 footer 内容则不渲染
+        if (!date && !doubanRating && !tagsHTML) return '';
+
         return `
             <div class="review-footer">
-                <span class="review-date">${date}</span>
+                ${date ? `<span class="review-date">${date}</span>` : ''}
                 ${doubanRating ? `<span class="review-douban-rating">${doubanRating}</span>` : ''}
                 ${tagsHTML ? `<div class="review-tags">${tagsHTML}</div>` : ''}
             </div>

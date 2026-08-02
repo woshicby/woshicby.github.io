@@ -48,7 +48,7 @@ class PostManager extends FilterableListManager {
                 const postsPromises = postsList.map(async (postInfo) => {
                     try {
                         console.log(`正在加载文件: ${postInfo.file}`);
-                        const mdResponse = await fetch(`posts/${postInfo.file}`);
+                        const mdResponse = await fetch(`posts/${encodeURIComponent(postInfo.file)}`);
                         if (mdResponse.ok) {
                             const mdContent = await mdResponse.text();
                             console.log(`文件 ${postInfo.file} 内容长度: ${mdContent.length}`);
@@ -69,16 +69,8 @@ class PostManager extends FilterableListManager {
                 console.log('成功加载所有md文件，文章数量:', this.posts.length);
                 console.log('文章列表预览:', this.posts.map(p => p.title));
             } else {
-                // 如果没有 posts-list.json，尝试从 posts.json 加载
-                console.log('posts-list.json 不存在，尝试从 posts.json 加载');
-                const data = await fetchJSON('JSON/posts.json', null);
-                if (data) {
-                    this.posts = data;
-                    console.log('成功加载posts.json，文章数量:', this.posts.length);
-                } else {
-                    console.warn('posts.json 也不存在，使用示例数据');
-                    this.posts = this.getSamplePosts();
-                }
+                console.warn('posts-list.json 不存在，使用示例数据');
+                this.posts = this.getSamplePosts();
             }
 
             const seriesData = await fetchJSON('JSON/posts-series.json', null);
