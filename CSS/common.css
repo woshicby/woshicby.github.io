@@ -167,3 +167,114 @@
    --footer-height: 80px;
    --main-min-height: calc(100vh - var(--header-height) - var(--footer-height) - 40px);
 }
+
+/* ===== Steam BBCode 格式支持（全站通用） ===== */
+/* 剧透标记：默认遮挡文字，hover/点击后显示 */
+.steam-spoiler {
+    background: #555;
+    color: #555;
+    border-radius: 3px;
+    padding: 0 4px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.steam-spoiler:hover,
+.steam-spoiler.revealed {
+    color: inherit;
+}
+
+.steam-spoiler.revealed {
+    background: rgba(128, 128, 128, 0.2);
+}
+
+/* Steam 引用块 */
+.steam-quote {
+    border-left: 3px solid var(--secondary-color, #3498db);
+    padding: 4px 12px;
+    margin: 8px 0;
+    background: var(--light-accent, #f8f9fa);
+    border-radius: 0 4px 4px 0;
+}
+
+.steam-quote cite {
+    display: block;
+    font-weight: 600;
+    font-style: normal;
+    margin-bottom: 4px;
+    color: var(--secondary-color, #3498db);
+}
+
+/* Steam 表格 */
+.steam-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 8px 0;
+    font-size: 0.85rem;
+}
+
+.steam-table th,
+.steam-table td {
+    border: 1px solid var(--border-color, #ddd);
+    padding: 4px 8px;
+    text-align: left;
+}
+
+.steam-table th {
+    background: var(--light-accent, #f8f9fa);
+    font-weight: 600;
+}
+
+.steam-table.no-border th,
+.steam-table.no-border td {
+    border: none;
+}
+
+.steam-table.equal-cells {
+    table-layout: fixed;
+}
+
+/* ==========================================
+  回到顶部按钮（全站通用）
+  ========================================== */
+
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--secondary-color);
+    background-color: var(--card-bg-color);
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: var(--shadow-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.back-to-top:active {
+    transform: translateY(0);
+}

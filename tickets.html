@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>票据收藏 - BY的个人网站</title>
+    
+    <meta name="description" content="BY的票据收藏，包含电影票、演出票、火车票、飞机票、门票等票据记录与回忆。">
+    <meta name="keywords" content="票据收藏,电影票,演出票,火车票,飞机票,门票,票根">
+    <meta name="author" content="woshicby">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="票据收藏 - BY的个人网站">
+    <meta property="og:description" content="BY的票据收藏，包含电影票、演出票、火车票、飞机票、门票等票据记录与回忆。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://woshicby.github.io/tickets.html">
+    <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+    <meta property="og:site_name" content="BY的个人网站">
+    <meta property="og:locale" content="zh_CN">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="票据收藏 - BY的个人网站">
+    <meta name="twitter:description" content="BY的票据收藏，包含电影票、演出票、火车票、飞机票、门票等票据记录与回忆。">
+    <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "BY的票据收藏",
+        "url": "https://woshicby.github.io/tickets.html",
+        "description": "包含电影票、演出票、火车票、飞机票、门票等票据记录与回忆",
+        "author": {
+            "@type": "Person",
+            "name": "woshicby"
+        }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="./CSS/common.css">
+    <link rel="stylesheet" href="./CSS/tickets.css">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://woshicby.github.io/tickets.html">
+    
+    <script src="./JS/navigation.js"></script>
+    <script src="./JS/theme-toggle.js"></script>
+    <script src="./JS/background-lazy-load.js"></script>
+    <script src="./JS/common.js"></script>
+    <script src="./JS/tickets.js"></script>
+</head>
+<body class="tickets-page">
+    <div class="header clearfix wrapper">
+        <h1>票据收藏</h1>
+        <div class="nav">
+            <ul class="clearfix">
+                <li>
+                    <label class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="theme-toggle-slider"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <button class="nav-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <div class="mainbox clearfix wrapper">
+        <section class="tickets-toolbar">
+            <div class="type-tabs">
+                <button class="type-tab active" data-type="">全部</button>
+                <button class="type-tab" data-type="movie">🎬 电影</button>
+                <button class="type-tab" data-type="show">🎭 演出</button>
+                <button class="type-tab" data-type="train">🚄 火车</button>
+                <button class="type-tab" data-type="flight">✈️ 飞机</button>
+                <button class="type-tab" data-type="attraction">🎫 门票</button>
+                <button class="type-tab" data-type="other">📦 其他</button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索标题、地点...">
+            </div>
+            <div class="advanced-filter">
+                <button class="advanced-filter-toggle" id="advanced-filter-toggle">⚙ 高级筛选</button>
+                <div class="advanced-filter-options collapsed" id="advanced-filter-options">
+                    <div class="filter-group">
+                        <label class="filter-group-label">影院</label>
+                        <div class="filter-group-btns" id="location-filter">
+                            <!-- 由JS动态生成 -->
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-group-label">影厅</label>
+                        <div class="filter-group-btns" id="hall-filter">
+                            <!-- 由JS动态生成 -->
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-group-label">座位</label>
+                        <div class="filter-group-btns" id="seat-filter">
+                            <!-- 由JS动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tickets-stats">
+                <span class="stat-item"><span class="stat-label">当前</span><span id="stat-current" class="stat-value">0</span></span>
+                <span class="stat-item"><span class="stat-label">总计</span><span id="stat-total" class="stat-value">0</span></span>
+                <span class="stat-item"><span class="stat-label">总金额</span><span id="stat-amount" class="stat-value">-</span></span>
+            </div>
+        </section>
+        
+        <div id="filter-info" class="filter-info" style="display: none;">
+            <div id="filter-tags" class="filter-tags"></div>
+            <button id="clear-filter" class="clear-filter-btn">清除所有</button>
+        </div>
+        
+        <section id="tickets-list" class="tickets-list">
+            <div class="loading">加载中...</div>
+        </section>
+    </div>
+    
+    <div class="foot wrapper">
+        <span>Github用户：woshicby&nbsp&nbsp版权所有&copy</span>
+    </div>
+
+    <!-- 票据详情查看遮罩层 -->
+    <div class="ticket-detail-overlay" id="ticket-detail-overlay">
+        <button class="ticket-detail-close" id="ticket-detail-close" aria-label="关闭">&times;</button>
+        <div class="ticket-detail-content" id="ticket-detail-content">
+            <!-- 动态填充 -->
+        </div>
+    </div>
+</body>
+</html>

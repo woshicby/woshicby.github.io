@@ -2,13 +2,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const NAV_ITEMS = [
         { href: './index.html', label: '首页' },
         { href: './posts.html', label: '博客文章' },
-        { href: './reviews.html', label: '书影音记录' },
+        { href: './reviews.html', label: '书影音游剧记录' },
         { href: './moments.html', label: '灵感碎片' },
         { href: './study.html', label: '个人成果' },
         { href: './video.html', label: '视频展示' },
         { href: './tools.html', label: '小工具&小游戏' },
         { href: './sports.html', label: '体育运动' },
-        { href: './races.html', label: '赛事' }
+        { href: './races.html', label: '赛事' },
+        { href: './tickets.html', label: '票据收藏' }
     ];
 
     function renderNav() {

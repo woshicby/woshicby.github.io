@@ -1148,3 +1148,6 @@ window.addEventListener('popstate', function() {
     }
   }
 });
+
+// 回到顶部按钮
+initBackToTopButton();

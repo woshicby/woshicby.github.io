@@ -1,0 +1,901 @@
+/* ==========================================
+  票据收藏页面样式
+  ========================================== */
+
+body.tickets-page {
+    padding-bottom: 40px;
+}
+
+.tickets-page .mainbox {
+    margin: 30px auto;
+    padding: 20px 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* ==========================================
+  工具栏
+  ========================================== */
+
+.tickets-page .tickets-toolbar {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition-default);
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+    border: 2px solid transparent;
+}
+
+.tickets-page .tickets-toolbar:hover {
+    box-shadow: var(--shadow-medium);
+    border-color: var(--secondary-color);
+}
+
+.tickets-page .type-tabs {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.tickets-page .type-tab {
+    padding: 8px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition-default);
+    white-space: nowrap;
+}
+
+.tickets-page .type-tab:hover {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-light);
+}
+
+.tickets-page .type-tab.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.tickets-page .search-box {
+    margin-bottom: var(--spacing-md);
+}
+
+.tickets-page #search-input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: 1rem;
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    transition: var(--transition-default);
+}
+
+.tickets-page #search-input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.tickets-page .tickets-stats {
+    display: flex;
+    gap: var(--spacing-lg);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
+}
+
+.tickets-page .tickets-stats .stat-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.tickets-page .tickets-stats .stat-label {
+    color: var(--light-text);
+    font-size: 0.85rem;
+}
+
+.tickets-page .tickets-stats .stat-value {
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+  筛选条件展示
+  ========================================== */
+
+.tickets-page .filter-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--light-accent);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border: 1px solid var(--border-color);
+    transition: var(--transition-default);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.tickets-page .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    align-items: center;
+    flex: 1;
+}
+
+.tickets-page .filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 4px 10px;
+    border-radius: var(--border-radius-md);
+    font-size: 0.85rem;
+    transition: var(--transition-default);
+}
+
+.tickets-page .filter-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.tickets-page .filter-tag-remove {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition-default);
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.tickets-page .filter-tag-remove:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.tickets-page .clear-filter-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: var(--transition-default);
+    white-space: nowrap;
+}
+
+.tickets-page .clear-filter-btn:hover {
+    background-color: var(--primary-hover-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+/* ==========================================
+  高级筛选
+  ========================================== */
+
+.tickets-page .advanced-filter {
+    margin-bottom: var(--spacing-md);
+}
+
+.tickets-page .advanced-filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background: var(--card-bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: var(--transition-default);
+}
+
+.tickets-page .advanced-filter-toggle:hover {
+    border-color: var(--secondary-color);
+}
+
+.tickets-page .advanced-filter-options {
+    margin-top: var(--spacing-sm);
+    overflow: hidden;
+    max-height: 800px;
+    opacity: 1;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.tickets-page .advanced-filter-options.collapsed {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tickets-page .advanced-filter-options .filter-group {
+    margin-bottom: var(--spacing-sm);
+}
+
+.tickets-page .advanced-filter-options .filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.tickets-page .filter-group-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--light-text);
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.tickets-page .filter-group-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.tickets-page .filter-btn {
+    padding: 4px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    background: var(--card-bg-color);
+    color: var(--light-text);
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: var(--transition-default);
+    white-space: nowrap;
+}
+
+.tickets-page .filter-btn:hover {
+    border-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.tickets-page .filter-btn.active {
+    background: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+/* ==========================================
+  时间线布局
+  ========================================== */
+
+.tickets-page .tickets-list {
+    position: relative;
+}
+
+.tickets-page .loading,
+.tickets-page .no-tickets,
+.tickets-page .error {
+    text-align: center;
+    padding: var(--spacing-xxl);
+    color: var(--light-text);
+    font-size: 1rem;
+}
+
+.tickets-page .tickets-timeline {
+    position: relative;
+}
+
+/* 年份标题 */
+.tickets-page .timeline-year {
+    position: relative;
+    margin-bottom: var(--spacing-xl);
+}
+
+.tickets-page .timeline-year-label {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.tickets-page .timeline-year-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.tickets-page .timeline-year-count {
+    font-size: 0.8rem;
+    color: var(--light-text);
+}
+
+/* 月份标题 */
+.tickets-page .timeline-month {
+    position: relative;
+    margin-bottom: var(--spacing-lg);
+    padding-left: 16px;
+}
+
+.tickets-page .timeline-month::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-color);
+}
+
+.tickets-page .timeline-month-label {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    padding-left: 0;
+}
+
+.tickets-page .timeline-month-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.tickets-page .timeline-month-count {
+    font-size: 0.75rem;
+    color: var(--light-text);
+}
+
+/* 金额标签（作为普通信息，不突出显示） */
+.tickets-page .timeline-amount {
+    margin-left: auto;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--light-text);
+}
+
+.tickets-page .timeline-month-amount {
+    margin-left: auto;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--light-text);
+}
+
+/* 瀑布流容器 */
+.tickets-page .timeline-masonry {
+    position: relative;
+    width: 100%;
+}
+
+.tickets-page .timeline-masonry .masonry-column {
+    position: absolute;
+    top: 0;
+    box-sizing: border-box;
+}
+
+/* 没有月份分组时，瀑布流缩进对齐 */
+.tickets-page .timeline-year > .timeline-masonry {
+    margin-left: 0;
+}
+
+.tickets-page .timeline-month > .timeline-masonry {
+    padding-left: 0;
+}
+
+/* ==========================================
+  票据卡片
+  ========================================== */
+
+.tickets-page .ticket-card {
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-light);
+    overflow: hidden;
+    transition: var(--transition-default);
+    margin-bottom: var(--spacing-md);
+}
+
+.tickets-page .ticket-card:hover {
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
+}
+
+/* 图片区域 */
+.tickets-page .ticket-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    background: var(--light-accent);
+    overflow: hidden;
+}
+
+.tickets-page .ticket-image-slider {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.tickets-page .ticket-image-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.tickets-page .ticket-image-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.tickets-page .ticket-image-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 无图片占位 */
+.tickets-page .ticket-no-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 3rem;
+    opacity: 0.3;
+}
+
+/* 日期标签 */
+.tickets-page .ticket-date-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--border-radius-sm);
+    z-index: 2;
+}
+
+/* 滑动箭头 */
+.tickets-page .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+    z-index: 2;
+    opacity: 0;
+    line-height: 1;
+}
+
+.tickets-page .ticket-image-wrapper:hover .slider-arrow {
+    opacity: 1;
+}
+
+.tickets-page .slider-arrow:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.tickets-page .slider-prev {
+    left: 8px;
+}
+
+.tickets-page .slider-next {
+    right: 8px;
+}
+
+/* 指示器圆点 */
+.tickets-page .slider-dots {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    z-index: 2;
+}
+
+.tickets-page .slider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: var(--transition-fast);
+}
+
+.tickets-page .slider-dot.active {
+    background: white;
+    transform: scale(1.3);
+}
+
+/* 多图计数 */
+.tickets-page .ticket-image-count {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: var(--border-radius-sm);
+    z-index: 2;
+}
+
+/* 卡片信息区域 */
+.tickets-page .ticket-card-body {
+    padding: var(--spacing-md);
+}
+
+.tickets-page .ticket-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 6px 0;
+    color: var(--text-color);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-all;
+    line-height: 1.3;
+}
+
+.tickets-page .ticket-card-meta {
+    color: var(--light-text);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.tickets-page .ticket-card-meta > div {
+    margin-bottom: 1px;
+}
+
+.tickets-page .ticket-card-meta > div:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================
+  卡片可点击提示
+  ========================================== */
+
+.tickets-page .ticket-card {
+    cursor: pointer;
+}
+
+/* ==========================================
+  票据详情查看遮罩层
+  ========================================== */
+
+.ticket-detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.ticket-detail-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 关闭按钮 */
+.ticket-detail-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 10001;
+}
+
+.ticket-detail-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+/* 详情内容容器 */
+.ticket-detail-content {
+    position: relative;
+    width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--card-bg-color, #fff);
+    border-radius: var(--border-radius-md, 12px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    z-index: 10000;
+}
+
+.ticket-detail-overlay.active .ticket-detail-content {
+    transform: scale(1);
+}
+
+/* 详情图片区域 */
+.detail-image-section {
+    width: 100%;
+}
+
+.detail-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+    border-radius: var(--border-radius-md, 12px) var(--border-radius-md, 12px) 0 0;
+    background: #000;
+}
+
+.detail-image-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.detail-image-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-image-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 详情图片切换箭头 */
+.detail-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+    z-index: 2;
+    line-height: 1;
+}
+
+.detail-arrow:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.detail-prev {
+    left: 12px;
+}
+
+.detail-next {
+    right: 12px;
+}
+
+/* 详情指示器 */
+.detail-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+}
+
+.detail-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: var(--transition-fast);
+}
+
+.detail-dot.active {
+    background: white;
+    transform: scale(1.3);
+}
+
+/* 详情图片计数 */
+.detail-image-count {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    border-radius: var(--border-radius-sm, 6px);
+    z-index: 2;
+}
+
+/* 详情信息区域 */
+.detail-info-section {
+    padding: var(--spacing-lg, 20px);
+}
+
+.detail-date {
+    display: inline-block;
+    color: var(--light-text, #999);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.detail-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 0 0 12px 0;
+    color: var(--text-color, #333);
+    line-height: 1.3;
+}
+
+.detail-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs) var(--spacing-sm);
+    color: var(--light-text, #666);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.detail-meta-item {
+    display: inline-flex;
+    align-items: center;
+}
+
+.detail-meta-item::after {
+    content: '·';
+    margin: 0 var(--spacing-xs);
+    color: var(--border-color);
+}
+
+.detail-meta-item:last-child::after {
+    content: '';
+    margin-left: 0;
+}
+
+/* ==========================================
+  响应式
+  ========================================== */
+
+@media (max-width: 768px) {
+    .tickets-page .mainbox {
+        margin: 15px auto;
+        padding: 10px 10px 0 10px;
+        gap: 15px;
+    }
+
+    .tickets-page .tickets-toolbar {
+        position: static;
+        padding: var(--spacing-md);
+    }
+
+    .tickets-page .type-tab {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .tickets-page .ticket-image-wrapper {
+        height: 200px;
+    }
+
+    .tickets-page .ticket-card-title {
+        font-size: 0.9rem;
+    }
+
+    .tickets-page .ticket-card-meta {
+        font-size: 0.75rem;
+    }
+
+    .tickets-page .slider-arrow {
+        opacity: 1;
+        width: 26px;
+        height: 26px;
+        font-size: 1rem;
+    }
+
+    .tickets-page .timeline-year-text {
+        font-size: 1.2rem;
+    }
+
+    .tickets-page .timeline-month-text {
+        font-size: 1rem;
+    }
+
+    /* 详情查看移动端适配 */
+    .ticket-detail-overlay {
+        padding: 0;
+    }
+
+    .ticket-detail-content {
+        max-height: 100vh;
+        border-radius: 0;
+    }
+
+    .detail-image-slide img {
+        max-height: 100%;
+    }
+
+    .detail-image-wrapper {
+        height: 60vh;
+    }
+
+    .detail-title {
+        font-size: 1.2rem;
+    }
+
+    .ticket-detail-close {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
+
+    .detail-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 1.6rem;
+    }
+}

@@ -28,7 +28,7 @@ class PostManager extends FilterableListManager {
             this.bindSearch();
             this.bindClearFilter();
             this.bindScrollLoad();
-            this.createBackToTopButton();
+            initBackToTopButton();
             this.checkUrlParams();
         } catch (error) {
             console.error('加载博文数据失败:', error);
@@ -419,27 +419,6 @@ class PostManager extends FilterableListManager {
                 }, 100);
             }
         }
-    }
-
-    createBackToTopButton() {
-        const btn = document.createElement('button');
-        btn.id = 'back-to-top';
-        btn.className = 'back-to-top';
-        btn.title = '回到顶部';
-        btn.innerHTML = '↑';
-        document.body.appendChild(btn);
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                btn.classList.add('visible');
-            } else {
-                btn.classList.remove('visible');
-            }
-        });
-
-        btn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
     }
 
     createPostHTML(post) {

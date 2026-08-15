@@ -583,6 +583,7 @@ document.addEventListener('DOMContentLoaded', async () => {
        initCalendar();
        // 加载签运记录
        loadLotteryGraveyard();
+       initBackToTopButton();
    } catch (error) {
        console.error('加载赛事记录数据失败，使用模拟数据:', error);
        // 使用模拟数据
@@ -601,6 +602,7 @@ document.addEventListener('DOMContentLoaded', async () => {
        initCalendar();
        // 加载签运记录
        loadLotteryGraveyard();
+       initBackToTopButton();
    }
 });
 
