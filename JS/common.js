@@ -16,7 +16,8 @@ function MasonryLayout(options) {
         items,
         columnMinWidth,
         columnGap = 20,
-        watchImages = false
+        watchImages = false,
+        onRelayout = null   // 可选: 每次布局完成后回调(用于"布局就绪再显示"场景)
     } = options;
 
     let resizeTimer = null;
@@ -54,6 +55,8 @@ function MasonryLayout(options) {
         });
 
         container.style.height = Math.max(...colHeights) + 'px';
+
+        if (typeof onRelayout === 'function') onRelayout();
     }
 
     function scheduleRelayout() {
@@ -71,14 +74,18 @@ function MasonryLayout(options) {
     // 初始布局
     layout();
 
-    // 监听图片加载
+    // 监听图片/视频加载
     if (watchImages) {
         items.forEach(item => {
-            const img = item.querySelector('img');
-            if (img) {
-                img.addEventListener('load', scheduleRelayout);
-                img.addEventListener('error', scheduleRelayout);
-            }
+            item.querySelectorAll('img').forEach(img => {
+                if (!img.complete) {
+                    img.addEventListener('load', scheduleRelayout);
+                    img.addEventListener('error', scheduleRelayout);
+                }
+            });
+            item.querySelectorAll('video').forEach(video => {
+                video.addEventListener('loadedmetadata', scheduleRelayout);
+            });
         });
     }
 
@@ -125,18 +132,119 @@ function escapeHtml(str) {
 }
 
 /**
+ * 预处理 Steam BBCode 标签，转换为 Markdown 或 HTML
+ * Steam 评论格式参考: https://steamcommunity.com/comment/Recommendation/formattinghelp
+ * @param {string} text - 原始文本
+ * @returns {string} 转换后的文本
+ */
+function preprocessSteamBBCode(text) {
+    if (!text || text.indexOf('[') === -1) return text;
+
+    // [noparse] 内容不解析，暂存后最后恢复
+    const noparseStack = [];
+    text = text.replace(/\[noparse\]([\s\S]*?)\[\/noparse\]/gi, (_, content) => {
+        noparseStack.push(content);
+        return '\x00NOPARSE' + (noparseStack.length - 1) + '\x00';
+    });
+
+    // [code] 等宽字体 — 转为行内代码
+    text = text.replace(/\[code\]([\s\S]*?)\[\/code\]/gi, '`$1`');
+
+    // 标题 [h1] [h2] [h3]
+    text = text.replace(/\[h1\]([\s\S]*?)\[\/h1\]/gi, '\n# $1\n');
+    text = text.replace(/\[h2\]([\s\S]*?)\[\/h2\]/gi, '\n## $1\n');
+    text = text.replace(/\[h3\]([\s\S]*?)\[\/h3\]/gi, '\n### $1\n');
+
+    // 粗体 [b]、斜体 [i]、删除线 [strike] — 转为 Markdown
+    text = text.replace(/\[b\]([\s\S]*?)\[\/b\]/gi, '**$1**');
+    text = text.replace(/\[i\]([\s\S]*?)\[\/i\]/gi, '*$1*');
+    text = text.replace(/\[strike\]([\s\S]*?)\[\/strike\]/gi, '~~$1~~');
+
+    // 下划线 [u] — Markdown 无对应语法，用 HTML
+    text = text.replace(/\[u\]([\s\S]*?)\[\/u\]/gi, '<u>$1</u>');
+
+    // 剧透 [spoiler] — 需配合 CSS
+    text = text.replace(/\[spoiler\]([\s\S]*?)\[\/spoiler\]/gi, '<span class="steam-spoiler">$1</span>');
+
+    // 水平线 [hr]
+    text = text.replace(/\[hr\]\s*\[\/hr\]/gi, '\n---\n');
+    text = text.replace(/\[hr\]/gi, '\n---\n');
+
+    // 链接 [url=url]text[/url] 和 [url]url[/url]
+    text = text.replace(/\[url=([^\]]*)\]([\s\S]*?)\[\/url\]/gi, (_, url, linkText) => {
+        if (!/^[a-z]+:\/\//i.test(url)) url = 'https://' + url;
+        return '[' + linkText + '](' + url + ')';
+    });
+    text = text.replace(/\[url\]([\s\S]*?)\[\/url\]/gi, '$1');
+
+    // 引用 [quote=author]text[/quote] 和 [quote]text[/quote]
+    text = text.replace(/\[quote=([^\]]*)\]([\s\S]*?)\[\/quote\]/gi,
+        '<blockquote class="steam-quote"><cite>$1</cite>$2</blockquote>');
+    text = text.replace(/\[quote\]([\s\S]*?)\[\/quote\]/gi, '<blockquote class="steam-quote">$1</blockquote>');
+
+    // 无序列表 [list][*]item[/list]
+    text = text.replace(/\[list\]([\s\S]*?)\[\/list\]/gi, (_, content) =>
+        '\n' + content.replace(/\[\*\]/gi, '- ').replace(/^\s+/, '').trim() + '\n');
+
+    // 有序列表 [olist][*]item[/olist]
+    text = text.replace(/\[olist\]([\s\S]*?)\[\/olist\]/gi, (_, content) => {
+        let i = 1;
+        return '\n' + content.replace(/\[\*\]/gi, () => (i++) + '. ').replace(/^\s+/, '').trim() + '\n';
+    });
+
+    // 表格 [table]
+    text = text.replace(/\[table([^\]]*)\]([\s\S]*?)\[\/table\]/gi, (_, attrs, content) => {
+        let cls = 'steam-table';
+        if (/noborder=1/i.test(attrs)) cls += ' no-border';
+        if (/equalcells=1/i.test(attrs)) cls += ' equal-cells';
+        let html = '<table class="' + cls + '">';
+        const rows = content.match(/\[tr\]([\s\S]*?)\[\/tr\]/gi) || [];
+        rows.forEach(row => {
+            const cells = row.match(/\[t[hd]\][\s\S]*?\[\/t[hd]\]/gi) || [];
+            html += '<tr>';
+            cells.forEach(cell => {
+                const isHeader = /^\[th\]/i.test(cell);
+                const inner = cell.replace(/^\[t[hd]\]/i, '').replace(/\[\/t[hd]\]$/i, '');
+                html += (isHeader ? '<th>' : '<td>') + inner + (isHeader ? '</th>' : '</td>');
+            });
+            html += '</tr>';
+        });
+        return html + '</table>';
+    });
+
+    // 恢复 noparse 内容（转义 HTML 特殊字符，避免被解析为标签）
+    noparseStack.forEach((content, i) => {
+        const escaped = content
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+        text = text.split('\x00NOPARSE' + i + '\x00').join(escaped);
+    });
+
+    return text;
+}
+
+/**
  * 初始化 markdown-it 实例
  * @returns {Object|null} markdownit 实例，若库未加载则返回 null
  */
 function initMarkdown() {
     if (window.markdownit && typeof window.markdownit === 'function') {
-        return new markdownit({
+        const md = new markdownit({
             html: true,
             breaks: true,
             linkify: true,
             typographer: true,
             xhtmlOut: true
         });
+        // 禁用 Setext 标题：避免 review 中用 --- 做分隔线时把上一行文字渲染成大标题
+        md.disable('lheading');
+        // 包装 render 方法，预处理 Steam BBCode 标签
+        const originalRender = md.render.bind(md);
+        md.render = function (text) {
+            return originalRender(preprocessSteamBBCode(text));
+        };
+        return md;
     }
     return null;
 }
@@ -398,4 +506,39 @@ class FilterableListManager {
 
         filterInfo.style.display = filterTags.children.length > 0 ? 'flex' : 'none';
     }
+}
+
+// Steam BBCode 剧透标记：全局点击切换显示/隐藏（事件委托，支持动态内容）
+document.addEventListener('click', (e) => {
+    const spoiler = e.target.closest('.steam-spoiler');
+    if (spoiler) {
+        spoiler.classList.toggle('revealed');
+    }
+});
+
+/**
+ * 初始化回到顶部按钮（全站通用）
+ * 在页面滚动超过 400px 时显示，点击后平滑滚动到顶部
+ */
+function initBackToTopButton() {
+    if (document.getElementById('back-to-top')) return;
+
+    const btn = document.createElement('button');
+    btn.id = 'back-to-top';
+    btn.className = 'back-to-top';
+    btn.title = '回到顶部';
+    btn.innerHTML = '↑';
+    document.body.appendChild(btn);
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    }, { passive: true });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 }

@@ -1,0 +1,1093 @@
+﻿[
+  {
+    "type": "movie",
+    "title": "奥德赛",
+    "date": "2026-08-14 22:10:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "IMAX厅",
+    "seat": [
+      "7排14座"
+    ],
+    "price": 40,
+    "platform": "网络售票",
+    "note": "",
+    "refId": "36808876"
+  },
+  {
+    "type": "movie",
+    "title": "欢迎来龙餐馆",
+    "date": "2026-08-12 22:25:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "IMAX厅",
+    "seat": [
+      "8排17座"
+    ],
+    "price": 45,
+    "platform": "猫眼",
+    "note": "W+专享座",
+    "refId": "35811064"
+  },
+  {
+    "type": "movie",
+    "title": "年会不能停2！",
+    "date": "2026-08-02 20:40:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "2号-儿童厅",
+    "seat": [
+      "4排5座"
+    ],
+    "price": 42.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36850814"
+  },
+  {
+    "type": "movie",
+    "title": "蜘蛛侠：崭新之日",
+    "date": "2026-07-31 20:20:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "8号舞台厅",
+    "seat": [
+      "6排10座"
+    ],
+    "price": 43.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36246195"
+  },
+  {
+    "type": "movie",
+    "title": "群星闪耀时",
+    "date": "2026-07-25 22:05:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "IMAX厅",
+    "seat": [
+      "6排16座"
+    ],
+    "price": 45,
+    "platform": "美团",
+    "note": "",
+    "refId": "35875462"
+  },
+  {
+    "type": "movie",
+    "title": "恐怖游轮",
+    "date": "2026-07-19 18:20:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "1号厅",
+    "seat": [
+      "4排4座"
+    ],
+    "price": 38.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "3011051"
+  },
+  {
+    "type": "movie",
+    "title": "八仙！",
+    "date": "2026-07-16 19:00:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "IMAX厅",
+    "seat": [
+      "6排16座"
+    ],
+    "price": 19.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36882191"
+  },
+  {
+    "type": "movie",
+    "title": "八仙！",
+    "date": "2026-07-12 14:30:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "IMAX厅",
+    "seat": [
+      "7排13座"
+    ],
+    "price": 51.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36882191"
+  },
+  {
+    "type": "movie",
+    "title": "功夫女足",
+    "date": "2026-07-11 20:50:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "8号舞台厅",
+    "seat": [
+      "6排9座"
+    ],
+    "price": 43.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36452545"
+  },
+  {
+    "type": "movie",
+    "title": "小黄人与大怪兽",
+    "date": "2026-07-07 20:45:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "IMAX厅",
+    "seat": [
+      "7排16座"
+    ],
+    "price": 51.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36962219"
+  },
+  {
+    "type": "movie",
+    "title": "三国第一部：争洛阳",
+    "date": "2026-06-28 14:10:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "1号厅",
+    "seat": [
+      "4排4座"
+    ],
+    "price": 43.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36752981"
+  },
+  {
+    "type": "movie",
+    "title": "大鱼海棠",
+    "date": "2026-06-20 10:50:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "5号厅",
+    "seat": [
+      "4排5座"
+    ],
+    "price": 38.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "5045678"
+  },
+  {
+    "type": "movie",
+    "title": "玩具总动员5",
+    "date": "2026-06-19 19:30:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "IMAX厅",
+    "seat": [
+      "6排16座"
+    ],
+    "price": 51.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36238849"
+  },
+  {
+    "type": "movie",
+    "title": "诺曼底72小时",
+    "date": "2026-06-07 20:35:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "2号-儿童厅",
+    "seat": [
+      "3排6座"
+    ],
+    "price": 42.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36916000"
+  },
+  {
+    "type": "movie",
+    "title": "钟馗",
+    "date": "2026-05-31 19:25:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "2号-儿童厅",
+    "seat": [
+      "3排6座"
+    ],
+    "price": 42.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "30226070"
+  },
+  {
+    "type": "movie",
+    "title": "家弑服务",
+    "date": "2026-05-24 20:45:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "2号-儿童厅",
+    "seat": [
+      "5排6座"
+    ],
+    "price": 24.8,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36367195"
+  },
+  {
+    "type": "movie",
+    "title": "给阿嬷的情书",
+    "date": "2026-05-21 21:00:00",
+    "location": "横店电影城(横影巨幕S-PLUS蔚蓝创新店)",
+    "hall": "8号横影巨幕S-PLUS",
+    "seat": [
+      "7排11座"
+    ],
+    "price": 24.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "37116446"
+  },
+  {
+    "type": "movie",
+    "title": "10间敢死队",
+    "date": "2026-05-09 19:15:00",
+    "location": "中影激光国际影城(新业广场店)",
+    "hall": "1号沙发座椅厅",
+    "seat": [
+      "3排5座"
+    ],
+    "price": 29.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "37379599"
+  },
+  {
+    "type": "movie",
+    "title": "燃比娃",
+    "date": "2026-05-02 20:50:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "7号厅",
+    "seat": [
+      "4排3座"
+    ],
+    "price": 43.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "35516786"
+  },
+  {
+    "type": "movie",
+    "title": "阳光女子合唱团",
+    "date": "2026-04-26 19:00:00",
+    "location": "华谊兄弟影院(青岛东方城店)",
+    "hall": "3号ALPD激光厅",
+    "seat": [
+      "D排7座"
+    ],
+    "price": 43.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "37193250"
+  },
+  {
+    "type": "movie",
+    "title": "挽救计划",
+    "date": "2026-04-15 19:00:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "IMAX厅",
+    "seat": [
+      "6排17座"
+    ],
+    "price": 51.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "35010610"
+  },
+  {
+    "type": "movie",
+    "title": "超级马力欧银河大电影",
+    "date": "2026-04-04 18:40:00",
+    "location": "横店电影城(横影巨幕S-PLUS蔚蓝创新店)",
+    "hall": "8号横影巨幕S-PLUS",
+    "seat": [
+      "7排11座"
+    ],
+    "price": 30.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36806351"
+  },
+  {
+    "type": "movie",
+    "title": "河狸变身计划",
+    "date": "2026-03-29 18:00:00",
+    "location": "横店电影城(横影巨幕S-PLUS蔚蓝创新店)",
+    "hall": "8号横影巨幕S-PLUS",
+    "seat": [
+      "7排11座"
+    ],
+    "price": 30.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36999793"
+  },
+  {
+    "type": "attraction",
+    "title": "“洪婷之夜”莆超邀请赛(莆田vs同心)",
+    "date": "2026-02-22 19:30:00",
+    "location": "莆田市体育中心体育场",
+    "hall": "北三区看台",
+    "seat": [
+      "10排35号"
+    ],
+    "price": 1.0,
+    "platform": "大麦网",
+    "note": "",
+    "refId": ""
+  },
+  {
+    "type": "movie",
+    "title": "星河入梦",
+    "date": "2026-02-20 23:10:00",
+    "location": "华彩中兴影城",
+    "hall": "VIP6号4K厅",
+    "seat": [
+      "2排04座",
+      "2排05座"
+    ],
+    "price": 55.6,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36883105"
+  },
+  {
+    "type": "movie",
+    "title": "飞驰人生3",
+    "date": "2026-02-18 20:05:00",
+    "location": "万达影城(莆田万达广场IMAX店)",
+    "hall": "5号厅",
+    "seat": [
+      "5排9座",
+      "5排10座",
+      "5排11座",
+      "5排12座"
+    ],
+    "price": 356.5,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "37311135"
+  },
+  {
+    "type": "movie",
+    "title": "海绵宝宝：深海大冒险",
+    "date": "2026-01-02 16:15:00",
+    "location": "开乐影城(威高广场店)",
+    "hall": "8号平行时空主题影厅",
+    "seat": [
+      "8排7座"
+    ],
+    "price": 68,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36389635"
+  },
+  {
+    "type": "movie",
+    "title": "机器人之梦",
+    "date": "2025-12-30 17:15:00",
+    "location": "幸福蓝海国际影城(威海华发IMAX店)",
+    "hall": "6号激光厅",
+    "seat": [
+      "5排8座"
+    ],
+    "price": 36.8,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "35426925"
+  },
+  {
+    "type": "movie",
+    "title": "阿凡达：火与烬",
+    "date": "2025-12-21 15:30:00",
+    "location": "中影惠影国际影城(东方新天地店)",
+    "hall": "6号杜比Atmos4K巨幕厅",
+    "seat": [
+      "6排9座"
+    ],
+    "price": 38.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "5348089"
+  },
+  {
+    "type": "movie",
+    "title": "疯狂动物城2",
+    "date": "2025-11-28 19:20:00",
+    "location": "横店电影城(横影巨幕S-PLUS欧乐坊店)",
+    "hall": "2号杜比全景声4K巨幕厅",
+    "seat": [
+      "5排17座"
+    ],
+    "price": 36.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "26817136"
+  },
+  {
+    "type": "movie",
+    "title": "小林家的龙丫头：怕寂寞的龙",
+    "date": "2025-11-17 17:30:00",
+    "location": "新世纪电影城(长春路店)",
+    "hall": "1号临境音厅",
+    "seat": [
+      "5排6座"
+    ],
+    "price": 31.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "37037980"
+  },
+  {
+    "type": "movie",
+    "title": "世界计划：无法歌唱的初音未来",
+    "date": "2025-10-28 19:00:00",
+    "location": "横店电影城(横影巨幕S-PLUS欧乐坊店)",
+    "hall": "2号横影巨幕Atmos厅",
+    "seat": [
+      "8排18座"
+    ],
+    "price": 36.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36982741"
+  },
+  {
+    "type": "movie",
+    "title": "窗外是蓝星",
+    "date": "2025-09-05 19:20:00",
+    "location": "横店电影城(横影巨幕S-PLUS欧乐坊店)",
+    "hall": "6号厅",
+    "seat": [
+      "4排6座"
+    ],
+    "price": 29,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "37007685"
+  },
+  {
+    "type": "movie",
+    "title": "坏蛋联盟2",
+    "date": "2025-08-22 21:00:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "2号-儿童厅",
+    "seat": [
+      "4排6座"
+    ],
+    "price": 47.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36829507"
+  },
+  {
+    "type": "movie",
+    "title": "非人哉：限时玩家",
+    "date": "2025-08-16 20:55:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "7号厅",
+    "seat": [
+      "4排4座"
+    ],
+    "price": 43.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "37179769"
+  },
+  {
+    "type": "movie",
+    "title": "南京照相馆",
+    "date": "2025-08-08 19:30:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "IMAX厅",
+    "seat": [
+      "6排18座"
+    ],
+    "price": 51.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36809864"
+  },
+  {
+    "type": "movie",
+    "title": "浪浪山小妖怪",
+    "date": "2025-07-30 18:40:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "5号厅",
+    "seat": [
+      "5排5座"
+    ],
+    "price": 43.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36438475"
+  },
+  {
+    "type": "movie",
+    "title": "罗小黑战记2",
+    "date": "2025-07-19 13:35:00",
+    "location": "艺佳电影城",
+    "hall": "4号4K(激光)厅",
+    "seat": [
+      "7排5座"
+    ],
+    "price": 36.88,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36448279"
+  },
+  {
+    "type": "movie",
+    "title": "聊斋：兰若寺",
+    "date": "2025-07-12 16:50:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "IMAX厅",
+    "seat": [
+      "5排16座"
+    ],
+    "price": 51.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36289419"
+  },
+  {
+    "type": "movie",
+    "title": "地球特派员",
+    "date": "2025-07-01 14:00:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "2号厅",
+    "seat": [
+      "6排8座"
+    ],
+    "price": 40,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36090458"
+  },
+  {
+    "type": "movie",
+    "title": "哪吒之魔童闹海",
+    "date": "2025-02-03 20:00:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "DTS：3号巨幕厅",
+    "seat": [
+      "7排17座"
+    ],
+    "price": 50,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "34780991"
+  },
+  {
+    "type": "movie",
+    "title": "哪吒之魔童闹海",
+    "date": "2025-02-03 20:00:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "DTS：3号巨幕厅",
+    "seat": [
+      "7排9座",
+      "7排10座"
+    ],
+    "price": 80,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "34780991"
+  },
+  {
+    "type": "movie",
+    "title": "哪吒之魔童闹海",
+    "date": "2025-01-31 20:50:00",
+    "location": "奥斯卡巨幕影城(莆田正荣财富中心店)",
+    "hall": "1号RGB高亮激光厅",
+    "seat": [
+      "7排1座",
+      "7排2座",
+      "7排3座",
+      "7排5座"
+    ],
+    "price": 287.6,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "34780991"
+  },
+  {
+    "type": "movie",
+    "title": "落凡尘",
+    "date": "2024-07-17 12:20:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "5号VIP厅",
+    "seat": [
+      "2排4座"
+    ],
+    "price": 35,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "35135493"
+  },
+  {
+    "type": "movie",
+    "title": "伞少女",
+    "date": "2024-07-07 19:25:00",
+    "location": "海口时代宝真影城",
+    "hall": "6号激光厅",
+    "seat": [
+      "3排6座"
+    ],
+    "price": 38,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36449286"
+  },
+  {
+    "type": "movie",
+    "title": "头脑特工队2",
+    "date": "2024-06-25 19:10:00",
+    "location": "中视国际影城【巨幕】（耀龄店）",
+    "hall": "4号激光中国全景声厅",
+    "seat": [
+      "4排4座"
+    ],
+    "price": 32.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36090457"
+  },
+  {
+    "type": "movie",
+    "title": "白蛇：浮生",
+    "date": "2024-06-08 21:50:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "2号厅",
+    "seat": [
+      "6排7座",
+      "6排8座"
+    ],
+    "price": 80,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36463483"
+  },
+  {
+    "type": "movie",
+    "title": "周处除三害",
+    "date": "2024-03-06 13:30:00",
+    "location": "中视国际影城VLED(东坡老码头店)",
+    "hall": "2号厅",
+    "seat": [
+      "4排7座"
+    ],
+    "price": 34,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36151692"
+  },
+  {
+    "type": "movie",
+    "title": "飞驰人生2",
+    "date": "2024-02-18 20:35:00",
+    "location": "万达影城(莆田万达广场IMAX店)",
+    "hall": "5号厅",
+    "seat": [
+      "11排11座",
+      "11排12座"
+    ],
+    "price": 159.8,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36369452"
+  },
+  {
+    "type": "movie",
+    "title": "飞驰人生2",
+    "date": "2024-02-18 20:30:00",
+    "location": "万达影城(三信金鼎广场店)",
+    "hall": "4号厅",
+    "seat": [
+      "8排4座",
+      "8排5座"
+    ],
+    "price": 100,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36369452"
+  },
+  {
+    "type": "movie",
+    "title": "第二十条",
+    "date": "2024-02-14 19:20:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "1号厅",
+    "seat": [
+      "6排5座",
+      "6排6座"
+    ],
+    "price": 90,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36208094"
+  },
+  {
+    "type": "movie",
+    "title": "热辣滚烫",
+    "date": "2024-02-05 20:20:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "DTS：3号巨幕厅",
+    "seat": [
+      "5排14座",
+      "5排15座",
+      "5排16座"
+    ],
+    "price": 138,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36081094"
+  },
+  {
+    "type": "movie",
+    "title": "前任4：英年早婚",
+    "date": "2023-10-03 20:00:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "DTS：3号巨幕厅",
+    "seat": [
+      "7排11座",
+      "7排12座",
+      "7排13座"
+    ],
+    "price": 123,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "35358443"
+  },
+  {
+    "type": "movie",
+    "title": "奥本海默",
+    "date": "2023-08-31 16:45:00",
+    "location": "海口时代宝真影城",
+    "hall": "3号杜比全景声巨幕厅",
+    "seat": [
+      "8排10座"
+    ],
+    "price": 35,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "35593344"
+  },
+  {
+    "type": "movie",
+    "title": "芭比",
+    "date": "2023-07-26 18:30:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "2号厅",
+    "seat": [
+      "6排7座",
+      "6排8座"
+    ],
+    "price": 50,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "4058939"
+  },
+  {
+    "type": "movie",
+    "title": "长安三万里",
+    "date": "2023-07-18 19:00:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "1号厅",
+    "seat": [
+      "6排7座",
+      "6排8座"
+    ],
+    "price": 80,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "36035676"
+  },
+  {
+    "type": "movie",
+    "title": "疯狂元素城",
+    "date": "2023-06-24 19:25:00",
+    "location": "海口时代宝真影城",
+    "hall": "1号激光厅",
+    "seat": [
+      "2排6座"
+    ],
+    "price": 28,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "35901878"
+  },
+  {
+    "type": "show",
+    "title": "最美时光·赵聪和她的朋友们琵琶专场音乐会",
+    "date": "2023-06-10 20:00:00",
+    "location": "海口湾演艺中心",
+    "hall": "大剧场",
+    "seat": [
+      "2楼3排5座"
+    ],
+    "price": 180,
+    "platform": "大麦网",
+    "note": "",
+    "refId": ""
+  },
+  {
+    "type": "movie",
+    "title": "天空之城",
+    "date": "2023-06-03 09:55:00",
+    "location": "海口时代宝真影城",
+    "hall": "1号激光厅",
+    "seat": [
+      "2排6座"
+    ],
+    "price": 29,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "1291583"
+  },
+  {
+    "type": "movie",
+    "title": "超级马力欧兄弟大电影",
+    "date": "2023-04-05 20:00:00",
+    "location": "海口时代宝真影城",
+    "hall": "3号杜比全景声巨幕厅",
+    "seat": [
+      "6排11座"
+    ],
+    "price": 36,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "27199894"
+  },
+  {
+    "type": "movie",
+    "title": "深海",
+    "date": "2023-03-05 12:40:00",
+    "location": "海口时代宝真影城",
+    "hall": "3号杜比全景声巨幕厅",
+    "seat": [
+      "5排10座"
+    ],
+    "price": 41.8,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "26649682"
+  },
+  {
+    "type": "movie",
+    "title": "深海",
+    "date": "2023-01-23 09:20:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "DTS：3号巨幕厅",
+    "seat": [
+      "5排13座"
+    ],
+    "price": 35,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "26649682"
+  },
+  {
+    "type": "movie",
+    "title": "阿凡达：水之道",
+    "date": "2023-01-18 19:00:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "DTS：3号巨幕厅",
+    "seat": [
+      "6排12号",
+      "6排13号"
+    ],
+    "price": 83.6,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "4811774"
+  },
+  {
+    "type": "movie",
+    "title": "新神榜：杨戬",
+    "date": "2022-09-17 14:00:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "4号厅",
+    "seat": [
+      "5排8号"
+    ],
+    "price": 40,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "35360684"
+  },
+  {
+    "type": "movie",
+    "title": "紫罗兰永恒花园外传：永远与自动手记人偶",
+    "date": "2020-01-13 21:30:00",
+    "location": "东莞比高电影城(南城店)",
+    "hall": "12号厅",
+    "seat": [
+      "6排10座"
+    ],
+    "price": 39.9,
+    "platform": "淘票票",
+    "note": "",
+    "refId": "33424345"
+  },
+  {
+    "type": "movie",
+    "title": "叶问4：完结篇",
+    "date": "2019-12-26 21:25:00",
+    "location": "东莞光大电影城(南城店)",
+    "hall": "6号厅",
+    "seat": [
+      "9排13座"
+    ],
+    "price": 36.9,
+    "platform": "淘票票",
+    "note": "",
+    "refId": "26885074"
+  },
+  {
+    "type": "movie",
+    "title": "天气之子",
+    "date": "2019-11-12 10:10:00",
+    "location": "星美影城(福州王庄IMAX店)",
+    "hall": "4号厅",
+    "seat": [
+      "4排5座"
+    ],
+    "price": 39.9,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "30402296"
+  },
+  {
+    "type": "movie",
+    "title": "天气之子",
+    "date": "2019-11-05 21:50:00",
+    "location": "至潮影城（茶亭居然之家店）",
+    "hall": "VIP4暗黑空间",
+    "seat": [
+      "5排05座"
+    ],
+    "price": 32,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "30402296"
+  },
+  {
+    "type": "movie",
+    "title": "哪吒之魔童降世",
+    "date": "2019-09-08 19:20:00",
+    "location": "星美影城(福州王庄IMAX店)",
+    "hall": "6号厅",
+    "seat": [
+      "9排7座",
+      "9排8座"
+    ],
+    "price": 89.8,
+    "platform": "淘票票",
+    "note": "",
+    "refId": "26794435"
+  },
+  {
+    "type": "movie",
+    "title": "哪吒之魔童降世",
+    "date": "2019-08-03 20:00:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "DTS：3号巨幕厅",
+    "seat": [
+      "3排10座",
+      "3排11座",
+      "3排12座",
+      "3排13座",
+      "3排14座",
+      "3排15座"
+    ],
+    "price": 180,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "26794435"
+  },
+  {
+    "type": "movie",
+    "title": "哪吒之魔童降世",
+    "date": "2019-07-28 22:10:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "DTS：3号巨幕厅",
+    "seat": [
+      "4排11座"
+    ],
+    "price": 30,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "26794435"
+  },
+  {
+    "type": "movie",
+    "title": "扫毒2：天地对决",
+    "date": "2019-07-05 19:20:00",
+    "location": "星美影城(福州王庄IMAX店)",
+    "hall": "1号厅",
+    "seat": [
+      "2排4号"
+    ],
+    "price": 34,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "30171425"
+  },
+  {
+    "type": "movie",
+    "title": "尺八·一声一世",
+    "date": "2019-06-03 08:58:00",
+    "location": "北京嘉华国际影城学清路店",
+    "hall": "4号激光厅",
+    "seat": [
+      "6排5座"
+    ],
+    "price": 33,
+    "platform": "猫眼",
+    "note": "",
+    "refId": "27185648"
+  },
+  {
+    "type": "movie",
+    "title": "闪光少女",
+    "date": "2017-07-20 17:00:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "1号厅",
+    "seat": [
+      "8排7座",
+      "8排8座"
+    ],
+    "price": 17.6,
+    "platform": "淘票票",
+    "note": "",
+    "refId": "26790961"
+  },
+  {
+    "type": "movie",
+    "title": "大鱼海棠",
+    "date": "2016-07-08 23:00:00",
+    "location": "北京嘉华国际影城学清路店",
+    "hall": "1号巨幕厅",
+    "seat": [
+      "4排14座"
+    ],
+    "price": 38,
+    "platform": "糯米网",
+    "note": "",
+    "refId": "5045678"
+  },
+  {
+    "type": "movie",
+    "title": "捉妖记",
+    "date": "2015-07-19 15:20:00",
+    "location": "莆田金逸国际影城正荣店",
+    "hall": "2号厅",
+    "seat": [
+      "2排7座",
+      "2排8座"
+    ],
+    "price": 80,
+    "platform": "淘票票",
+    "note": "",
+    "refId": "25723907"
+  }
+]

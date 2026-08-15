@@ -49,6 +49,7 @@
 ### 6. 博客/文章
 - **文章列表** (posts.html): 博客文章列表展示，支持系列分类、时间线归档视图、无限滚动加载
 - **文章详情** (post-detail.html): 文章详细内容展示，支持Markdown格式
+- **灵感碎片** (moments.html): 灵感碎片展示，支持文字/图片/音频/视频、标签筛选、点击查看详情弹窗、媒体控件（播放/暂停、拖进度、倍速、音量）与卡片状态实时同步
 
 ### 7. 实用工具
 - **工具集** (tools.html): 各种实用小工具集合
@@ -246,12 +247,14 @@ woshicby.github.io/
 | 2026.05.20 | 添加待抽签赛事管理与展示功能：新增待抽签赛事状态判断逻辑与日历样式；过滤已完赛赛事用于PB/SB计算和图表统计；补全赛事数据的status字段并新增待抽签赛事 |
 | 2026.05.26 | 新增Emoji渲染器工具(emoji-renderer.html)，支持多平台风格渲染与高清导出；更新赛事记录数据 |
 | 2026.05.29 | 重构赛事日历模块：新增实时倒计时系统（支持页面可见性适配）；卡片式UI替代旧版布局；新增状态徽章区分已报名/待抽签/已完赛等状态；补全startTime字段；优化移动端响应式布局 |
-| 2026.05.31 | 重构导航栏逻辑，新增动态生成导航菜单功能：重写navigation.js，使用配置化方式管理导航项；统一所有页面的导航栏结构，移除硬编码的导航链接；新增书影音记录页面(reviews.html)及相关配套资源；修复部分页面导航缩进不一致的问题 |
+| 2026.05.31 | 重构导航栏逻辑，新增动态生成导航菜单功能：重写navigation.js，使用配置化方式管理导航项；统一所有页面的导航栏结构，移除硬编码的导航链接；新增书影音游剧记录页面(reviews.html)及相关配套资源；修复部分页面导航缩进不一致的问题 |
 | 2026.06.02 | 新增赛事待报名状态支持与筛选功能：新增待报名赛事样式与状态标识；重构赛事默认选中逻辑，按最新参赛日期选择默认项目/赛事系列；完善日历视图筛选功能，支持按全部/已参赛/未参赛状态筛选，未显示赛事日期以灰色标识；优化赛事提示框，支持多赛事同时展示并添加分隔线；新增TBC（待定）日期赛事支持，倒计时显示∞；更新赛事数据，修正部分赛事信息并新增赛事记录 |
-| 2026.06.03 | 书影音记录页面筛选系统增强：新增快速筛选（评分状态、时间范围）与高级筛选（评分等级、地区、标签）两级筛选体系；评分制从5星制改为10分制，均分统计排除未评分项目，默认仅显示已评分项目；地区筛选支持空格分隔的多地区匹配；更新赛事记录分数与名称格式；格式化JSON数据文件缩进 |
+| 2026.06.03 | 书影音游剧记录页面筛选系统增强：新增快速筛选（评分状态、时间范围）与高级筛选（评分等级、地区、标签）两级筛选体系；评分制从5星制改为10分制，均分统计排除未评分项目，默认仅显示已评分项目；地区筛选支持空格分隔的多地区匹配；更新赛事记录分数与名称格式；格式化JSON数据文件缩进 |
 | 2026.06.19 | 体育运动页面大升级：新增运动活动详情页(sports-activity.html)和运动量统计页(sports-volume.html)；数据文件整合迁移至项目根目录；HTML语义化重构，去除冗余包裹层；统一返回按钮样式，活动页返回按钮根据来源页面动态显示；侧边栏统计数据根据运动类型和时间间隔筛选同步更新，取消显示数量限制；修复导航按钮被浮动元素挤到右侧的问题；删除比赛页面底部"最近活动"section，统一"查看活动"按钮样式；修复夜间模式下比赛页面标签底色和图表文字颜色；将race-records.json中stravaLink替换为本地活动链接；修复活动页面URL参数(runId→id)；同步脚本配置统一到config.py，消除所有硬编码 |
 | 2026.07.09 | 批量更新与优化：修正posts列表文件名互换问题；更新赛事抽签记录与赛事数据；优化地图缩放防抖逻辑；为运动数据添加高度平滑处理；重构背景滚动实现方案；新增视频对轨计算工具；更新影评数据与文章内容；调整部分CSS过渡动画与悬停效果 |
 | 2026.07.28 | 评分系统优化与新博文：书影音评分系统重构，统一评分数据与展示逻辑；时间计算器样式与功能完善；运动数据与活动详情持续更新；新增.gitignore文件； |
+| 2026.08.02 | 书影音游剧记录支持多刷/重映评价分开展示，同一作品多次观看记录独立渲染并配等级印章（11档配色）；赛事记录更新烟台马拉松中签状态；博客系统简化加载逻辑，移除posts.json中间层直接由posts-list.json索引读取md文件；修复含特殊字符(%)文件名的URL编码问题，解决部署到GitHub Pages后部分博文400错误 |
+| 2026.08.16 | 灵感碎片页面增强：新增详情弹窗与媒体镜像控件（播放/暂停、拖进度、倍速、音量，与卡片媒体状态双向同步）；预读媒体尺寸实现首帧即正确布局，消除加载闪烁；新增跳蛛饲养博文(26)与9条灵感碎片；书影音游剧与票据收藏新增《奥德赛》记录；新增本地预览服务器(scripts/preview_server.py，no-cache + Clear-Site-Data) |
 
 ## 使用方法
 
@@ -488,6 +491,7 @@ woshicby.github.io/
 | 2026.06.24 | Added lottery record module; improved race calendar and list information layout |
 | 2026.07.09 | Batch updates and optimizations: fixed posts list filename swapping issue; updated race lottery records and race data; optimized map zoom debounce logic; added altitude smoothing for sports data; refactored background scrolling implementation; added video sync calculation tool; updated movie review data and article content; adjusted CSS transitions and hover effects |
 | 2026.07.28 | Rating system optimization & new blog post: refactored books/movies/music rating system with unified data and display logic; improved time calculator styling and functionality; continuous sports data and activity detail updates; added .gitignore file;  |
+| 2026.08.02 | Reviews support separate display of multi-view/re-screening ratings (independent rendering of multiple viewing records per work with rating stamps, 11-tier color scheme); race records updated Yantai Marathon lottery result; blog system simplified loading logic (removed posts.json middleware, md files read directly via posts-list.json index); fixed URL encoding for filenames with special characters (%), resolving 400 errors for some posts after GitHub Pages deployment |
 
 ## Usage
 
@@ -724,6 +728,7 @@ woshicby.github.io/
 | 2026.06.24 | 抽選記録モジュール追加、レースカレンダーとリストの情報レイアウト改善 |
 | 2026.07.09 | 一括更新と最適化：postsリストのファイル名入れ替え問題修正；レース抽選記録とレースデータ更新；地図ズームデバウンスロジック最適化；スポーツデータに高度平滑化処理追加；背景スクロール実装方案再構築；動画対軌計算ツール追加；映画レビューデータと記事コンテンツ更新；一部CSSトランジションアニメーションとホバー効果調整 |
 | 2026.07.28 | 評価システム最適化と新規ブログ記事：本・映画・音楽の評価システムを再構築し、データと表示ロジックを統一；時間計算機のスタイルと機能を改善；スポーツデータとアクティビティ詳細を継続的に更新；.gitignoreファイルを追加；|
+| 2026.08.02 | 書影音記録で複数視聴/再上映レビューの個別表示に対応（同一作品の複数視聴記録を独立レンダリングし、11段階配色の評価スタンプ付き）；レース記録で煙台マラソンの当選状態を更新；ブログシステムの読み込みロジックを簡素化（posts.json中間層を廃止し、posts-list.jsonインデックスから直接mdファイルを読み込み）；特殊文字(%)を含むファイル名のURLエンコード問題を修正し、GitHub Pagesデプロイ後の一部ブログ記事400エラーを解決 |
 
 ## 使用方法
 
