@@ -1,5 +1,12 @@
+/**
+ * 个人成果页面脚本
+ * 对应页面: study.html
+ * 功能: 展示学术档案/出版物/评审,支持标签/类型/搜索筛选。
+ */
+
 // 个人成果数据管理和渲染
 class StudyManager extends FilterableListManager {
+    /** 构造函数: 初始化管理器 */
    constructor() {
        super();
        this.data = null;
@@ -12,6 +19,9 @@ class StudyManager extends FilterableListManager {
        this.init();
    }
 
+    /**
+     * 初始化: 加载数据 + 渲染页面
+     */
    async init() {
        try {
            console.log('开始初始化个人成果管理器');
@@ -33,6 +43,9 @@ class StudyManager extends FilterableListManager {
        }
    }
 
+    /**
+     * 加载学习/成果数据
+     */
    async loadData() {
        const data = await fetchJSON('JSON/study-data.json', null);
        if (data) {
@@ -46,6 +59,9 @@ class StudyManager extends FilterableListManager {
        }
    }
 
+    /**
+     * 获取示例数据(加载失败回退)
+     */
    getSampleData() {
        return {
            academicProfiles: [
@@ -71,6 +87,9 @@ class StudyManager extends FilterableListManager {
        };
    }
 
+    /**
+     * 提取所有标签
+     */
    extractTags() {
        const tagSet = new Set();
 
@@ -83,6 +102,9 @@ class StudyManager extends FilterableListManager {
        this.tags = Array.from(tagSet).sort();
    }
 
+    /**
+     * 渲染学术档案区
+     */
    renderAcademicProfiles() {
        const container = document.getElementById('personal-details');
        if (!container || !this.data) return;
@@ -96,6 +118,10 @@ class StudyManager extends FilterableListManager {
        `).join('');
    }
 
+    /**
+     * 渲染出版物列表
+     * @param {Array} [filteredPubs] - 筛选后的出版物
+     */
    renderPublicationsList(filteredPubs = null) {
        const pubsToRender = filteredPubs || this.publications;
        const container = document.getElementById('achievements-list');
@@ -112,6 +138,10 @@ class StudyManager extends FilterableListManager {
        this.bindPublicationFilterEvents();
    }
 
+    /**
+     * 生成单条出版物 HTML
+     * @param {Object} pub - 出版物数据
+     */
    createPublicationHTML(pub) {
        const tagsHTML = pub.tags ? 
            `<div class="post-tags">${pub.tags.map(tag => 
@@ -137,6 +167,9 @@ class StudyManager extends FilterableListManager {
        `;
    }
 
+    /**
+     * 渲染标签栏
+     */
    renderTags() {
        const container = document.getElementById('tags-container');
        if (!container) return;
@@ -155,6 +188,9 @@ class StudyManager extends FilterableListManager {
        });
    }
 
+    /**
+     * 渲染评审/推荐区
+     */
    renderReviews() {
        const container = document.getElementById('review-activity');
        if (!container || !this.data) return;
@@ -174,6 +210,9 @@ class StudyManager extends FilterableListManager {
        `).join('');
    }
 
+    /**
+     * 绑定筛选事件
+     */
    bindFilterEvents() {
        document.querySelectorAll('[data-type]').forEach(link => {
            link.addEventListener('click', (e) => {
@@ -185,6 +224,9 @@ class StudyManager extends FilterableListManager {
        });
    }
 
+    /**
+     * 绑定出版物筛选事件
+     */
    bindPublicationFilterEvents() {
        const container = document.getElementById('achievements-list');
        if (!container) return;
@@ -199,6 +241,10 @@ class StudyManager extends FilterableListManager {
        });
    }
 
+    /**
+     * 按类型筛选
+     * @param {string} type - 类型
+     */
    filterByType(type) {
        const urlParams = getUrlParams();
        urlParams.delete('type');
@@ -214,6 +260,9 @@ class StudyManager extends FilterableListManager {
 
    getClearFilterParams() { return ['tag', 'search', 'type']; }
 
+    /**
+     * 应用所有筛选条件
+     */
    applyFilters() {
        const urlParams = getUrlParams();
        const type = urlParams.get('type') || 'all';
@@ -247,6 +296,9 @@ class StudyManager extends FilterableListManager {
        this.updateActiveStates(type, tags);
    }
 
+    /**
+     * 更新筛选信息显示
+     */
    updateFilterInfo(type, tags, search) {
        const entries = [];
        if (type && type !== 'all') entries.push({ type: '类型', value: type, paramType: 'type' });
@@ -255,6 +307,9 @@ class StudyManager extends FilterableListManager {
        super.updateFilterInfo(entries);
    }
 
+    /**
+     * 更新激活状态
+     */
    updateActiveStates(type, tags) {
        document.querySelectorAll('[data-type]').forEach(link => {
            const linkType = link.getAttribute('data-type');

@@ -1,4 +1,16 @@
+/**
+ * 全站导航栏生成脚本
+ *
+ * 职责: 在所有页面自动生成顶部导航栏(首页/博客/书影音/灵感碎片/个人成果/视频/工具/运动/赛事/票据),
+ *       根据当前页面高亮对应导航项,并处理移动端汉堡菜单的展开/收起。
+ *
+ * 加载: 所有 HTML 在 <head> 中引用本文件,页面加载完成后自动执行。
+ */
+
+// 页面加载完成后初始化导航(保证 DOM 结构就绪)
 document.addEventListener('DOMContentLoaded', function() {
+    // ============ 导航配置 ============
+    // 全站导航项列表: href 为目标页面, label 为显示文字
     const NAV_ITEMS = [
         { href: './index.html', label: '首页' },
         { href: './posts.html', label: '博客文章' },
@@ -12,28 +24,42 @@ document.addEventListener('DOMContentLoaded', function() {
         { href: './tickets.html', label: '票据收藏' }
     ];
 
+    /**
+     * 渲染导航栏
+     * 动态生成导航链接 HTML 并写入 .nav ul.clearfix 容器,
+     * 根据当前页面路径为对应链接添加 active 高亮类,
+     * 同时保留(或重建)导航栏内的主题切换开关。
+     */
     function renderNav() {
+        // 导航容器: 每个页面 HTML 中都有 <div class="nav"><ul class="clearfix">
         const navUl = document.querySelector('.nav ul.clearfix');
+        // 若容器不存在(如某些特殊页面),直接跳过导航渲染
         if (!navUl) return;
 
+        // 获取当前页面文件名(如 posts.html),用于高亮判断
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        // 查找导航容器中已有的主题切换开关(可能由 HTML 直接提供)
         const themeToggle = navUl.querySelector('.theme-toggle');
 
+        // 遍历导航项生成 <li><a> 链接,当前页面的链接加 active 类
         const navLinksHTML = NAV_ITEMS.map(item => {
-            const page = item.href.split('/').pop();
-            const isActive = page === currentPage;
+            const page = item.href.split('/').pop();        // 提取目标页面文件名
+            const isActive = page === currentPage;          // 判断是否为当前页
             return `<li><a href="${item.href}"${isActive ? ' class="active"' : ''}>${item.label}</a></li>`;
         }).join('');
 
         if (themeToggle) {
+            // 情况1: HTML 已提供主题开关 — 生成链接后把开关 <li> 移到末尾
             const toggleLi = themeToggle.closest('li');
             if (toggleLi) {
-                navUl.innerHTML = navLinksHTML;
-                navUl.appendChild(toggleLi);
+                navUl.innerHTML = navLinksHTML;             // 先写入全部导航链接
+                navUl.appendChild(toggleLi);                // 再把开关移到末尾
             } else {
+                // 开关不在 <li> 内: 用开关的 HTML 重新包裹成 <li> 追加
                 navUl.innerHTML = navLinksHTML + `<li><label class="theme-toggle">${themeToggle.outerHTML.replace(/<label[^>]*>|<\/label>/g, '')}</label></li>`;
             }
         } else {
+            // 情况2: HTML 未提供开关 — 动态生成一个完整的主题开关追加到末尾
             navUl.innerHTML = navLinksHTML + `<li>
                 <label class="theme-toggle">
                     <input type="checkbox" id="themeToggle">
@@ -43,21 +69,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    /**
+     * 初始化导航功能
+     * 渲染导航栏,并绑定移动端汉堡菜单按钮的点击事件
+     * (点击时切换菜单展开状态,同步 aria-expanded 无障碍属性)。
+     */
     function initNavigation() {
         renderNav();
 
+        // 移动端汉堡菜单按钮(HTML 中 .nav-toggle)
         const navToggle = document.querySelector('.nav-toggle');
+        // 导航容器
         const nav = document.querySelector('.nav');
 
+        // 绑定点击事件: 展开/收起导航,并更新无障碍状态
         if (navToggle && nav) {
             navToggle.addEventListener('click', function() {
-                nav.classList.toggle('active');
-                this.classList.toggle('active');
+                nav.classList.toggle('active');             // 导航展开/收起
+                this.classList.toggle('active');            // 按钮图标(汉堡↔X)切换
+                // 同步 aria-expanded 属性(辅助技术读取展开状态)
                 const expanded = this.getAttribute('aria-expanded') === 'true';
                 this.setAttribute('aria-expanded', !expanded);
             });
         }
     }
 
+    // 页面加载后立即初始化导航
     initNavigation();
 });

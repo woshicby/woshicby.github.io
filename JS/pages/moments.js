@@ -1,10 +1,20 @@
+/**
+ * 灵感碎片页面脚本
+ * 对应页面: moments.html
+ * 功能: 展示灵感碎片(文字/图片/音频/视频),支持标签筛选、详情弹窗、媒体镜像控件。
+ */
+
 class MomentsManager extends FilterableListManager {
+    /** 构造函数: 初始化管理器 */
    constructor() {
        super();
        this.moments = [];
        this.init();
    }
 
+    /**
+     * 初始化: 预载媒体尺寸 + 加载数据 + 渲染
+     */
    async init() {
        try {
            this.initMarkdown();
@@ -28,6 +38,9 @@ class MomentsManager extends FilterableListManager {
     * 预读所有媒体(图片/视频)的原始尺寸,渲染时用作占位宽高
     * 使瀑布流首次布局即正确,无需隐藏/重排,无闪动
     */
+    /**
+     * 预加载媒体尺寸(避免加载闪烁,实现首帧正确布局)
+     */
    async preloadMediaSizes() {
        this.mediaSizes = new Map();
        const tmp = document.createElement('div');
@@ -68,6 +81,9 @@ class MomentsManager extends FilterableListManager {
        ]);
    }
 
+    /**
+     * 加载灵感碎片数据
+     */
    async loadMoments() {
        const data = await fetchJSON('JSON/moments.json', null);
        if (data) {
@@ -78,6 +94,9 @@ class MomentsManager extends FilterableListManager {
        }
    }
 
+    /**
+     * 提取所有标签
+     */
    extractTags() {
        const tagSet = new Set();
        this.moments.forEach(moment => {
@@ -88,6 +107,10 @@ class MomentsManager extends FilterableListManager {
        this.tags = Array.from(tagSet).sort();
    }
 
+    /**
+     * 渲染灵感碎片列表
+     * @param {Array} [filteredMoments] - 筛选后的数据
+     */
    renderMomentsList(filteredMoments = null) {
        const momentsToRender = filteredMoments || this.moments;
        const momentsListElement = document.getElementById('moments-list');
@@ -124,6 +147,10 @@ class MomentsManager extends FilterableListManager {
        this.bindMomentFilterEvents();
    }
 
+    /**
+     * 创建单条灵感碎片元素
+     * @param {Object} moment - 碎片数据
+     */
    createMomentElement(moment) {
        const article = document.createElement('article');
        article.className = 'moment-item';
@@ -169,6 +196,9 @@ class MomentsManager extends FilterableListManager {
        return article;
    }
 
+    /**
+     * 渲染标签栏
+     */
    renderTags() {
        const tagsContainer = document.getElementById('tags-container');
        tagsContainer.innerHTML = this.tags.map(tag => {
@@ -185,6 +215,9 @@ class MomentsManager extends FilterableListManager {
        });
    }
 
+    /**
+     * 渲染统计信息
+     */
    renderStats() {
        const totalMoments = this.moments.length;
        const totalTags = this.tags.length;
@@ -196,6 +229,9 @@ class MomentsManager extends FilterableListManager {
        if (statTags) statTags.textContent = totalTags;
    }
 
+    /**
+     * 绑定筛选事件
+     */
    bindMomentFilterEvents() {
        const momentsList = document.getElementById('moments-list');
        
@@ -241,6 +277,10 @@ class MomentsManager extends FilterableListManager {
        });
    }
 
+    /**
+     * 打开灵感碎片详情弹窗
+     * @param {number} id - 碎片 ID
+     */
    openMomentDetail(id) {
        const overlay = document.getElementById('moment-detail-overlay');
        const content = document.getElementById('moment-detail-content');
@@ -297,6 +337,10 @@ class MomentsManager extends FilterableListManager {
     * 生成详情里的媒体镜像控件(实时画面 + 控制条),控制卡片媒体
     * 功能对齐原生控件: 播放/暂停、拖进度、倍速、音量
     */
+    /**
+     * 创建媒体镜像控件(播放/暂停/倍速/音量同步)
+     * @param {Object} media - 媒体数据
+     */
    createMediaMirror(media) {
        const wrap = document.createElement('div');
        wrap.className = 'moment-mirror';
@@ -467,6 +511,9 @@ class MomentsManager extends FilterableListManager {
        };
    }
 
+    /**
+     * 关闭详情弹窗
+     */
    closeMomentDetail() {
        const overlay = document.getElementById('moment-detail-overlay');
        if (!overlay) return;
@@ -483,6 +530,10 @@ class MomentsManager extends FilterableListManager {
        if (content) content.innerHTML = '';
    }
 
+    /**
+     * 格式化日期时间显示
+     * @param {string} dateString - 日期字符串
+     */
    formatDateTime(dateString) {
        return formatDate(dateString, {
            year: 'numeric',
@@ -493,6 +544,9 @@ class MomentsManager extends FilterableListManager {
        });
    }
 
+    /**
+     * 应用所有筛选条件
+     */
    applyFilters() {
        const urlParams = getUrlParams();
        const tags = urlParams.getAll('tag');
@@ -519,6 +573,9 @@ class MomentsManager extends FilterableListManager {
        this.updateActiveStates(tags);
    }
 
+    /**
+     * 更新筛选信息显示
+     */
    updateFilterInfo(tags, search) {
        const entries = [];
        tags.forEach(tag => entries.push({ type: '标签', value: tag, paramType: 'tag' }));
@@ -526,6 +583,9 @@ class MomentsManager extends FilterableListManager {
        super.updateFilterInfo(entries);
    }
 
+    /**
+     * 更新激活状态
+     */
    updateActiveStates(tags) {
        document.querySelectorAll('#tags-container .tag-badge').forEach(badge => {
            const tag = badge.getAttribute('data-tag');
@@ -546,6 +606,9 @@ class MomentsManager extends FilterableListManager {
        });
    }
 
+    /**
+     * 获取示例数据(加载失败回退)
+     */
    getSampleMoments() {
        return [
            {

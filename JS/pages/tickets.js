@@ -1,4 +1,11 @@
+/**
+ * 票据收藏页面脚本
+ * 对应页面: tickets.html
+ * 功能: 展示票据收藏(电影票/演出票等),支持类型/地点/场馆筛选、详情弹窗、统计汇总。
+ */
+
 class TicketsManager extends FilterableListManager {
+    /** 构造函数: 初始化管理器 */
     constructor() {
         super();
         this.allTickets = [];
@@ -10,6 +17,9 @@ class TicketsManager extends FilterableListManager {
         this.init();
     }
 
+    /**
+     * 初始化: 加载数据 + 渲染
+     */
     async init() {
         try {
             await this.loadData();
@@ -26,6 +36,9 @@ class TicketsManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 从 URL 参数恢复筛选状态
+     */
     checkUrlParams() {
         const urlParams = getUrlParams();
         const search = urlParams.get('search') || '';
@@ -58,6 +71,9 @@ class TicketsManager extends FilterableListManager {
         this.applyFilters();
     }
 
+    /**
+     * 移除筛选条件
+     */
     removeFilter(paramType, value = null) {
         if (paramType === 'search') {
             const searchInput = document.getElementById('search-input');
@@ -83,6 +99,9 @@ class TicketsManager extends FilterableListManager {
         super.removeFilter(paramType, value);
     }
 
+    /**
+     * 清除所有筛选
+     */
     clearFilter() {
         this.currentType = '';
         this.currentLocation = null;
@@ -106,6 +125,9 @@ class TicketsManager extends FilterableListManager {
         return ['type', 'location', 'hall', 'seat'];
     }
 
+    /**
+     * 搜索票据
+     */
     searchItems(searchTerm) {
         const urlParams = getUrlParams();
         if (!searchTerm.trim()) {
@@ -131,6 +153,9 @@ class TicketsManager extends FilterableListManager {
         this.applyFilters();
     }
 
+    /**
+     * 加载票据数据
+     */
     async loadData() {
         const data = await fetchJSON('JSON/tickets.json', []);
         const imageMap = await fetchJSON('JSON/ticket-images.json', {});
@@ -161,6 +186,9 @@ class TicketsManager extends FilterableListManager {
         setUrlParams(urlParams);
     }
 
+    /**
+     * 绑定类型标签页
+     */
     bindTypeTabs() {
         document.querySelectorAll('.type-tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -185,6 +213,9 @@ class TicketsManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 应用筛选条件
+     */
     applyFilters() {
         const urlParams = getUrlParams();
         const search = urlParams.get('search') || '';
@@ -248,6 +279,9 @@ class TicketsManager extends FilterableListManager {
         this.updateFilterInfo(filterEntries);
     }
 
+    /**
+     * 绑定高级筛选
+     */
     bindAdvancedFilters() {
         // 展开/收起
         const toggle = document.getElementById('advanced-filter-toggle');
@@ -458,6 +492,9 @@ class TicketsManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 格式化价格
+     */
     formatPrice(price) {
         if (price === null || price === undefined) return '';
         const num = typeof price === 'number' ? price : parseFloat(price);
@@ -465,6 +502,9 @@ class TicketsManager extends FilterableListManager {
         return '¥' + (num % 1 === 0 ? num : num.toFixed(1));
     }
 
+    /**
+     * 计算总价
+     */
     calcTotal(items) {
         return items.reduce((sum, t) => {
             const p = t.price;
@@ -472,6 +512,9 @@ class TicketsManager extends FilterableListManager {
         }, 0);
     }
 
+    /**
+     * 计算总座位数
+     */
     calcTotalSeats(items) {
         return items.reduce((sum, t) => sum + (t.seat || []).length, 0);
     }
@@ -495,6 +538,9 @@ class TicketsManager extends FilterableListManager {
         return this.formatPrice(total);
     }
 
+    /**
+     * 渲染票据列表
+     */
     renderList(items) {
         const container = document.getElementById('tickets-list');
 
@@ -591,6 +637,9 @@ class TicketsManager extends FilterableListManager {
         this.bindTicketEvents();
     }
 
+    /**
+     * 创建票据卡片元素
+     */
     createTicketElement(ticket) {
         const article = document.createElement('article');
         article.className = 'ticket-card';
@@ -706,6 +755,9 @@ class TicketsManager extends FilterableListManager {
         return article;
     }
 
+    /**
+     * 绑定票据事件
+     */
     bindTicketEvents() {
         // 卡片点击 → 打开详情查看
         document.querySelectorAll('.ticket-card').forEach(card => {
@@ -777,6 +829,9 @@ class TicketsManager extends FilterableListManager {
      * 打开票据详情查看窗口
      * @param {HTMLElement} card - 被点击的票据卡片元素
      */
+    /**
+     * 打开票据详情
+     */
     openDetail(card) {
         const overlay = document.getElementById('ticket-detail-overlay');
         const content = document.getElementById('ticket-detail-content');
@@ -843,6 +898,9 @@ class TicketsManager extends FilterableListManager {
     /**
      * 绑定详情窗口内的多图切换
      */
+    /**
+     * 绑定详情图片轮播
+     */
     bindDetailSlider(content, total) {
         const track = content.querySelector('.detail-image-track');
         const dots = content.querySelectorAll('.detail-dot');
@@ -891,6 +949,9 @@ class TicketsManager extends FilterableListManager {
     /**
      * 关闭详情查看窗口
      */
+    /**
+     * 关闭详情
+     */
     closeDetail() {
         const overlay = document.getElementById('ticket-detail-overlay');
         if (!overlay) return;
@@ -903,6 +964,9 @@ class TicketsManager extends FilterableListManager {
 
     /**
      * 绑定详情窗口的关闭事件（全局，只绑定一次）
+     */
+    /**
+     * 绑定详情关闭
      */
     bindDetailClose() {
         if (this._detailCloseBound) return;

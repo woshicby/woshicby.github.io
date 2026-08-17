@@ -1,9 +1,18 @@
+/**
+ * 运动详情页面脚本
+ * 对应页面: sports-activity.html
+ * 功能: 展示单次运动详情(路线地图/配速/心率/海拔/分段),支持图表联动。
+ */
+
 // ============ 运动详情页专用代码 ============
 
 var activityMap = null;
 
 // ============ 初始化 ============
 
+/**
+ * 初始化运动详情页面(解析 run_id 并加载)
+ */
 function initActivityPage() {
   var params = new URLSearchParams(window.location.search);
   var runId = params.get('id');
@@ -46,6 +55,10 @@ function initActivityPage() {
 
 // ============ 侧边栏信息 ============
 
+/**
+ * 渲染活动基本信息
+ * @param {Object} act - 活动数据
+ */
 function renderActivityInfo(act) {
   var container = document.getElementById('activityInfo');
   var dist = (act.distance || 0) / 1000;
@@ -81,6 +94,9 @@ function renderActivityInfo(act) {
   container.innerHTML = html;
 }
 
+/**
+ * 生成统计项 HTML
+ */
 function statItem(label, value, unit) {
   return '<div class="act-stat-item">' +
     '<span class="act-stat-label">' + label + '</span>' +
@@ -92,6 +108,9 @@ function statItem(label, value, unit) {
 
 // ============ 地图 ============
 
+/**
+ * 渲染活动路线地图
+ */
 function renderActivityMap(act) {
   var mapEl = document.getElementById('activityMap');
   if (!mapEl || typeof mapboxgl === 'undefined') return;
@@ -174,6 +193,10 @@ function onActivityTileSwitch() {
   }
 }
 
+/**
+ * 添加活动标记点
+ * @param {Array} coords - 坐标数组
+ */
 function addActivityMarkers(coords) {
   if (!activityMap || coords.length < 2) return;
 
@@ -244,6 +267,9 @@ var _chartXMode = 'dist';    // 当前 X 轴模式: 'dist' 或 'time'
 var _chartCards = [];         // 所有图表卡片的元信息，用于联动
 var _chartHoverIdx = -1;     // 当前悬停对应的数据索引
 
+/**
+ * 加载活动详情并渲染图表
+ */
 async function loadDetailAndRenderCharts(runId, summaryAct) {
   var chartsContainer = document.getElementById('activityCharts');
   chartsContainer.innerHTML = '';
@@ -306,6 +332,9 @@ async function loadDetailAndRenderCharts(runId, summaryAct) {
   renderSplitsTable(records, chartsContainer);
 }
 
+/**
+ * 追加图表卡片
+ */
 function appendChartCards(records, hasAlt, hasSpeed, hasHR, hasCadence) {
   var chartsContainer = document.getElementById('activityCharts');
   var xType = _chartXMode;
@@ -341,6 +370,9 @@ function appendChartCards(records, hasAlt, hasSpeed, hasHR, hasCadence) {
   }
 }
 
+/**
+ * 重建所有图表(主题切换后)
+ */
 function rebuildCharts() {
   var chartsContainer = document.getElementById('activityCharts');
   // 保留切换按钮
@@ -368,6 +400,9 @@ function _notifyChartHover(dataIdx) {
   });
 }
 
+/**
+ * 通知图表离开(内部)
+ */
 function _notifyChartLeave() {
   _chartHoverIdx = -1;
   _chartCards.forEach(function(info) {
@@ -448,6 +483,9 @@ function _updateChartVline(info, dataIdx) {
 
 // ============ Canvas 图表渲染 ============
 
+/**
+ * 创建图表卡片
+ */
 function createChartCard(title, xLabel, yLabel, xData, yData, color, invertY) {
   var card = document.createElement('div');
   card.className = 'chart-card';
@@ -649,6 +687,9 @@ function createChartCard(title, xLabel, yLabel, xData, yData, color, invertY) {
   return card;
 }
 
+/**
+ * 格式化图表值
+ */
 function formatChartVal(v) {
   if (Math.abs(v) >= 1000) return (v / 1000).toFixed(1) + 'k';
   if (Math.abs(v) >= 100) return Math.round(v).toString();
@@ -656,6 +697,9 @@ function formatChartVal(v) {
   return v.toFixed(2);
 }
 
+/**
+ * 格式化 X 轴标签
+ */
 function formatXVal(v, xLabel) {
   if (xLabel.indexOf('公里') >= 0) return (v / 1000).toFixed(1);
   return (v / 60).toFixed(0) + "'";
@@ -663,6 +707,9 @@ function formatXVal(v, xLabel) {
 
 // ============ 主题切换 ============
 
+/**
+ * 主题切换处理
+ */
 function onThemeChange() {
   redrawMapOnThemeChange(activityMap, function() {
     // 重新加载活动数据（坐标可能需要 GCJ-02 转换）
@@ -698,6 +745,9 @@ function onThemeChange() {
 
 // ============ 每公里分段表格 ============
 
+/**
+ * 渲染分段数据表格
+ */
 function renderSplitsTable(records, container) {
   var hasDist = records.some(function(r) { return r.dist !== undefined && r.dist > 0; });
   if (!hasDist) return;
@@ -796,6 +846,9 @@ function smoothAltitudes(records, windowSize) {
   return smoothed;
 }
 
+/**
+ * 计算分段数据(每公里配速等)
+ */
 function computeSplits(records) {
   var splits = [];
   var splitDist = 1000; // 1公里
@@ -870,6 +923,9 @@ function computeSplits(records) {
   return splits;
 }
 
+/**
+ * 完成一个分段(内部)
+ */
 function finishSplit(split, splits, splitDist) {
   var recs = split.records;
   if (recs.length === 0) return;

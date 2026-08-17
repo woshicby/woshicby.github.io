@@ -1,3 +1,9 @@
+/**
+ * 赛事记录页面脚本
+ * 对应页面: races.html
+ * 功能: 展示赛事记录,支持 PB/SB 计算、按赛事/赛季分组、完赛证书、待抽签列表。
+ */
+
 // 赛事记录数据 - 从外部文件加载
 let raceRecords = [];
 
@@ -748,6 +754,9 @@ function loadCertificatesData() {
 // 生成完赛证书HTML
 let certificateMasonryDestroy = null;
 
+/**
+ * 生成完赛证书展示
+ */
 function generateCertificates(certificates) {
    const grid = document.getElementById('certificates-grid');
    if (!grid) return;

@@ -1,3 +1,9 @@
+/**
+ * 赛事日历页面脚本
+ * 对应页面: races.html(日历部分)
+ * 功能: 月/年视图日历展示赛事,支持状态筛选、倒计时、赛事提示框。
+ */
+
 // 赛事日历功能实现
 
 // 将十六进制颜色转换为rgba格式
@@ -21,6 +27,9 @@ function isNotSelected(race) {
    return race.status === '未中签';
 }
 
+/**
+ * 判断赛事是否待报名
+ */
 function isToBeRegistered(race) {
    return race.status === '待报名';
 }
@@ -832,6 +841,9 @@ function getRacesByDate(dateStr) {
    return upcomingRaces.filter(race => race.date === dateStr);
 }
 
+/**
+ * 应用筛选条件
+ */
 function applyFilter(races) {
    if (currentFilter === 'all') return races;
    if (currentFilter === 'finished') return races.filter(race => race.status === 'finished');
@@ -839,10 +851,16 @@ function applyFilter(races) {
    return races;
 }
 
+/**
+ * 判断赛事是否已完赛
+ */
 function isRaceFinished(race) {
    return race.status === 'finished';
  }
 
+/**
+ * 更新日历灰色日期(未参赛/已完赛)
+ */
 function updateCalendarDimmedDates(filteredRaces, allViewRaces) {
    const allDayCells = document.querySelectorAll('.calendar-day:not(.empty)');
    
@@ -866,6 +884,9 @@ function updateCalendarDimmedDates(filteredRaces, allViewRaces) {
    });
 }
 
+/**
+ * 获取日历格子的日期
+ */
 function getCellDate(cell) {
    const table = cell.closest('table');
    if (!table) return null;
@@ -1177,6 +1198,9 @@ function startCountdownUpdater() {
     countdownInterval = setInterval(updateCountdowns, 1000);
 }
 
+/**
+ * 停止倒计时更新器
+ */
 function stopCountdownUpdater() {
     if (countdownInterval) {
         clearInterval(countdownInterval);

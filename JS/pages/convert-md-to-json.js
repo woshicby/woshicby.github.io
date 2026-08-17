@@ -1,11 +1,30 @@
+/**
+ * Markdown 博文转 JSON 工具脚本
+ * 对应页面: convert-md-to-json.html
+ * 功能: 解析 Markdown 博文(YAML 前置元数据 + 正文),转换为 JSON 结构,
+ *       支持预览转换结果、添加到博文列表、批量导出 posts.json。
+ */
+
 // Markdown博文转换为JSON的工具脚本
 // 使用方法：在浏览器中打开一个包含此脚本的HTML页面，然后通过界面上传Markdown文件
 
+/**
+ * Markdown 转换器
+ * 负责解析 Markdown 内容(含 YAML 前置元数据),管理博文列表,输出 JSON。
+ */
 class MarkdownConverter {
+   /** 构造函数: 初始化博文列表 */
    constructor() {
        this.posts = [];
    }
 
+   /**
+    * 解析 Markdown 文件内容
+    * 提取 YAML 前置元数据(title/date/categories/tags 等)和正文,
+    * 无前置元数据时返回基本结构。
+    * @param {string} content - Markdown 原始内容
+    * @returns {Object} 博文对象 {title, date, content, excerpt, categories, tags}
+    */
    // 解析Markdown文件内容
    parseMarkdown(content) {
        // 提取YAML前置元数据
@@ -28,6 +47,7 @@ class MarkdownConverter {
        const markdownContent = match[2];
        const metadata = this.parseFrontmatter(frontmatter);
 
+       // 合并元数据与默认值
        return {
            title: metadata.title || '未命名博文',
            date: metadata.date || new Date().toISOString().split('T')[0],
@@ -38,6 +58,12 @@ class MarkdownConverter {
        };
    }
 
+   /**
+    * 解析 YAML 前置元数据
+    * 支持 key: value、数组格式([a, b])、引号包围的值
+    * @param {string} frontmatter - YAML 块内容(不含 --- 分隔线)
+    * @returns {Object} 元数据键值对
+    */
    // 解析YAML前置元数据
    parseFrontmatter(frontmatter) {
        const metadata = {};
@@ -45,7 +71,9 @@ class MarkdownConverter {
        
        lines.forEach(line => {
            line = line.trim();
+           // 跳过空行和注释行
            if (!line || line.startsWith('#')) return;            
+           // 拆分为 key 和 value(冒号分隔)
            const [key, value] = line.split(':', 1);
            const cleanKey = key.trim();
            let cleanValue = line.substring(key.length + 1).trim();
@@ -56,7 +84,7 @@ class MarkdownConverter {
            } 
            // 处理引号包围的值
            else if ((cleanValue.startsWith('"') && cleanValue.endsWith('"')) || 
-                    (cleanValue.startsWith('\'') && cleanValue.endsWith('\''))) {
+                    (cleanValue.startsWith("'") && cleanValue.endsWith("'"))) {
                cleanValue = cleanValue.substring(1, cleanValue.length - 1);
            }
            
@@ -66,6 +94,12 @@ class MarkdownConverter {
        return metadata;
    }
 
+   /**
+    * 从内容中提取摘要
+    * 移除各类 Markdown 标记,取前 200 字符
+    * @param {string} content - Markdown 正文
+    * @returns {string} 摘要文本
+    */
    // 从内容中提取摘要
    extractExcerpt(content) {
        // 移除Markdown标记
@@ -83,11 +117,20 @@ class MarkdownConverter {
        return plainText.length > 200 ? plainText.substring(0, 200) + '...' : plainText;
    }
 
+   /**
+    * 将博文列表转换为 JSON 字符串(格式化缩进)
+    * @returns {string} JSON 字符串
+    */
    // 将博文数据转换为JSON字符串
    toJSON() {
        return JSON.stringify(this.posts, null, 2);
    }
 
+   /**
+    * 添加博文到列表
+    * 未指定 id 时自动分配(列表长度+1)
+    * @param {Object} post - 博文对象
+    */
    // 添加博文
    addPost(post) {
        // 为博文分配ID

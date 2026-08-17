@@ -1,4 +1,10 @@
 /**
+ * 刀剑乱舞锻刀模拟器页面脚本
+ * 对应页面: touken-forge.html
+ * 功能: 模拟锻刀(资源消耗/随机结果/稀有度),支持收藏、统计、数据导入导出。
+ */
+
+/**
 * 刀剑乱舞锻刀模拟器 - 核心逻辑模块
 * 实现游戏内锻刀系统的模拟功能，包括数据管理、锻刀概率计算、结果展示等
 * 支持本地数据存储、导出导入功能，以及完整的锻刀体验模拟
@@ -10,6 +16,9 @@
 * @function initDataManagement
 * @returns {void}
 */
+/**
+ * 初始化数据管理(导入/导出/重置)
+ */
 function initDataManagement() {
    // 清空刀剑收藏
    document.getElementById('clearSwordsBtn')?.addEventListener('click', () => {
@@ -284,6 +293,9 @@ let duplicateLogCount = 0;
 * @param {string} message - 要记录的日志消息内容
 * @returns {void}
 */
+/**
+ * 记录日志事件
+ */
 function logEvent(message) {
    // 创建时间戳 - 格式化当前时间为标准格式
    const now = new Date();
@@ -531,6 +543,9 @@ function initResources() {
    console.groupEnd();
 }
 
+/**
+ * 更新所有资源显示
+ */
 function updateAllResourceDisplays() {
    updateResourceDisplay('charcoal');
    updateResourceDisplay('steel');
@@ -1027,6 +1042,9 @@ function loadCollection() {
    }
 }
 
+/**
+ * 删除刀剑
+ */
 function deleteSword(swordName) {
    console.group('刀解刀剑');
    if (!confirm(`确定要刀解 ${swordName} 吗？`)) {

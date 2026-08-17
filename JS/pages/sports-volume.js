@@ -1,7 +1,16 @@
+/**
+ * 运动量统计页面脚本
+ * 对应页面: sports-volume.html
+ * 功能: 按月/年展示运动量(距离/时长),支持运动类型筛选、柱状图、年度汇总。
+ */
+
 // ============ 运动量统计页面专用代码 ============
 
 let currentSummaryYear = 'Total'; // 统计页面当前年份
 
+/**
+ * 渲染运动量统计主页面
+ */
 function renderVolumePage() {
   var container = document.getElementById('volumeContent');
   if (!container) return;
@@ -22,11 +31,21 @@ function renderVolumePage() {
   }
 }
 
+/**
+ * 按运动类型筛选活动
+ * @param {Array} list - 活动列表
+ * @param {string} sportType - 运动类型(All 表示全部)
+ */
 function filterBySportType(list, sportType) {
   if (sportType === 'all') return list;
   return list.filter(function(a) { return a.type === sportType; });
 }
 
+/**
+ * 按时间间隔分组活动(月/年)
+ * @param {string} interval - 间隔(month/year)
+ * @param {string} sportType - 运动类型
+ */
 function groupActivities(interval, sportType) {
   var filtered = filterBySportType(activities, sportType);
   var groups = {};
@@ -52,6 +71,9 @@ function groupActivities(interval, sportType) {
   return groups;
 }
 
+/**
+ * 渲染运动量卡片(按间隔分组)
+ */
 function renderVolumeCards(container, interval, sportType) {
   var groups = groupActivities(interval, sportType);
   var keys = Object.keys(groups).sort().reverse();
@@ -131,6 +153,9 @@ function renderVolumeCards(container, interval, sportType) {
   container.appendChild(grid);
 }
 
+/**
+ * 计算图表数据(按间隔汇总距离/时长)
+ */
 function computeChartData(acts, interval) {
   var buckets = {};
   acts.forEach(function(a) {
@@ -173,6 +198,9 @@ function computeChartData(acts, interval) {
   return data.map(function(v, i) { return { label: labels[i], value: v }; });
 }
 
+/**
+ * 渲染柱状图(每月/年运动量)
+ */
 function renderBarChart(chartData, interval) {
   var maxVal = 0;
   chartData.forEach(function(d) { if (d.value > maxVal) maxVal = d.value; });
@@ -227,6 +255,9 @@ function renderBarChart(chartData, interval) {
   return html;
 }
 
+/**
+ * 渲染活动列表卡片
+ */
 function renderActivityCards(container, sportType) {
   var filtered = filterBySportType(activities, sportType);
   if (currentSummaryYear !== 'Total') {
@@ -278,6 +309,9 @@ function renderActivityCards(container, sportType) {
   container.appendChild(grid);
 }
 
+/**
+ * 渲染年度运动汇总
+ */
 function renderYearSummary(container, year, optTracks) {
   var colors = getThemeColors();
   var yearTracks = optTracks || activities.filter(function(a){ return extractYear(a.start_date_local) === String(year); });
@@ -386,10 +420,19 @@ function renderYearSummary(container, year, optTracks) {
   });
 }
 
+/**
+ * 生成统计项 HTML
+ * @param {string} label - 标签
+ * @param {string} value - 值
+ * @param {string} unit - 单位
+ */
 function ysStatItem(label, value, unit) {
   return '<div class="ys-stat"><div class="ys-stat-label">' + label + '</div><div class="ys-stat-value">' + value + (unit ? '<span class="ys-stat-unit">' + unit + '</span>' : '') + '</div></div>';
 }
 
+/**
+ * 渲染侧边栏年度汇总
+ */
 function renderYearSummarySidebar(sportType, interval) {
   var container = document.getElementById('yearSummary');
   if (!container) return;
@@ -512,6 +555,9 @@ function renderYearSummarySidebar(sportType, interval) {
   container.innerHTML = html;
 }
 
+/**
+ * 初始化运动量统计页面
+ */
 function initVolumePage() {
   // 渲染年度统计侧边栏
   renderYearSummarySidebar();

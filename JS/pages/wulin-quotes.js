@@ -1,3 +1,9 @@
+/**
+ * 武林外传接台词游戏页面脚本
+ * 对应页面: wulin-quotes.html
+ * 功能: 基于剧本的台词接龙游戏(显示台词猜下一句),支持难度/角色/剧集筛选、台词搜索。
+ */
+
 let dialogues = [];
 let rawLines = [];
 let episodeMap = {};
@@ -17,6 +23,9 @@ const DIFFICULTY_CONFIG = {
    hard: { options: 4, minLen: 2, maxLen: 999, sameSpeaker: false }
 };
 
+/**
+ * 切换搜索模式(游戏/搜索视图)
+ */
 function toggleSearch() {
    const area = document.getElementById('searchArea');
    const arrow = document.getElementById('searchArrow');
@@ -25,6 +34,9 @@ function toggleSearch() {
    arrow.classList.toggle('open', !isOpen);
 }
 
+/**
+ * 加载武林外传剧本数据
+ */
 async function loadScript() {
    const overlay = document.getElementById('loadingOverlay');
    overlay.style.display = 'flex';
@@ -48,6 +60,9 @@ async function loadScript() {
 }
 
 
+/**
+ * 构建剧集索引
+ */
 function buildEpisodeMap() {
    episodeMap = {};
    let currentEpisode = '未知回目';
@@ -66,6 +81,9 @@ function buildEpisodeMap() {
    }
 }
 
+/**
+ * 解析剧本(台词/角色/剧集)
+ */
 function parseScript() {
    dialogues = [];
 
@@ -94,6 +112,9 @@ function parseScript() {
    }
 }
 
+/**
+ * 提取所有角色
+ */
 function extractCharacters() {
    const counts = {};
    dialogues.forEach(d => {
@@ -105,6 +126,9 @@ function extractCharacters() {
        .map(([name]) => name);
 }
 
+/**
+ * 渲染角色筛选标签
+ */
 function renderCharacterTags() {
    const container = document.getElementById('characterTags');
 
@@ -115,6 +139,9 @@ function renderCharacterTags() {
    container.innerHTML = html;
 }
 
+/**
+ * 切换角色筛选
+ */
 function toggleCharacterFilter(char, btn) {
    const tags = document.querySelectorAll('.char-tag');
 
@@ -139,6 +166,9 @@ function toggleCharacterFilter(char, btn) {
    }
 }
 
+/**
+ * 设置游戏难度
+ */
 function setDifficulty(d) {
    difficulty = d;
    document.querySelectorAll('.difficulty-btn').forEach(btn => {
@@ -147,6 +177,9 @@ function setDifficulty(d) {
    nextQuestion();
 }
 
+/**
+ * 获取筛选后的台词
+ */
 function getFilteredDialogues() {
    let filtered = dialogues;
 
@@ -160,6 +193,9 @@ function getFilteredDialogues() {
    return filtered;
 }
 
+/**
+ * 生成题目(显示台词,猜下一句)
+ */
 function generateQuestion() {
    const config = DIFFICULTY_CONFIG[difficulty];
    const filtered = getFilteredDialogues();
@@ -230,6 +266,9 @@ function generateQuestion() {
    return null;
 }
 
+/**
+ * 获取上下文台词行
+ */
 function getContextLines(centerLineIndex, radius) {
    const start = Math.max(0, centerLineIndex - radius);
    const end = Math.min(rawLines.length - 1, centerLineIndex + radius);
@@ -249,6 +288,9 @@ function getContextLines(centerLineIndex, radius) {
    return lines;
 }
 
+/**
+ * 渲染上下文
+ */
 function renderContext(centerLineIndex, nextLineIndex) {
    const radius = 3;
    const start = Math.max(0, centerLineIndex - radius);
@@ -283,6 +325,9 @@ function renderContext(centerLineIndex, nextLineIndex) {
    container.innerHTML = html;
 }
 
+/**
+ * 下一题
+ */
 function nextQuestion() {
    answered = false;
    hintUsed = false;
@@ -315,6 +360,9 @@ function nextQuestion() {
    document.getElementById('hintBtn').disabled = false;
 }
 
+/**
+ * 渲染选项
+ */
 function renderOptions(options) {
    const container = document.getElementById('optionsContainer');
    const labels = ['A', 'B', 'C', 'D'];
@@ -327,6 +375,9 @@ function renderOptions(options) {
    `).join('');
 }
 
+/**
+ * 选择答案(判断对错)
+ */
 function selectAnswer(index) {
    if (answered) return;
    answered = true;
@@ -377,6 +428,9 @@ function selectAnswer(index) {
    document.getElementById('hintBtn').disabled = true;
 }
 
+/**
+ * 显示提示
+ */
 function showHint() {
    if (answered || !currentQuestion) return;
    hintUsed = true;
@@ -398,6 +452,9 @@ function showHint() {
    document.getElementById('hintBtn').disabled = true;
 }
 
+/**
+ * 重置游戏
+ */
 function resetGame() {
    streak = 0;
    bestStreak = 0;
@@ -414,6 +471,9 @@ const SEARCH_BATCH_SIZE = 20;
 let episodeList = [];
 let currentSearchKeyword = '';
 
+/**
+ * 切换搜索模式(游戏/搜索视图)
+ */
 function toggleSearch() {
    const area = document.getElementById('searchArea');
    const arrow = document.getElementById('searchArrow');
@@ -425,6 +485,9 @@ function toggleSearch() {
    }
 }
 
+/**
+ * 构建剧集列表
+ */
 function buildEpisodeList() {
    const seen = new Set();
    episodeList = [];
@@ -446,6 +509,9 @@ function buildEpisodeList() {
    });
 }
 
+/**
+ * 搜索台词
+ */
 function searchQuote() {
    const input = document.getElementById('searchInput');
    const keyword = input.value.trim();
@@ -488,6 +554,9 @@ function searchQuote() {
    renderSearchBatch();
 }
 
+/**
+ * 按剧集筛选
+ */
 function filterByEpisode(episodeName) {
    const resultsContainer = document.getElementById('searchResults');
    const keyword = currentSearchKeyword;
@@ -527,6 +596,9 @@ function filterByEpisode(episodeName) {
    renderSearchBatch();
 }
 
+/**
+ * 渲染搜索批次结果
+ */
 function renderSearchBatch() {
    const resultsContainer = document.getElementById('searchResults');
    const keyword = currentSearchKeyword;
@@ -587,10 +659,16 @@ function renderSearchBatch() {
    }
 }
 
+/**
+ * 加载更多搜索结果
+ */
 function loadMoreResults() {
    renderSearchBatch();
 }
 
+/**
+ * 构建搜索上下文
+ */
 function buildSearchContext(currentLineIndex, nextLineIndex, keyword) {
    const radius = 2;
    const start = Math.max(0, currentLineIndex - radius);
@@ -622,12 +700,18 @@ function buildSearchContext(currentLineIndex, nextLineIndex, keyword) {
    return html;
 }
 
+/**
+ * 高亮关键词
+ */
 function highlightKeyword(text, keyword) {
    if (!keyword) return text;
    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
    return text.replace(new RegExp(escaped, 'g'), `<span class="search-keyword">${keyword}</span>`);
 }
 
+/**
+ * 清除搜索
+ */
 function clearSearch() {
    document.getElementById('searchInput').value = '';
    document.getElementById('searchClearBtn').style.display = 'none';

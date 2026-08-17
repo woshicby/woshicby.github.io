@@ -1,3 +1,14 @@
+/**
+ * 生命灵数计算器页面脚本
+ * 对应页面: life-path-calculator.html
+ * 功能: 输入生日(YYYYMMDD)计算生命灵数,展示分步计算过程和灵数含义,
+ *       支持大师数(11/22/33/44)特殊处理。
+ */
+
+/**
+ * 显示错误提示并隐藏结果区
+ * @param {string} message - 错误信息文本
+ */
 function showError(message) {
    const errorEl = document.getElementById('errorMessage');
    errorEl.textContent = message;
@@ -5,25 +16,35 @@ function showError(message) {
    document.getElementById('resultSection').style.display = 'none';
 }
 
+/**
+ * 隐藏错误提示
+ */
 function hideError() {
    document.getElementById('errorMessage').style.display = 'none';
 }
 
+// DOM 就绪后绑定事件
 document.addEventListener('DOMContentLoaded', () => {
+   // 计算按钮
    document.getElementById('calculate').addEventListener('click', calculate);
+   // 清空按钮
    document.getElementById('clearAll').addEventListener('click', clearAll);
 
+   // 回车触发计算
    document.getElementById('birthdayInput').addEventListener('keypress', (e) => {
        if (e.key === 'Enter') calculate();
    });
 
+   // 输入框只允许数字(过滤非数字字符)
    document.getElementById('birthdayInput').addEventListener('input', (e) => {
        e.target.value = e.target.value.replace(/[^0-9]/g, '');
    });
 });
 
+// 大师数列表(计算到这些数时不再继续相加,作为特殊结果)
 const MASTER_NUMBERS = [11, 22, 33, 44];
 
+// 各灵数的含义文本(1-9 + 大师数)
 const NUMBER_MEANINGS = {
    1: {
        title: '灵数 1 —— 领导者',
@@ -79,46 +100,57 @@ const NUMBER_MEANINGS = {
    }
 };
 
+/**
+ * 计算生命灵数
+ * 流程: 校验输入 → 逐年逐月逐日相加 → 循环数位相加直到个位数或大师数
+ */
 function calculate() {
    const input = document.getElementById('birthdayInput').value.trim();
 
+   // 输入校验: 非空
    if (!input) {
        showError('请输入生日');
        return;
    }
-
+   // 输入校验: 8位数字
    if (!/^\d{8}$/.test(input)) {
        showError('请输入8位数字，格式为YYYYMMDD');
        return;
    }
 
+   // 拆分年月日
    const year = parseInt(input.substring(0, 4));
    const month = parseInt(input.substring(4, 6));
    const day = parseInt(input.substring(6, 8));
 
+   // 校验月份范围
    if (month < 1 || month > 12) {
        showError('月份应在01-12之间');
        return;
    }
-
+   // 校验日期范围(基础)
    if (day < 1 || day > 31) {
        showError('日期应在01-31之间');
        return;
    }
-
+   // 校验日期是否真实存在(如 2月30日)
    const maxDay = new Date(year, month, 0).getDate();
    if (day > maxDay) {
        showError(`${month}月没有${day}日`);
        return;
    }
 
+   // 校验通过,隐藏错误
    hideError();
 
+   // ============ 灵数计算 ============
+   // 将 8 位数字拆成单个数字
    const digits = input.split('').map(Number);
-   const steps = [];
+   const steps = [];          // 计算步骤记录
    let currentDigits = [...digits];
    let stepIndex = 1;
 
+   // 第1步: 所有数字相加
    steps.push({
        label: `第${stepIndex}步`,
        expression: digits.join(' + '),
@@ -129,6 +161,7 @@ function calculate() {
 
    let currentSum = digits.reduce((a, b) => a + b, 0);
 
+   // 循环: 结果>9 且不是大师数时,继续数位相加
    while (currentSum > 9 && !MASTER_NUMBERS.includes(currentSum)) {
        stepIndex++;
        const newDigits = String(currentSum).split('').map(Number);
@@ -145,9 +178,11 @@ function calculate() {
        currentSum = newSum;
    }
 
+   // 最终结果(可能是大师数)
    let finalNumber = currentSum;
    let isMasterNumber = MASTER_NUMBERS.includes(currentSum);
 
+   // 大师数: 额外展示"继续相加"步骤(展示其可进一步化简,但保留大师数身份)
    if (isMasterNumber) {
        stepIndex++;
        const masterDigits = String(currentSum).split('').map(Number);
@@ -163,14 +198,24 @@ function calculate() {
        });
    }
 
+   // 标记最后一步为最终结果
    steps[steps.length - 1].isFinal = true;
 
+   // 渲染结果
    renderResult(finalNumber, isMasterNumber, steps);
 }
 
+/**
+ * 渲染计算结果(最终数字/类型/计算步骤/含义)
+ * @param {number} finalNumber - 最终灵数
+ * @param {boolean} isMasterNumber - 是否为大师数
+ * @param {Array} steps - 计算步骤数组
+ */
 function renderResult(finalNumber, isMasterNumber, steps) {
+   // 最终数字
    document.getElementById('finalResult').textContent = finalNumber;
 
+   // 结果类型(大师数 or 普通灵数)
    const typeEl = document.getElementById('resultType');
    if (isMasterNumber) {
        typeEl.textContent = `大师数（Master Number ${finalNumber}）`;
@@ -178,17 +223,20 @@ function renderResult(finalNumber, isMasterNumber, steps) {
        typeEl.textContent = `生命灵数 ${finalNumber}`;
    }
 
+   // 渲染分步计算过程(带渐入动画)
    const stepsContainer = document.getElementById('calculationSteps');
    stepsContainer.innerHTML = steps.map((step, index) => {
        let classes = 'step-item';
-       if (step.isFinal) classes += ' step-final';
-       if (step.isMaster) classes += ' step-master';
+       if (step.isFinal) classes += ' step-final';    // 最终步高亮
+       if (step.isMaster) classes += ' step-master';  // 大师数步特殊样式
 
+       // 每步延迟 0.15s 渐入
        const delay = index * 0.15;
 
        let expressionHTML = `<span class="step-expression">${step.expression}</span>`;
        let resultHTML = `<span class="step-result">= ${step.result}</span>`;
 
+       // 大师数步骤显示说明文字而非算式
        if (step.isMaster) {
            expressionHTML = `<span class="step-expression">${step.note}</span>`;
        }
@@ -200,6 +248,7 @@ function renderResult(finalNumber, isMasterNumber, steps) {
        </div>`;
    }).join('');
 
+   // 渲染灵数含义
    const meaning = NUMBER_MEANINGS[finalNumber];
    const meaningEl = document.getElementById('numberMeaning');
    if (meaning) {
@@ -208,13 +257,16 @@ function renderResult(finalNumber, isMasterNumber, steps) {
        meaningEl.innerHTML = '';
    }
 
+   // 显示结果区并滚动到可见位置
    document.getElementById('resultSection').style.display = 'block';
    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
+/**
+ * 清空输入和结果
+ */
 function clearAll() {
    document.getElementById('birthdayInput').value = '';
    document.getElementById('resultSection').style.display = 'none';
    document.getElementById('errorMessage').style.display = 'none';
 }
-

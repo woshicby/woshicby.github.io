@@ -1,5 +1,12 @@
+/**
+ * 博文详情页面脚本
+ * 对应页面: post-detail.html
+ * 功能: 加载并渲染单篇博文(Markdown 渲染),支持按 id 或 file 参数定位。
+ */
+
 // 博文详情页数据管理和渲染
 class PostDetailManager {
+    /** 构造函数: 解析参数 + 初始化 */
     constructor() {
         const params = this.getUrlParams();
         this.postId = params.id;
@@ -7,6 +14,9 @@ class PostDetailManager {
         this.init();
     }
 
+    /**
+     * 初始化: 根据 URL 参数加载对应博文
+     */
     async init() {
         try {
             const result = await this.loadPosts();
@@ -31,6 +41,9 @@ class PostDetailManager {
         }
     }
 
+    /**
+     * 读取 URL 参数
+     */
     getUrlParams() {
         const urlParams = new URLSearchParams(window.location.search);
         return {
@@ -39,6 +52,9 @@ class PostDetailManager {
         };
     }
 
+    /**
+     * 加载博文列表数据
+     */
     async loadPosts() {
         try {
             if (this.postFile) {
@@ -92,6 +108,10 @@ class PostDetailManager {
         }
     }
 
+    /**
+     * 按文件名加载博文内容
+     * @param {string} filename - 博文文件名
+     */
     async loadPostByFile(filename) {
         try {
             const mdResponse = await fetch(`posts/${encodeURIComponent(filename)}`);
@@ -128,6 +148,9 @@ class PostDetailManager {
         }
     }
 
+    /**
+     * 解析 Markdown 博文
+     */
     parseMarkdown(content) {
         const frontmatterRegex = /^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/;
         const match = content.match(frontmatterRegex);
@@ -158,6 +181,9 @@ class PostDetailManager {
         };
     }
 
+    /**
+     * 解析 YAML 前置元数据
+     */
     parseFrontmatter(frontmatter) {
         const metadata = {};
         const lines = frontmatter.split('\n');
@@ -184,6 +210,9 @@ class PostDetailManager {
         return metadata;
     }
 
+    /**
+     * 提取摘要
+     */
     extractExcerpt(content) {
         const plainText = content
             .replace(/#{1,6}\s+/g, '')
@@ -198,6 +227,9 @@ class PostDetailManager {
         return plainText.length > 200 ? plainText.substring(0, 200) + '...' : plainText;
     }
 
+    /**
+     * 按 ID 查找博文
+     */
     async findPostById(posts, id) {
         // 如果没有ID或ID不存在，返回第一篇博文
         if (!id) {
@@ -224,6 +256,10 @@ class PostDetailManager {
         return foundPost;
     }
 
+    /**
+     * 渲染博文详情
+     * @param {Object} post - 博文数据
+     */
     renderPostDetail(post) {
         document.title = `${post.title} - BY的博客文章`;
         
@@ -342,6 +378,9 @@ applySubSupRules(md);
         }
     }
 
+    /**
+     * 渲染未找到提示
+     */
     renderNotFound(errorInfo = null) {
         document.getElementById('post-title').textContent = '博文不存在';
         
@@ -370,6 +409,9 @@ applySubSupRules(md);
         document.getElementById('post-content').innerHTML = errorHTML;
     }
 
+    /**
+     * 渲染错误提示
+     */
     renderError(errorInfo = null) {
         document.getElementById('post-title').textContent = '加载失败';
         
@@ -390,6 +432,9 @@ applySubSupRules(md);
         document.getElementById('post-content').innerHTML = errorHTML;
     }
 
+    /**
+     * 格式化日期
+     */
     formatDate(dateString) {
         const date = new Date(dateString);
         return date.toLocaleDateString('zh-CN', {
@@ -399,6 +444,9 @@ applySubSupRules(md);
         });
     }
 
+    /**
+     * 更新页面 SEO 标签(标题/描述)
+     */
     updateSEO(post) {
         const description = post.excerpt || `${post.title} - BY的博客文章`;
         const keywords = post.tags && post.tags.length > 0 
@@ -452,6 +500,9 @@ applySubSupRules(md);
         }
     }
 
+    /**
+     * 计算预计阅读时长
+     */
     calculateReadingTime(content) {
         const plainText = content
             .replace(/<[^>]*>/g, '')
@@ -469,6 +520,9 @@ applySubSupRules(md);
         return readingTime < 1 ? 1 : readingTime;
     }
 
+    /**
+     * 设置图片懒加载
+     */
     setupLazyLoading(container) {
         const images = container.querySelectorAll('img');
         
@@ -507,6 +561,9 @@ applySubSupRules(md);
         }
     }
 
+    /**
+     * 为标题添加锚点 ID
+     */
     addHeadingIds(container) {
         const headings = container.querySelectorAll('h1, h2, h3, h4, h5, h6');
         const usedIds = new Set();

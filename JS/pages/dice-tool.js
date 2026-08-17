@@ -1,7 +1,19 @@
+/**
+ * 骰子工具页面脚本
+ * 对应页面: dice-tool.html
+ * 功能: 常用骰子投掷、自定义骰子(数量/面数/规则)、混合骰子组合、
+ *       预设组合(D&D)、投掷历史、自定义组合保存/导入/导出。
+ */
+
+// ============ 全局状态 ============
+// 投掷历史(localStorage 持久化,最多 30 条)
 let diceHistory = JSON.parse(localStorage.getItem('diceHistory')) || [];
+// 动画类型: scroll(滚动)/bounce(弹跳)/none(无动画),持久化
 let animationType = localStorage.getItem('animationType') || 'scroll';
+// 自定义组合(localStorage 持久化)
 let customPresets = JSON.parse(localStorage.getItem('customPresets')) || {};
 
+// ============ 内置预设组合(D&D 常见掷骰场景) ============
 const builtInPresets = {
    'dnd-attack': {
        name: 'D&D 攻击',
@@ -25,16 +37,32 @@ const builtInPresets = {
    }
 };
 
+/**
+ * 切换动画类型
+ * 读取下拉框值并保存到 localStorage
+ */
 function changeAnimationType() {
    animationType = document.getElementById('animationType').value;
    localStorage.setItem('animationType', animationType);
 }
 
+/**
+ * 投掷单个骰子
+ * @param {number} sides - 骰子面数
+ */
 function rollDice(sides) {
    const result = Math.floor(Math.random() * sides) + 1;
    displayDiceResult(`D${sides}`, [result], result, sides, [], 'sum', 1);
 }
 
+/**
+ * 校验并规范化数字输入
+ * 转为非负整数,限制在 [min, max] 范围
+ * @param {string|number} value - 输入值
+ * @param {number} [min=0] - 最小值
+ * @param {number} [max=null] - 最大值(null 不限制)
+ * @returns {number} 规范化后的整数
+ */
 function validateNumberInput(value, min = 0, max = null) {
    let num = parseFloat(value);
    
@@ -59,6 +87,10 @@ function validateNumberInput(value, min = 0, max = null) {
    return num;
 }
 
+/**
+ * 投掷自定义骰子
+ * 读取数量/面数/规则配置,投掷后按规则处理并显示结果
+ */
 function rollCustomDice() {
    const countInput = document.getElementById('dice-count');
    const ruleAmountInput = document.getElementById('dice-rule-amount');
@@ -98,6 +130,10 @@ function rollCustomDice() {
    displayDiceResult(diceType, finalResults, total, sides, dropped, rule, ruleAmount, count, itemName);
 }
 
+/**
+ * 切换自定义骰子的规则数量输入框显示
+ * 规则为 sum 时隐藏,否则显示
+ */
 function toggleCustomRuleAmount() {
    const rule = document.getElementById('dice-rule').value;
    const amountInput = document.getElementById('dice-rule-amount');
@@ -109,6 +145,18 @@ function toggleCustomRuleAmount() {
    }
 }
 
+/**
+ * 显示骰子结果(支持动画滚动)
+ * @param {string} diceType - 骰子描述(如 '2×D6')
+ * @param {number[]} results - 结果数组
+ * @param {number} total - 总和
+ * @param {number} sides - 骰子面数
+ * @param {number[]} [dropped] - 舍去的点数
+ * @param {string} [rule] - 应用规则
+ * @param {number} [ruleAmount] - 规则数量
+ * @param {number} [originalCount] - 原始骰子数(动画用)
+ * @param {string} [itemName] - 组合名称
+ */
 function displayDiceResult(diceType, results, total, sides, dropped = [], rule = 'sum', ruleAmount = 1, originalCount = null, itemName = '') {
    const resultBox = document.getElementById('dice-result');
    
@@ -159,6 +207,9 @@ function displayDiceResult(diceType, results, total, sides, dropped = [], rule =
    }
 }
 
+/**
+ * 添加一个混合骰子卡片(数量/类型/规则配置)
+ */
 function addMixedDice() {
    const list = document.getElementById('mixed-dice-list');
    const cardCount = list.querySelectorAll('.dice-card').length;
@@ -210,6 +261,10 @@ function addMixedDice() {
    updateDiceCardLabels();
 }
 
+/**
+ * 切换单个混合骰子卡片的规则数量输入框显示
+ * @param {HTMLElement} selectElement - 规则下拉框
+ */
 function toggleRuleAmount(selectElement) {
    const card = selectElement.closest('.dice-card');
    const amountRow = card.querySelector('.dice-rule-amount-row');
@@ -222,6 +277,9 @@ function toggleRuleAmount(selectElement) {
    }
 }
 
+/**
+ * 切换总规则的规则数量输入框显示
+ */
 function toggleTotalRuleAmount() {
    const ruleSelect = document.getElementById('total-rule-select');
    const amountInput = document.getElementById('total-rule-amount');
@@ -234,6 +292,10 @@ function toggleTotalRuleAmount() {
    }
 }
 
+/**
+ * 移除混合骰子卡片(至少保留一个)
+ * @param {HTMLElement} button - 删除按钮
+ */
 function removeMixedDice(button) {
    const card = button.closest('.dice-card');
    const list = document.getElementById('mixed-dice-list');
@@ -247,6 +309,9 @@ function removeMixedDice(button) {
    }
 }
 
+/**
+ * 更新所有混合骰子卡片的序号标签
+ */
 function updateDiceCardLabels() {
    const cards = document.querySelectorAll('.dice-card');
    cards.forEach((card, index) => {
@@ -255,6 +320,10 @@ function updateDiceCardLabels() {
    });
 }
 
+/**
+ * 读取所有混合骰子卡片的配置
+ * @returns {Array<{count:number, sides:number, rule:string, ruleAmount:number}>}
+ */
 function getMixedDiceConfig() {
    const cards = document.querySelectorAll('.dice-card');
    const config = [];
@@ -280,6 +349,13 @@ function getMixedDiceConfig() {
    return config;
 }
 
+/**
+ * 应用骰子规则(取最大/最小/去除最大/最小)
+ * @param {number[]} results - 原始结果
+ * @param {string} rule - 规则类型
+ * @param {number} amount - 规则数量
+ * @returns {{results:number[], total:number, dropped:number[]}}
+ */
 function applyDiceRule(results, rule, amount) {
    if (rule === 'sum' || results.length === 0) {
        return { results: results, total: results.reduce((a, b) => a + b, 0), dropped: [] };
@@ -338,6 +414,9 @@ function applyDiceRule(results, rule, amount) {
    return { results: finalResults, total: finalResults.reduce((a, b) => a + b, 0), dropped: droppedResults };
 }
 
+/**
+ * 投掷所有混合骰子并汇总结果
+ */
 function rollMixedDice() {
    const config = getMixedDiceConfig();
    const cards = document.querySelectorAll('.dice-card');
@@ -402,6 +481,9 @@ function rollMixedDice() {
    displayMixedDiceResult(diceDescriptions.join(' + '), cardResults, cardTotals, cardDroppeds, finalCardTotals, total, totalRule, totalRuleAmount, totalDropped, itemName);
 }
 
+/**
+ * 显示混合骰子结果(含总规则处理)
+ */
 function displayMixedDiceResult(diceType, cardResults, cardTotals, cardDroppeds, finalCardTotals, total, totalRule, totalRuleAmount, totalDropped, itemName = '') {
    const resultBox = document.getElementById('dice-result');
    
@@ -482,6 +564,10 @@ function displayMixedDiceResult(diceType, cardResults, cardTotals, cardDroppeds,
    }
 }
 
+/**
+ * 加载内置预设组合(D&D 攻击/伤害/属性检定等)
+ * @param {string} presetId - 预设标识
+ */
 function loadPreset(presetId) {
    const preset = builtInPresets[presetId];
    if (!preset) return;
@@ -574,6 +660,9 @@ function loadPreset(presetId) {
    rollMixedDice();
 }
 
+/**
+ * 保存当前骰子配置为自定义组合
+ */
 function saveCurrentPreset() {
    const name = document.getElementById('preset-name-input').value.trim();
    if (!name) {
@@ -612,6 +701,10 @@ function saveCurrentPreset() {
    alert('组合已保存！');
 }
 
+/**
+ * 加载自定义组合到骰子列表
+ * @param {string} presetId - 组合标识
+ */
 function loadCustomPreset(presetId) {
    const preset = customPresets[presetId];
    if (!preset) return;
@@ -685,6 +778,10 @@ function loadCustomPreset(presetId) {
    }
 }
 
+/**
+ * 删除自定义组合(需确认)
+ * @param {string} presetId - 组合标识
+ */
 function deleteCustomPreset(presetId) {
    if (confirm('确定要删除这个组合吗？')) {
        delete customPresets[presetId];
@@ -693,6 +790,9 @@ function deleteCustomPreset(presetId) {
    }
 }
 
+/**
+ * 渲染自定义组合列表
+ */
 function renderCustomPresets() {
    const list = document.getElementById('custom-presets-list');
    
@@ -746,6 +846,10 @@ function renderCustomPresets() {
    }).join('');
 }
 
+/**
+ * 直接投掷指定自定义组合
+ * @param {string} presetId - 组合标识
+ */
 function rollPresetDirectly(presetId) {
    const preset = customPresets[presetId];
    if (!preset) return;
@@ -757,6 +861,13 @@ function rollPresetDirectly(presetId) {
    }, 100);
 }
 
+/**
+ * 添加投掷结果到历史(最多 30 条)
+ * @param {string} diceType - 骰子描述
+ * @param {number[]} results - 结果
+ * @param {number} total - 总和
+ * @param {string} [itemName] - 组合名称
+ */
 function addToDiceHistory(diceType, results, total, itemName = '') {
    const now = new Date();
    const timeStr = now.toLocaleString('zh-CN', {
@@ -784,6 +895,9 @@ function addToDiceHistory(diceType, results, total, itemName = '') {
    renderDiceHistory();
 }
 
+/**
+ * 渲染投掷历史列表
+ */
 function renderDiceHistory() {
    const historyDiv = document.getElementById('dice-history');
    
@@ -798,6 +912,9 @@ function renderDiceHistory() {
    }).join('');
 }
 
+/**
+ * 清空投掷历史(需确认)
+ */
 function clearDiceHistory() {
    if (confirm('确定要清空所有投掷历史吗？')) {
        diceHistory = [];
@@ -806,6 +923,9 @@ function clearDiceHistory() {
    }
 }
 
+/**
+ * 清空自定义组合(需确认)
+ */
 function clearCustomPresets() {
    if (confirm('确定要清空所有自定义组合吗？')) {
        customPresets = {};
@@ -814,6 +934,9 @@ function clearCustomPresets() {
    }
 }
 
+/**
+ * 导出投掷历史为 JSON 文件
+ */
 function exportDiceHistory() {
    if (diceHistory.length === 0) {
        alert('没有可导出的投掷历史！');
@@ -838,10 +961,17 @@ function exportDiceHistory() {
    URL.revokeObjectURL(url);
 }
 
+/**
+ * 触发投掷历史文件选择
+ */
 function importDiceHistory() {
    document.getElementById('importDiceHistoryFile').click();
 }
 
+/**
+ * 处理投掷历史文件导入
+ * @param {Event} e - change 事件
+ */
 function handleDiceHistoryImport(e) {
    const file = e.target.files[0];
    if (!file) return;
@@ -870,6 +1000,9 @@ function handleDiceHistoryImport(e) {
    e.target.value = '';
 }
 
+/**
+ * 导出自定义组合为 JSON 文件
+ */
 function exportPresets() {
    if (Object.keys(customPresets).length === 0) {
        alert('没有可导出的自定义组合！');
@@ -894,10 +1027,17 @@ function exportPresets() {
    URL.revokeObjectURL(url);
 }
 
+/**
+ * 触发自定义组合文件选择
+ */
 function importPresets() {
    document.getElementById('importPresetsFile').click();
 }
 
+/**
+ * 处理自定义组合文件导入
+ * @param {Event} e - change 事件
+ */
 function handlePresetsImport(e) {
    const file = e.target.files[0];
    if (!file) return;
@@ -926,6 +1066,9 @@ function handlePresetsImport(e) {
    e.target.value = '';
 }
 
+/**
+ * 重置所有骰子工具数据(需确认,不可恢复)
+ */
 function resetAllData() {
    if (confirm('确定要重置所有骰子工具数据吗？此操作不可恢复！')) {
        const diceKeys = ['diceHistory', 'animationType', 'customPresets'];
@@ -938,6 +1081,9 @@ function resetAllData() {
    }
 }
 
+/**
+ * 导出全部数据(历史+动画类型+自定义组合)
+ */
 function exportAllData() {
    const data = {};
    const diceKeys = ['diceHistory', 'animationType', 'customPresets'];
@@ -964,10 +1110,17 @@ function exportAllData() {
    URL.revokeObjectURL(url);
 }
 
+/**
+ * 触发全部数据文件选择
+ */
 function importAllData() {
    document.getElementById('importAllFile').click();
 }
 
+/**
+ * 处理全部数据导入
+ * @param {Event} e - change 事件
+ */
 function handleAllImport(e) {
    const file = e.target.files[0];
    if (!file) return;

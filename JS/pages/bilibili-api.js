@@ -1,4 +1,10 @@
 /**
+ * B 站视频/用户信息展示脚本
+ * 对应页面: video.html
+ * 功能: 加载 B 站视频列表(嵌入播放)和用户信息卡片。
+ */
+
+/**
 * B站视频展示功能模块
 * 使用B站官方嵌入式播放器在网页中展示视频内容
 * 支持响应式布局，在PC端横排显示多个视频，移动端仅显示第一个视频
@@ -36,6 +42,10 @@ const BILIBILI_CONFIG = {
 * @function isMobileDevice
 * @returns {boolean} - 如果是移动设备返回true，否则返回false
 */
+/**
+ * 判断是否为移动设备
+ * @returns {boolean}
+ */
 function isMobileDevice() {
    // 检测条件：屏幕宽度小于等于480px，或User-Agent包含Android/iOS设备标识
    return window.innerWidth <= 480 || 
@@ -49,6 +59,9 @@ function isMobileDevice() {
 * @function initBilibiliVideos
 * @returns {void}
 */
+/**
+ * 初始化 B 站视频列表
+ */
 function initBilibiliVideos() {
    // 获取视频容器元素
    const container = document.querySelector(BILIBILI_CONFIG.container);
@@ -80,6 +93,9 @@ function initBilibiliVideos() {
 * @description 根据设备类型动态生成B站视频嵌入式播放器
 * @returns {void}
 */
+/**
+ * 渲染嵌入的视频
+ */
 function renderEmbeddedVideos() {
    // 获取视频容器元素
    const container = document.querySelector(BILIBILI_CONFIG.container);
@@ -117,6 +133,9 @@ function renderEmbeddedVideos() {
 * @description 响应窗口大小变化，动态调整视频显示数量和尺寸
 * @returns {void}
 */
+/**
+ * 处理窗口尺寸变化(自适应视频布局)
+ */
 function handleResize() {
    // 获取视频容器元素
    const container = document.querySelector(BILIBILI_CONFIG.container);
@@ -168,6 +187,10 @@ function handleResize() {
 * @param {string} message - 要显示的错误消息文本
 * @returns {void}
 */
+/**
+ * 在视频容器中显示错误提示
+ * @param {string} message - 错误信息
+ */
 function showError(message) {
    // 获取视频容器元素
    const container = document.querySelector(BILIBILI_CONFIG.container);
@@ -183,6 +206,11 @@ function showError(message) {
 * @param {Function} callback - 回调函数，参数为(error, userInfo)
 * @returns {void}
 */
+/**
+ * 获取 B 站用户信息
+ * @param {string} uid - 用户 UID
+ * @param {Function} callback - 成功回调
+ */
 function fetchBilibiliUserInfo(uid, callback) {
    const staticUserData = {
        name: '一条咸鱼by菌',
@@ -209,6 +237,10 @@ function fetchBilibiliUserInfo(uid, callback) {
 * @param {number} userInfo.following - 关注数
 * @returns {void}
 */
+/**
+ * 渲染用户信息卡片
+ * @param {Object} userInfo - 用户信息
+ */
 function renderUserCard(userInfo) {
    // 获取用户信息容器元素
    const container = document.querySelector(BILIBILI_CONFIG.userContainer);
@@ -248,6 +280,9 @@ function renderUserCard(userInfo) {
 * @description 初始化用户信息显示，包括设置加载状态和获取用户数据
 * @returns {void}
 */
+/**
+ * 初始化 B 站用户信息展示
+ */
 function initBilibiliUserInfo() {
    // 获取用户信息容器元素
    const container = document.querySelector(BILIBILI_CONFIG.userContainer);

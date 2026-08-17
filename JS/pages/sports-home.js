@@ -1,3 +1,9 @@
+/**
+ * 运动主页脚本
+ * 对应页面: sports.html
+ * 功能: Mapbox 地图展示活动轨迹,按国家/省份/城市三级着色,支持年份/城市/类型筛选。
+ */
+
 // ============ 首页专用代码 ============
 
 let currentFilter = 'Total';
@@ -58,10 +64,16 @@ function getActivityColor(activity) {
   }
 }
 
+/**
+ * 格式化距离(带单位)
+ */
 function formatDistanceWithUnit(meters) {
   return formatDistance(meters) + ' 公里';
 }
 
+/**
+ * 格式化运动时间
+ */
 function formatMovingTime(timeStr) {
   if (!timeStr) return '-';
   // Truncate microseconds: "1:01:35.877000" -> "1:01:35"
@@ -69,6 +81,9 @@ function formatMovingTime(timeStr) {
   return dotIdx >= 0 ? timeStr.substring(0, dotIdx) : timeStr;
 }
 
+/**
+ * 初始化 Mapbox 地图
+ */
 function initMap() {
   if (typeof mapboxgl === 'undefined') {
     showMapUnavailable();
@@ -116,6 +131,9 @@ function initMap() {
   }
 }
 
+/**
+ * 显示地图不可用提示
+ */
 function showMapUnavailable() {
   var mapEl = document.getElementById('map');
   if (mapEl) {
@@ -123,6 +141,9 @@ function showMapUnavailable() {
   }
 }
 
+/**
+ * 更新地图活动显示
+ */
 function updateMapActivities() {
   console.log('updateMapActivities called, activities count:', activities.length);
   
@@ -201,6 +222,9 @@ function updateMapActivities() {
   }
 }
 
+/**
+ * 高亮选中的活动
+ */
 function highlightSelectedActivity() {
   if (!selectedActivity || !map || !map.loaded()) return;
 
@@ -246,6 +270,9 @@ function highlightSelectedActivity() {
 
 // ============ 路线动画 ============
 
+/**
+ * 计算两点间球面距离(哈弗辛公式)
+ */
 function haversine(a, b) {
   var toRad = function(x) { return x * Math.PI / 180; };
   var R = 6371000;
@@ -260,6 +287,9 @@ function haversine(a, b) {
   return R * c;
 }
 
+/**
+ * 路线抽稀(减少点数,保留轨迹形状)
+ */
 function simplifyRoute(points, minDistance) {
   minDistance = minDistance || 5;
   if (points.length <= 100) return points;
@@ -276,6 +306,9 @@ function simplifyRoute(points, minDistance) {
   return simplified;
 }
 
+/**
+ * 计算各段长度
+ */
 function calculateSegmentLengths(points) {
   var segLens = [];
   var total = 0;
@@ -289,6 +322,9 @@ function calculateSegmentLengths(points) {
   return { segLens: segLens, total: total, cum: cum };
 }
 
+/**
+ * 查找目标距离所在段
+ */
 function findSegmentIdx(cum, targetDist) {
   var left = 0, right = cum.length - 2;
   while (left <= right) {
@@ -300,6 +336,9 @@ function findSegmentIdx(cum, targetDist) {
   return Math.max(0, Math.min(cum.length - 2, left));
 }
 
+/**
+ * 计算可见轨迹点
+ */
 function calculateVisiblePoints(points, segLens, cum, targetDist) {
   var upTo = findSegmentIdx(cum, targetDist);
   var segStart = points[upTo];
@@ -319,6 +358,9 @@ function calculateVisiblePoints(points, segLens, cum, targetDist) {
   return visiblePoints;
 }
 
+/**
+ * 启动路线动画
+ */
 function startRouteAnimation(coordinates) {
   // 停止之前的动画
   if (routeAnimator) {
@@ -443,6 +485,9 @@ function startRouteAnimation(coordinates) {
 
 // ============ 区域填充(国家/省份/城市 三级,按缩放切换) ============
 
+/**
+ * 加载地图着色 GeoJSON 数据
+ */
 function loadGeoData() {
   if ((countryGeoData && provinceGeoData && cityGeoData) || isLoadingGeoData) return;
   isLoadingGeoData = true;
@@ -513,6 +558,9 @@ function extractCities() {
   return cities;
 }
 
+/**
+ * 更新区域着色(按缩放级别切换国家/省份/城市)
+ */
 function updateRegionFill() {
   if (!map || !map.loaded()) return;
 
@@ -593,14 +641,23 @@ function onHomeTileSwitch() {
   updateRegionFill();
 }
 
+/**
+ * 移除地图图层
+ */
 function removeLayer(id) {
   if (map.getLayer(id)) { map.removeLayer(id); }
 }
 
+/**
+ * 移除地图数据源
+ */
 function removeSource(id) {
   if (map.getSource(id)) { map.removeSource(id); }
 }
 
+/**
+ * 调整地图视野适配活动集合
+ */
 function fitMapToActivities(filteredActivities) {
   const allCoordinates = [];
   
@@ -622,6 +679,9 @@ function fitMapToActivities(filteredActivities) {
   }
 }
 
+/**
+ * 调整地图视野适配单个活动
+ */
 function fitMapToActivity(activity) {
   const coordinates = pathForActivity(activity);
   if (coordinates.length > 1) {
@@ -637,6 +697,9 @@ function fitMapToActivity(activity) {
 
 // ============ URL 参数工具 ============
 
+/**
+ * 读取 URL 参数(字典形式)
+ */
 function getUrlParamsDict() {
   var params = {};
   var search = window.location.search.substring(1);
@@ -651,6 +714,9 @@ function getUrlParamsDict() {
   return params;
 }
 
+/**
+ * 构建 URL
+ */
 function buildUrl(params) {
   var parts = [];
   Object.keys(params).forEach(function(key) {
@@ -661,6 +727,9 @@ function buildUrl(params) {
   return parts.length > 0 ? '?' + parts.join('&') : window.location.pathname;
 }
 
+/**
+ * 更新 URL 参数
+ */
 function updateUrl(params, replace) {
   var url = buildUrl(params);
   if (replace) {
@@ -670,6 +739,9 @@ function updateUrl(params, replace) {
   }
 }
 
+/**
+ * 获取当前 URL 参数
+ */
 function getCurrentUrlParams() {
   var params = {};
   if (currentFilter && currentFilter !== 'Total') params.year = currentFilter;
@@ -710,6 +782,9 @@ function renderYearFilters() {
   });
 }
 
+/**
+ * 渲染统计信息
+ */
 function renderStats() {
   var container = document.getElementById('sidebarContent');
   container.innerHTML = '';
@@ -798,6 +873,9 @@ function renderStats() {
 
 // ============ 位置统计 ============
 
+/**
+ * 提取活动地点
+ */
 function extractLocation(activity) {
   var loc = activity.location_country || '';
   var city = '', province = '', country = '';
@@ -855,6 +933,9 @@ function extractLocation(activity) {
   return { city: city, province: province, country: country };
 }
 
+/**
+ * 获取活动运动类型
+ */
 function getSportType(activity) {
   return activity.type || '其他';
 }
@@ -955,6 +1036,9 @@ function clearFilter() {
 
 // ============ 年度统计卡片 ============
 
+/**
+ * 构建年度统计网格
+ */
 function buildYearStatGrid(filteredActivities) {
   var totalDistance = filteredActivities.reduce(function(s, a) { return s + (a.distance || 0); }, 0);
   var totalElevation = filteredActivities.reduce(function(s, a) {
@@ -1056,6 +1140,9 @@ function updateMapActivitiesWithList(filteredActivities) {
   fitMapToActivities(filteredActivities);
 }
 
+/**
+ * 渲染活动列表表格
+ */
 function renderActivitiesTable(optActivities) {
   var filteredActivities = optActivities || activities.filter(function(a) { return filterYearRuns(a, currentFilter); });
   filteredActivities.sort(sortDateFunc);
@@ -1116,6 +1203,9 @@ function changeFilter(year) {
   }
 }
 
+/**
+ * 主题切换处理
+ */
 function onThemeChange() {
   redrawMapOnThemeChange(map, function() {
     updateMapActivities();
@@ -1124,6 +1214,9 @@ function onThemeChange() {
   });
 }
 
+/**
+ * 初始化运动主页
+ */
 function initHomePage() {
   // 从 URL 参数恢复筛选状态
   var params = getUrlParamsDict();

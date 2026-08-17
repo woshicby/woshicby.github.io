@@ -1,5 +1,12 @@
+/**
+ * 博客文章列表页面脚本
+ * 对应页面: posts.html
+ * 功能: 展示博文列表,支持分类/系列/标签/搜索筛选、时间线、无限滚动。
+ */
+
 // 博文数据管理和渲染
 class PostManager extends FilterableListManager {
+    /** 构造函数: 初始化管理器 */
     constructor() {
         super();
         this.posts = [];
@@ -12,6 +19,9 @@ class PostManager extends FilterableListManager {
         this.init();
     }
 
+    /**
+     * 初始化: 加载数据 + 渲染列表/侧边栏 + 绑定事件
+     */
     async init() {
         try {
             await this.loadPosts();
@@ -32,6 +42,9 @@ class PostManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 加载博文列表数据(posts-list.json)
+     */
     async loadPosts() {
         try {
             // 首先尝试从 posts-list.json 加载文件列表
@@ -75,6 +88,10 @@ class PostManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 解析 Markdown 博文(YAML 前置元数据 + 正文)
+     * @param {string} content - Markdown 内容
+     */
     parseMarkdown(content) {
         const frontmatterRegex = /^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/;
         const match = content.match(frontmatterRegex);
@@ -107,6 +124,9 @@ class PostManager extends FilterableListManager {
         };
     }
 
+    /**
+     * 解析 YAML 前置元数据
+     */
     parseFrontmatter(frontmatter) {
         const metadata = {};
         const lines = frontmatter.split('\n');
@@ -133,6 +153,9 @@ class PostManager extends FilterableListManager {
         return metadata;
     }
 
+    /**
+     * 提取摘要(移除 Markdown 标记,取前 200 字)
+     */
     extractExcerpt(content) {
         const plainText = content
             .replace(/#{1,6}\s+/g, '')
@@ -147,6 +170,9 @@ class PostManager extends FilterableListManager {
         return plainText.length > 200 ? plainText.substring(0, 200) + '...' : plainText;
     }
 
+    /**
+     * 提取全部分类和标签
+     */
     extractCategoriesAndTags() {
         const categorySet = new Set();
         const tagSet = new Set();
@@ -171,6 +197,11 @@ class PostManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 渲染博文列表(支持分页追加)
+     * @param {Array} [filteredPosts] - 筛选后的博文
+     * @param {boolean} [append] - 是否追加
+     */
     renderPostsList(filteredPosts = null, append = false) {
         if (filteredPosts !== null) {
             this.filteredPosts = filteredPosts;
@@ -208,6 +239,9 @@ class PostManager extends FilterableListManager {
         this.bindPostFilterEvents();
     }
 
+    /**
+     * 更新加载更多哨兵元素
+     */
     updateLoadMoreSentinel(hasMore) {
         this.removeLoadMoreSentinel();
         if (!hasMore) return;
@@ -223,11 +257,17 @@ class PostManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 移除加载更多哨兵
+     */
     removeLoadMoreSentinel() {
         const existing = document.getElementById('load-more-sentinel');
         if (existing) existing.remove();
     }
 
+    /**
+     * 绑定滚动加载(无限滚动)
+     */
     bindScrollLoad() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -246,6 +286,9 @@ class PostManager extends FilterableListManager {
         this.scrollObserver = observer;
     }
 
+    /**
+     * 观察哨兵元素触发加载
+     */
     observeSentinel() {
         if (this.scrollObserver) {
             const sentinel = document.getElementById('load-more-sentinel');
@@ -255,6 +298,9 @@ class PostManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 渲染系列列表
+     */
     renderSeries() {
         const seriesContainer = document.getElementById('series-container');
         if (!seriesContainer) return;
@@ -305,6 +351,9 @@ class PostManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 渲染时间线
+     */
     renderTimeline() {
         const timelineContainer = document.getElementById('timeline-container');
         if (!timelineContainer) return;
@@ -383,6 +432,9 @@ class PostManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 加载全部博文用于跳转
+     */
     loadAllPostsForJump(targetPostId) {
         const postsToRender = this.filteredPosts || this.posts;
         this.filteredPosts = postsToRender;
@@ -408,6 +460,9 @@ class PostManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 生成单篇博文卡片 HTML
+     */
     createPostHTML(post) {
         const categoriesHTML = post.categories ? 
             `<div class="post-categories">${post.categories.map(cat => 
@@ -440,6 +495,9 @@ class PostManager extends FilterableListManager {
         `;
     }
 
+    /**
+     * 渲染分类栏
+     */
     renderCategories() {
         const categoriesElement = document.getElementById('categories-list');
         categoriesElement.innerHTML = this.categories.map(category => 
@@ -457,6 +515,9 @@ class PostManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 渲染标签栏
+     */
     renderTags() {
         const tagsContainer = document.getElementById('tags-container');
         tagsContainer.innerHTML = this.tags.map(tag => 
@@ -474,6 +535,9 @@ class PostManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 绑定筛选事件
+     */
     bindPostFilterEvents() {
         const postsList = document.getElementById('posts-list');
         
@@ -504,6 +568,9 @@ class PostManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 按分类筛选
+     */
     filterByCategory(category) {
         const urlParams = getUrlParams();
         const categories = urlParams.getAll('category');
@@ -522,6 +589,9 @@ class PostManager extends FilterableListManager {
         this.applyFilters();
     }
 
+    /**
+     * 按系列筛选
+     */
     filterBySeries(series) {
         const urlParams = getUrlParams();
         urlParams.delete('category');
@@ -533,6 +603,9 @@ class PostManager extends FilterableListManager {
         this.applyFilters();
     }
 
+    /**
+     * 格式化日期显示
+     */
     formatDateDefault(dateString) {
         return formatDate(dateString);
     }
@@ -545,6 +618,9 @@ class PostManager extends FilterableListManager {
         return ['category', 'tag', 'series', 'search'];
     }
 
+    /**
+     * 应用所有筛选条件
+     */
     applyFilters() {
         const urlParams = getUrlParams();
         const categories = urlParams.getAll('category');
@@ -587,6 +663,9 @@ class PostManager extends FilterableListManager {
         this.updateActiveStates(categories, tags, series);
     }
 
+    /**
+     * 更新系列信息
+     */
     updateSeriesInfo(series) {
         const titleEl = document.getElementById('posts-title');
         const descEl = document.getElementById('series-description');
@@ -606,6 +685,9 @@ class PostManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 更新筛选信息显示
+     */
     updateFilterInfo(categories, tags, search, series) {
         const entries = [];
         categories.forEach(cat => entries.push({ type: '分类', value: cat, paramType: 'category' }));
@@ -615,6 +697,9 @@ class PostManager extends FilterableListManager {
         super.updateFilterInfo(entries);
     }
 
+    /**
+     * 更新激活状态
+     */
     updateActiveStates(categories, tags, series) {
         document.querySelectorAll('[data-category]').forEach(link => {
             const category = link.getAttribute('data-category');

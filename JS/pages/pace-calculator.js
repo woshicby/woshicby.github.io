@@ -1,4 +1,10 @@
 /**
+ * 配速计算器页面脚本
+ * 对应页面: pace-calculator.html
+ * 功能: 距离/时间/配速/速度互算,支持单位切换、分段时间表。
+ */
+
+/**
 * 配速计算器核心功能模块
 * 提供运动配速、距离、时间和速度的相互计算功能
 * 支持公制和英制单位转换，并包含分段时间计算等高级功能
@@ -46,6 +52,13 @@ const UNIT_CONVERSIONS = {
 * @param {string} unitType - 单位类型，可选值: 'distance', 'speed', 'pace'
 * @returns {number} 转换后的值
 */
+/**
+ * 单位换算
+ * @param {number} value - 值
+ * @param {string} fromUnit - 源单位
+ * @param {string} toUnit - 目标单位
+ * @param {string} unitType - 单位类型
+ */
 function convertUnit(value, fromUnit, toUnit, unitType) {
    // 如果源单位和目标单位相同，直接返回原值
    if (fromUnit === toUnit) {
@@ -247,6 +260,9 @@ const COMMON_DISTANCES = {
 * @function initPaceCalculator
 * @returns {void}
 */
+/**
+ * 初始化配速计算器
+ */
 function initPaceCalculator() {
    // 获取所有必要的DOM元素引用
    distanceInput = document.getElementById('distance');
@@ -287,6 +303,9 @@ function initPaceCalculator() {
 * @function setupEventListeners
 * @returns {void}
 */
+/**
+ * 绑定事件监听
+ */
 function setupEventListeners() {
    // 优先设置开关事件监听
    const prioritySwitch = document.getElementById('priority-switch');
@@ -406,6 +425,9 @@ function setupEventListeners() {
 * @function updateFormVisibility
 * @returns {void}
 */
+/**
+ * 更新表单可见性
+ */
 function updateFormVisibility() {
    // 设置所有输入框为可编辑状态
    distanceInput.readOnly = false;

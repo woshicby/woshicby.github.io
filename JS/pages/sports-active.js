@@ -1,5 +1,14 @@
+/**
+ * 运动活跃统计页面脚本
+ * 对应页面: sports-active.html
+ * 功能: 以 GitHub 风格热力图展示每日运动活跃情况。
+ */
+
 // ============ 活跃统计图页面专用代码 ============
 
+/**
+ * 渲染活跃统计主页面
+ */
 function renderActivePage() {
   var container = document.getElementById('activeContent');
   if (!container) return;
@@ -14,6 +23,13 @@ function renderActivePage() {
   renderGithubHeatmapForActivities(container, null, filtered);
 }
 
+/**
+ * 十六进制颜色插值
+ * @param {string} c1 - 起始色
+ * @param {string} c2 - 结束色
+ * @param {number} ratio - 插值比例 0-1
+ * @returns {string} 插值后的颜色
+ */
 function interpolateHex(c1, c2, ratio) {
   ratio = Math.max(0, Math.min(1, ratio));
   function hex2rgb(h) { h = h.replace('#',''); return [parseInt(h.substr(0,2),16), parseInt(h.substr(2,2),16), parseInt(h.substr(4,2),16)]; }
@@ -24,6 +40,12 @@ function interpolateHex(c1, c2, ratio) {
 
 // ============ GitHub 热力图 ============
 
+/**
+ * 渲染 GitHub 风格热力图
+ * @param {HTMLElement} container - 容器元素
+ * @param {number} year - 年份
+ * @param {Array} optActivities - 活动数据
+ */
 function renderGithubHeatmapForActivities(container, year, optActivities) {
   var colors = getThemeColors();
   var source = optActivities || activities;
@@ -132,6 +154,11 @@ function renderGithubHeatmapForActivities(container, year, optActivities) {
 
 // ============ Grid 路线缩略图 ============
 
+/**
+ * 渲染网格轨迹
+ * @param {HTMLElement} container - 容器元素
+ * @param {number} year - 年份
+ */
 function renderGridTracks(container, year) {
   var colors = getThemeColors();
   var filtered = year ? activities.filter(function(a){ return extractYear(a.start_date_local) === String(year); }) : activities;
@@ -238,16 +265,28 @@ function renderGridTracks(container, year) {
 
 // ============ 辅助函数 ============
 
+/**
+ * 获取所有运动年份列表
+ * @returns {number[]}
+ */
 function getYearsList() {
   var years = {};
   activities.forEach(function(a) { years[extractYear(a.start_date_local)] = true; });
   return Object.keys(years).map(Number).sort(function(a,b){ return a-b; });
 }
 
+/**
+ * 日期格式化为 ISO 字符串
+ * @param {Date} d - 日期对象
+ * @returns {string}
+ */
 function formatDateToISO(d) {
   return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2);
 }
 
+/**
+ * 初始化活跃统计页面
+ */
 function initActivePage() {
   var sportSelect = document.getElementById('sportTypeFilter');
   if (sportSelect) {

@@ -1,3 +1,13 @@
+/**
+ * 时间计算器页面脚本
+ * 对应页面: time-calculator.html
+ * 功能: 计算两个时间点之间的间隔(年/月/日/时/分/秒),支持交换/当前时间/清空。
+ */
+
+/**
+ * 显示错误提示并隐藏结果区
+ * @param {string} message - 错误信息
+ */
 function showError(message) {
    const errorEl = document.getElementById('errorMessage');
    errorEl.textContent = message;
@@ -5,6 +15,9 @@ function showError(message) {
    document.getElementById('resultSection').style.display = 'none';
 }
 
+/**
+ * 隐藏错误提示
+ */
 function hideError() {
    document.getElementById('errorMessage').style.display = 'none';
 }
@@ -22,6 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
    });
 });
 
+/**
+ * 读取一组时间输入框的值
+ * @param {string} prefix - 输入组前缀(start/end)
+ * @returns {Object} 各字段值 {year, month, day, hour, minute, second}
+ */
 function getRawInputValues(prefix) {
    return {
        year: document.getElementById(`${prefix}Year`).value.trim(),
@@ -33,6 +51,11 @@ function getRawInputValues(prefix) {
    };
 }
 
+/**
+ * 设置一组时间输入框的值
+ * @param {string} prefix - 输入组前缀(start/end)
+ * @param {Object} values - 各字段值
+ */
 function setInputValues(prefix, values) {
    document.getElementById(`${prefix}Year`).value = values.year || '';
    document.getElementById(`${prefix}Month`).value = values.month || '';
@@ -42,6 +65,9 @@ function setInputValues(prefix, values) {
    document.getElementById(`${prefix}Second`).value = values.second || '';
 }
 
+/**
+ * 交换开始和结束时间
+ */
 function swapTimes() {
    const start = getRawInputValues('start');
    const end = getRawInputValues('end');
@@ -49,6 +75,10 @@ function swapTimes() {
    setInputValues('end', start);
 }
 
+/**
+ * 设置开始/结束时间为当前时间
+ * 根据焦点所在输入组决定设置哪一组
+ */
 function setNow() {
    const now = new Date();
    const values = {
@@ -72,6 +102,9 @@ function setNow() {
    }
 }
 
+/**
+ * 清空所有输入和结果
+ */
 function clearAll() {
    setInputValues('start', {});
    setInputValues('end', {});
@@ -79,6 +112,10 @@ function clearAll() {
    document.getElementById('errorMessage').style.display = 'none';
 }
 
+/**
+ * 计算时间间隔
+ * 读取开始/结束时间,校验后计算差值并显示结果
+ */
 function calculate() {
    const startRaw = getRawInputValues('start');
    const endRaw = getRawInputValues('end');
@@ -230,6 +267,11 @@ function calculate() {
    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
+/**
+ * 格式化大数字(千分位/小数位数智能处理)
+ * @param {number} num - 数字
+ * @returns {string}
+ */
 function formatLargeNumber(num) {
    if (Number.isInteger(num)) return num.toLocaleString();
    if (num >= 1000) return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
@@ -237,6 +279,11 @@ function formatLargeNumber(num) {
    return num.toFixed(6);
 }
 
+/**
+ * 校验日期是否有效
+ * @param {Object} date - 日期对象 {year, month, day}
+ * @returns {boolean}
+ */
 function isValidDate(year, month, day) {
    const date = new Date(year, month - 1, day);
    return date.getFullYear() === year &&
@@ -248,6 +295,11 @@ function isValidDate(year, month, day) {
 
 var syncItemId = 0;
 
+/**
+ * 解析时间字符串
+ * @param {string} str - 时间字符串
+ * @returns {Object} 解析结果
+ */
 function parseTimeStr(str) {
    str = str.trim();
    // 支持 H:MM:SS, HH:MM:SS, MM:SS, M:SS 等格式
@@ -259,6 +311,11 @@ function parseTimeStr(str) {
    return null;
 }
 
+/**
+ * 秒数格式化为时间文本
+ * @param {number} sec - 总秒数
+ * @returns {string}
+ */
 function formatTimeFromSec(totalSec) {
    var isNeg = totalSec < 0;
    var abs = Math.abs(Math.round(totalSec));
@@ -269,6 +326,9 @@ function formatTimeFromSec(totalSec) {
    return isNeg ? '-' + str : str;
 }
 
+/**
+ * 添加同步条目(批量时间换算)
+ */
 function addSyncItem() {
    syncItemId++;
    var id = syncItemId;
@@ -289,6 +349,10 @@ function addSyncItem() {
    item.querySelector('.sync-real-input').focus();
 }
 
+/**
+ * 计算单个同步条目
+ * @param {Object} item - 条目
+ */
 function calcSyncItem(item) {
    var refReal = parseTimeStr(document.getElementById('syncRefReal').value);
    var refTimeline = parseTimeStr(document.getElementById('syncRefTimeline').value);
@@ -308,6 +372,9 @@ function calcSyncItem(item) {
    resultSpan.classList.toggle('sync-neg', timelinePos < 0);
 }
 
+/**
+ * 计算所有同步条目
+ */
 function calcAllSync() {
    document.querySelectorAll('.sync-item').forEach(calcSyncItem);
 }
@@ -325,6 +392,9 @@ function parseFilenameDateTime(filename) {
    return m[4] + ':' + m[5] + ':' + m[6];
 }
 
+/**
+ * 批量导入同步条目
+ */
 function batchImport() {
    var text = document.getElementById('syncBatchInput').value;
    var lines = text.split('\n').map(function(l) { return l.trim(); }).filter(function(l) { return l.length > 0; });

@@ -1,4 +1,12 @@
+/**
+ * 书影音游剧记录页面脚本
+ * 对应页面: reviews.html
+ * 功能: 展示电影/书籍/音乐/游戏/剧场记录,支持分类/评分/地区/时间筛选、
+ *       列表/时间轴双视图、详情弹窗(含关联票据)。
+ */
+
 class ReviewsManager extends FilterableListManager {
+    /** 构造函数: 初始化管理器 */
     constructor() {
         super();
         this.allData = {};
@@ -17,6 +25,9 @@ class ReviewsManager extends FilterableListManager {
         this.init();
     }
 
+    /**
+     * 初始化: 加载数据 + 渲染
+     */
     async init() {
         try {
             this.initMarkdown();
@@ -35,6 +46,9 @@ class ReviewsManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 加载所有分类数据(书/影/音/游/剧)
+     */
     async loadAllData() {
         const categories = ['movie', 'book', 'music', 'game', 'drama'];
         const promises = categories.map(async (cat) => {
@@ -60,6 +74,9 @@ class ReviewsManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 获取指定分类的条目
+     */
     getCategoryItems(category, status = null) {
         const data = this.allData[category] || {};
         if (status) {
@@ -73,11 +90,17 @@ class ReviewsManager extends FilterableListManager {
         return all;
     }
 
+    /**
+     * 获取分类的状态列表
+     */
     getStatuses(category) {
         const data = this.allData[category] || {};
         return Object.keys(data);
     }
 
+    /**
+     * 绑定分类标签页事件
+     */
     bindCategoryTabs() {
         document.querySelectorAll('.category-tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -87,6 +110,9 @@ class ReviewsManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 绑定视图切换(列表/时间轴)
+     */
     bindViewSwitcher() {
         document.querySelectorAll('.view-tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -96,6 +122,9 @@ class ReviewsManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 切换视图模式
+     */
     switchView(view) {
         if (this.currentView === view) return;
         this.currentView = view;
@@ -105,6 +134,9 @@ class ReviewsManager extends FilterableListManager {
         this.applyFilters();
     }
 
+    /**
+     * 切换分类
+     */
     switchCategory(category) {
         this.currentCategory = category;
         this.currentStatus = null;
@@ -122,6 +154,9 @@ class ReviewsManager extends FilterableListManager {
         this.updateUrlParams();
     }
 
+    /**
+     * 渲染状态标签
+     */
     renderStatusTabs() {
         const container = document.getElementById('status-tabs');
         const statuses = this.getStatuses(this.currentCategory);
@@ -162,6 +197,9 @@ class ReviewsManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 提取标签
+     */
     extractTags(items) {
         const tagSet = new Set();
         items.forEach(item => {
@@ -175,6 +213,9 @@ class ReviewsManager extends FilterableListManager {
         return Array.from(tagSet).sort();
     }
 
+    /**
+     * 渲染标签栏
+     */
     renderTags() {
         const items = this.getCategoryItems(this.currentCategory, this.currentStatus);
         const tags = this.extractTags(items);
@@ -207,6 +248,9 @@ class ReviewsManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 绑定清除筛选
+     */
     bindClearFilter() {
         const clearFilterBtn = document.getElementById('clear-filter');
         if (clearFilterBtn) {
@@ -224,6 +268,9 @@ class ReviewsManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 绑定高级筛选
+     */
     bindAdvancedFilters() {
         const toggle = document.getElementById('advanced-filter-toggle');
         const options = document.getElementById('advanced-filter-options');
@@ -279,6 +326,9 @@ class ReviewsManager extends FilterableListManager {
         }
     }
 
+    /**
+     * 重置高级筛选 UI
+     */
     resetAdvancedFilterUI() {
         const ratingStatusFilter = document.getElementById('rating-status-filter');
         if (ratingStatusFilter) {
@@ -306,6 +356,9 @@ class ReviewsManager extends FilterableListManager {
         this.renderRegionFilter();
     }
 
+    /**
+     * 渲染地区筛选
+     */
     renderRegionFilter() {
         const container = document.getElementById('region-filter');
         if (!container) return;
@@ -343,6 +396,9 @@ class ReviewsManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 渲染时间筛选
+     */
     renderTimeFilter() {
         const container = document.getElementById('time-filter');
         if (!container) return;
@@ -400,6 +456,9 @@ class ReviewsManager extends FilterableListManager {
         this.renderMonthFilter();
     }
 
+    /**
+     * 渲染月份筛选
+     */
     renderMonthFilter() {
         const group = document.getElementById('month-filter-group');
         const container = document.getElementById('month-filter');
@@ -451,6 +510,9 @@ class ReviewsManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 从 URL 参数恢复筛选状态
+     */
     checkUrlParams() {
         const urlParams = getUrlParams();
         const category = urlParams.get('category');
@@ -559,6 +621,9 @@ class ReviewsManager extends FilterableListManager {
         this.applyFilters();
     }
 
+    /**
+     * 更新 URL 参数(保持筛选状态可分享)
+     */
     updateUrlParams() {
         const urlParams = getUrlParams();
         urlParams.set('category', this.currentCategory);
@@ -613,6 +678,9 @@ class ReviewsManager extends FilterableListManager {
         setUrlParams(urlParams);
     }
 
+    /**
+     * 移除筛选条件
+     */
     removeFilter(paramType, value = null) {
         if (paramType === 'search') {
             const searchInput = document.getElementById('search-input');
@@ -688,6 +756,9 @@ class ReviewsManager extends FilterableListManager {
         this.applyFilters();
     }
 
+    /**
+     * 应用所有筛选条件
+     */
     applyFilters() {
         const urlParams = getUrlParams();
         const tags = urlParams.getAll('tag');
@@ -780,6 +851,9 @@ class ReviewsManager extends FilterableListManager {
         this.updateActiveStates(tags);
     }
 
+    /**
+     * 渲染卡片列表视图
+     */
     renderReviewsList(items) {
         const container = document.getElementById('reviews-list');
 
@@ -809,6 +883,9 @@ class ReviewsManager extends FilterableListManager {
         this.bindReviewEvents();
     }
 
+    /**
+     * 渲染时间轴视图
+     */
     renderTimelineList(items) {
         const container = document.getElementById('reviews-list');
 
@@ -889,6 +966,9 @@ class ReviewsManager extends FilterableListManager {
         this.bindReviewEvents();
     }
 
+    /**
+     * 创建单条评价卡片元素
+     */
     createReviewElement(item) {
         const article = document.createElement('article');
         article.className = 'review-item';
@@ -960,6 +1040,9 @@ class ReviewsManager extends FilterableListManager {
         return article;
     }
 
+    /**
+     * 生成评分 HTML(星星+分数)
+     */
     createRatingHTML(rating) {
         if (rating === null || rating === undefined) return '<div class="review-rating"><span style="color:var(--light-text);font-size:0.8rem;">未评</span></div>';
         const starRating = rating / 2;
@@ -978,6 +1061,9 @@ class ReviewsManager extends FilterableListManager {
         return html;
     }
 
+    /**
+     * 获取评分对应的印章信息
+     */
     getStampInfo(rating) {
         if (rating === null || rating === undefined) return null;
         const texts = {
@@ -991,6 +1077,9 @@ class ReviewsManager extends FilterableListManager {
         return { text: texts[rating] || '拉完了', color: colors[rating] || '#7f8c8d' };
     }
 
+    /**
+     * 创建评分印章元素
+     */
     createStampElement(item) {
         const stamp = document.createElement('div');
         stamp.className = 'review-stamp';
@@ -1022,6 +1111,9 @@ class ReviewsManager extends FilterableListManager {
         return stamp;
     }
 
+    /**
+     * 生成元信息 HTML
+     */
     createMetaHTML(item) {
         const parts = [];
         const badges = [];
@@ -1066,12 +1158,18 @@ class ReviewsManager extends FilterableListManager {
         return `<div class="review-meta">${partsHTML}${badgesHTML}</div>`;
     }
 
+    /**
+     * 生成类型标签 HTML
+     */
     createGenresHTML(item) {
         const genres = item.genres || [];
         if (genres.length === 0) return '';
         return `<div class="review-genres">${genres.map(g => `<span class="review-genre" data-tag="${escapeHtml(g)}">${escapeHtml(g)}</span>`).join('')}</div>`;
     }
 
+    /**
+     * 生成内容 HTML
+     */
     createContentHTML(item, showAllStamps = false) {
         // 多次观看（2次及以上）：分块渲染
         if (item.views && item.views.length > 1) {
@@ -1118,6 +1216,9 @@ class ReviewsManager extends FilterableListManager {
         return `<div class="review-view-block"><div class="review-content">${html}</div>${stampHtml}</div>`;
     }
 
+    /**
+     * 生成底部 HTML
+     */
     createFooterHTML(item) {
         const hasViews = item.views && item.views.length > 0;
         const date = hasViews ? '' : formatDate(item.createdAt);
@@ -1137,6 +1238,9 @@ class ReviewsManager extends FilterableListManager {
         `;
     }
 
+    /**
+     * 渲染统计信息
+     */
     renderStats(items) {
         const allItems = this.getCategoryItems(this.currentCategory);
         const reviewedItems = items.filter(i => i.myRating !== null && i.myRating !== undefined);
@@ -1149,6 +1253,9 @@ class ReviewsManager extends FilterableListManager {
         document.getElementById('stat-avg').textContent = avgRating;
     }
 
+    /**
+     * 更新筛选信息
+     */
     updateFilterInfo(tags, search) {
         const filterInfo = document.getElementById('filter-info');
         const filterTags = document.getElementById('filter-tags');
@@ -1222,6 +1329,9 @@ class ReviewsManager extends FilterableListManager {
         filterInfo.style.display = filterTags.children.length > 0 ? 'flex' : 'none';
     }
 
+    /**
+     * 更新激活状态
+     */
     updateActiveStates(tags) {
         document.querySelectorAll('#tags-container .filter-btn').forEach(badge => {
             const tag = badge.getAttribute('data-tag');
@@ -1234,6 +1344,9 @@ class ReviewsManager extends FilterableListManager {
         });
     }
 
+    /**
+     * 绑定评价卡片事件
+     */
     bindReviewEvents() {
         document.querySelectorAll('.review-genre, .review-tag').forEach(el => {
             el.addEventListener('click', (e) => {
@@ -1255,6 +1368,9 @@ class ReviewsManager extends FilterableListManager {
 
     /**
      * 打开影评详情窗口
+     */
+    /**
+     * 打开评价详情
      */
     openReviewDetail(card) {
         const overlay = document.getElementById('review-detail-overlay');
@@ -1416,6 +1532,9 @@ class ReviewsManager extends FilterableListManager {
     /**
      * 打开票据详情窗口（二层，在影评详情之上）
      */
+    /**
+     * 打开关联票据详情
+     */
     openTicketDetail(ticket) {
         const overlay = document.getElementById('review-ticket-detail-overlay');
         const content = document.getElementById('review-ticket-detail-content');
@@ -1479,6 +1598,9 @@ class ReviewsManager extends FilterableListManager {
     /**
      * 关闭票据详情窗口（二层）
      */
+    /**
+     * 关闭票据详情
+     */
     closeTicketDetail() {
         const overlay = document.getElementById('review-ticket-detail-overlay');
         if (!overlay) return;
@@ -1489,6 +1611,9 @@ class ReviewsManager extends FilterableListManager {
 
     /**
      * 绑定详情窗口内票据图片的多图切换
+     */
+    /**
+     * 绑定详情图片轮播
      */
     bindReviewDetailSlider(wrapper, total) {
         const track = wrapper.querySelector('.detail-image-track');
@@ -1538,6 +1663,9 @@ class ReviewsManager extends FilterableListManager {
     /**
      * 关闭影评详情窗口
      */
+    /**
+     * 关闭评价详情
+     */
     closeReviewDetail() {
         const overlay = document.getElementById('review-detail-overlay');
         if (!overlay) return;
@@ -1553,6 +1681,9 @@ class ReviewsManager extends FilterableListManager {
     /**
      * 绑定详情窗口关闭事件（全局，只绑定一次）
      * 一层和二层窗口都绑定，二层打开时阻止一层关闭
+     */
+    /**
+     * 绑定详情关闭事件
      */
     bindReviewDetailClose() {
         if (this._reviewDetailCloseBound) return;
