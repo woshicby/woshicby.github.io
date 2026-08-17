@@ -80,74 +80,40 @@
 
 ```
 woshicby.github.io/
-├── CSS/             # 样式文件目录
-│   ├── common/      # 公共样式子目录（深色主题、响应式、选择器）
-│   ├── index/       # 首页样式子目录（深色主题、响应式、选择器）
-│   ├── calendar.css       # 赛事日历样式
-│   ├── charts.css         # 成绩图表样式
-│   ├── civilization-evolution.css  # 多文明演化模拟器样式
-│   ├── common.css         # 公共样式
-│   ├── convert-md-to-json.css  # Markdown转换工具样式
-│   ├── dice-tool.css      # 骰子工具样式
-│   ├── github.min.css     # GitHub风格代码高亮样式
-│   ├── index.css          # 首页样式
-│   ├── life-path-calculator.css  # 生命灵数计算器样式
-│   ├── local-llm-api-chat.css    # 本地大模型对话样式
-│   ├── moments.css        # 灵感碎片样式
-│   ├── pace-calculator.css  # 配速计算器样式
-│   ├── post-detail.css    # 文章详情样式
-│   ├── posts.css          # 文章列表样式
-│   ├── random-decision.css  # 随机决策器样式
-│   ├── seo-checker.css    # SEO检查器样式
-│   ├── races.css          # 跑步记录样式
-│   ├── study.css          # 学习页面样式
-│   ├── style-comparison.css  # 样式比较器样式
-│   ├── time-calculator.css  # 时间计算器样式
-│   ├── tools-common.css   # 工具公共样式
-│   ├── tools.css          # 工具集样式
-│   ├── touken-forge.css   # 刀剑乱舞样式
-│   ├── video.css          # 视频播放器样式
-│   └── wulin-quotes.css   # 武林外传样式
-├── JS/              # JavaScript文件目录
-│   ├── MathJax-3.2.2es5/  # MathJax数学公式库
-│   ├── civilization-evolution/  # 多文明演化模拟器
-│   │   ├── civilization.js
-│   │   ├── main.js
-│   │   ├── map.js
-│   │   ├── simulator.js
-│   │   ├── tech-tree.json
-│   │   └── ui.js
-│   ├── markdown/     # Markdown相关功能
-│   │   ├── markdown-it.min.js
-│   │   ├── markdown-it-footnote.min.js
-│   │   ├── markdown-it-mark.min.js
-│   │   ├── markdown-it-sub.min.js
-│   │   ├── markdown-it-sup.min.js
-│   │   └── markdown-utils.js  # Markdown解析共享工具
-│   ├── background-lazy-load.js  # 背景图懒加载
-│   ├── bilibili-api.js    # B站API
-│   ├── calendar.js        # 赛事日历功能
-│   ├── charts.js          # 成绩图表功能
-│   ├── convert-md-to-json.js  # Markdown转换工具
-│   ├── dice-tool.js       # 骰子工具
-│   ├── highlight.min.js   # 代码高亮
-│   ├── life-path-calculator.js  # 生命灵数计算器
-│   ├── local-llm-api-chat.js    # 本地大模型对话
-│   ├── moments.js         # 灵感碎片
-│   ├── navigation.js      # 导航功能
-│   ├── pace-calculator.js # 配速计算器
-│   ├── post-detail.js     # 文章详情功能
-│   ├── posts.js           # 文章列表功能
-│   ├── random-decision.js # 随机决策器
-│   ├── seo-checker.js     # SEO检查器
-│   ├── races.js           # 跑步记录功能
-│   ├── study.js           # 学习页面功能
-│   ├── theme-toggle.js    # 主题切换
-│   ├── time-calculator.js # 时间计算器
-│   ├── tool-tabs.js       # 工具页标签导航
-│   ├── tools.js           # 工具集
-│   ├── touken-forge.js    # 刀剑乱舞
-│   └── wulin-quotes.js    # 武林外传
+├── CSS/             # 样式文件目录(按层级+域组织)
+│   ├── common.css         # 全站公共入口(@import common/)
+│   ├── common/            # 全站公共模块
+│   │   ├── common-selectors.css  # 基础选择器/通用组件
+│   │   ├── common-responsive.css # 响应式布局
+│   │   └── common-dark-theme.css # 深色主题
+│   ├── domains/           # 域公共样式
+│   │   ├── tools.css      # 工具/游戏域
+│   │   ├── sports-common.css    # 运动域基础
+│   │   └── sports.css     # 运动子页导航
+│   ├── pages/             # 页面独有样式(28个)
+│   │   ├── posts.css / reviews.css / moments.css ...
+│   ├── vendor/            # 第三方库
+│   │   └── github.min.css # GitHub风格代码高亮
+│   ├── index.css / index/ # 首页专用(@import index/)
+│   └── README.md          # 样式规范说明
+├── JS/              # JavaScript文件目录(按层级+域组织)
+│   ├── common/            # 全站公共(所有页面加载)
+│   │   ├── theme-toggle.js      # 主题切换
+│   │   ├── navigation.js        # 导航
+│   │   ├── background-lazy-load.js  # 背景懒加载
+│   │   └── common.js            # 通用函数/基类(fetchJSON/FilterableListManager)
+│   ├── domains/           # 域公共
+│   │   ├── tool-tabs.js   # 工具页标签导航
+│   │   ├── sports-config.js     # 运动配置
+│   │   └── sports-common.js     # 运动共享逻辑
+│   ├── pages/             # 页面独有(26个)
+│   │   ├── posts.js / reviews.js / moments.js ...
+│   ├── vendor/            # 第三方库
+│   │   ├── highlight.min.js     # 代码高亮
+│   │   ├── markdown/     # Markdown解析(markdown-it及扩展)
+│   │   └── MathJax-3.2.2es5/  # MathJax数学公式库
+│   ├── civilization-evolution/  # 多文明模拟器(独立子目录)
+│   └── README.md          # 脚本规范说明
 ├── JSON/              # JSON数据文件目录
 │   ├── games.json        # 游戏数据
 │   ├── moments.json      # 灵感碎片数据
@@ -155,14 +121,20 @@ woshicby.github.io/
 │   ├── posts-list.json   # 博客文章列表配置文件
 │   ├── posts-series.json # 博客系列配置文件
 │   ├── race-records.json # 跑步记录数据
+│   ├── review-movies.json / review-games.json 等  # 书影音游剧记录
+│   ├── sports-activities.json  # 运动活动数据
+│   ├── sports-world.zh.json / sports-china_provinces.json / sports-china_cities.json  # 地图着色数据
+│   ├── sample-posts.json # 示例博文数据（加载失败回退）
 │   ├── seo-pages.json    # SEO页面配置
 │   ├── study-data.json   # 学习页面数据
+│   ├── tickets.json / ticket-images.json  # 票据与票据图片映射
 │   └── tools.json        # 工具数据
 ├── posts/           # 博客文章目录
 │   └── *.md        # Markdown格式博文
 ├── images/          # 图片资源目录
 │   ├── finisher_certificates/  # 完赛证书图片
 │   ├── moments/     # 灵感碎片图片
+│   ├── tickets/     # 票据图片
 │   ├── post.*/      # 博文配图子目录
 │   ├── bilibili-icon.png
 │   ├── body_backgrond.jpg
@@ -173,6 +145,8 @@ woshicby.github.io/
 ├── audios/          # 音频资源目录
 │   └── moments/     # 灵感碎片音频
 ├── videos/          # 视频资源目录
+│   └── moments/     # 灵感碎片视频
+├── activities_detail/  # 运动活动详情数据（前端渲染用）
 ├── documents/       # 项目文档目录
 │   ├── resize.txt
 │   ├── resized_files_list.txt
@@ -183,6 +157,7 @@ woshicby.github.io/
 ├── time-calculator.html
 ├── life-path-calculator.html
 ├── races.html
+├── sports.html / sports-active.html / sports-activity.html / sports-volume.html
 ├── study.html
 ├── style-comparison.html
 ├── tools.html
@@ -193,6 +168,8 @@ woshicby.github.io/
 ├── moments.html
 ├── posts.html
 ├── post-detail.html
+├── reviews.html
+├── tickets.html
 ├── convert-md-to-json.html
 ├── seo-checker.html
 ├── random-decision.html
@@ -200,6 +177,8 @@ woshicby.github.io/
 ├── local-llm-api-chat.html
 └── README.md        # 项目说明文档
 ```
+
+> **scripts/ 与本地维护**: 仓库另有 `scripts/`(维护脚本)、`FIT/`(运动源数据)、`data.db`(同步数据库)等**本地维护文件**,不进 git(见 scripts/README.md)。日常维护通过桌面快捷方式双击运行(运动同步/票据图片/网站预览)。
 
 ## 网站特色
 
@@ -240,21 +219,22 @@ woshicby.github.io/
 | 2026.03.28 | 优化全站下载功能：统一文件名为中文命名，日期时间格式统一为yyyyMMdd.hhmmss；涉及骰子工具、随机决策器、刀剑锻造、文明演化模拟器、运动成绩图表等。博文系统增强：post-detail.js支持通过file参数直接访问博文文件；新增详细错误页面，支持FILE_NOT_FOUND、ID_NOT_FOUND、PARSE_ERROR、NETWORK_ERROR等错误类型显示 |
 | 2026.03.30 | 新增灵感碎片功能：（moments.html）支持记录文字、图片、音频、视频等多种形式的灵感碎片；支持Markdown格式渲染；支持标签筛选功能 |
 | 2026.04.17 | 添加本地大模型API对话工具(local-llm-api-chat.html)，支持与LM Studio服务器进行交互；重构Markdown解析逻辑，提取上下标处理为共享函数(markdown-utils.js)，优化上下标处理避免与数学公式冲突 |
-| 2026.04.20 | 添加时间计算器工具(time-calculator.html)；更新用户信息和赛事记录数据 |
+| 2026.04.20 | 添加时间计算器工具(time-calculator.html) |
 | 2026.04.23 | 新增生命灵数计算器(life-path-calculator.html)，支持生日输入、逐位相加计算过程展示、大师数识别及灵数含义说明 |
 | 2026.05.04 | 添加博文系列功能并优化博文列表页面：新增系列分类展示、时间线归档视图、无限滚动加载、回到顶部按钮，更新相关JSON和样式 |
 | 2026.05.08 | 添加武林外传接台词游戏(wulin-quotes.html)和台词查询工具，支持多难度模式、角色筛选、台词搜索功能 |
 | 2026.05.20 | 添加待抽签赛事管理与展示功能：新增待抽签赛事状态判断逻辑与日历样式；过滤已完赛赛事用于PB/SB计算和图表统计；补全赛事数据的status字段并新增待抽签赛事 |
-| 2026.05.26 | 新增Emoji渲染器工具(emoji-renderer.html)，支持多平台风格渲染与高清导出；更新赛事记录数据 |
+| 2026.05.26 | 新增Emoji渲染器工具(emoji-renderer.html)，支持多平台风格渲染与高清导出 |
 | 2026.05.29 | 重构赛事日历模块：新增实时倒计时系统（支持页面可见性适配）；卡片式UI替代旧版布局；新增状态徽章区分已报名/待抽签/已完赛等状态；补全startTime字段；优化移动端响应式布局 |
 | 2026.05.31 | 重构导航栏逻辑，新增动态生成导航菜单功能：重写navigation.js，使用配置化方式管理导航项；统一所有页面的导航栏结构，移除硬编码的导航链接；新增书影音游剧记录页面(reviews.html)及相关配套资源；修复部分页面导航缩进不一致的问题 |
-| 2026.06.02 | 新增赛事待报名状态支持与筛选功能：新增待报名赛事样式与状态标识；重构赛事默认选中逻辑，按最新参赛日期选择默认项目/赛事系列；完善日历视图筛选功能，支持按全部/已参赛/未参赛状态筛选，未显示赛事日期以灰色标识；优化赛事提示框，支持多赛事同时展示并添加分隔线；新增TBC（待定）日期赛事支持，倒计时显示∞；更新赛事数据，修正部分赛事信息并新增赛事记录 |
-| 2026.06.03 | 书影音游剧记录页面筛选系统增强：新增快速筛选（评分状态、时间范围）与高级筛选（评分等级、地区、标签）两级筛选体系；评分制从5星制改为10分制，均分统计排除未评分项目，默认仅显示已评分项目；地区筛选支持空格分隔的多地区匹配；更新赛事记录分数与名称格式；格式化JSON数据文件缩进 |
+| 2026.06.02 | 新增赛事待报名状态支持与筛选功能：新增待报名赛事样式与状态标识；重构赛事默认选中逻辑，按最新参赛日期选择默认项目/赛事系列；完善日历视图筛选功能，支持按全部/已参赛/未参赛状态筛选，未显示赛事日期以灰色标识；优化赛事提示框，支持多赛事同时展示并添加分隔线；新增TBC（待定）日期赛事支持，倒计时显示∞ |
+| 2026.06.03 | 书影音游剧记录页面筛选系统增强：新增快速筛选（评分状态、时间范围）与高级筛选（评分等级、地区、标签）两级筛选体系；评分制从5星制改为10分制，均分统计排除未评分项目，默认仅显示已评分项目；地区筛选支持空格分隔的多地区匹配；格式化JSON数据文件缩进 |
 | 2026.06.19 | 体育运动页面大升级：新增运动活动详情页(sports-activity.html)和运动量统计页(sports-volume.html)；数据文件整合迁移至项目根目录；HTML语义化重构，去除冗余包裹层；统一返回按钮样式，活动页返回按钮根据来源页面动态显示；侧边栏统计数据根据运动类型和时间间隔筛选同步更新，取消显示数量限制；修复导航按钮被浮动元素挤到右侧的问题；删除比赛页面底部"最近活动"section，统一"查看活动"按钮样式；修复夜间模式下比赛页面标签底色和图表文字颜色；将race-records.json中stravaLink替换为本地活动链接；修复活动页面URL参数(runId→id)；同步脚本配置统一到config.py，消除所有硬编码 |
-| 2026.07.09 | 批量更新与优化：修正posts列表文件名互换问题；更新赛事抽签记录与赛事数据；优化地图缩放防抖逻辑；为运动数据添加高度平滑处理；重构背景滚动实现方案；新增视频对轨计算工具；更新影评数据与文章内容；调整部分CSS过渡动画与悬停效果 |
-| 2026.07.28 | 评分系统优化与新博文：书影音评分系统重构，统一评分数据与展示逻辑；时间计算器样式与功能完善；运动数据与活动详情持续更新；新增.gitignore文件； |
-| 2026.08.02 | 书影音游剧记录支持多刷/重映评价分开展示，同一作品多次观看记录独立渲染并配等级印章（11档配色）；赛事记录更新烟台马拉松中签状态；博客系统简化加载逻辑，移除posts.json中间层直接由posts-list.json索引读取md文件；修复含特殊字符(%)文件名的URL编码问题，解决部署到GitHub Pages后部分博文400错误 |
-| 2026.08.16 | 灵感碎片页面增强：新增详情弹窗与媒体镜像控件（播放/暂停、拖进度、倍速、音量，与卡片媒体状态双向同步）；预读媒体尺寸实现首帧即正确布局，消除加载闪烁；新增跳蛛饲养博文(26)与9条灵感碎片；书影音游剧与票据收藏新增《奥德赛》记录；新增本地预览服务器(scripts/preview_server.py，no-cache + Clear-Site-Data) |
+| 2026.07.09 | 批量优化：修正posts列表文件名互换问题；优化地图缩放防抖逻辑；为运动数据添加高度平滑处理；重构背景滚动实现方案；新增视频对轨计算工具；调整部分CSS过渡动画与悬停效果 |
+| 2026.07.28 | 评分系统优化：书影音评分系统重构，统一评分数据与展示逻辑；时间计算器样式与功能完善；新增.gitignore文件 |
+| 2026.08.02 | 书影音游剧记录支持多刷/重映评价分开展示，同一作品多次观看记录独立渲染并配等级印章（11档配色）；博客系统简化加载逻辑，移除posts.json中间层直接由posts-list.json索引读取md文件；修复含特殊字符(%)文件名的URL编码问题 |
+| 2026.08.16 | 灵感碎片页面增强：新增详情弹窗与媒体镜像控件（播放/暂停、拖进度、倍速、音量，与卡片媒体状态双向同步）；预读媒体尺寸实现首帧即正确布局，消除加载闪烁；新增本地预览服务器(scripts/preview_server.py，no-cache + Clear-Site-Data) |
+| 2026.08.17 | 票据关联字段改名refId→subjectId；运动地图三级着色（国家/省份/城市按缩放切换）；位置判断统一Nominatim(网络+缓存)；scripts维护脚本统一venv+统一入口run.sh+桌面快捷方式；git历史规范化（155→20 commit）；CSS/JS目录重构（common/domains/pages/vendor分层+加载规则统一）；CSS全量变量化（语义色集中、间距/字号/圆角档位化、阴影/字重统一、同义表达收敛、历史别名清理，266变量零未定义引用）；响应式断点统一（480/600/768/900/1200/1800六级）；返回顶部按钮全站统一（独立back-to-top.js）；新增404页面；修复深色模式二级别名bug；修复22/23博文编号与内容交叉；og标签全覆盖 |
 
 ## 使用方法
 
@@ -341,127 +321,31 @@ This is a personal website built with HTML, CSS, and JavaScript, designed to dem
 
 ```
 woshicby.github.io/
-├── CSS/             # CSS files directory
-│   ├── common/      # Common styles subdirectory (dark theme, responsive, selectors)
-│   ├── index/       # Homepage styles subdirectory (dark theme, responsive, selectors)
-│   ├── calendar.css       # Race calendar styles
-│   ├── charts.css         # Performance chart styles
-│   ├── civilization-evolution.css  # Civilization Evolution Simulator styles
-│   ├── common.css         # Common styles
-│   ├── convert-md-to-json.css  # Markdown converter styles
-│   ├── dice-tool.css      # Dice tool styles
-│   ├── github.min.css     # GitHub style code highlighting
-│   ├── index.css          # Homepage styles
-│   ├── life-path-calculator.css  # Life path calculator styles
-│   ├── local-llm-api-chat.css    # Local LLM chat styles
-│   ├── moments.css        # Inspiration Moments styles
-│   ├── pace-calculator.css  # Pace calculator styles
-│   ├── post-detail.css    # Article detail styles
-│   ├── posts.css          # Article list styles
-│   ├── random-decision.css  # Random decision maker styles
-│   ├── seo-checker.css    # SEO checker styles
-│   ├── races.css          # Running records styles
-│   ├── study.css          # Study page styles
-│   ├── style-comparison.css  # Style comparator styles
-│   ├── time-calculator.css  # Time calculator styles
-│   ├── tools-common.css   # Tools common styles
-│   ├── tools.css          # Tools collection styles
-│   ├── touken-forge.css   # Touken Ranbu styles
-│   ├── video.css          # Video player styles
-│   └── wulin-quotes.css   # My Own Swordsman styles
-├── JS/              # JavaScript files directory
-│   ├── MathJax-3.2.2es5/  # MathJax library
-│   ├── civilization-evolution/  # Civilization Evolution Simulator
-│   │   ├── civilization.js
-│   │   ├── main.js
-│   │   ├── map.js
-│   │   ├── simulator.js
-│   │   ├── tech-tree.json
-│   │   └── ui.js
-│   ├── markdown/     # Markdown related functionality
-│   │   ├── markdown-it.min.js
-│   │   ├── markdown-it-footnote.min.js
-│   │   ├── markdown-it-mark.min.js
-│   │   ├── markdown-it-sub.min.js
-│   │   ├── markdown-it-sup.min.js
-│   │   └── markdown-utils.js  # Markdown parsing shared utilities
-│   ├── background-lazy-load.js  # Background image lazy loading
-│   ├── bilibili-api.js    # Bilibili API
-│   ├── calendar.js        # Race calendar functionality
-│   ├── charts.js          # Performance chart functionality
-│   ├── convert-md-to-json.js  # Markdown converter
-│   ├── dice-tool.js       # Dice tool
-│   ├── highlight.min.js   # Code highlighting
-│   ├── life-path-calculator.js  # Life path calculator
-│   ├── local-llm-api-chat.js    # Local LLM chat
-│   ├── moments.js         # Inspiration Moments
-│   ├── navigation.js      # Navigation functionality
-│   ├── pace-calculator.js # Pace calculator
-│   ├── post-detail.js     # Article detail functionality
-│   ├── posts.js           # Article list functionality
-│   ├── random-decision.js # Random decision maker
-│   ├── seo-checker.js     # SEO checker
-│   ├── races.js           # Running records functionality
-│   ├── study.js           # Study page functionality
-│   ├── theme-toggle.js    # Theme switching
-│   ├── time-calculator.js # Time calculator
-│   ├── tool-tabs.js       # Tool page tab navigation
-│   ├── tools.js           # Tools collection
-│   ├── touken-forge.js    # Touken Ranbu
-│   └── wulin-quotes.js    # My Own Swordsman
-├── JSON/              # JSON data files directory
-│   ├── games.json        # Game data
-│   ├── moments.json      # Inspiration Moments data
-│   ├── posts.json        # Blog posts data (deprecated, backward compatible)
-│   ├── posts-list.json   # Blog posts list configuration file
-│   ├── posts-series.json # Blog series configuration file
-│   ├── race-records.json  # Running records data
-│   ├── seo-pages.json    # SEO page configuration
-│   ├── study-data.json   # Study page data
-│   └── tools.json        # Tools data
-├── posts/           # Blog articles directory
-│   └── *.md        # Markdown format blog posts
-├── images/          # Image resources directory
-│   ├── finisher_certificates/  # Finisher certificate images
-│   ├── moments/     # Inspiration Moments images
-│   ├── post.*/      # Blog post image subdirectories
-│   ├── bilibili-icon.png
-│   ├── body_backgrond.jpg
-│   ├── b站头像.gif
-│   ├── favicon.ico
-│   ├── github-icon.svg
-│   └── menu-icon.svg
-├── audios/          # Audio resources directory
-│   └── moments/     # Inspiration Moments audio
-├── videos/          # Video resources directory
-├── documents/       # Project documents directory
-│   ├── resize.txt
-│   ├── resized_files_list.txt
-│   ├── 时间距离配速距离计算逻辑.txt (Time-Distance-Pace Calculation Logic)
-│   └── 武林外传剧本全.md (My Own Swordsman Script)
-├── index.html       # Website homepage
-├── pace-calculator.html
-├── time-calculator.html
-├── life-path-calculator.html
-├── races.html
-├── study.html
-├── style-comparison.html
-├── tools.html
-├── touken-forge.html
-├── civilization-evolution.html
-├── wulin-quotes.html
-├── video.html
-├── moments.html
-├── posts.html
-├── post-detail.html
-├── convert-md-to-json.html
-├── seo-checker.html
-├── random-decision.html
-├── dice-tool.html
-├── local-llm-api-chat.html
+├── CSS/             # Styles organized by layer & domain
+│   ├── common.css         # Global entry (@import common/)
+│   ├── common/            # Global modules (selectors/responsive/dark)
+│   ├── domains/           # Domain styles (tools/sports)
+│   ├── pages/             # Page-specific styles (28 files)
+│   ├── vendor/            # Third-party (github.min.css)
+│   ├── index.css / index/ # Homepage specific
+│   └── README.md          # Styling conventions
+├── JS/              # JavaScript organized by layer & domain
+│   ├── common/            # Global (theme-toggle/navigation/background/common)
+│   ├── domains/           # Domain modules (tool-tabs/sports-config/sports-common)
+│   ├── pages/             # Page-specific scripts (26 files)
+│   ├── vendor/            # Third-party (highlight/markdown/MathJax)
+│   ├── civilization-evolution/  # Simulator (separate dir)
+│   └── README.md          # Script conventions
+├── JSON/             # Data files (UTF-8 BOM)
+├── posts/            # Blog posts (Markdown, numbered)
+├── images/ / audios/ / videos/   # Media resources
+├── activities_detail/   # Sports activity details (generated)
+├── documents/       # Misc docs
+├── *.html           # Pages at root
 └── README.md        # Project documentation
 ```
 
+> See the [Chinese version](#chinese) for detailed directory listing.
 ## Website Features
 
 - **Responsive Navigation**: Mobile-adapted hamburger menu navigation
@@ -473,25 +357,7 @@ woshicby.github.io/
 
 ## Update History
 
-| Date | Updates |
-|------|---------|
-| 2023.02.22 | Project initialization |
-| 2025.07.18-20 | Added style comparator tool; improved project documentation structure and image resource management; updated responsive navigation system |
-| 2025.11.20-27 | Added theme toggle; refactored CSS/JS directory structure, moved HTML files to root; implemented blog post system (Markdown support, math formula rendering, code highlighting, conversion tool) |
-| 2025.12.14-16 | Added running record feature (season best/personal best markers); implemented masonry layout for completion certificates; optimized bio section layout; unified hover effects in dark mode |
-| 2026.01.14-23 | Optimized race calendar (data-driven color scheme, category legend, tooltips, result/start time display); implemented performance change comparison and PB statistics logic; developed multi-civilization evolution simulator |
-| 2026.02.06-25 | Fixed display issues for race calendar legend, blog images/links, etc.; blog list now supports multi-category/tag filtering (OR logic); implemented automated blog rendering system; organized site-wide blog metadata; added dynamic loading & filtering for study.html; optimized site-wide animations, heading styles, and paragraph spacing; fixed Bilibili API issues and improved user card layout |
-| 2026.03.10-17 | Added update_date field to blog system; added links to homepage skill cards; added SEO checker tool, random decision maker, dice tool; unified tool page naming conventions and navigation modules; improved sitemap.xml; core refactoring of multi-civilization evolution simulator (run log system, civilization behavior system, stability fixes, removed tech tree); unified form styles across site |
-| 2026.03.28-30 | Unified file naming and date format for site-wide download functions; blog system now supports direct access via file parameter, added error pages; added inspiration fragments feature (moments.html) supporting multimedia, Markdown, and tag filtering |
-| 2026.04.17-23 | Added local LLM API chat tool; refactored Markdown parsing (superscript/subscript handling); added time calculator and life path number calculator |
-| 2026.05.04-20 | Blog gains series feature, timeline archive, and infinite scroll loading; added "My Own Swordsman" quote game and quote query tool; added lottery-pending race management and display |
-| 2026.05.26-31 | Added Emoji renderer tool; refactored race calendar module (real-time countdown, card UI, status badges, mobile adaptation); refactored navigation bar to config-driven dynamic generation; added Books, Movies & Music records page (reviews.html) |
-| 2026.06.02-03 | Race system added "pending registration" status and TBC date support; improved calendar filtering; reviews page filter system refactored (two-level filter, 10-point rating scale) |
-| 2026.06.19 | Major sports page upgrade: added sports activity detail page and volume statistics page; migrated data files to root directory; HTML semantic refactoring; unified back button and sidebar logic; centralized site configuration to config.py |
-| 2026.06.24 | Added lottery record module; improved race calendar and list information layout |
-| 2026.07.09 | Batch updates and optimizations: fixed posts list filename swapping issue; updated race lottery records and race data; optimized map zoom debounce logic; added altitude smoothing for sports data; refactored background scrolling implementation; added video sync calculation tool; updated movie review data and article content; adjusted CSS transitions and hover effects |
-| 2026.07.28 | Rating system optimization & new blog post: refactored books/movies/music rating system with unified data and display logic; improved time calculator styling and functionality; continuous sports data and activity detail updates; added .gitignore file;  |
-| 2026.08.02 | Reviews support separate display of multi-view/re-screening ratings (independent rendering of multiple viewing records per work with rating stamps, 11-tier color scheme); race records updated Yantai Marathon lottery result; blog system simplified loading logic (removed posts.json middleware, md files read directly via posts-list.json index); fixed URL encoding for filenames with special characters (%), resolving 400 errors for some posts after GitHub Pages deployment |
+See the [Chinese version](#chinese) for the full update history (latest updates are recorded there only).
 
 ## Usage
 
@@ -578,127 +444,31 @@ When adding new pages, please follow the existing file structure and naming conv
 
 ```
 woshicby.github.io/
-├── CSS/             # CSSファイルディレクトリ
-│   ├── common/      # 共通スタイルサブディレクトリ（ダークテーマ、レスポンシブ、セレクタ）
-│   ├── index/       # ホームページスタイルサブディレクトリ（ダークテーマ、レスポンシブ、セレクタ）
-│   ├── calendar.css       # レースカレンダースタイル
-│   ├── charts.css         # 成績チャートスタイル
-│   ├── civilization-evolution.css  # 多文明演化シミュレータースタイル
-│   ├── common.css         # 共通スタイル
-│   ├── convert-md-to-json.css  # Markdown変換ツールスタイル
-│   ├── dice-tool.css      # ダイスツールスタイル
-│   ├── github.min.css     # GitHubスタイルコードハイライト
-│   ├── index.css          # ホームページスタイル
-│   ├── life-path-calculator.css  # ライフパスナンバー計算機スタイル
-│   ├── local-llm-api-chat.css    # ローカルLLMチャットスタイル
-│   ├── moments.css        # インスピレーションMomentsスタイル
-│   ├── pace-calculator.css  # ペース計算機スタイル
-│   ├── post-detail.css    # 記事詳細スタイル
-│   ├── posts.css          # 記事一覧スタイル
-│   ├── random-decision.css  # ランダム決定メーカースタイル
-│   ├── seo-checker.css    # SEOチェッカースタイル
-│   ├── races.css          # ランニング記録スタイル
-│   ├── study.css          # 学習ページスタイル
-│   ├── style-comparison.css  # スタイル比較ツールスタイル
-│   ├── time-calculator.css  # 時間計算機スタイル
-│   ├── tools-common.css   # ツール共通スタイル
-│   ├── tools.css          # ツールコレクションスタイル
-│   ├── touken-forge.css   # 刀剣乱舞スタイル
-│   ├── video.css          # ビデオプレイヤースタイル
-│   └── wulin-quotes.css   # 武林外伝スタイル
-├── JS/              # JavaScriptファイルディレクトリ
-│   ├── MathJax-3.2.2es5/  # MathJaxライブラリ
-│   ├── civilization-evolution/  # 多文明演化シミュレーター
-│   │   ├── civilization.js
-│   │   ├── main.js
-│   │   ├── map.js
-│   │   ├── simulator.js
-│   │   ├── tech-tree.json
-│   │   └── ui.js
-│   ├── markdown/     # Markdown関連機能
-│   │   ├── markdown-it.min.js
-│   │   ├── markdown-it-footnote.min.js
-│   │   ├── markdown-it-mark.min.js
-│   │   ├── markdown-it-sub.min.js
-│   │   ├── markdown-it-sup.min.js
-│   │   └── markdown-utils.js  # Markdown解析共有ユーティリティ
-│   ├── background-lazy-load.js  # 背景画像遅延読み込み
-│   ├── bilibili-api.js    # Bilibili API
-│   ├── calendar.js        # レースカレンダー機能
-│   ├── charts.js          # 成績チャート機能
-│   ├── convert-md-to-json.js  # Markdown変換ツール
-│   ├── dice-tool.js       # ダイスツール
-│   ├── highlight.min.js   # コードハイライト
-│   ├── life-path-calculator.js  # ライフパスナンバー計算機
-│   ├── local-llm-api-chat.js    # ローカルLLMチャット
-│   ├── moments.js         # インスピレーションMoments
-│   ├── navigation.js      # ナビゲーション機能
-│   ├── pace-calculator.js # ペース計算機
-│   ├── post-detail.js     # 記事詳細機能
-│   ├── posts.js           # 記事一覧機能
-│   ├── random-decision.js # ランダム決定メーカー
-│   ├── seo-checker.js     # SEOチェッカー
-│   ├── races.js           # ランニング記録機能
-│   ├── study.js           # 学習ページ機能
-│   ├── theme-toggle.js    # テーマ切り替え
-│   ├── time-calculator.js # 時間計算機
-│   ├── tool-tabs.js       # ツールページタブナビゲーション
-│   ├── tools.js           # ツールコレクション
-│   ├── touken-forge.js    # 刀剣乱舞
-│   └── wulin-quotes.js    # 武林外伝
-├── JSON/              # JSONデータファイルディレクトリ
-│   ├── games.json        # ゲームデータ
-│   ├── moments.json      # インスピレーションMomentsデータ
-│   ├── posts.json        # ブログ記事データ（非推奨、後方互換）
-│   ├── posts-list.json   # ブログ記事リスト設定ファイル
-│   ├── posts-series.json # ブログシリーズ設定ファイル
-│   ├── race-records.json  # ランニング記録データ
-│   ├── seo-pages.json    # SEOページ設定
-│   ├── study-data.json   # 学習ページデータ
-│   └── tools.json        # ツールデータ
-├── posts/           # ブログ記事ディレクトリ
-│   └── *.md        # Markdown形式ブログ記事
-├── images/          # 画像リソースディレクトリ
-│   ├── finisher_certificates/  # 完走証明書画像
-│   ├── moments/     # インスピレーションMoments画像
-│   ├── post.*/      # ブログ記事画像サブディレクトリ
-│   ├── bilibili-icon.png
-│   ├── body_backgrond.jpg
-│   ├── b站头像.gif
-│   ├── favicon.ico
-│   ├── github-icon.svg
-│   └── menu-icon.svg
-├── audios/          # 音声リソースディレクトリ
-│   └── moments/     # インスピレーションMoments音声
-├── videos/          # 動画リソースディレクトリ
-├── documents/       # プロジェクトドキュメントディレクトリ
-│   ├── resize.txt
-│   ├── resized_files_list.txt
-│   ├── 时间距离配速距离计算逻辑.txt (時間-距離-ペース計算ロジック)
-│   └── 武林外传剧本全.md (武林外伝スクリプト)
-├── index.html       # ウェブサイトホームページ
-├── pace-calculator.html
-├── time-calculator.html
-├── life-path-calculator.html
-├── races.html
-├── study.html
-├── style-comparison.html
-├── tools.html
-├── touken-forge.html
-├── civilization-evolution.html
-├── wulin-quotes.html
-├── video.html
-├── moments.html
-├── posts.html
-├── post-detail.html
-├── convert-md-to-json.html
-├── seo-checker.html
-├── random-decision.html
-├── dice-tool.html
-├── local-llm-api-chat.html
+├── CSS/             # レイヤー・ドメイン別に整理
+│   ├── common.css         # 全体共通エントリ(@import common/)
+│   ├── common/            # 共通モジュール(セレクタ/レスポンシブ/ダーク)
+│   ├── domains/           # ドメイン別(tools/sports)
+│   ├── pages/             # ページ別スタイル(28ファイル)
+│   ├── vendor/            # サードパーティ(github.min.css)
+│   ├── index.css / index/ # ホームページ専用
+│   └── README.md          # スタイル規約
+├── JS/              # レイヤー・ドメイン別に整理
+│   ├── common/            # 全体共通(theme-toggle/navigation/background/common)
+│   ├── domains/           # ドメインモジュール(tool-tabs/sports-config/sports-common)
+│   ├── pages/             # ページ別スクリプト(26ファイル)
+│   ├── vendor/            # サードパーティ(highlight/markdown/MathJax)
+│   ├── civilization-evolution/  # シミュレーター(独立ディレクトリ)
+│   └── README.md          # スクリプト規約
+├── JSON/             # データファイル(UTF-8 BOM)
+├── posts/            # ブログ記事(Markdown、番号付き)
+├── images/ / audios/ / videos/   # メディアリソース
+├── activities_detail/   # 運動アクティビティ詳細(生成物)
+├── documents/       # その他ドキュメント
+├── *.html           # ルート直下のページ
 └── README.md        # プロジェクトドキュメント
 ```
 
+> 詳細なディレクトリ一覧は[中国語版](#chinese)を参照してください。
 ## ウェブサイトの特徴
 
 - **レスポンシブナビゲーション**: モバイルデバイスに適応するハンバーガーメニューナビゲーション
@@ -710,25 +480,7 @@ woshicby.github.io/
 
 ## 更新履歴
 
-| 日付 | 更新内容 |
-|------|----------|
-| 2023.02.22 | プロジェクト初期化 |
-| 2025.07.18-20 | スタイル比較ツール追加、プロジェクト文書構造と画像リソース管理の整備、レスポンシブナビゲーションシステムの更新 |
-| 2025.11.20-27 | テーマ切り替え機能追加、CSS/JSディレクトリ構造の再構築とHTMLファイルのルート移動、ブログ記事システム実装（Markdown対応、数式レンダリング、コードハイライト、変換ツール） |
-| 2025.12.14-16 | ランニング記録機能追加（シーズンベスト/自己ベストマーク）、完走証のウォーターフォールレイアウト実装、自己紹介エリアのレイアウト最適化、ダークモードのホバー効果統一 |
-| 2026.01.14-23 | レースカレンダー最適化（データ駆動カラー、種目凡例、ツールチップ、成績/スタート時間表示）、成績変化比較とPB統計ロジックの実装、多文明進化シミュレーター開発 |
-| 2026.02.06-25 | レースカレンダー凡例やブログ画像/リンクなどの表示問題を修正、ブログリストの複数カテゴリ・タグフィルタリング対応（OR論理）、ブログ自動レンダリングシステム実装、全サイトブログのメタデータ整理、study.htmlの動的読み込みとフィルタリング追加、サイト全体のアニメーション・見出しスタイル・段落レイアウトの最適化、Bilibili API問題修正とユーザーカードの改善 |
-| 2026.03.10-17 | ブログシステムにupdate_dateフィールド追加、ホームのスキルカードにリンク追加、SEOチェッカー・ランダム意思決定ツール・サイコロツール追加、ツールページの命名規則とナビゲーションモジュールの統一、sitemap.xmlの充実、多文明進化シミュレーターのコア再構築（ログシステム、文明行動システム、安定性修正、技術ツリー削除）、全サイトのフォームスタイル統一 |
-| 2026.03.28-30 | ダウンロード機能のファイル名と日付形式を統一、ブログシステムのfileパラメータ直接アクセス対応とエラーページ追加、インスピレーションフラグメント機能追加（moments.html、マルチメディア・Markdown・タグ絞り込み対応） |
-| 2026.04.17-23 | ローカル大規模言語モデルAPI対話ツール追加、Markdown解析ロジック再構築（上付き・下付き文字処理）、時間計算機とライフパスナンバー計算機を追加 |
-| 2026.05.04-20 | ブログにシリーズ機能・タイムラインアーカイブ・無限スクロール読み込み追加、「武林外伝」セリフゲームとセリフ検索ツール追加、抽選待ちレース管理・表示を追加 |
-| 2026.05.26-31 | Emojiレンダラーツール追加、レースカレンダーモジュール再構築（リアルタイムカウントダウン、カードUI、ステータスバッジ、モバイル対応）、ナビゲーションバーを設定ベースの動的生成に再構築、本・映画・音楽の記録ページ(reviews.html)追加 |
-| 2026.06.02-03 | レースシステムに「申込待ち」状態とTBC日付対応を追加、カレンダーフィルター機能改善、レビューページのフィルターシステム再構築（二段階フィルター、10点満点評価） |
-| 2026.06.19 | スポーツページ大幅アップグレード：アクティビティ詳細ページと運動量統計ページ追加、データファイルをルートディレクトリに移行、HTMLセマンティック再構築、戻るボタンとサイドバーのロジック統一、全サイト設定をconfig.pyに統一 |
-| 2026.06.24 | 抽選記録モジュール追加、レースカレンダーとリストの情報レイアウト改善 |
-| 2026.07.09 | 一括更新と最適化：postsリストのファイル名入れ替え問題修正；レース抽選記録とレースデータ更新；地図ズームデバウンスロジック最適化；スポーツデータに高度平滑化処理追加；背景スクロール実装方案再構築；動画対軌計算ツール追加；映画レビューデータと記事コンテンツ更新；一部CSSトランジションアニメーションとホバー効果調整 |
-| 2026.07.28 | 評価システム最適化と新規ブログ記事：本・映画・音楽の評価システムを再構築し、データと表示ロジックを統一；時間計算機のスタイルと機能を改善；スポーツデータとアクティビティ詳細を継続的に更新；.gitignoreファイルを追加；|
-| 2026.08.02 | 書影音記録で複数視聴/再上映レビューの個別表示に対応（同一作品の複数視聴記録を独立レンダリングし、11段階配色の評価スタンプ付き）；レース記録で煙台マラソンの当選状態を更新；ブログシステムの読み込みロジックを簡素化（posts.json中間層を廃止し、posts-list.jsonインデックスから直接mdファイルを読み込み）；特殊文字(%)を含むファイル名のURLエンコード問題を修正し、GitHub Pagesデプロイ後の一部ブログ記事400エラーを解決 |
+最新の更新履歴は[中国語版](#chinese)を参照してください（更新履歴は中国語版のみに記録されます）。
 
 ## 使用方法
 

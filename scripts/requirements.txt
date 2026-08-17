@@ -1,0 +1,25 @@
+# 网站维护脚本统一依赖(全部脚本共用 scripts/.venv)
+# 安装: scripts/.venv/bin/python -m pip install -r scripts/requirements.txt
+
+# 运动数据同步(sports-sync)
+arrow
+colour
+geopy
+gpxpy
+haversine
+polyline
+pytz
+sqlalchemy
+stravalib
+svgwrite
+garmin-fit-sdk
+
+# 豆瓣 Excel 转换(convert-douban.py)
+openpyxl
+
+# gpxtrackposter 传递依赖(手动固定,避免 pip 解析缺)
+lxml
+s2sphere
+rich
+tcxreader
+timezonefinder

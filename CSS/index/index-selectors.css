@@ -11,7 +11,7 @@
 }
 
 .welcome-content p {
-   font-size: 1rem;
+   font-size: var(--font-size-base);
    margin-bottom: var(--spacing-lg);
    opacity: 1;
    color: var(--text-color);
@@ -28,8 +28,8 @@
 .btn-primary, .btn-secondary {
    padding: var(--spacing-md) var(--spacing-xl);
    border-radius: var(--border-radius-md);
-   font-size: 1rem;
-   font-weight: 500;
+   font-size: var(--font-size-base);
+   font-weight: var(--font-weight-medium);
    text-decoration: none;
    transition: var(--transition-default);
    display: inline-block;
@@ -41,7 +41,7 @@
 
 .btn-primary:hover, .btn-secondary:hover {
    background-color: var(--secondary-color);
-   color: white;
+   color: var(--white);
    transform: translateY(-2px);
    box-shadow: var(--shadow-medium);
 }
@@ -74,7 +74,7 @@
 .profile-content {
    flex: 1;
    line-height: 1.8;
-   font-size: 1rem;
+   font-size: var(--font-size-base);
    color: var(--text-color);
    padding: 0 var(--spacing-sm);
 }
@@ -100,7 +100,7 @@ div.button_box{
    padding: calc(var(--spacing-md) + 5px);
    width: auto;
    background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(240,249,255,0.8));
-   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+   box-shadow: var(--shadow-hover);
    transition: var(--transition-default);
    border-left: 3px solid var(--secondary-color);
 }
@@ -139,13 +139,13 @@ div.button_box:hover {
    text-decoration: none;
    color: var(--text-color);
    transition: var(--transition-default);
-   font-size: 1rem;
+   font-size: var(--font-size-base);
    border: 2px solid transparent;
 }
 
 .social-link:hover {
    background-color: var(--secondary-color);
-   color: white;
+   color: var(--white);
    transform: translateY(-3px);
    box-shadow: var(--shadow-medium);
    border-color: var(--secondary-color);
@@ -195,14 +195,14 @@ div.button_box:hover {
 }
 
 .skill-card strong {
-   font-size: 1.2rem;
+   font-size: var(--font-size-lg-plus);
    margin-bottom: var(--spacing-sm);
    color: var(--heading-color);
 }
 
 .skill-card p {
    color: var(--light-text);
-   font-size: 0.9rem;
+   font-size: var(--font-size-sm);
 }
 
 /* ==========================================   页面组件 - 网站导航卡片   ==========================================   实现网站各个页面的导航卡片布局和样式   ========================================== */
@@ -228,12 +228,12 @@ div.button_box:hover {
 }
 
 .nav-card strong {
-   font-size: 1.2rem;
+   font-size: var(--font-size-lg-plus);
    margin-bottom: var(--spacing-sm);
    color: var(--heading-color);
 }
 
 .nav-card p {
    color: var(--light-text);
-   font-size: 0.9rem;
+   font-size: var(--font-size-sm);
 }

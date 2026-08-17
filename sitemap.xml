@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
  <url>
    <loc>https://woshicby.github.io/</loc>
@@ -55,7 +55,7 @@
    <priority>0.8</priority>
  </url>
  
- <!-- 小工具页面 -->
+ 
  <url>
    <loc>https://woshicby.github.io/pace-calculator.html</loc>
    <lastmod>2026-03-14</lastmod>
@@ -93,7 +93,7 @@
    <priority>0.5</priority>
  </url>
  
- <!-- 小游戏页面 -->
+ 
  <url>
    <loc>https://woshicby.github.io/touken-forge.html</loc>
    <lastmod>2026-03-14</lastmod>
@@ -107,13 +107,7 @@
    <priority>0.6</priority>
  </url>
  
- <!-- 新增页面 -->
- <url>
-   <loc>https://woshicby.github.io/posts.html</loc>
-   <lastmod>2026-05-04</lastmod>
-   <changefreq>weekly</changefreq>
-   <priority>0.9</priority>
- </url>
+ 
  <url>
    <loc>https://woshicby.github.io/post-detail.html</loc>
    <lastmod>2026-05-04</lastmod>
@@ -150,4 +144,4 @@
    <changefreq>monthly</changefreq>
    <priority>0.6</priority>
  </url>
-</urlset>
+<url><loc>https://woshicby.github.io/sports-activity.html</loc><lastmod>2026-06-19</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url><loc>https://woshicby.github.io/reviews.html</loc><lastmod>2026-05-31</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url><loc>https://woshicby.github.io/tickets.html</loc><lastmod>2026-08-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url><loc>https://woshicby.github.io/emoji-renderer.html</loc><lastmod>2026-05-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url></urlset>

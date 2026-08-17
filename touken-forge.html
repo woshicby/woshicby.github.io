@@ -16,26 +16,27 @@
    <meta property="og:description" content="刀剑乱舞锻刀模拟器，模拟游戏中的锻刀系统，支持所有刀剑类型的锻造配方模拟。">
    <meta property="og:type" content="website">
    <meta property="og:url" content="https://woshicby.github.io/touken-forge.html">
-   <meta property="og:image" content="https://woshicby.github.io/images/test_image.jpg">
+   <meta property="og:image" content="https://woshicby.github.io/images/profile-photo.jpg">
    <meta property="og:site_name" content="BY的个人网站">
    <meta property="og:locale" content="zh_CN">
 
    <meta name="twitter:card" content="summary_large_image">
    <meta name="twitter:title" content="锻刀模拟器 - BY的个人网站">
    <meta name="twitter:description" content="刀剑乱舞锻刀模拟器，模拟游戏中的锻刀系统，支持所有刀剑类型的锻造配方模拟。">
-   <meta name="twitter:image" content="https://woshicby.github.io/images/test_image.jpg">
+   <meta name="twitter:image" content="https://woshicby.github.io/images/profile-photo.jpg">
 
    <link rel="stylesheet" href="./CSS/common.css">
-   <link rel="stylesheet" href="./CSS/tools-common.css">
-   <link rel="stylesheet" href="./CSS/touken-forge.css">
+   <link rel="stylesheet" href="./CSS/domains/tools.css">
+   <link rel="stylesheet" href="./CSS/pages/touken-forge.css">
    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
    <link rel="canonical" href="https://woshicby.github.io/touken-forge.html">
 
-   <script src="./JS/navigation.js"></script><!-- 引入导航功能脚本 -->
-   <script src="./JS/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
-   <script src="./JS/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
-   <script src="./JS/tool-tabs.js"></script><!-- 引入工具标签动态加载脚本 -->
-   <script src="./JS/touken-forge.js"></script><!-- 引入锻刀模拟器脚本 -->
+   <script src="./JS/common/navigation.js"></script>
+   <script src="./JS/common/back-to-top.js"></script><!-- 返回顶部按钮 --><!-- 引入导航功能脚本 -->
+   <script src="./JS/common/theme-toggle.js"></script><!-- 引入主题切换脚本 -->
+   <script src="./JS/common/background-lazy-load.js"></script><!-- 引入背景懒加载脚本 -->
+   <script src="./JS/domains/tool-tabs.js"></script><!-- 引入工具标签动态加载脚本 -->
+   <script src="./JS/pages/touken-forge.js"></script><!-- 引入锻刀模拟器脚本 -->
 </head>
 <!-- 页面头部 - 网站标题和导航 -->
 
@@ -124,7 +125,7 @@
 
            <!-- 结果区域 -->
            <div id="resultContainer" class="result-section">
-               <img id="resultImage" class="result-image" src="./images/touken/刀账图标/default_sword.jpg" alt="锻造结果">
+               <img id="resultImage" class="result-image" src="./images/touken/刀账图标/no_touken.jpg" alt="锻造结果">
                <div id="resultName" class="result-name">未知刀剑</div>
                <div id="resultRarity" class="rarity common">普通</div>
            </div>

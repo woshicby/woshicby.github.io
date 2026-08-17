@@ -1,0 +1,148 @@
+/* 小工具公共样式 */
+
+/* 工具标签导航样式 */
+.tabs {
+   display: flex;
+   gap: 10px;
+   margin-bottom: var(--spacing-sm);
+   padding-bottom: var(--spacing-sm);
+   flex-wrap: wrap;
+}
+
+.tab-btn {
+   padding: var(--spacing-md-plus) var(--spacing-xl-plus);
+   background: var(--card-bg-color);
+   border: 2px solid var(--border-color);
+   border-radius: var(--border-radius-md);
+   cursor: pointer;
+   font-size: var(--font-size-16px);
+   font-weight: var(--font-weight-semibold);
+   transition: var(--transition-default);
+   color: var(--text-color);
+}
+
+.tab-btn:hover {
+   background: var(--primary-color);
+   color: var(--white);
+   border-color: var(--primary-color);
+}
+
+.tab-btn.active {
+   background: var(--primary-color);
+   color: var(--white);
+   border-color: var(--primary-color);
+}
+
+/* 工具/游戏标题样式 - 按照锻刀模拟器格式 */
+.tool-page-title {
+   color: var(--heading-color);
+   text-align: center;
+   margin-bottom: var(--spacing-md);
+   font-size: 24px;
+   border-bottom: 2px solid var(--border-color);
+   padding-bottom: var(--spacing-sm);
+}
+
+/* 工具/游戏简介样式 - 按照锻刀模拟器格式 */
+.tool-description {
+   font-size: var(--font-size-15px);
+   line-height: 1.5;
+   color: var(--text-color);
+   text-align: center;
+   margin: var(--spacing-md) auto;
+   max-width: 800px;
+}
+
+/* 统一工具容器样式 - 按照样式对比页面样式 */
+.tool-container {
+   width: 100%;
+   margin: 0 auto;
+   padding: var(--spacing-xl);
+   background-color: var(--white);
+   border-radius: var(--border-radius-md);
+   border: 1px solid var(--border-color);
+   font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+   box-sizing: border-box;
+}
+
+/* 统一section样式 - 所有工具/游戏页面通用 */
+[class$="-section"] {
+   margin-bottom: var(--spacing-xl);
+}
+
+[class$="-section"] h3 {
+   color: var(--heading-color);
+   margin-bottom: var(--spacing-md);
+   font-size: 18px;
+}
+
+/* 响应式样式 - 统一管理 */
+/* 平板及以下设备 */
+@media (max-width: 768px) {
+   .tool-page-title {
+       font-size: 24px;
+       padding-bottom: var(--spacing-sm-plus);
+   }
+   
+   /* 确保所有工具容器在中等屏幕上有一致的内边距 */
+   .tool-container {
+       padding: var(--spacing-lg);
+   }
+}
+
+/* 手机设备 */
+@media (max-width: 480px) {
+   /* 合并的响应式规则 */
+   .tool-page-title {
+       font-size: 20px;
+       padding-bottom: var(--spacing-xs-plus);
+   }
+   
+   /* 确保所有工具容器在小屏幕上有一致的内边距和圆角 */
+   .tool-container {
+       padding: var(--spacing-md);
+       border-radius: var(--border-radius-md);
+   }
+   
+   .tool-description {
+       font-size: var(--font-size-13px);
+       padding: var(--spacing-sm);
+       margin: var(--spacing-sm) auto;
+       max-width: 95%;
+   }
+}
+
+/* 夜间模式样式 - 统一管理 */
+body.dark-theme .tool-page-title {
+   color: var(--heading-color);
+   border-bottom-color: var(--border-color);
+}
+
+body.dark-theme .tool-container {
+   background-color: var(--card-bg-color);
+   border: 1px solid var(--border-color);
+}
+
+
+@media (max-width: 600px) {
+    .mainbox {
+        padding: var(--spacing-sm);
+    }
+}
+
+
+@media (max-width: 900px) {
+    /* 平板宽度: 容器间距收紧 */
+    .mainbox {
+        padding: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 1200px) {
+    /* 1200px: 大屏到中屏过渡,无特殊调整 */
+}
+
+
+@media (max-width: 1800px) {
+    /* 1800px: 超大屏限制,无特殊调整 */
+}

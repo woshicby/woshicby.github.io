@@ -30,7 +30,7 @@ body.dark-theme .btn-primary, body.dark-theme .btn-secondary {
 
 body.dark-theme .btn-primary:hover, body.dark-theme .btn-secondary:hover {
    background-color: var(--dark-primary-hover-color);
-   color: white;
+   color: var(--white);
    transform: translateY(-2px);
    box-shadow: var(--dark-shadow-medium);
 }
@@ -122,5 +122,5 @@ body.dark-theme .social-link {
 
 body.dark-theme .social-link:hover {
    background-color: var(--dark-primary-hover-color);
-   color: white;
+   color: var(--white);
 }

@@ -1,0 +1,130 @@
+.page-title {
+    font-size: 1.5em;
+    color: var(--heading-color);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.page-url {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-md);
+    opacity: 0.7;
+}
+
+.meta-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.meta-group h3 {
+    color: var(--text-color);
+    font-size: 1.1em;
+    margin-bottom: var(--spacing-sm-plus);
+}
+
+.meta-item {
+    display: flex;
+    margin: var(--spacing-xs) 0;
+    padding: var(--spacing-sm-plus);
+    background: var(--card-bg-color);
+    border-radius: var(--border-radius-sm);
+}
+
+.meta-label {
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color);
+    min-width: 150px;
+}
+
+.meta-value {
+    color: var(--text-color);
+    flex: 1;
+    word-break: break-word;
+}
+
+.status {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.85em;
+    margin-left: var(--spacing-sm);
+}
+
+.status.ok {
+    background: var(--color-success-btn);
+    color: var(--white);
+}
+
+.status.missing {
+    background: var(--color-error);
+    color: var(--white);
+}
+
+.status.warning {
+    background: var(--color-warning-solid);
+    color: var(--white);
+}
+
+.summary-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    flex: 1;
+    min-width: 150px;
+}
+
+.stat-number {
+    font-size: 2em;
+    font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 768px) {
+    .meta-item {
+        flex-direction: column;
+    }
+    
+    .meta-label {
+        min-width: auto;
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .summary-stats {
+        flex-direction: column;
+    }
+    
+    .stat {
+        min-width: auto;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .seo-checker-page .mainbox {
+        padding: var(--spacing-sm);
+    }
+}
+
+
+@media (max-width: 900px) {
+    /* 平板宽度: 容器间距收紧 */
+    .mainbox {
+        padding: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 1200px) {
+    /* 1200px: 大屏到中屏过渡,无特殊调整 */
+}
+
+
+@media (max-width: 1800px) {
+    /* 1800px: 超大屏限制,无特殊调整 */
+}
+
+@media (max-width: 600px) {
+    /* 600px: 小屏,无特殊调整 */
+}

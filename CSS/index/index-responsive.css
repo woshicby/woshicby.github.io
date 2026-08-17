@@ -9,7 +9,7 @@
    }
    a.botton {
        padding: 8px 15px;
-       font-size: 14px;
+       font-size: var(--font-size-sm);
    }
 
    /* 欢迎区域响应式 */

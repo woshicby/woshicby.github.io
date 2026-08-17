@@ -73,6 +73,12 @@ body.dark-theme {
        --nav-a-hover-bg-color: var(--dark-nav-a-hover-bg-color);
        --footer-bg-color: var(--dark-footer-bg-color);
        --footer-text-color: var(--dark-footer-text-color);
+       /* 补充变量 */
+       --background-color: var(--dark-background-color);
+       --card-background: var(--dark-card-background);
+       --hover-background: var(--dark-hover-background);
+       --primary-text-color: var(--dark-primary-text-color);
+       --secondary-text-color: var(--dark-secondary-text-color);
    }
 }
 
