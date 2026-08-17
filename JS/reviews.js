@@ -1346,7 +1346,7 @@ class ReviewsManager extends FilterableListManager {
 
         // === 分割线 + 观影记录区域 ===
         if (subjectId && this.ticketsData && this.ticketsData.length > 0) {
-            const tickets = this.ticketsData.filter(t => t.refId === subjectId);
+            const tickets = this.ticketsData.filter(t => t.subjectId === subjectId);
             if (tickets.length > 0) {
                 html += '<div class="detail-review-divider"></div>';
                 html += '<div class="detail-tickets-section">';
@@ -1400,7 +1400,7 @@ class ReviewsManager extends FilterableListManager {
             card.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const idx = parseInt(card.getAttribute('data-ticket-idx'), 10);
-                const tickets = subjectId ? this.ticketsData.filter(t => t.refId === subjectId) : [];
+                const tickets = subjectId ? this.ticketsData.filter(t => t.subjectId === subjectId) : [];
                 if (tickets[idx]) {
                     this.openTicketDetail(tickets[idx]);
                 }
