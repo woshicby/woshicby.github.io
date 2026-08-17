@@ -1043,7 +1043,12 @@ class ReviewsManager extends FilterableListManager {
             case 'game':
                 if (item.developer) parts.push(item.developer);
                 if (item.releaseDate) parts.push(item.releaseDate);
-                if (item.platform) parts.push(item.platform);
+                // 兼容 platforms(数组,新) 与 platform(字符串,旧)
+                if (item.platforms && item.platforms.length > 0) {
+                    parts.push(item.platforms.join(' / '));
+                } else if (item.platform) {
+                    parts.push(item.platform);
+                }
                 if (item.hours !== null && item.hours !== undefined && item.hours > 0) {
                     parts.push(`游玩 ${item.hours} 小时`);
                 }

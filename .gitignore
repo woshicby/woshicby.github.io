@@ -31,3 +31,17 @@ npm-debug.log*
 *~
 *.swp
 *.swo
+
+# Python
+__pycache__/
+*.pyc
+
+# 生成数据(运动同步脚本产物)
+data.db
+.venv/
+venv/
+
+# 本地维护工具与源数据(前端不需要,不进 git)
+FIT/
+scripts/
+_sort_seats.py

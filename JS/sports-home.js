@@ -4,11 +4,14 @@ let currentFilter = 'Total';
 let selectedActivity = null;
 let map = null;
 let routeAnimator = null; // 路线动画器
-let mapGeoData = null; // 中国省份/国家 GeoJSON 数据
+let countryGeoData = null; // 国家边界 GeoJSON
+let provinceGeoData = null; // 省份边界 GeoJSON
+let cityGeoData = null; // 城市边界 GeoJSON
 let isLoadingGeoData = false;
 
 const PROVINCE_FILL_COLOR = '#47b8e0';
 const COUNTRY_FILL_COLOR = 'rgb(228,212,220)';
+const CITY_FILL_COLOR = '#8ab4f8';
 
 // 获取活动颜色
 function getActivityColor(activity) {
@@ -99,7 +102,7 @@ function initMap() {
     map.on('zoom', function() {
       if (provinceFillTimer) clearTimeout(provinceFillTimer);
       provinceFillTimer = setTimeout(function() {
-        updateProvinceFill();
+        updateRegionFill();
         provinceFillTimer = null;
       }, 150);
     });
@@ -438,72 +441,52 @@ function startRouteAnimation(coordinates) {
   animFrameId = requestAnimationFrame(step);
 }
 
-// ============ 中国省份填充 ============
+// ============ 区域填充(国家/省份/城市 三级,按缩放切换) ============
 
 function loadGeoData() {
-  if (mapGeoData || isLoadingGeoData) return;
+  if ((countryGeoData && provinceGeoData && cityGeoData) || isLoadingGeoData) return;
   isLoadingGeoData = true;
 
-  // 并行加载世界和中国省份 GeoJSON
+  // 并行加载世界/省份/城市 GeoJSON
   var worldPromise = fetch('./JSON/sports-world.zh.json').then(function(r) { return r.json(); }).catch(function() { return null; });
   var chinaPromise = fetch('./JSON/sports-china_provinces.json').then(function(r) { return r.json(); }).catch(function() { return null; });
+  var cityPromise = fetch('./JSON/sports-china_cities.json').then(function(r) { return r.json(); }).catch(function() { return null; });
 
-  Promise.all([worldPromise, chinaPromise]).then(function(results) {
-    var worldData = results[0];
-    var chinaData = results[1];
-    var features = [];
-
-    if (worldData && worldData.features) {
-      features = features.concat(worldData.features);
-    }
-    if (chinaData && chinaData.features) {
-      features = features.concat(chinaData.features);
-    }
-
-    if (features.length > 0) {
-      mapGeoData = {
-        type: 'FeatureCollection',
-        features: features
-      };
-    }
+  Promise.all([worldPromise, chinaPromise, cityPromise]).then(function(results) {
+    if (results[0] && results[0].features) countryGeoData = results[0];
+    if (results[1] && results[1].features) provinceGeoData = results[1];
+    if (results[2] && results[2].features) cityGeoData = results[2];
     isLoadingGeoData = false;
-    updateProvinceFill();
+    updateRegionFill();
   });
 }
 
-function updateProvinceFill() {
-  if (!map || !map.loaded() || !mapGeoData) return;
-
-  var zoom = map.getZoom();
-  var isBigMap = zoom <= 3;
-
-  // 只在大缩放时显示省份填充
-  if (!isBigMap) {
-    removeLayer('province-fill');
-    removeLayer('country-fill');
-    removeSource('geo-data');
-    return;
-  }
-
-  // 从活动数据提取跑过的省份和国家
+// 从活动 location 提取跑过的省份(省/自治区/直辖市)
+function extractProvinces() {
   var provinces = [];
-  var countries = [];
   activities.forEach(function(a) {
     var loc = a.location_country;
     if (!loc) return;
-    // 提取省份
     var provinceMatch = loc.match(/[\u4e00-\u9fa5]{2,}(省|自治区)/);
     if (provinceMatch) {
       var pName = provinceMatch[0];
       if (provinces.indexOf(pName) === -1) provinces.push(pName);
     }
-    // 直辖市
     MUNICIPALITIES.forEach(function(city) {
       if (loc.indexOf(city) !== -1 && provinces.indexOf(city) === -1) {
         provinces.push(city);
       }
     });
-    // 提取国家
+  });
+  return provinces;
+}
+
+// 从活动 location 提取跑过的国家
+function extractCountries() {
+  var countries = [];
+  activities.forEach(function(a) {
+    var loc = a.location_country;
+    if (!loc) return;
     var parts = loc.split(',');
     var countryMatch = parts[parts.length - 1].match(/[\u4e00-\u9fa5].*[\u4e00-\u9fa5]/);
     if (countryMatch) {
@@ -511,33 +494,85 @@ function updateProvinceFill() {
       if (countries.indexOf(cName) === -1) countries.push(cName);
     }
   });
+  return countries;
+}
 
-  // 添加或更新 GeoJSON 源
+// 从活动 location 提取跑过的城市(市/自治州/盟/地区;直辖市按省份名)
+function extractCities() {
+  var cities = [];
+  activities.forEach(function(a) {
+    var loc = a.location_country;
+    if (!loc) return;
+    var cityMatch = loc.match(/[\u4e00-\u9fa5]{2,}(市|自治州|盟|地区)/);
+    if (cityMatch) {
+      var cName = cityMatch[0];
+      // 直辖市名(如"北京市")在省/市两级都有 feature,这里取市级;若城市数据无此名则跳过
+      if (cities.indexOf(cName) === -1) cities.push(cName);
+    }
+  });
+  return cities;
+}
+
+function updateRegionFill() {
+  if (!map || !map.loaded()) return;
+
+  var zoom = map.getZoom();
+
+  // 清除旧的填充层
+  removeLayer('city-fill');
   removeLayer('province-fill');
   removeLayer('country-fill');
   removeSource('geo-data');
 
-  map.addSource('geo-data', { type: 'geojson', data: mapGeoData });
+  // 城市级: zoom > 6
+  if (zoom > 6) {
+    if (!cityGeoData) return;
+    var cities = extractCities();
+    if (cities.length === 0) return;
+    map.addSource('geo-data', { type: 'geojson', data: cityGeoData });
+    var cityFilter = ['in', 'name'];
+    cities.forEach(function(c) { cityFilter.push(c); });
+    map.addLayer({
+      id: 'city-fill',
+      type: 'fill',
+      source: 'geo-data',
+      paint: {
+        'fill-color': CITY_FILL_COLOR,
+        'fill-opacity': 0.55
+      },
+      filter: cityFilter
+    }, 'activity-lines');
+    return;
+  }
 
-  // 省份填充层
-  var provinceFilter = ['in', 'name'];
-  provinces.forEach(function(p) { provinceFilter.push(p); });
+  // 省级: 3 < zoom <= 6
+  if (zoom > 3) {
+    if (!provinceGeoData) return;
+    var provinces = extractProvinces();
+    if (provinces.length === 0) return;
+    map.addSource('geo-data', { type: 'geojson', data: provinceGeoData });
+    var provinceFilter = ['in', 'name'];
+    provinces.forEach(function(p) { provinceFilter.push(p); });
+    map.addLayer({
+      id: 'province-fill',
+      type: 'fill',
+      source: 'geo-data',
+      paint: {
+        'fill-color': PROVINCE_FILL_COLOR,
+        'fill-opacity': 0.6
+      },
+      filter: provinceFilter
+    }, 'activity-lines');
+    return;
+  }
 
-  map.addLayer({
-    id: 'province-fill',
-    type: 'fill',
-    source: 'geo-data',
-    paint: {
-      'fill-color': PROVINCE_FILL_COLOR,
-      'fill-opacity': 0.6
-    },
-    filter: provinceFilter
-  }, 'activity-lines'); // 放在路线图层下面
-
-  // 国家填充层
+  // 国家级: zoom <= 3
+  if (!countryGeoData) return;
+  var countries = extractCountries();
+  if (countries.length === 0) return;
+  map.addSource('geo-data', { type: 'geojson', data: countryGeoData });
   var countryFilter = ['in', 'name'];
   countries.forEach(function(c) { countryFilter.push(c); });
-
   map.addLayer({
     id: 'country-fill',
     type: 'fill',
@@ -547,7 +582,7 @@ function updateProvinceFill() {
       'fill-opacity': ['case', ['==', ['get', 'name'], '中国'], 0.1, 0.5]
     },
     filter: countryFilter
-  }, 'province-fill'); // 放在省份图层下面
+  }, 'activity-lines');
 }
 
 // ============ 瓦片供应商切换 ============
@@ -555,7 +590,7 @@ function updateProvinceFill() {
 // 首页瓦片切换后的回调：重绘路线和省份填充
 function onHomeTileSwitch() {
   updateMapActivities();
-  updateProvinceFill();
+  updateRegionFill();
 }
 
 function removeLayer(id) {
@@ -1084,7 +1119,7 @@ function changeFilter(year) {
 function onThemeChange() {
   redrawMapOnThemeChange(map, function() {
     updateMapActivities();
-    updateProvinceFill();
+    updateRegionFill();
     addTileVendorControl(map, 'map', onHomeTileSwitch);
   });
 }

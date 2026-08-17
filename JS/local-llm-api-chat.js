@@ -1,6 +1,7 @@
 // 本地大模型API对话工具脚本
+// 默认服务器地址留空,由用户自行填写(避免在公开页面暴露内网地址)
 
-let serverUrl = 'http://10.244.166.147:1234/v1';
+let serverUrl = '';
 let isConnected = false;
 let selectedModel = '';
 let currentChatId = null;
