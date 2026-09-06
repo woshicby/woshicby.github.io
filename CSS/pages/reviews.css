@@ -892,6 +892,10 @@ body.reviews-page {
 
 .reviews-page .reviews-timeline {
     position: relative;
+    /* 与票据收藏(tickets)时间轴一致的水平留白:
+       tickets 页 .tickets-list 保留通用 section 的 padding: var(--spacing-xl),
+       reviews 的 #reviews-list 为瀑布流布局清零了 padding, 时间轴容器需自行补回 */
+    padding: 0 var(--spacing-xl);
 }
 
 /* 年份标题 */

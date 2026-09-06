@@ -13,6 +13,40 @@
    }
 }
 
+/* 导航换行状态(JS 检测 .nav-wrapped,不依赖固定断点):
+   切换按钮固定在标题行右侧,导航在第二行靠右紧凑排列 */
+.header.nav-wrapped {
+   position: relative; /* 作为切换按钮绝对定位的包含块 */
+}
+.header.nav-wrapped .nav {
+   max-width: 100%; /* 不溢出容器 */
+   padding-right: 6rem; /* 为标题行右侧的切换按钮让位 */
+   box-sizing: border-box;
+}
+.header.nav-wrapped .nav ul {
+   display: flex;
+   flex-wrap: wrap; /* 放不下时换行,而非挤压 */
+   justify-content: flex-end; /* 靠右排列,间距自然不摊开 */
+   column-gap: 1.5rem;
+   row-gap: 0.4rem;
+}
+.header.nav-wrapped .nav li {
+   margin-left: 0;
+   flex-shrink: 0; /* 不压缩 */
+}
+.header.nav-wrapped .nav a {
+   white-space: nowrap; /* 链接文字不折行 */
+}
+.header.nav-wrapped .nav li:last-child {
+   display: contents; /* 切换按钮绝对定位后,空 li 不占槽位 */
+}
+.header.nav-wrapped .theme-toggle {
+   position: absolute;
+   right: 2rem;
+   top: 1.1rem; /* 对齐标题行垂直中心(header 上边距 1rem + 标题行高一半) */
+   margin: 0;
+}
+
 /* 响应式调整 - 平板设备及以下 (max-width: 768px) */
 @media (max-width: 768px) {
    /* section响应式调整 */

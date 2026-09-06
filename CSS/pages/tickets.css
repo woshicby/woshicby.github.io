@@ -357,8 +357,11 @@ body.tickets-page {
 
 /* 瀑布流容器 */
 .tickets-page .timeline-masonry {
-    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+    gap: 20px;
     width: 100%;
+    align-items: stretch;
 }
 
 .tickets-page .timeline-masonry .masonry-column {
@@ -386,7 +389,10 @@ body.tickets-page {
     box-shadow: var(--shadow-light);
     overflow: hidden;
     transition: var(--transition-default);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .tickets-page .ticket-card:hover {
@@ -531,6 +537,9 @@ body.tickets-page {
 /* 卡片信息区域 */
 .tickets-page .ticket-card-body {
     padding: var(--spacing-md);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .tickets-page .ticket-card-title {

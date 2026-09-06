@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""扫描 images/tickets/ 目录，按 日期_标题 分组，生成 ticket-images.json 映射文件。
+"""扫描 images/tickets/ 目录，按 日期_标题 子目录分组，生成 ticket-images.json 映射文件。
 
 用法:
     python scripts/tickets/regen_ticket_images.py
@@ -7,6 +7,16 @@
 用途:
     在 images/tickets/ 目录新增/删除图片后运行此脚本，重新生成 JSON/ticket-images.json。
     JS 端 (tickets.js) 运行时会自动读取该映射，根据 date+title 匹配对应图片。
+
+目录结构 (2026-09-01 起):
+    images/tickets/<日期8位_标题>/*.jpg    图片按场次分子目录存放
+    顶层不再放平铺图片。
+
+输出格式:
+    {
+      "20160708_大鱼海棠": ["images/tickets/20160708_大鱼海棠/20160708_大鱼海棠_1_开场前.jpg", ...],
+      ...
+    }
 """
 import json, os, re, sys
 from collections import defaultdict
@@ -22,31 +32,25 @@ if not os.path.isdir(IMG_DIR):
     print(f'[ERROR] 图片目录不存在: {IMG_DIR}')
     sys.exit(1)
 
-files = [f for f in os.listdir(IMG_DIR) if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
+# 只取子目录（按 日期_标题 分组），跳过顶层散文件/隐藏文件
+subdirs = [d for d in os.listdir(IMG_DIR)
+           if os.path.isdir(os.path.join(IMG_DIR, d))
+           and not d.startswith('.')]
+
 groups = defaultdict(list)
 unparsed = []
 
-for fn in files:
-    m = re.match(r'^(\d{8})_(.+?)_(\d+)_(.+)$', fn)
-    if m:
-        date8, title, seq, stage = m.groups()
-        groups[f'{date8}_{title}'].append(f'images/tickets/{fn}')
-    else:
-        unparsed.append(fn)
+for sub in sorted(subdirs):
+    sub_path = os.path.join(IMG_DIR, sub)
+    files = [fn for fn in sorted(os.listdir(sub_path))
+             if fn.lower().endswith(('.jpg', '.jpeg', '.png'))
+             and not fn.startswith('.')]
+    for fn in files:
+        groups[sub].append(f'images/tickets/{sub}/{fn}')
 
-if unparsed:
-    print(f'[WARN] 以下 {len(unparsed)} 个文件无法解析，已跳过:')
-    for fn in unparsed:
-        print(f'  {fn}')
+mapping = {k: v for k, v in groups.items()}
 
-# 按序号排序
-mapping = {}
-for key, fn_list in groups.items():
-    def sort_key(fn):
-        m = re.search(r'_(\d+)_', fn)
-        return int(m.group(1)) if m else 0
-    mapping[key] = sorted(fn_list, key=sort_key)
-
+# 输出保持与 JS 端读取一致 (UTF-8, 2 空格缩进)
 with open(OUT, 'w', encoding='utf-8') as f:
     json.dump(mapping, f, ensure_ascii=False, indent=2)
 

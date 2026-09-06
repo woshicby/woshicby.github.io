@@ -182,6 +182,11 @@ input:checked + .theme-toggle-slider:before {
   设置背景色、文字颜色和阴影效果
   ========================================== */
 .header {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   justify-content: space-between;
+   row-gap: 0.75rem; /* 导航换行时与标题之间的空隙(仅换行时生效) */
    background-color: var(--header-bg-color);
    color: var(--header-text-color);
    padding: 1rem 0;
@@ -190,7 +195,6 @@ input:checked + .theme-toggle-slider:before {
 }
 
 .header h1 {
-   float: left;
    font-size: 1.8rem;
    margin-right: 2rem;
    margin-left: 2rem;
@@ -360,7 +364,7 @@ strong {
   包含链接样式和交互效果
   ========================================== */
 .nav {
-   float: right;
+   margin-left: auto; /* 同行/换行都靠右,避免 flex 单行 item 靠左导致右侧空白 */
    padding-right: 2rem;
 }
 

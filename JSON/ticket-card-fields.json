@@ -1,0 +1,10 @@
+{
+  "flight": [
+    "location",
+    { "merge": ["hall", "gate"], "sep": " · " },
+    { "pick": ["actual", "sched"] },
+    "seat",
+    "price",
+    "platform"
+  ]
+}

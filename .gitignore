@@ -38,14 +38,16 @@ __pycache__/
 
 # 生成数据(运动同步脚本产物)
 data.db
-.venv/
-venv/
+
+# Python 虚拟环境(任意命名变体,如 .venv-macos/.venv-windows)
+.venv*/
+venv*/
 
 # 本地维护工具与源数据(前端不需要,不进 git)
 FIT/
 _sort_seats.py
 
 # scripts 源码与文档进 git,仅忽略环境/本机快捷方式
-scripts/.venv/
+scripts/.venv*/
 scripts/shortcuts/
 scripts/**/__pycache__/

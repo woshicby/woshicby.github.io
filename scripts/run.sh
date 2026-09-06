@@ -6,12 +6,12 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PYTHON="$SCRIPT_DIR/.venv/bin/python"
+PYTHON="$SCRIPT_DIR/.venv-macos/bin/python"
 
 if [ ! -x "$PYTHON" ]; then
-    echo "❌ 未找到统一虚拟环境: $SCRIPT_DIR/.venv"
-    echo "   请先创建: $SCRIPT_DIR/.venv/bin/python -m venv $SCRIPT_DIR/.venv"
-    echo "   再装依赖: $SCRIPT_DIR/.venv/bin/python -m pip install -r $SCRIPT_DIR/requirements.txt"
+    echo "❌ 未找到统一虚拟环境: $SCRIPT_DIR/.venv-macos"
+    echo "   请先创建: $SCRIPT_DIR/.venv-macos/bin/python -m venv $SCRIPT_DIR/.venv-macos"
+    echo "   再装依赖: $SCRIPT_DIR/.venv-macos/bin/python -m pip install -r $SCRIPT_DIR/requirements.txt"
     exit 1
 fi
 

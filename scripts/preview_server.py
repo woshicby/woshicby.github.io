@@ -5,7 +5,7 @@ import socketserver
 import sys
 import os
 
-PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8642
+PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8643
 
 # 自动定位仓库根(本文件在 scripts/ 下,上级即仓库根)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

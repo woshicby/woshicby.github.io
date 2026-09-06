@@ -94,6 +94,48 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    /**
+     * 检测导航是否换行(标题与导航不在同一行),动态添加 .nav-wrapped 类
+     * 使换行时导航自动切换为两端对齐布局,不依赖固定断点
+     * (导航项增减后断点自动跟随内容宽度,无需手动调整)
+     */
+    function initNavWrapDetection() {
+        // 移动端形态断点: 仅用于区分"展开导航 vs 汉堡抽屉",与导航项数量无关。
+        // 抽屉可容纳任意数量的导航项,故该值不随菜单增减而变化;
+        // 如需调整设备形态分界(如希望平板也用抽屉),只改这里。
+        const MOBILE_BREAKPOINT = 768;
+        const header = document.querySelector('.header');
+        const h1 = header ? header.querySelector('h1') : null;
+        const nav = header ? header.querySelector('.nav') : null;
+        if (!header || !h1 || !nav) return;
+
+        let ticking = false;
+        function updateNavWrap() {
+            ticking = false;
+            // 移动端(抽屉导航)不参与换行检测
+            if (window.innerWidth <= MOBILE_BREAKPOINT) {
+                header.classList.remove('nav-wrapped');
+                return;
+            }
+            // 先移除类测"自然布局"(同一帧内完成,无闪烁),
+            // 避免 .nav-wrapped 的样式自身造成"永远换行"的假象
+            header.classList.remove('nav-wrapped');
+            // 导航顶部低于标题底部 = 导航换行到第二行了
+            const wrapped = nav.getBoundingClientRect().top > h1.getBoundingClientRect().bottom;
+            header.classList.toggle('nav-wrapped', wrapped);
+        }
+        function onResize() {
+            // requestAnimationFrame 节流: resize 高频触发时合并为每帧一次
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(updateNavWrap);
+            }
+        }
+        updateNavWrap();
+        window.addEventListener('resize', onResize);
+    }
+
     // 页面加载后立即初始化导航
     initNavigation();
+    initNavWrapDetection();
 });

@@ -4,7 +4,7 @@
 
 ## 统一运行环境
 
-所有 Python 脚本共用 `scripts/.venv`(统一虚拟环境,不入 git):
+所有 Python 脚本共用 `scripts/.venv-macos`(统一虚拟环境,不入 git):
 
 ```bash
 # 首次创建:
@@ -14,12 +14,12 @@ scripts/.venv/bin/python -m pip install -r scripts/requirements.txt
 # 统一入口(推荐):
 ./run.sh <脚本路径> [参数...]
 # 例如:
-./run.sh preview_server.py 8642
+./run.sh preview_server.py 8643
 ./run.sh sports-sync/sync_all.py --full
 ./run.sh fit/check_dup_runid.py
 ```
 
-> `run.sh` 自动使用 `scripts/.venv` 的 python,并把脚本所在目录加入 PYTHONPATH。
+> `run.sh` 自动使用 `scripts/.venv-macos` 的 python,并把脚本所在目录加入 PYTHONPATH。
 > `preview_server.py` 自动定位仓库根,从任何目录运行都能正确服务网站。
 > 桌面快捷方式(`~/Desktop/*.command`)是指向 `scripts/shortcuts/` 的软链接,日常维护双击即可(运动同步/票据图片/网站预览)。
 
@@ -87,7 +87,7 @@ scripts/.venv/bin/python -m pip install -r scripts/requirements.txt
 - **守护模式**：直接前台运行，日志实时输出，Ctrl+C 即停止
 
 ```bash
-python scripts/preview_server.py 8642   # 指定端口启动
+python scripts/preview_server.py 8643   # 指定端口启动
 ```
 
 桌面端「网站预览.command」双击即可自动启动服务器并打开浏览器。

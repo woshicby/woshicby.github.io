@@ -4,6 +4,45 @@
  * 功能: 展示票据收藏(电影票/演出票等),支持类型/地点/场馆筛选、详情弹窗、统计汇总。
  */
 
+/**
+ * 卡片字段显示配置（内置默认，2026-09-01）
+ * 控制"卡片上显示哪些元数据行"（顺序即显示顺序）；详情弹窗始终显示全部属性。
+ * 未配置的类型 → 卡片默认全量显示（等同详情）。
+ *
+ * ⚠️ 实际生效配置优先读外部 JSON: JSON/ticket-card-fields.json（改 JSON 即生效，无需改代码）
+ *    此处为内置兜底默认（外部 JSON 缺失/加载失败时使用）。
+ *
+ * 每行可以是:
+ *   - 字符串: 单个字段行（如 'location'）
+ *   - { merge: [字段...], sep: ' · ' }: 多个字段合并成一行, 缺字段自动跳过, 全部缺失则整行不显示
+ *   - { pick: [字段...] }: 同一行多个候选, 按数组顺序取第一个有值的(优先级)
+ *
+ * 字段渲染（默认带 emoji 前缀）:
+ *   location   地点（不加 emoji）
+ *   hall       场馆/厅/航站楼（🏢）
+ *   gate       登机口（🛫）
+ *   sched      计划时刻（📅）
+ *   actual     实际时刻（⏱）
+ *   aircraft   机型+注册号（🛩）
+ *   seatType   席别（💺，火车）
+ *   seat       座位（💺 / 🪑）
+ *   timeRange  发到站时刻（🕐，火车）
+ *   price      价格（💰，多张自动均分）
+ *   platform   平台（🎫）
+ */
+const DEFAULT_TICKET_CARD_FIELDS = {
+    // 飞机: 精简 — 航站楼+登机口合并一行、时间实际优先(无实际才计划)、机型只进详情
+    flight: [
+        'location',
+        { merge: ['hall', 'gate'], sep: ' · ' },
+        { pick: ['actual', 'sched'] },
+        'seat',
+        'price',
+        'platform',
+    ],
+    // 电影/演出/火车/门票/其他: 未配置 → 卡片全量显示(等同详情), 保持现状
+};
+
 class TicketsManager extends FilterableListManager {
     /** 构造函数: 初始化管理器 */
     constructor() {
@@ -161,6 +200,12 @@ class TicketsManager extends FilterableListManager {
         const imageMap = await fetchJSON('JSON/ticket-images.json', {});
         this._imageMap = imageMap;
 
+        // 卡片字段配置: 优先加载外部 JSON(可改 JSON 即生效), 失败/缺失回退内置默认
+        const extConfig = await fetchJSON('JSON/ticket-card-fields.json', null);
+        this.cardFields = (extConfig && typeof extConfig === 'object' && Object.keys(extConfig).length > 0)
+            ? extConfig
+            : DEFAULT_TICKET_CARD_FIELDS;
+
         // 根据 日期_标题 自动匹配图片
         data.forEach(ticket => {
             const date = ticket.date || '';
@@ -256,7 +301,7 @@ class TicketsManager extends FilterableListManager {
         const filterEntries = [];
         if (this.currentType) {
             const typeLabels = {
-                'movie': '电影', 'show': '演出', 'train': '火车',
+                'movie': '电影', 'show': '演出赛事', 'train': '火车',
                 'flight': '飞机', 'attraction': '门票', 'other': '其他'
             };
             filterEntries.push({
@@ -513,10 +558,11 @@ class TicketsManager extends FilterableListManager {
     }
 
     /**
-     * 计算总座位数
+     * 计算票据张数：每条收藏记录至少算 1 张（无座/免费票也计入），
+     * 多座位按座位数计（一条记录一次买 N 张 = N 张票）。
      */
-    calcTotalSeats(items) {
-        return items.reduce((sum, t) => sum + (t.seat || []).length, 0);
+    calcTicketCount(items) {
+        return items.reduce((sum, t) => sum + Math.max(1, (t.seat || []).length), 0);
     }
 
     /** 格式化均价：精确到百分位，但不强制显示小数点后两位 */
@@ -526,16 +572,20 @@ class TicketsManager extends FilterableListManager {
         return parseFloat(num.toFixed(2)).toString();
     }
 
-    /** 格式化总金额，多张票时附带平均每张票价 */
+    /** 格式化总金额，多张票时附带张数与平均每张票价；0 元票计入张数，总额为 0 也显示 */
     formatAmountWithAvg(items) {
         const total = this.calcTotal(items);
-        if (total <= 0) return null;
-        const seats = this.calcTotalSeats(items);
-        if (seats > 1) {
-            const avg = this.formatAvgPrice(total / seats);
-            return `${this.formatPrice(total)}（共${seats}张，均¥${avg}/张）`;
+        const count = this.calcTicketCount(items);
+        if (count <= 0) return null; // 无记录时保持 '-'（防御：每条记录至少计 1 张）
+        const money = this.formatPrice(total);
+        if (count > 1 && total > 0) {
+            const avg = this.formatAvgPrice(total / count);
+            return `${money}（共${count}张，均¥${avg}/张）`;
         }
-        return this.formatPrice(total);
+        if (count > 1) {
+            return `${money}（共${count}张）`;
+        }
+        return money;
     }
 
     /**
@@ -622,15 +672,9 @@ class TicketsManager extends FilterableListManager {
                 if (!masonryContainer) return;
                 const elements = yearGroups[year][month].map(ticket => this.createTicketElement(ticket));
 
-                const destroy = MasonryLayout({
-                    container: masonryContainer,
-                    items: elements,
-                    columnMinWidth: 300,
-                    columnGap: 20,
-                    watchImages: true
-                });
-
-                this.masonryDestroys.push(destroy);
+                // 等高 Grid 布局(替代瀑布流): 直接按序放入, 由 CSS grid 统一行高
+                elements.forEach(el => masonryContainer.appendChild(el));
+                this.masonryDestroys.push(() => {});
             });
         });
 
@@ -643,10 +687,10 @@ class TicketsManager extends FilterableListManager {
     createTicketElement(ticket) {
         const article = document.createElement('article');
         article.className = 'ticket-card';
+        // 保存完整数据对象, 供详情弹窗重建完整字段(卡片精简后详情仍显示全量)
+        article._ticket = ticket;
 
         const dateStr = ticket.date ? ticket.date.substring(0, 10) : '';
-        const seatStr = ticket.seat && ticket.seat.length > 0 ? ticket.seat.join(', ') : '';
-        const priceStr = this.formatPrice(ticket.price);
         const images = ticket.images || [];
 
         // 图片区域
@@ -728,20 +772,8 @@ class TicketsManager extends FilterableListManager {
         body.appendChild(title);
 
         // 元数据（分行显示，带 emoji 前缀，日期和影院不加 emoji）
-        const metaLines = [];
-        if (ticket.location) metaLines.push(ticket.location);
-        if (ticket.hall) metaLines.push(`🎬 ${ticket.hall}`);
-        if (seatStr) metaLines.push(`💺 ${seatStr}`);
-        if (priceStr) {
-            const seatCount = (ticket.seat || []).length;
-            if (seatCount > 1 && ticket.price) {
-                const perPrice = this.formatAvgPrice(ticket.price / seatCount);
-                metaLines.push(`💰 共${seatCount}张 ${priceStr}（¥${perPrice}/张）`);
-            } else {
-                metaLines.push(`💰 ${priceStr}`);
-            }
-        }
-        if (ticket.platform) metaLines.push(`🎫 ${ticket.platform}`);
+        // 卡片显示由 cardFields 配置(JSON/ticket-card-fields.json, 内置默认兜底)控制；未配置类型默认全量
+        const metaLines = this.buildCardMetaLines(ticket);
 
         if (metaLines.length > 0) {
             const meta = document.createElement('div');
@@ -753,6 +785,166 @@ class TicketsManager extends FilterableListManager {
         article.appendChild(body);
 
         return article;
+    }
+
+    /**
+     * 生成卡片元数据行
+     * 按 cardFields 配置(JSON/ticket-card-fields.json, 内置默认兜底)显示字段；配置行支持:
+     *   - 字符串: 单个字段行
+     *   - { merge: [字段...], sep }: 合并一行(缺字段跳过, 全部缺失整行不显示)
+     *   - { pick: [字段...] }: 按顺序取第一个有值的(优先级)
+     * 未配置的类型 → 全量(等同详情)。详情弹窗始终用 buildDetailMetaLines 显示全部属性。
+     */
+    buildCardMetaLines(ticket) {
+        const configured = (this.cardFields || DEFAULT_TICKET_CARD_FIELDS)[ticket.type];
+        if (!configured) {
+            // 未配置 → 卡片全量显示（等同详情，保持现状）
+            return this.buildDetailMetaLines(ticket);
+        }
+        const ctx = this._fieldCtx(ticket);
+        const metaLines = [];
+        for (const line of configured) {
+            if (typeof line === 'string') {
+                const v = this._renderField(ctx, line);
+                if (v) metaLines.push(v);
+            } else if (line && Array.isArray(line.merge)) {
+                // 合并一行: 各字段渲染后拼接, 缺字段跳过
+                const parts = line.merge
+                    .map(k => this._renderField(ctx, k))
+                    .filter(Boolean);
+                if (parts.length) metaLines.push(parts.join(line.sep || ' · '));
+            } else if (line && Array.isArray(line.pick)) {
+                // 优先级行: 按数组顺序取第一个有值字段
+                for (const k of line.pick) {
+                    const v = this._renderField(ctx, k);
+                    if (v) { metaLines.push(v); break; }
+                }
+            }
+        }
+        return metaLines;
+    }
+
+    /**
+     * 字段渲染上下文: 统一取各字段值(优先 details.* 新结构, 回退顶层旧字段)
+     * 供卡片配置渲染与详情渲染共用
+     */
+    _fieldCtx(ticket) {
+        const fd = (ticket.details && ticket.details.flight) || {};
+        const td = (ticket.details && ticket.details.train) || {};
+        return {
+            ticket,
+            fd,
+            td,
+            seatStr: this._seatStr(ticket),
+            priceStr: this._priceStr(ticket),
+        };
+    }
+
+    /**
+     * 渲染单个字段为行片段(带 emoji 前缀); 字段无值返回 ''
+     */
+    _renderField(ctx, key) {
+        const { ticket, fd, td, seatStr, priceStr } = ctx;
+        switch (key) {
+            case 'location': return ticket.location || '';
+            case 'hall': return ticket.hall ? `🏢 ${ticket.hall}` : '';
+            case 'gate': {
+                const gate = fd.gate || ticket.gate;
+                return gate ? `🛫 ${gate}` : '';
+            }
+            case 'sched': {
+                const sched = fd.scheduledTime || ticket.scheduledTime;
+                return sched ? `📅 ${sched}` : '';
+            }
+            case 'actual': {
+                const actual = fd.actualTime || ticket.actualTime;
+                return actual ? `⏱ ${actual}` : '';
+            }
+            case 'aircraft': {
+                const aircraft = fd.aircraft || ticket.aircraft;
+                if (!aircraft) return '';
+                const reg = fd.registration || ticket.registration;
+                return reg ? `🛩 ${aircraft} (${reg})` : `🛩 ${aircraft}`;
+            }
+            case 'seatType': return td.seatType ? `💺 ${td.seatType}` : '';
+            case 'seat': return seatStr ? `💺 ${seatStr}` : '';
+            case 'timeRange': {
+                const dep = td.departureTime || ticket.departureTime;
+                const arr = td.arrivalTime || ticket.arrivalTime;
+                return (dep || arr) ? `🕐 ${dep || '?'} → ${arr || '?'}` : '';
+            }
+            case 'price': return priceStr ? `💰 ${priceStr}` : '';
+            case 'platform': return ticket.platform ? `🎫 ${ticket.platform}` : '';
+            default: return '';
+        }
+    }
+
+    /** 生成详情元数据行（全量字段，详情弹窗专用） */
+    buildDetailMetaLines(ticket) {
+        const seatStr = this._seatStr(ticket);
+        const priceStr = this._priceStr(ticket);
+        const metaLines = [];
+        if (ticket.type === 'flight') {
+            // 飞机票：全量（机场/航站楼/登机口/计划/实际/机型/座位/价格/平台）
+            const fd = (ticket.details && ticket.details.flight) || {};
+            if (ticket.location) metaLines.push(ticket.location);
+            if (ticket.hall) metaLines.push(`🏢 ${ticket.hall}`);
+            const gate = fd.gate || ticket.gate;
+            if (gate) metaLines.push(`🛫 登机口 ${gate}`);
+            const sched = fd.scheduledTime || ticket.scheduledTime;
+            if (sched) metaLines.push(`📅 计划 ${sched}`);
+            const actual = fd.actualTime || ticket.actualTime;
+            if (actual) metaLines.push(`⏱ 实际 ${actual}`);
+            const aircraft = fd.aircraft || ticket.aircraft;
+            if (aircraft) {
+                let aircraftLine = `🛩 ${aircraft}`;
+                const reg = fd.registration || ticket.registration;
+                if (reg) aircraftLine += ` (${reg})`;
+                metaLines.push(aircraftLine);
+            }
+            if (seatStr) metaLines.push(`💺 ${seatStr}`);
+            if (priceStr) metaLines.push(`💰 ${priceStr}`);
+            if (ticket.platform) metaLines.push(`🎫 ${ticket.platform}`);
+        } else if (ticket.type === 'train') {
+            // 火车票：全量（车次/席别/车厢/发到站/时刻/价格/平台）
+            const td = (ticket.details && ticket.details.train) || {};
+            if (ticket.location) metaLines.push(ticket.location);
+            if (ticket.hall) metaLines.push(`🚄 ${ticket.hall}`);
+            const seatType = td.seatType;
+            if (seatType) metaLines.push(`💺 ${seatType}`);
+            if (seatStr) metaLines.push(`🪑 ${seatStr}`);
+            const dep = td.departureTime || ticket.departureTime;
+            const arr = td.arrivalTime || ticket.arrivalTime;
+            if (dep || arr) metaLines.push(`🕐 ${dep || '?'} → ${arr || '?'}`);
+            if (priceStr) metaLines.push(`💰 ${priceStr}`);
+            if (ticket.platform) metaLines.push(`🎫 ${ticket.platform}`);
+        } else {
+            // 电影/演出/门票/其他：全量（地点/厅/座位/价格/平台）
+            if (ticket.location) metaLines.push(ticket.location);
+            if (ticket.hall) metaLines.push(`🎬 ${ticket.hall}`);
+            if (seatStr) metaLines.push(`💺 ${seatStr}`);
+            if (priceStr) {
+                const seatCount = (ticket.seat || []).length;
+                if (seatCount > 1 && ticket.price) {
+                    const perPrice = this.formatAvgPrice(ticket.price / seatCount);
+                    metaLines.push(`💰 共${seatCount}张 ${priceStr}（¥${perPrice}/张）`);
+                } else {
+                    metaLines.push(`💰 ${priceStr}`);
+                }
+            }
+            if (ticket.platform) metaLines.push(`🎫 ${ticket.platform}`);
+        }
+        return metaLines;
+    }
+
+    /** 座位字符串（空数组/空值返回 ''） */
+    _seatStr(ticket) {
+        return ticket.seat && ticket.seat.length > 0 ? ticket.seat.join(', ') : '';
+    }
+
+    /** 价格字符串（无价格返回 ''） */
+    _priceStr(ticket) {
+        return this.formatPrice(ticket.price);
     }
 
     /**
@@ -829,9 +1021,6 @@ class TicketsManager extends FilterableListManager {
      * 打开票据详情查看窗口
      * @param {HTMLElement} card - 被点击的票据卡片元素
      */
-    /**
-     * 打开票据详情
-     */
     openDetail(card) {
         const overlay = document.getElementById('ticket-detail-overlay');
         const content = document.getElementById('ticket-detail-content');
@@ -839,9 +1028,17 @@ class TicketsManager extends FilterableListManager {
 
         // 从卡片提取数据
         const title = card.querySelector('.ticket-card-title')?.textContent || '';
-        const metaLines = Array.from(card.querySelectorAll('.ticket-card-meta > div')).map(div => div.innerHTML);
         const dateBadge = card.querySelector('.ticket-date-badge')?.textContent || '';
         const images = Array.from(card.querySelectorAll('.ticket-image-slide img')).map(img => img.src);
+
+        // 详情元数据: 始终用完整数据对象重建全量字段(卡片可能按 cardFields 配置精简, 详情显示全部属性)
+        // 无数据对象时回退从卡片 DOM 提取(兜底)
+        let metaLines;
+        if (card._ticket) {
+            metaLines = this.buildDetailMetaLines(card._ticket);
+        } else {
+            metaLines = Array.from(card.querySelectorAll('.ticket-card-meta > div')).map(div => div.innerHTML);
+        }
 
         // 构建详情HTML
         let html = '';
