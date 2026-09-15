@@ -847,7 +847,8 @@ function getRacesByDate(dateStr) {
 function applyFilter(races) {
    if (currentFilter === 'all') return races;
    if (currentFilter === 'finished') return races.filter(race => race.status === 'finished');
-   if (currentFilter === 'unfinished') return races.filter(race => race.status !== 'finished');
+   if (currentFilter === 'dnf') return races.filter(race => race.status === 'dnf');
+   if (currentFilter === 'unfinished') return races.filter(race => race.status !== 'finished' && race.status !== 'dnf');
    return races;
 }
 
@@ -958,6 +959,7 @@ function renderCurrentViewRaces(viewRaces, allViewRaces) {
     const filters = [
         { key: 'all', label: '全部赛事' },
         { key: 'finished', label: '已参赛赛事' },
+        { key: 'dnf', label: '退赛赛事' },
         { key: 'unfinished', label: '未参赛赛事' }
     ];
     
@@ -1027,6 +1029,8 @@ function createRaceItemElement(race, isPendingLottery = false) {
         statusBadge = '<span class="status-badge pending">待抽签</span>';
     } else if (race.status === 'registered') {
         statusBadge = '<span class="status-badge registered">已报名</span>';
+    } else if (race.status === 'dnf') {
+        statusBadge = '<span class="status-badge dnf">退赛</span>';
     } else if (isPastRace) {
         statusBadge = '<span class="status-badge finished">已完赛</span>';
     }

@@ -626,18 +626,20 @@
             "category": "越野跑",
             "event": "寻山组（24km）",
             "distance": "24公里",
-            "status": "registered",
-            "accommodationBooked": "not-needed",
-            "result": "",
+            "status": "dnf",
+            "result": "DNF（CP2退赛）",
+            "dnfAt": "CP2",
+            "dnfInfo": {
+                  "completedDistance": "11.43公里",
+                  "elapsedTime": "3:56:55",
+                  "elevationGain": "945米",
+                  "avgHeartRate": "164bpm"
+            },
             "pace": "",
             "season": "2026秋季",
-            "certification": [
-                  "ITRA 2分"
-            ],
+            "certification": [],
             "eventSeries": "咔哒寻山群英赛",
-            "raceScore": "314",
-            "itraPerformanceScore": "362",
-            "activityLink": ""
+            "activityLink": "sports-activity.html?id=1789255840000"
       },
       {
             "id": 35,
@@ -757,9 +759,9 @@
       {
             "id": 40,
             "name": "2026青岛山海四季跑（秋季赛）",
-            "date": "TBC",
-            "startTime": "",
-            "location": "TBC",
+            "date": "2026-10-11",
+            "startTime": "08:30",
+            "location": "山东省青岛市市北区浮山绿道",
             "category": "路跑",
             "event": "10km",
             "distance": "10公里",

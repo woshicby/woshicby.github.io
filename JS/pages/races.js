@@ -222,9 +222,9 @@ function groupRacesBySeasonAndEvent(races) {
 
 // 找出每个项目的个人最佳(PB) - 包含越野跑
 function findPersonalBests(races) {
-   // 过滤掉没有结果的赛事和包含"不计入PB"认证标签的赛事
+   // 过滤掉没有结果的赛事、未完赛(退赛)的赛事和包含"不计入PB"认证标签的赛事
    const validRaces = races.filter(race => 
-       race.result && race.result !== '' && 
+       race.result && race.result !== '' && race.status === 'finished' &&
        !(Array.isArray(race.certification) ? race.certification.includes("不计入PB/SB") : race.certification === "不计入PB/SB")
    );
    
@@ -258,9 +258,9 @@ function findPersonalBests(races) {
 
 // 找出每个赛季每个项目的赛季最佳(SB) - 包含越野跑
 function findSeasonBests(races) {
-   // 过滤掉没有结果的赛事和包含"不计入PB"认证标签的赛事
+   // 过滤掉没有结果的赛事、未完赛(退赛)的赛事和包含"不计入PB"认证标签的赛事
    const validRaces = races.filter(race => 
-       race.result && race.result !== '' && 
+       race.result && race.result !== '' && race.status === 'finished' &&
        !(Array.isArray(race.certification) ? race.certification.includes("不计入PB/SB") : race.certification === "不计入PB/SB")
    );
    
@@ -416,8 +416,8 @@ function generateRaceRecords() {
    const pbs = findPersonalBests(raceRecords);
    const sbs = findSeasonBests(raceRecords);
    
-   // 过滤掉没有结果的赛事和待抽签赛事
-   const racesWithResults = raceRecords.filter(race => race.result && race.result !== '' && race.status === 'finished');
+   // 过滤掉没有结果的赛事和待抽签赛事(保留完赛与退赛记录, 退赛不参与PB/SB统计)
+   const racesWithResults = raceRecords.filter(race => race.result && race.result !== '' && (race.status === 'finished' || race.status === 'dnf'));
    
    // 生成个人记录内容
    generatePersonalRecords(racesWithResults);
@@ -506,7 +506,20 @@ function generateRaceRecords() {
                    markers += `<span class="race-marker sb">${race.event}-SB</span>`;
                }
            }
-           
+          
+           // 退赛(DNF)赛事: 显示退赛标记 + 已跑数据(不参与PB/SB, 不计算配速)
+           const isDnf = race.status === 'dnf';
+           if (isDnf) {
+               markers += `<span class="race-marker dnf">退赛${race.dnfAt ? `（${race.dnfAt}）` : ''}</span>`;
+           }
+           const dnfInfoHTML = (isDnf && race.dnfInfo) ? `
+                   <div class="race-dnf-info">
+                       <strong>已跑:</strong> ${race.dnfInfo.completedDistance || '—'}
+                       <strong>用时:</strong> ${race.dnfInfo.elapsedTime || '—'}
+                       ${race.dnfInfo.elevationGain ? `<strong>爬升:</strong> ${race.dnfInfo.elevationGain}` : ''}
+                       ${race.dnfInfo.avgHeartRate ? `<strong>心率:</strong> ${race.dnfInfo.avgHeartRate}` : ''}
+                   </div>` : '';
+          
            const raceItem = document.createElement('div');
            raceItem.className = 'race-item';
            
@@ -532,12 +545,13 @@ function generateRaceRecords() {
                    <div class="race-distance">
                        <strong>距离:</strong> ${race.distance}
                    </div>
-                   <div class="race-pace">
+                   ${dnfInfoHTML}
+                   ${race.pace ? `<div class="race-pace">
                        <strong>配速:</strong> ${race.pace}
-                   </div>
-                   <div class="race-links">
+                   </div>` : ''}
+                   ${race.activityLink ? `<div class="race-links">
                        <a href="${race.activityLink}" class="race-link-btn" target="_blank">查看活动</a>
-                   </div>
+                   </div>` : ''}
                </div>
            `;
            
@@ -567,9 +581,9 @@ document.addEventListener('DOMContentLoaded', async () => {
        }
        raceRecords = await response.json();
        
-       // 自动计算缺失的配速
+       // 自动计算缺失的配速(退赛记录没有有效成绩, 跳过)
        raceRecords.forEach(race => {
-           if (!race.pace || race.pace === "") {
+           if (race.status !== 'dnf' && (!race.pace || race.pace === "")) {
                race.pace = calculatePace(race.result, race.distance);
            }
        });

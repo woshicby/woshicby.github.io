@@ -6,6 +6,7 @@
 :root {
    --race-pb: #ff4757;             /* 个人最佳(PB)标记 */
    --race-sb: #2ed573;             /* 赛季最佳(SB)标记 */
+   --race-dnf: #8d99ae;            /* 退赛(DNF)标记 */
    --race-empty-bg1: #f5f7fa;      /* 空状态背景渐变1 */
    --race-empty-bg2: #c3cfe2;      /* 空状态背景渐变2 */
 }
@@ -296,6 +297,26 @@
 .race-marker.sb {
     background-color: var(--race-sb);
     color: var(--white);
+}
+
+/* 退赛(DNF)标记样式 */
+.race-marker.dnf {
+    background-color: var(--race-dnf);
+    color: var(--white);
+}
+
+/* 退赛赛事已跑数据行 */
+.race-dnf-info {
+    color: var(--text-secondary);
+    font-size: var(--font-size-md);
+}
+
+.race-dnf-info strong {
+    color: var(--text-color);
+}
+
+.race-dnf-info strong + * {
+    margin-right: var(--spacing-sm);
 }
 
 .race-item {
@@ -681,6 +702,11 @@ body.dark-theme .certificate-placeholder {
 
 .status-badge.not-selected {
     background-color: var(--color-danger);
+    color: var(--white);
+}
+
+.status-badge.dnf {
+    background-color: var(--race-dnf);
     color: var(--white);
 }
 
