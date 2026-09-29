@@ -1,9 +1,27 @@
 {
   "flight": [
     "location",
-    { "merge": ["hall", "gate"], "sep": " · " },
-    { "pick": ["actual", "sched"] },
+    {
+      "merge": [
+        "hall",
+        "gate"
+      ],
+      "sep": " · "
+    },
+    {
+      "pick": [
+        "actual",
+        "sched"
+      ]
+    },
     "seat",
+    "price",
+    "platform"
+  ],
+  "train": [
+    "location",
+    "seat",
+    "timeRange",
     "price",
     "platform"
   ]

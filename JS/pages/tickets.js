@@ -48,7 +48,7 @@ class TicketsManager extends FilterableListManager {
     constructor() {
         super();
         this.allTickets = [];
-        this.currentType = '';
+        this.currentTypes = new Set();   // 类型多选: 空集合 = 全部
         this.masonryDestroys = [];
         this.currentLocation = null;
         this.currentHall = null;
@@ -81,7 +81,6 @@ class TicketsManager extends FilterableListManager {
     checkUrlParams() {
         const urlParams = getUrlParams();
         const search = urlParams.get('search') || '';
-        const type = urlParams.get('type') || '';
         const location = urlParams.get('location') || null;
         const hall = urlParams.get('hall') || null;
         const seat = urlParams.get('seat') || null;
@@ -92,13 +91,10 @@ class TicketsManager extends FilterableListManager {
             if (searchInput) searchInput.value = search;
         }
 
-        // 恢复类型筛选状态
-        if (type) {
-            this.currentType = type;
-            document.querySelectorAll('.type-tab').forEach(tab => {
-                tab.classList.toggle('active', tab.getAttribute('data-type') === type);
-            });
-        }
+        // 恢复类型筛选状态(支持多选: type 参数可重复, 也兼容逗号分隔)
+        const selectedTypes = urlParams.getAll('type').flatMap(v => v.split(',')).filter(Boolean);
+        this.currentTypes = new Set(selectedTypes);
+        this.syncTypeTabs();
 
         this.currentLocation = location;
         this.currentHall = hall;
@@ -118,10 +114,12 @@ class TicketsManager extends FilterableListManager {
             const searchInput = document.getElementById('search-input');
             if (searchInput) searchInput.value = '';
         } else if (paramType === 'type') {
-            this.currentType = '';
-            document.querySelectorAll('.type-tab').forEach(tab => {
-                tab.classList.toggle('active', !tab.getAttribute('data-type'));
-            });
+            // 多选: value 是展示用的中文名(也可能直接是 key); 无匹配则清空全部类型
+            const key = this.typeKeyByLabel(value);
+            if (key) this.currentTypes.delete(key);
+            else this.currentTypes.clear();
+            this.syncTypeUrl();
+            this.syncTypeTabs();
         } else if (paramType === 'location') {
             this.currentLocation = null;
             this.currentHall = null;
@@ -142,14 +140,12 @@ class TicketsManager extends FilterableListManager {
      * 清除所有筛选
      */
     clearFilter() {
-        this.currentType = '';
+        this.currentTypes.clear();
         this.currentLocation = null;
         this.currentHall = null;
         this.currentSeat = null;
         // 重置类型标签UI
-        document.querySelectorAll('.type-tab').forEach(tab => {
-            tab.classList.toggle('active', !tab.getAttribute('data-type'));
-        });
+        this.syncTypeTabs();
         this.renderLocationFilter();
         this.renderHallFilter();
         this.renderSeatFilter();
@@ -179,13 +175,11 @@ class TicketsManager extends FilterableListManager {
         this.getSearchClearParams().forEach(p => urlParams.delete(p));
         setUrlParams(urlParams);
         // 重置JS状态
-        this.currentType = '';
+        this.currentTypes.clear();
         this.currentLocation = null;
         this.currentHall = null;
         this.currentSeat = null;
-        document.querySelectorAll('.type-tab').forEach(tab => {
-            tab.classList.toggle('active', !tab.getAttribute('data-type'));
-        });
+        this.syncTypeTabs();
         this.renderLocationFilter();
         this.renderHallFilter();
         this.renderSeatFilter();
@@ -232,19 +226,64 @@ class TicketsManager extends FilterableListManager {
     }
 
     /**
-     * 绑定类型标签页
+     * 类型值 ↔ 中文名 映射(卡片标签与筛选条件展示共用)
+     */
+    get typeLabels() {
+        return {
+            'movie': '电影', 'show': '演出赛事', 'train': '火车',
+            'flight': '飞机', 'attraction': '门票', 'other': '其他'
+        };
+    }
+
+    /**
+     * 把展示名(或 key 本身)还原成类型 key
+     * @param {string} value - 筛选条件里显示的值
+     * @returns {string|null} 类型 key, 无法识别返回 null
+     */
+    typeKeyByLabel(value) {
+        if (!value) return null;
+        if (this.typeLabels[value]) return value;
+        const hit = Object.keys(this.typeLabels).find(k => this.typeLabels[k] === value);
+        return hit || null;
+    }
+
+    /**
+     * 把当前选中的类型写回 URL(多选 = 重复的 type 参数)
+     */
+    syncTypeUrl() {
+        const urlParams = getUrlParams();
+        urlParams.delete('type');
+        this.currentTypes.forEach(t => urlParams.append('type', t));
+        setUrlParams(urlParams);
+    }
+
+    /**
+     * 同步类型标签选中态: 选中的类型高亮, 一个都没选时「全部」高亮
+     */
+    syncTypeTabs() {
+        document.querySelectorAll('.type-tab').forEach(tab => {
+            const type = tab.getAttribute('data-type') || '';
+            tab.classList.toggle('active', type ? this.currentTypes.has(type) : this.currentTypes.size === 0);
+        });
+    }
+
+    /**
+     * 绑定类型标签页(多选: 点另一个类型不会取消已选类型; 再点一次该类型才取消)
      */
     bindTypeTabs() {
         document.querySelectorAll('.type-tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                this.currentType = tab.getAttribute('data-type') || '';
-                document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                // 更新 URL 中的 type 参数
-                const urlParams = getUrlParams();
-                if (this.currentType) urlParams.set('type', this.currentType);
-                else urlParams.delete('type');
-                setUrlParams(urlParams);
+                const type = tab.getAttribute('data-type') || '';
+                if (!type) {
+                    // 「全部」= 清空类型筛选
+                    this.currentTypes.clear();
+                } else if (this.currentTypes.has(type)) {
+                    this.currentTypes.delete(type);
+                } else {
+                    this.currentTypes.add(type);
+                }
+                this.syncTypeUrl();
+                this.syncTypeTabs();
                 // 重置高级筛选
                 this.currentLocation = null;
                 this.currentHall = null;
@@ -267,8 +306,9 @@ class TicketsManager extends FilterableListManager {
 
         let filtered = this.allTickets;
 
-        if (this.currentType) {
-            filtered = filtered.filter(t => t.type === this.currentType);
+        // 类型多选(空集合 = 不筛类型)
+        if (this.currentTypes.size > 0) {
+            filtered = filtered.filter(t => this.currentTypes.has(t.type));
         }
 
         if (search) {
@@ -299,16 +339,13 @@ class TicketsManager extends FilterableListManager {
         this.renderList(filtered);
 
         const filterEntries = [];
-        if (this.currentType) {
-            const typeLabels = {
-                'movie': '电影', 'show': '演出赛事', 'train': '火车',
-                'flight': '飞机', 'attraction': '门票', 'other': '其他'
-            };
+        // 每个已选类型各挂一个可单独移除的筛选标签
+        this.currentTypes.forEach(type => {
             filterEntries.push({
-                type: '类型', value: typeLabels[this.currentType] || this.currentType,
+                type: '类型', value: this.typeLabels[type] || type,
                 paramType: 'type'
             });
-        }
+        });
         if (search) {
             filterEntries.push({ type: '搜索', value: search, paramType: 'search' });
         }
@@ -345,8 +382,8 @@ class TicketsManager extends FilterableListManager {
     /** 获取当前筛选后的数据（用于生成选项，不含高级筛选本身的条件） */
     getFilteredTickets() {
         let items = this.allTickets;
-        if (this.currentType) {
-            items = items.filter(t => t.type === this.currentType);
+        if (this.currentTypes.size > 0) {
+            items = items.filter(t => this.currentTypes.has(t.type));
         }
         if (this.currentLocation) {
             items = items.filter(t => t.location === this.currentLocation);
@@ -357,8 +394,8 @@ class TicketsManager extends FilterableListManager {
     /** 获取仅按类型筛选的数据（用于生成影院选项，保留所有影院） */
     getTicketsByType() {
         let items = this.allTickets;
-        if (this.currentType) {
-            items = items.filter(t => t.type === this.currentType);
+        if (this.currentTypes.size > 0) {
+            items = items.filter(t => this.currentTypes.has(t.type));
         }
         return items;
     }
@@ -366,8 +403,8 @@ class TicketsManager extends FilterableListManager {
     /** 获取按类型+影院+影厅筛选的数据（用于生成座位选项） */
     getTicketsByHall() {
         let items = this.allTickets;
-        if (this.currentType) {
-            items = items.filter(t => t.type === this.currentType);
+        if (this.currentTypes.size > 0) {
+            items = items.filter(t => this.currentTypes.has(t.type));
         }
         if (this.currentLocation) {
             items = items.filter(t => t.location === this.currentLocation);

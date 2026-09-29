@@ -723,6 +723,155 @@ body.moments-page {
     }
 }
 
+/* ============ 多图/多视频轮播(与票据收藏卡片同款: 左右切换 + 计数 + 圆点) ============ */
+
+/* 轮播块: 媒体框 + 下方的当前帧说明文字(说明在框外, 不会被 overflow 裁掉) */
+.moments-page .moment-media-block {
+    margin-top: var(--spacing-sm-plus);
+}
+
+.moments-page .moment-slider {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: var(--light-accent);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+}
+
+.moments-page .moment-slider-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.moments-page .moment-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 媒体按原比例完整显示(contain), 不裁切照片/视频 */
+.moments-page .moment-slider .moment-slide img,
+.moments-page .moment-slider .moment-slide video {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0;
+    border-radius: 0;
+    object-fit: contain;
+    transform: none;
+    box-shadow: none;
+    display: block;
+}
+
+.moments-page .moment-slider .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--black-transparent-50);
+    border: none;
+    color: var(--white);
+    font-size: var(--font-size-lg-plus);
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--border-radius-circle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+    z-index: 2;
+    opacity: 0;
+    line-height: 1;
+    padding: 0;
+}
+
+.moments-page .moment-slider:hover .slider-arrow {
+    opacity: 1;
+}
+
+/* 触屏设备没有 hover, 箭头常显(否则无法切换) */
+@media (hover: none) {
+    .moments-page .moment-slider .slider-arrow {
+        opacity: 1;
+    }
+}
+
+.moments-page .moment-slider .slider-arrow:hover {
+    background: var(--black-transparent-80);
+}
+
+.moments-page .moment-slider .slider-prev {
+    left: 8px;
+}
+
+.moments-page .moment-slider .slider-next {
+    right: 8px;
+}
+
+.moments-page .moment-slider .slider-dots {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    z-index: 2;
+}
+
+.moments-page .moment-slider .slider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--border-radius-circle);
+    background: var(--white-transparent-50);
+    transition: var(--transition-fast);
+    cursor: pointer;
+}
+
+.moments-page .moment-slider .slider-dot.active {
+    background: var(--white);
+    transform: scale(1.3);
+}
+
+.moments-page .moment-slider-count {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--black-transparent-70);
+    color: var(--white);
+    font-size: var(--font-size-2xs);
+    padding: 2px 8px;
+    border-radius: var(--border-radius-sm);
+    z-index: 2;
+}
+
+/* 当前这一屏的说明文字(取自图片 alt; 视频无说明时自动隐藏) */
+.moments-page .moment-slide-caption {
+    margin-top: 6px;
+    font-size: var(--font-size-xs);
+    color: var(--light-text);
+    line-height: 1.5;
+}
+
+.moments-page .moment-slide-caption:empty {
+    display: none;
+}
+
+/* 详情弹窗里的轮播: 框更大, 说明文字略大 */
+.moment-detail-body .moment-slider {
+    aspect-ratio: 16 / 10;
+}
+
+.moment-detail-body .moment-slide-caption {
+    font-size: var(--font-size-sm);
+}
+
 @media (max-width: 1200px) {
     /* 1200px: 大屏到中屏过渡,无特殊调整 */
 }

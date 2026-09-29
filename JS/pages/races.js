@@ -416,8 +416,12 @@ function generateRaceRecords() {
    const pbs = findPersonalBests(raceRecords);
    const sbs = findSeasonBests(raceRecords);
    
-   // 过滤掉没有结果的赛事和待抽签赛事(保留完赛与退赛记录, 退赛不参与PB/SB统计)
-   const racesWithResults = raceRecords.filter(race => race.result && race.result !== '' && (race.status === 'finished' || race.status === 'dnf'));
+   // 过滤掉没有结果的赛事和待抽签赛事(保留完赛/退赛/未参赛记录, 退赛与未参赛不参与PB/SB统计)
+   const racesWithResults = raceRecords.filter(race => {
+       // 未参赛(DNS)没有成绩, 也进列表以保留这次已登记的赛事
+       if (race.status === 'dns') return true;
+       return race.result && race.result !== '' && (race.status === 'finished' || race.status === 'dnf');
+   });
    
    // 生成个人记录内容
    generatePersonalRecords(racesWithResults);
@@ -507,18 +511,17 @@ function generateRaceRecords() {
                }
            }
           
-           // 退赛(DNF)赛事: 显示退赛标记 + 已跑数据(不参与PB/SB, 不计算配速)
+           // 退赛(DNF)赛事: 退赛信息由成绩栏注明(如"DNF（CP2退赛）"), 标题旁不再单独挂退赛标签;
+           // 已跑数据只保留"已跑"一格, 与类型/项目/成绩/距离同样的排布(用时/爬升/心率在活动数据页里看)
            const isDnf = race.status === 'dnf';
-           if (isDnf) {
-               markers += `<span class="race-marker dnf">退赛${race.dnfAt ? `（${race.dnfAt}）` : ''}</span>`;
-           }
-           const dnfInfoHTML = (isDnf && race.dnfInfo) ? `
+           const dnfCellsHTML = (isDnf && race.dnfInfo && race.dnfInfo.completedDistance) ? `
                    <div class="race-dnf-info">
-                       <strong>已跑:</strong> ${race.dnfInfo.completedDistance || '—'}
-                       <strong>用时:</strong> ${race.dnfInfo.elapsedTime || '—'}
-                       ${race.dnfInfo.elevationGain ? `<strong>爬升:</strong> ${race.dnfInfo.elevationGain}` : ''}
-                       ${race.dnfInfo.avgHeartRate ? `<strong>心率:</strong> ${race.dnfInfo.avgHeartRate}` : ''}
+                       <strong>已跑:</strong> ${race.dnfInfo.completedDistance}
                    </div>` : '';
+
+           // 未参赛(DNS)赛事: 没有成绩, 成绩栏按状态给出说明文字
+           const isDns = race.status === 'dns';
+           const resultText = (race.result && race.result !== '') ? race.result : (isDns ? 'DNS（未参赛）' : '—');
           
            const raceItem = document.createElement('div');
            raceItem.className = 'race-item';
@@ -526,7 +529,7 @@ function generateRaceRecords() {
            raceItem.innerHTML = `
                <div class="race-info">
                    <h3 class="race-title">${race.name}</h3>
-                   <div class="race-tags">${certificationMark} ${markers}</div>
+                   ${(certificationMark || markers) ? `<div class="race-tags">${certificationMark} ${markers}</div>` : ''}
                    <div class="race-meta">
                        <span class="race-date">${race.date}</span>
                        <span class="race-location">${race.location}</span>
@@ -540,12 +543,12 @@ function generateRaceRecords() {
                        <strong>项目:</strong> ${race.event}
                    </div>
                    <div class="race-result">
-                       <strong>成绩:</strong> <span class="race-time">${race.result}</span>
+                       <strong>成绩:</strong> <span class="race-time">${resultText}</span>
                    </div>
                    <div class="race-distance">
                        <strong>距离:</strong> ${race.distance}
                    </div>
-                   ${dnfInfoHTML}
+                   ${dnfCellsHTML}
                    ${race.pace ? `<div class="race-pace">
                        <strong>配速:</strong> ${race.pace}
                    </div>` : ''}
@@ -581,9 +584,9 @@ document.addEventListener('DOMContentLoaded', async () => {
        }
        raceRecords = await response.json();
        
-       // 自动计算缺失的配速(退赛记录没有有效成绩, 跳过)
+       // 自动计算缺失的配速(退赛/未参赛记录没有有效成绩, 跳过)
        raceRecords.forEach(race => {
-           if (race.status !== 'dnf' && (!race.pace || race.pace === "")) {
+           if (race.status !== 'dnf' && race.status !== 'dns' && (!race.pace || race.pace === "")) {
                race.pace = calculatePace(race.result, race.distance);
            }
        });

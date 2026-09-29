@@ -7,6 +7,7 @@
    --race-pb: #ff4757;             /* 个人最佳(PB)标记 */
    --race-sb: #2ed573;             /* 赛季最佳(SB)标记 */
    --race-dnf: #8d99ae;            /* 退赛(DNF)标记 */
+   --race-dns: #6c757d;            /* 未参赛(DNS)标记 */
    --race-empty-bg1: #f5f7fa;      /* 空状态背景渐变1 */
    --race-empty-bg2: #c3cfe2;      /* 空状态背景渐变2 */
 }
@@ -419,14 +420,16 @@
     
     .race-tags {
         flex: 0 0 auto;
-        margin-right: auto;
     }
     
+    /* 时间/地点始终靠卡片右缘对齐: 不能依赖 .race-tags 的 auto 外边距,
+       否则没有认证/最佳标记的卡片(div 不渲染)会把蓝字挤到标题后面, 与其他条不一致 */
     .race-meta {
         flex: 0 0 auto;
         display: flex;
         flex-direction: row-reverse;
         justify-content: flex-start;
+        margin-left: auto;
     }
     
     .race-date {
@@ -707,6 +710,11 @@ body.dark-theme .certificate-placeholder {
 
 .status-badge.dnf {
     background-color: var(--race-dnf);
+    color: var(--white);
+}
+
+.status-badge.dns {
+    background-color: var(--race-dns);
     color: var(--white);
 }
 

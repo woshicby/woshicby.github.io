@@ -56,7 +56,7 @@
    --light-light-text: #7f8c8d;
    --light-text-muted: #7f8c8d;
    --light-white: #ffffff;
-   --light-background-light: rgba(255, 255, 255, 0.7);
+   --light-background-inset: rgba(0, 0, 0, 0.04);  /* 占位/凹陷背景(日历空位) */
    --light-background-accent: rgba(52, 152, 219, 0.15);
    --light-card-bg-color: #f8f9fa;
    --light-heading-color: #34495e;
@@ -90,6 +90,7 @@
    --dark-text-muted: #bdc3c7;
    --dark-white: #ffffff;
    --dark-background-accent: rgba(52, 152, 219, 0.2);
+   --dark-background-inset: rgba(0, 0, 0, 0.25);  /* 占位/凹陷背景(日历空位) */
    --dark-card-bg-color: #2c3e50;
    --dark-heading-color: #ecf0f1;
    --dark-border-color: #34495e;
@@ -182,7 +183,7 @@
    --dark-background: var(--dark-background-color); /* 夜间背景 */
    --dark-light-text-color: var(--dark-light-text);
    --input-dark-bg-color: var(--dark-card-bg-color); /* 夜间输入框 */
-   --lighter-background: var(--light-background-light); /* 更浅背景 */
+   --inset-background: var(--light-background-inset); /* 占位/凹陷背景(日历空位·图例) */
    --background-accent: var(--light-background-accent); /* 强调背景 */
    --secondary-bg: var(--light-background-accent);    /* 次要背景 */
    --overlay-dark: rgba(0, 0, 0, 0.75);            /* 深色遮罩 */

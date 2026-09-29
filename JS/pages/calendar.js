@@ -1031,6 +1031,8 @@ function createRaceItemElement(race, isPendingLottery = false) {
         statusBadge = '<span class="status-badge registered">已报名</span>';
     } else if (race.status === 'dnf') {
         statusBadge = '<span class="status-badge dnf">退赛</span>';
+    } else if (race.status === 'dns') {
+        statusBadge = '<span class="status-badge dns">未参赛</span>';
     } else if (isPastRace) {
         statusBadge = '<span class="status-badge finished">已完赛</span>';
     }
@@ -1045,10 +1047,12 @@ function createRaceItemElement(race, isPendingLottery = false) {
             </div>
         `;
     } else if (isPastRace) {
+        // 已过期的赛事按状态给出成绩文字: 未参赛(DNS)没有成绩, 不显示"无成绩"
+        const pastResultText = race.result || (race.status === 'dns' ? 'DNS（未参赛）' : '无成绩');
         countdownHTML = `
             <div class="upcoming-race-countdown">
                 <span class="countdown-label">成绩：</span>
-                <span class="countdown-timer finished">${race.result || '无成绩'}</span>
+                <span class="countdown-timer finished">${pastResultText}</span>
             </div>
         `;
     } else {

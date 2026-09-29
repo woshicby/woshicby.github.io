@@ -40,6 +40,10 @@ body.dark-theme {
    --hover-background: var(--dark-hover-background);
    --primary-text-color: var(--dark-primary-text-color);
    --secondary-text-color: var(--dark-secondary-text-color);
+   /* 补齐夜间模式漏接线的语义别名(此前只挂了日间原始色) */
+   --inset-background: var(--dark-background-inset);
+   --background-accent: var(--dark-background-accent);
+   --secondary-bg: var(--dark-background-accent);
 }
 
 /* 检测系统深色模式偏好 */
@@ -79,6 +83,10 @@ body.dark-theme {
        --hover-background: var(--dark-hover-background);
        --primary-text-color: var(--dark-primary-text-color);
        --secondary-text-color: var(--dark-secondary-text-color);
+       /* 补齐夜间模式漏接线的语义别名(此前只挂了日间原始色) */
+       --inset-background: var(--dark-background-inset);
+       --background-accent: var(--dark-background-accent);
+       --secondary-bg: var(--dark-background-accent);
    }
 }
 

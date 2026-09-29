@@ -42,7 +42,7 @@
    gap: var(--spacing-md);
    margin-bottom: var(--spacing-lg);
    flex-wrap: wrap;
-   background-color: var(--lighter-background);
+   background-color: var(--inset-background);
    padding: var(--spacing-md);
    border-radius: var(--border-radius-md);
    border: 1px solid var(--border-color);
@@ -208,7 +208,7 @@
 /* 其他月份的日期 */
 .calendar-day.other-month {
    color: var(--secondary-text-color);
-   background-color: var(--lighter-background);
+   background-color: var(--inset-background);
 }
 
 /* 有赛事的日期样式 - 通用 */
@@ -282,7 +282,7 @@
 
 
 .calendar-month-table .calendar-day.empty {
-   background-color: var(--lighter-background);
+   background-color: var(--inset-background);
 }
 
 /* 赛事分隔线样式 */

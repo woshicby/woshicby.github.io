@@ -1,6 +1,98 @@
 ﻿[
   {
     "type": "movie",
+    "title": "小猪佩奇·完美假期",
+    "date": "2026-09-27 12:05:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "2号-儿童厅",
+    "seat": [
+      "4排5座"
+    ],
+    "price": 42.9,
+    "platform": "猫眼",
+    "note": "",
+    "subjectId": "36964833"
+  },
+  {
+    "type": "movie",
+    "title": "红孩儿火焰山之王",
+    "date": "2026-09-27 09:05:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "1号厅",
+    "seat": [
+      "5排4座"
+    ],
+    "price": 25.9,
+    "platform": "猫眼",
+    "note": "",
+    "subjectId": "37054065"
+  },
+  {
+    "type": "train",
+    "title": "C6544",
+    "date": "2026-09-26 14:19:00",
+    "location": "威海站 → 青岛北站",
+    "hall": "",
+    "seat": [
+      "二等座 06车03A"
+    ],
+    "price": 93.0,
+    "platform": "12306",
+    "note": "",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "威海站",
+        "to": "青岛北站",
+        "departureTime": "14:19",
+        "arrivalTime": "16:04",
+        "duration": "",
+        "carriage": "06车",
+        "seatType": "二等座"
+      }
+    }
+  },
+  {
+    "type": "train",
+    "title": "C6555",
+    "date": "2026-09-24 06:29:00",
+    "location": "青岛北站 → 威海站",
+    "hall": "",
+    "seat": [
+      "二等座 02车02A"
+    ],
+    "price": 93.0,
+    "platform": "12306",
+    "note": "",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "青岛北站",
+        "to": "威海站",
+        "departureTime": "06:29",
+        "arrivalTime": "08:21",
+        "duration": "",
+        "carriage": "02车",
+        "seatType": "二等座"
+      }
+    }
+  },
+  {
+    "type": "movie",
+    "title": "杀死比尔：血色全传",
+    "date": "2026-09-17 19:35:00",
+    "location": "万达影城(城阳万达广场IMAX店)",
+    "hall": "5号厅",
+    "seat": [
+      "5排5座"
+    ],
+    "price": 51.9,
+    "platform": "猫眼",
+    "note": "",
+    "subjectId": "10756537"
+  },
+  {
+    "type": "movie",
     "title": "数到三",
     "date": "2026-09-06 10:05:00",
     "location": "艺佳电影城",
@@ -1882,9 +1974,9 @@
     "location": "海南大学",
     "hall": "社科楼",
     "seat": [],
-    "price": null,
+    "price": 0,
     "platform": "",
-    "note": "",
+    "note": "免费",
     "subjectId": ""
   },
   {
@@ -4405,9 +4497,9 @@
     "location": "国家大剧院",
     "hall": "音乐厅",
     "seat": [],
-    "price": null,
+    "price": 299,
     "platform": "",
-    "note": "国家大剧院2016星纯演出季",
+    "note": "国家大剧院2016星纯演出季；票面模糊, 金额暂按 299",
     "subjectId": ""
   },
   {
@@ -4417,9 +4509,9 @@
     "location": "中国矿业大学（北京）",
     "hall": "科技会堂",
     "seat": [],
-    "price": null,
+    "price": 0,
     "platform": "",
-    "note": "",
+    "note": "免费",
     "subjectId": ""
   },
   {

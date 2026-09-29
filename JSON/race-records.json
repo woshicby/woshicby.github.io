@@ -791,5 +791,23 @@
             "certification": [],
             "eventSeries": "青岛山海四季跑",
             "activityLink": ""
+      },
+      {
+            "id": 42,
+            "name": "泰山冠军系列赛2026跑山赛",
+            "date": "2026-11-08",
+            "startTime": "08:00",
+            "location": "山东省泰安市泰山区泰山风景名胜区红门广场",
+            "category": "越野跑",
+            "event": "名震一方组（33km）",
+            "distance": "33公里",
+            "status": "registered",
+            "accommodationBooked": true,
+            "result": "",
+            "pace": "",
+            "season": "2026秋季",
+            "certification": ["ITRA 2分"],
+            "eventSeries": "泰山冠军系列赛",
+            "activityLink": ""
       }
 ]

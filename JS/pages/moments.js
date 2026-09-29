@@ -191,9 +191,162 @@ class MomentsManager extends FilterableListManager {
            video.preload = 'metadata';
        });
 
+       // 多图/多视频: 收进轮播(与票据收藏卡片同款), 左右切换查看
+       const mediaNodes = Array.from(content.querySelectorAll('img, video'));
+       if (mediaNodes.length >= 2) {
+           const block = this.buildMediaSlider(mediaNodes);
+           this.removeEmptyWrappers(content);   // 媒体搬走后清掉留下的空段落
+           content.appendChild(block);
+           this.bindSlider(block);
+       }
+
        article.appendChild(content);
 
        return article;
+   }
+
+   /**
+    * 把一组媒体节点收进轮播(交互与样式对齐票据收藏卡片)
+    * 媒体是"搬运"而非复制 → 全站单实例, 视频/音频播放状态与进度都不中断
+    * @param {HTMLElement[]} mediaNodes - 内容区里的 img/video 节点(按出现顺序)
+    * @returns {HTMLElement} 轮播块(媒体框 + 说明文字)
+    */
+   buildMediaSlider(mediaNodes) {
+       const block = document.createElement('div');
+       block.className = 'moment-media-block';
+
+       const slider = document.createElement('div');
+       slider.className = 'moment-slider';
+
+       const track = document.createElement('div');
+       track.className = 'moment-slider-track';
+
+       const captions = [];
+       mediaNodes.forEach(node => {
+           const caption = (node.getAttribute('alt') || '').trim();
+           const slide = document.createElement('div');
+           slide.className = 'moment-slide';
+           slide.appendChild(node);   // 搬运原节点, 不复制
+           track.appendChild(slide);
+           captions.push(caption);
+       });
+       slider._captions = captions;
+       slider.appendChild(track);
+       block.appendChild(slider);
+
+       // 左右箭头
+       const prevBtn = document.createElement('button');
+       prevBtn.type = 'button';
+       prevBtn.className = 'slider-arrow slider-prev';
+       prevBtn.setAttribute('aria-label', '上一张');
+       prevBtn.textContent = '‹';
+       slider.appendChild(prevBtn);
+
+       const nextBtn = document.createElement('button');
+       nextBtn.type = 'button';
+       nextBtn.className = 'slider-arrow slider-next';
+       nextBtn.setAttribute('aria-label', '下一张');
+       nextBtn.textContent = '›';
+       slider.appendChild(nextBtn);
+
+       // 圆点指示器 + 计数
+       const dots = document.createElement('div');
+       dots.className = 'slider-dots';
+       captions.forEach((_, i) => {
+           const dot = document.createElement('span');
+           dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+           dots.appendChild(dot);
+       });
+       slider.appendChild(dots);
+
+       const count = document.createElement('span');
+       count.className = 'moment-slider-count';
+       count.textContent = `1/${captions.length}`;
+       slider.appendChild(count);
+
+       // 当前这一屏的说明文字(在媒体框下方, 不占用框内空间)
+       const captionEl = document.createElement('div');
+       captionEl.className = 'moment-slide-caption';
+       block.appendChild(captionEl);
+
+       return block;
+   }
+
+   /**
+    * 绑定轮播交互: 箭头/圆点切换、触摸滑动、计数与说明同步、非当前屏视频静音暂停
+    * @param {HTMLElement} block - buildMediaSlider 生成的轮播块
+    */
+   bindSlider(block) {
+       const slider = block.querySelector('.moment-slider');
+       const track = block.querySelector('.moment-slider-track');
+       const slides = Array.from(block.querySelectorAll('.moment-slide'));
+       const dots = Array.from(block.querySelectorAll('.slider-dot'));
+       const countLabel = block.querySelector('.moment-slider-count');
+       const captionEl = block.querySelector('.moment-slide-caption');
+       const prevBtn = block.querySelector('.slider-prev');
+       const nextBtn = block.querySelector('.slider-next');
+       const total = slides.length;
+       if (!slider || !track || total === 0) return;
+
+       slider._index = 0;
+
+       const showSlide = (index) => {
+           const i = (index + total) % total;
+           slider._index = i;
+           track.style.transform = `translateX(-${i * 100}%)`;
+           dots.forEach((dot, k) => dot.classList.toggle('active', k === i));
+           if (countLabel) countLabel.textContent = `${i + 1}/${total}`;
+           if (captionEl) captionEl.textContent = (slider._captions || [])[i] || '';
+           // 只让当前这屏的视频出声(其他视频暂停, 保留进度)
+           slides.forEach((slide, k) => {
+               if (k === i) return;
+               const video = slide.querySelector('video');
+               if (video) { try { video.pause(); } catch (err) { /* ignore */ } }
+           });
+       };
+
+       if (prevBtn) prevBtn.addEventListener('click', (e) => {
+           e.stopPropagation();
+           showSlide(slider._index - 1);
+       });
+       if (nextBtn) nextBtn.addEventListener('click', (e) => {
+           e.stopPropagation();
+           showSlide(slider._index + 1);
+       });
+       dots.forEach((dot, k) => dot.addEventListener('click', (e) => {
+           e.stopPropagation();
+           showSlide(k);
+       }));
+
+       // 触摸滑动
+       let startX = 0;
+       let dragging = false;
+       track.addEventListener('touchstart', (e) => {
+           startX = e.touches[0].clientX;
+           dragging = true;
+       }, { passive: true });
+       track.addEventListener('touchend', (e) => {
+           if (!dragging) return;
+           dragging = false;
+           const diff = startX - e.changedTouches[0].clientX;
+           if (Math.abs(diff) > 30) showSlide(slider._index + (diff > 0 ? 1 : -1));
+       }, { passive: true });
+
+       showSlide(0);
+   }
+
+   /**
+    * 清掉媒体被搬走后残留的空段落(否则卡片上会多出空白)
+    * 只处理直接子元素, 避免误删文字里的结构
+    * @param {HTMLElement} root - 内容容器
+    */
+   removeEmptyWrappers(root) {
+       if (!root) return;
+       Array.from(root.children).forEach(el => {
+           if (el.querySelector('img, video, audio, canvas, iframe')) return;
+           if (el.textContent.replace(/[\s\u00a0]/g, '') !== '') return;
+           el.remove();
+       });
    }
 
     /**
@@ -251,6 +404,8 @@ class MomentsManager extends FilterableListManager {
                if (e.target.closest('a')) return;
                // 点击播放控件不打开详情(避免媒体控制被冒泡吞掉)
                if (e.target.closest('audio, video')) return;
+               // 轮播的箭头/圆点只切换媒体, 不打开详情
+               if (e.target.closest('.slider-arrow, .slider-dot')) return;
                this.openMomentDetail(card.dataset.id);
            });
        });
@@ -315,9 +470,28 @@ class MomentsManager extends FilterableListManager {
        // 懒加载弹窗内图片
        content.querySelectorAll('img').forEach(img => { img.loading = 'lazy'; });
 
+       // 卡片里是轮播(多图/多视频)时: 详情不重复渲染媒体, 直接把轮播整体搬进来
+       // 媒体节点保持单实例 → 视频/音频继续播放不中断; 关闭详情时搬回卡片原位
+       const cardSlider = srcCard ? srcCard.querySelector('.moment-media-block') : null;
+       const detailBody = content.querySelector('.moment-detail-body');
+       if (cardSlider && detailBody) {
+           this.removeEmptyWrappers(detailBody);
+           // 卡片原位留一个同高占位块: 详情打开期间卡片高度不塌缩, 瀑布流无需重排
+           const holder = document.createElement('div');
+           holder.className = 'moment-media-placeholder';
+           holder.style.height = cardSlider.offsetHeight + 'px';
+           cardSlider.parentNode.insertBefore(holder, cardSlider);
+           this._movedSlider = {
+               block: cardSlider,
+               holder,
+               parent: cardSlider.parentNode
+           };
+           detailBody.appendChild(cardSlider);
+       }
+
        // 详情媒体 = 实时镜像(卡片媒体保持单实例继续播放,声音永不切换)
        // 详情里的镜像控件通过监听卡片媒体状态实时同步,并可直接控制播放
-       const renderedMedia = Array.from(content.querySelectorAll('.moment-detail-body audio, .moment-detail-body video'));
+       const renderedMedia = this._movedSlider ? [] : Array.from(content.querySelectorAll('.moment-detail-body audio, .moment-detail-body video'));
        this._detailMirrors = [];
        renderedMedia.forEach((el, i) => {
            const cardMedia = srcMedia[i];
@@ -522,6 +696,14 @@ class MomentsManager extends FilterableListManager {
        if (this._detailMirrors) {
            this._detailMirrors.forEach(m => { if (m.cleanup) m.cleanup(); });
            this._detailMirrors = null;
+       }
+
+       // 轮播搬回卡片原位(单实例媒体, 播放状态与进度不中断)
+       if (this._movedSlider) {
+           const { block, holder, parent } = this._movedSlider;
+           if (parent) parent.insertBefore(block, holder);
+           if (holder && holder.parentNode) holder.remove();
+           this._movedSlider = null;
        }
 
        overlay.classList.remove('active');
