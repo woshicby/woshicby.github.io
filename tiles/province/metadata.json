@@ -1,0 +1,16 @@
+{
+"name": "tiles/province",
+"description": "tiles/province",
+"version": "2",
+"minzoom": "3",
+"maxzoom": "7",
+"center": "116.718750,39.901245,7",
+"bounds": "73.476600,18.105500,135.087900,53.569300",
+"antimeridian_adjusted_bounds": "73.476600,18.105500,135.087900,53.569300",
+"type": "overlay",
+"strategies": "[{},{},{},{},{},{},{\"tiny_polygons\":1},{}]",
+"format": "pbf",
+"generator": "tippecanoe v2.79.0",
+"generator_options": "tippecanoe -e tiles/province --quiet --force '--include=name' --no-feature-limit --no-tile-size-limit --no-tile-compression -Z3 -z7 '--simplification=6' -l province JSON/sports-china_provinces.json",
+"json": "{\"vector_layers\":[{\"id\":\"province\",\"description\":\"\",\"minzoom\":3,\"maxzoom\":7,\"fields\":{\"name\":\"String\"}}],\"tilestats\":{\"layerCount\":1,\"layers\":[{\"layer\":\"province\",\"count\":34,\"geometry\":\"Polygon\",\"attributeCount\":1,\"attributes\":[{\"attribute\":\"name\",\"count\":34,\"type\":\"string\",\"values\":[\"上海市\",\"云南省\",\"内蒙古自治区\",\"北京市\",\"台湾省\",\"吉林省\",\"四川省\",\"天津市\",\"宁夏回族自治区\",\"安徽省\",\"山东省\",\"山西省\",\"广东省\",\"广西壮族自治区\",\"新疆维吾尔自治区\",\"江苏省\",\"江西省\",\"河北省\",\"河南省\",\"浙江省\",\"海南省\",\"湖北省\",\"湖南省\",\"澳门特别行政区\",\"甘肃省\",\"福建省\",\"西藏自治区\",\"贵州省\",\"辽宁省\",\"重庆市\",\"陕西省\",\"青海省\",\"香港特别行政区\",\"黑龙江省\"]}]}]}}"
+}

@@ -10,9 +10,17 @@ let currentFilter = 'Total';
 let selectedActivity = null;
 let map = null;
 let routeAnimator = null; // 路线动画器
-let countryGeoData = null; // 国家边界 GeoJSON
-let provinceGeoData = null; // 省份边界 GeoJSON
-let cityGeoData = null; // 城市边界 GeoJSON
+// 边界数据 = 静态矢量瓦片金字塔(tiles/<层>/{z}/{x}/{y}.pbf): 由 scripts/geo_build_tiles.sh
+// 从 JSON/sports-*.json 生成。浏览器只取当前视口需要的瓦片(每片 2-3 KB), 不再整包下载 GeoJSON
+// (城市那份原本 25 MB)。**必须与地图库配套**: mapbox-gl 没有 addProtocol(各版本实测 0 命中),
+// 所以走目录式 XYZ 瓦片, 而不是单文件 PMTiles(PMTiles 需要 MapLibre 的协议插件)。
+// 瓦片内的图层名与这里的 layer 必须一致: 见构建脚本的 -l country/province/city
+const GEO_TILES = {
+  country:  { dir: './tiles/country',  layer: 'country',  minzoom: 0, maxzoom: 3 },
+  province: { dir: './tiles/province', layer: 'province', minzoom: 3, maxzoom: 7 },
+  city:     { dir: './tiles/city',     layer: 'city',     minzoom: 6, maxzoom: 9 }
+};
+let geoTilesReady = false;   // 边界瓦片是否可用(静态文件, 无需注册协议)
 let isLoadingGeoData = false;
 
 const PROVINCE_FILL_COLOR = '#47b8e0';
@@ -86,7 +94,12 @@ function formatMovingTime(timeStr) {
  */
 function initMap() {
   if (typeof mapboxgl === 'undefined') {
-    showMapUnavailable();
+    showMapUnavailable('lib');
+    return;
+  }
+  if (!hasWebGL()) {
+    console.warn('[map] 浏览器未提供 WebGL 上下文, 跳过地图初始化');
+    showMapUnavailable('webgl');
     return;
   }
   
@@ -127,18 +140,38 @@ function initMap() {
     });
   } catch (error) {
     console.error('Error creating map:', error);
-    showMapUnavailable();
+    showMapUnavailable('init');
   }
 }
 
 /**
- * 显示地图不可用提示
+ * 浏览器是否具备 WebGL(mapbox-gl 的硬性前提; 没有时 new Map() 必抛错)
  */
-function showMapUnavailable() {
-  var mapEl = document.getElementById('map');
-  if (mapEl) {
-    mapEl.innerHTML = '<div class="map-placeholder" style="display:flex;align-items:center;justify-content:center;height:100%;">地图服务不可用（需要网络连接）</div>';
+function hasWebGL() {
+  try {
+    var c = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl')));
+  } catch (e) {
+    return false;
   }
+}
+
+/**
+ * 显示地图不可用提示(按原因区分: 库没加载 / 无 WebGL / 初始化失败)
+ * 旧文案一律写"需要网络连接", 实际最常见的原因是浏览器没开 WebGL, 容易误判。
+ */
+function showMapUnavailable(reason) {
+  var mapEl = document.getElementById('map');
+  if (!mapEl) return;
+  var msg = '地图不可用（原因未知）';
+  if (reason === 'lib') {
+    msg = '地图库加载失败（api.mapbox.com 未能加载，检查网络/代理）';
+  } else if (reason === 'webgl') {
+    msg = '此浏览器未启用 WebGL，无法渲染地图（换 Safari/Chrome 打开，或关闭无 GPU 的内嵌预览窗）';
+  } else if (reason === 'init') {
+    msg = '地图初始化失败（WebGL 上下文创建失败或样式加载失败，详见控制台）';
+  }
+  mapEl.innerHTML = '<div class="map-placeholder" style="display:flex;align-items:center;justify-content:center;height:100%;padding:0 16px;text-align:center;">' + msg + '</div>';
 }
 
 /**
@@ -489,21 +522,46 @@ function startRouteAnimation(coordinates) {
  * 加载地图着色 GeoJSON 数据
  */
 function loadGeoData() {
-  if ((countryGeoData && provinceGeoData && cityGeoData) || isLoadingGeoData) return;
+  if (geoTilesReady || isLoadingGeoData) return;
   isLoadingGeoData = true;
 
-  // 并行加载世界/省份/城市 GeoJSON
-  var worldPromise = fetch('./JSON/sports-world.zh.json').then(function(r) { return r.json(); }).catch(function() { return null; });
-  var chinaPromise = fetch('./JSON/sports-china_provinces.json').then(function(r) { return r.json(); }).catch(function() { return null; });
-  var cityPromise = fetch('./JSON/sports-china_cities.json').then(function(r) { return r.json(); }).catch(function() { return null; });
-
-  Promise.all([worldPromise, chinaPromise, cityPromise]).then(function(results) {
-    if (results[0] && results[0].features) countryGeoData = results[0];
-    if (results[1] && results[1].features) provinceGeoData = results[1];
-    if (results[2] && results[2].features) cityGeoData = results[2];
+  try {
+    // 目录式 XYZ 瓦片是纯静态文件, 不需要注册任何协议; 这里只确认地图库在位
+    if (typeof mapboxgl === 'undefined') {
+      console.warn('[geo] mapbox-gl 未加载, 跳过边界填色; 轨迹不受影响');
+      return;
+    }
+    geoTilesReady = true;
+    console.log('[geo] 边界瓦片就绪(静态 XYZ), 按视口按需取片');
+  } catch (e) {
+    console.error('[geo] 边界瓦片初始化失败:', e);
+  } finally {
     isLoadingGeoData = false;
     updateRegionFill();
+  }
+}
+
+/**
+ * 相对路径 → 绝对 URL(避免地图库对相对路径的解析差异)
+ */
+function geoAbsoluteUrl(path) {
+  return new URL(path, window.location.href).href;
+}
+
+/**
+ * 添加边界瓦片数据源(每次重绘都重建: setStyle 会清空 sources/layers)
+ * @param {string} level - country | province | city
+ * @returns {Object} 该层级的瓦片配置(含 source-layer 名)
+ */
+function addGeoTileSource(level) {
+  var conf = GEO_TILES[level];
+  map.addSource('geo-data', {
+    type: 'vector',
+    tiles: [geoAbsoluteUrl(conf.dir) + '/{z}/{x}/{y}.pbf'],
+    minzoom: conf.minzoom,
+    maxzoom: conf.maxzoom
   });
+  return conf;
 }
 
 // 从活动 location 提取跑过的省份(省/自治区/直辖市)
@@ -574,16 +632,17 @@ function updateRegionFill() {
 
   // 城市级: zoom > 6
   if (zoom > 6) {
-    if (!cityGeoData) return;
+    if (!geoTilesReady) return;
     var cities = extractCities();
     if (cities.length === 0) return;
-    map.addSource('geo-data', { type: 'geojson', data: cityGeoData });
+    var cityConf = addGeoTileSource('city');
     var cityFilter = ['in', 'name'];
     cities.forEach(function(c) { cityFilter.push(c); });
     map.addLayer({
       id: 'city-fill',
       type: 'fill',
       source: 'geo-data',
+      'source-layer': cityConf.layer,
       paint: {
         'fill-color': CITY_FILL_COLOR,
         'fill-opacity': 0.55
@@ -595,16 +654,17 @@ function updateRegionFill() {
 
   // 省级: 3 < zoom <= 6
   if (zoom > 3) {
-    if (!provinceGeoData) return;
+    if (!geoTilesReady) return;
     var provinces = extractProvinces();
     if (provinces.length === 0) return;
-    map.addSource('geo-data', { type: 'geojson', data: provinceGeoData });
+    var provinceConf = addGeoTileSource('province');
     var provinceFilter = ['in', 'name'];
     provinces.forEach(function(p) { provinceFilter.push(p); });
     map.addLayer({
       id: 'province-fill',
       type: 'fill',
       source: 'geo-data',
+      'source-layer': provinceConf.layer,
       paint: {
         'fill-color': PROVINCE_FILL_COLOR,
         'fill-opacity': 0.6
@@ -615,16 +675,17 @@ function updateRegionFill() {
   }
 
   // 国家级: zoom <= 3
-  if (!countryGeoData) return;
+  if (!geoTilesReady) return;
   var countries = extractCountries();
   if (countries.length === 0) return;
-  map.addSource('geo-data', { type: 'geojson', data: countryGeoData });
+  var countryConf = addGeoTileSource('country');
   var countryFilter = ['in', 'name'];
   countries.forEach(function(c) { countryFilter.push(c); });
   map.addLayer({
     id: 'country-fill',
     type: 'fill',
     source: 'geo-data',
+    'source-layer': countryConf.layer,
     paint: {
       'fill-color': COUNTRY_FILL_COLOR,
       'fill-opacity': ['case', ['==', ['get', 'name'], '中国'], 0.1, 0.5]
