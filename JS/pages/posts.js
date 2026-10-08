@@ -237,6 +237,11 @@ class PostManager extends FilterableListManager {
         this.updateLoadMoreSentinel(endIndex < postsToRender.length);
 
         this.bindPostFilterEvents();
+
+        // 同步分类/标签/系列徽章的激活态: 无限滚动追加渲染的路径不经过 applyFilters,
+        // 若不在此补一次, 追加页的系列徽章不会标亮 (2026-10-07 修复)
+        const urlParams = getUrlParams();
+        this.updateActiveStates(urlParams.getAll('category'), urlParams.getAll('tag'), urlParams.get('series'));
     }
 
     /**
