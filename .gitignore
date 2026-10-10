@@ -45,6 +45,7 @@ venv*/
 
 # 本地维护工具与源数据(前端不需要,不进 git)
 FIT/
+local/
 _sort_seats.py
 
 # scripts 源码与文档进 git,仅忽略环境/本机快捷方式
