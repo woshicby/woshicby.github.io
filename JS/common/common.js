@@ -268,6 +268,32 @@ async function fetchJSON(url, fallback = null) {
 }
 
 /**
+ * 带本地 overlay 的 JSON 加载（票据收藏双版本索引机制, 2026-10-13）
+ * 先加载主文件（发布版, 只索引已上传内容）, 再尝试加载本地 overlay 文件
+ * （gitignored, 索引本地磁盘全部图片, 由 scripts/tickets/regen_ticket_images.py 生成）。
+ * overlay 加载成功则合并: 同名 key 取 overlay 的路径列表（是发布版的超集）,
+ * overlay 独有 key 按字典序追加; overlay 404/缺失（远端站点）时静默只用发布版。
+ * @param {string} url - 主 JSON URL
+ * @param {string} overlayUrl - 本地 overlay JSON URL
+ * @param {*} [fallback=null] - 主文件加载失败时的返回值
+ * @returns {Promise<*>}
+ */
+async function fetchJSONWithLocalOverlay(url, overlayUrl, fallback = null) {
+    const main = await fetchJSON(url, fallback);
+    if (!main || typeof main !== 'object' || Array.isArray(main)) return main;
+    const overlay = await fetchJSON(overlayUrl, null);
+    if (!overlay || typeof overlay !== 'object' || Array.isArray(overlay)) return main;
+    const merged = {};
+    for (const k of Object.keys(main)) {
+        merged[k] = (k in overlay) ? overlay[k] : main[k];
+    }
+    for (const k of Object.keys(overlay).sort()) {
+        if (!(k in merged)) merged[k] = overlay[k];
+    }
+    return merged;
+}
+
+/**
  * 将时间格式的成绩转换为总秒数
  * 支持格式：'时:分:秒' 或 '分:秒'
  * @param {string} result - 时间字符串

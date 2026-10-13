@@ -191,7 +191,7 @@ class TicketsManager extends FilterableListManager {
      */
     async loadData() {
         const data = await fetchJSON('JSON/tickets.json', []);
-        const imageMap = await fetchJSON('JSON/ticket-images.json', {});
+        const imageMap = await fetchJSONWithLocalOverlay('JSON/ticket-images.json', 'JSON/ticket-images.local.json', {});
         this._imageMap = imageMap;
 
         // 卡片字段配置: 优先加载外部 JSON(可改 JSON 即生效), 失败/缺失回退内置默认

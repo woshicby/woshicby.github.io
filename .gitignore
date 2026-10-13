@@ -48,6 +48,10 @@ FIT/
 local/
 _sort_seats.py
 
+# 票据收藏本地全量索引(regen_ticket_images.py 生成, 含未上传/隐私图, 永不进 git)
+JSON/ticket-images.local.json
+JSON/ticket-image-dirs.local.json
+
 # scripts 源码与文档进 git,仅忽略环境/本机快捷方式
 scripts/.venv*/
 scripts/shortcuts/

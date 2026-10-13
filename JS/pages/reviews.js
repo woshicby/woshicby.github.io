@@ -59,7 +59,7 @@ class ReviewsManager extends FilterableListManager {
         // 加载票据数据（用于详情窗口中的观影记录）
         try {
             const ticketsData = await fetchJSON('JSON/tickets.json', []);
-            const imageMap = await fetchJSON('JSON/ticket-images.json', {});
+            const imageMap = await fetchJSONWithLocalOverlay('JSON/ticket-images.json', 'JSON/ticket-images.local.json', {});
             // 根据 日期_标题 自动匹配图片
             ticketsData.forEach(ticket => {
                 const date = ticket.date || '';
