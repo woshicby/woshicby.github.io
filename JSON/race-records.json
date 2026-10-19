@@ -642,6 +642,24 @@
             "activityLink": "sports-activity.html?id=1789255840000"
       },
       {
+            "id": 40,
+            "name": "2026青岛山海四季跑（秋季赛）",
+            "date": "2026-10-11",
+            "startTime": "08:30",
+            "location": "山东省青岛市崂山区浮山绿道",
+            "category": "路跑",
+            "event": "10km",
+            "distance": "10公里",
+            "status": "finished",
+            "accommodationBooked": "not-needed",
+            "result": "1:02:58",
+            "pace": "",
+            "season": "2026秋季",
+            "certification": [],
+            "eventSeries": "青岛山海四季跑",
+            "activityLink": "sports-activity.html?id=1791678221000"
+      },
+      {
             "id": 35,
             "name": "2026日照马拉松",
             "date": "2026-10-18",
@@ -650,10 +668,10 @@
             "category": "路跑",
             "event": "半程马拉松",
             "distance": "21.0975公里",
-            "status": "registered",
+            "status": "dns",
             "registrationOpen": "2026-07-01 10:00",
             "registrationClose": "2026-08-31",
-            "accommodationBooked": true,
+            "accommodationBooked": "checked-out",
             "result": "",
             "pace": "",
             "season": "2026秋季",
@@ -672,7 +690,7 @@
             "category": "路跑",
             "event": "马拉松",
             "distance": "42.195公里",
-            "status": "registered",
+            "status": "finished",
             "registrationOpen": "2026-06-26 10:18:00",
             "registrationClose": "2026-07-06 23:59:00",
             "lotteryResultDate": [
@@ -680,7 +698,7 @@
                   "2026-07-25 10:18:00"
             ],
             "accommodationBooked": true,
-            "result": "",
+            "result": "4:53:37",
             "pace": "",
             "season": "2026秋季",
             "certification": [
@@ -688,7 +706,7 @@
                   "国际金标"
             ],
             "eventSeries": "东营马拉松",
-            "activityLink": ""
+            "activityLink": "sports-activity.html?id=1792279920000"
       },
       {
             "id": 37,
@@ -755,24 +773,6 @@
             ],
             "eventSeries": "莆田木兰溪马拉松",
             "activityLink": ""
-      },
-      {
-            "id": 40,
-            "name": "2026青岛山海四季跑（秋季赛）",
-            "date": "2026-10-11",
-            "startTime": "08:30",
-            "location": "山东省青岛市崂山区浮山绿道",
-            "category": "路跑",
-            "event": "10km",
-            "distance": "10公里",
-            "status": "finished",
-            "accommodationBooked": "not-needed",
-            "result": "1:02:58",
-            "pace": "",
-            "season": "2026秋季",
-            "certification": [],
-            "eventSeries": "青岛山海四季跑",
-            "activityLink": "sports-activity.html?id=1791678221000"
       },
       {
             "id": 41,

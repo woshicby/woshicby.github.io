@@ -1,5 +1,155 @@
 ﻿[
   {
+    "type": "train",
+    "title": "D1673",
+    "date": "2026-10-18 19:55:00",
+    "location": "淄博站 → 青岛北站",
+    "hall": "",
+    "seat": [
+      "二等座 05车07A号"
+    ],
+    "price": 99.0,
+    "platform": "12306",
+    "note": "",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "淄博站",
+        "to": "青岛北站",
+        "departureTime": "19:55",
+        "arrivalTime": "21:28",
+        "duration": "",
+        "carriage": "05车",
+        "seatType": "二等座"
+      }
+    }
+  },
+  {
+    "type": "train",
+    "title": "K8342",
+    "date": "2026-10-18 17:16:00",
+    "location": "东营站 → 淄博站",
+    "hall": "",
+    "seat": [
+      "硬卧代硬座 11车21D号"
+    ],
+    "price": 15.5,
+    "platform": "12306",
+    "note": "",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "东营站",
+        "to": "淄博站",
+        "departureTime": "17:16",
+        "arrivalTime": "18:41",
+        "duration": "",
+        "carriage": "11车",
+        "seatType": "硬卧代硬座"
+      }
+    }
+  },
+  {
+    "type": "train",
+    "title": "K8333",
+    "date": "2026-10-17 11:23:00",
+    "location": "淄博站 → 东营站",
+    "hall": "",
+    "seat": [
+      "硬座 02车103号"
+    ],
+    "price": 15.5,
+    "platform": "12306",
+    "note": "",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "淄博站",
+        "to": "东营站",
+        "departureTime": "11:23",
+        "arrivalTime": "13:13",
+        "duration": "",
+        "carriage": "02车",
+        "seatType": "硬座"
+      }
+    }
+  },
+  {
+    "type": "train",
+    "title": "D6006",
+    "date": "2026-10-17 09:08:00",
+    "location": "青岛站 → 淄博站",
+    "hall": "",
+    "seat": [
+      "二等座 02车13A"
+    ],
+    "price": 105.0,
+    "platform": "12306",
+    "note": "静音车厢(票面标静)",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "青岛站",
+        "to": "淄博站",
+        "departureTime": "09:08",
+        "arrivalTime": "11:02",
+        "duration": "",
+        "carriage": "02车",
+        "seatType": "二等座"
+      }
+    }
+  },
+  {
+    "type": "train",
+    "title": "G1852",
+    "date": "2026-10-16 10:49:00",
+    "location": "日照西站 → 青岛北站",
+    "hall": "",
+    "seat": [
+      "二等座 02车03A"
+    ],
+    "price": 57.0,
+    "platform": "12306",
+    "note": "静音车厢、兑换票(票面标静兑)",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "日照西站",
+        "to": "青岛北站",
+        "departureTime": "10:49",
+        "arrivalTime": "11:58",
+        "duration": "",
+        "carriage": "02车",
+        "seatType": "二等座"
+      }
+    }
+  },
+  {
+    "type": "train",
+    "title": "G5573",
+    "date": "2026-10-16 08:33:00",
+    "location": "青岛北站 → 日照西站",
+    "hall": "",
+    "seat": [
+      "二等座 02车13A"
+    ],
+    "price": 57.0,
+    "platform": "12306",
+    "note": "静音车厢(票面标静)",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "青岛北站",
+        "to": "日照西站",
+        "departureTime": "08:33",
+        "arrivalTime": "09:38",
+        "duration": "",
+        "carriage": "02车",
+        "seatType": "二等座"
+      }
+    }
+  },
+  {
     "type": "movie",
     "title": "一个夜晚与三个夏天",
     "date": "2026-10-14 20:20:00",
@@ -9,8 +159,8 @@
       "5排6座"
     ],
     "price": 34.9,
-    "platform": "万达app",
-    "note": "万达app购票；票面票价26.9+服务费3+影厅服务费5=实付34.9；藏语版场",
+    "platform": "万达影城app",
+    "note": "万达影城app购票；票面票价26.9+服务费3+影厅服务费5=实付34.9；藏语版场",
     "subjectId": "36449264"
   },
   {
@@ -45,8 +195,8 @@
       "6排5座"
     ],
     "price": 0,
-    "platform": "万达app",
-    "note": "万达app购票；用W+会员券抵扣，实付0元",
+    "platform": "万达影城app",
+    "note": "万达影城app购票；用W+会员券抵扣，实付0元",
     "subjectId": "37247814"
   },
   {
@@ -70,8 +220,8 @@
       "7排8座"
     ],
     "price": 32.8,
-    "platform": "万达app",
-    "note": "万达app购票；同日另开万达W+会员随心年卡99元",
+    "platform": "万达影城app",
+    "note": "万达影城app购票；同日另开万达W+会员随心年卡99元",
     "subjectId": "37667015"
   },
   {

@@ -427,7 +427,10 @@ function generateRaceRecords() {
    generatePersonalRecords(racesWithResults);
    
    // 按赛季分组赛事记录
-   const racesBySeason = groupRacesBySeason(racesWithResults);
+   // 未参赛(DNS)且没有运动记录的不进赛事记录列表(留在赛程列表/日历); 有运动记录的 DNS 正常显示
+   const racesBySeason = groupRacesBySeason(racesWithResults.filter(race =>
+       !(race.status === 'dns' && !(race.activityLink && race.activityLink !== ''))
+   ));
    
    // 遍历每个赛季，生成HTML
    Object.keys(racesBySeason).forEach(season => {

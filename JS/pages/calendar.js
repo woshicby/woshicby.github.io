@@ -404,6 +404,7 @@ function showRaceTooltip(event, races) {
            if (booked === true) accText = '已定房';
            else if (booked === false) accText = '未定房';
            else if (booked === 'not-needed') accText = '无需定房';
+           else if (booked === 'checked-out') accText = '已退房';
            if (accText) {
                content += `
                    <div class="race-tooltip-item">
@@ -1114,6 +1115,8 @@ function createRaceItemElement(race, isPendingLottery = false) {
             extraInfoItems.push(`<span class="race-info-item acc-not-booked">❌ 未定房</span>`);
         } else if (booked === 'not-needed') {
             extraInfoItems.push(`<span class="race-info-item acc-not-needed">— 无需定房</span>`);
+        } else if (booked === 'checked-out') {
+            extraInfoItems.push(`<span class="race-info-item acc-not-needed">🚪 已退房</span>`);
         }
     }
     
