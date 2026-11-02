@@ -525,6 +525,11 @@ function generateRaceRecords() {
            // 未参赛(DNS)赛事: 没有成绩, 成绩栏按状态给出说明文字
            const isDns = race.status === 'dns';
            const resultText = (race.result && race.result !== '') ? race.result : (isDns ? 'DNS（未参赛）' : '—');
+           // 未参加原因: 有原因时按 DNF "已跑" 行的同款排布注明
+           const dnsReasonHTML = (isDns && race.dnsReason) ? `
+                   <div class="race-dnf-info">
+                       <strong>原因：</strong> ${race.dnsReason}
+                   </div>` : '';
           
            const raceItem = document.createElement('div');
            raceItem.className = 'race-item';
@@ -552,6 +557,7 @@ function generateRaceRecords() {
                        <strong>距离:</strong> ${race.distance}
                    </div>
                    ${dnfCellsHTML}
+                   ${dnsReasonHTML}
                    ${race.pace ? `<div class="race-pace">
                        <strong>配速:</strong> ${race.pace}
                    </div>` : ''}

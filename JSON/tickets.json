@@ -1,5 +1,144 @@
 ﻿[
   {
+    "type": "movie",
+    "title": "小羊肖恩3：怪兽来袭",
+    "date": "2026-11-01 19:25:00",
+    "location": "万达影城(城阳万达广场店)",
+    "hall": "7号厅",
+    "seat": [
+      "5排3座"
+    ],
+    "price": 37.0,
+    "platform": "万达影城app",
+    "note": "万达影城app购票；票价37",
+    "subjectId": "37344902"
+  },
+  {
+    "type": "train",
+    "title": "C6562",
+    "date": "2026-11-01 12:59:00",
+    "location": "烟台站 → 青岛北站",
+    "hall": "",
+    "seat": [
+      "一等座 01车08C号"
+    ],
+    "price": 118.0,
+    "platform": "12306",
+    "note": "",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "烟台站",
+        "to": "青岛北站",
+        "departureTime": "12:59",
+        "arrivalTime": "14:20",
+        "duration": "1小时21分",
+        "carriage": "01车",
+        "seatType": "一等座"
+      }
+    }
+  },
+  {
+    "type": "train",
+    "title": "C147",
+    "date": "2026-10-31 15:23:00",
+    "location": "青岛北站 → 芝罘",
+    "hall": "",
+    "seat": [
+      "二等座 07车19A号"
+    ],
+    "price": 52.0,
+    "platform": "12306",
+    "note": "5200铁路畅行积分兑换（52.0元）",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "青岛北站",
+        "to": "芝罘",
+        "departureTime": "15:23",
+        "arrivalTime": "16:59",
+        "duration": "1小时36分",
+        "carriage": "07车",
+        "seatType": "二等座"
+      }
+    }
+  },
+  {
+    "type": "movie",
+    "title": "象行记",
+    "date": "2026-10-31 11:25:00",
+    "location": "万达影城(城阳万达广场店)",
+    "hall": "5号厅(激光)",
+    "seat": [
+      "6排6座"
+    ],
+    "price": 19.9,
+    "platform": "万达影城app",
+    "note": "万达影城app购票；实付19.9；订单1500006521（2026-10-30 19:26下单）；中文2D场",
+    "subjectId": "36464801"
+  },
+  {
+    "type": "train",
+    "title": "G73",
+    "date": "2026-10-27 17:56:00",
+    "location": "北京南站 → 青岛北站",
+    "hall": "",
+    "seat": [
+      "二等座 03车17A号"
+    ],
+    "price": 364.0,
+    "platform": "12306",
+    "note": "",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "北京南站",
+        "to": "青岛北站",
+        "departureTime": "17:56",
+        "arrivalTime": "21:03",
+        "duration": "3小时7分",
+        "carriage": "03车",
+        "seatType": "二等座"
+      }
+    }
+  },
+  {
+    "type": "train",
+    "title": "D26",
+    "date": "2026-10-23 20:45:00",
+    "location": "青岛北站 → 北京站",
+    "hall": "",
+    "seat": [
+      "一等卧 14车02号上铺"
+    ],
+    "price": 429.0,
+    "platform": "12306",
+    "note": "",
+    "subjectId": "",
+    "details": {
+      "train": {
+        "from": "青岛北站",
+        "to": "北京站",
+        "departureTime": "20:45",
+        "arrivalTime": "05:21",
+        "duration": "8小时36分",
+        "carriage": "14车",
+        "seatType": "一等卧"
+      }
+    }
+  },
+  {
+    "type": "other",
+    "title": "超市购物",
+    "date": "2026-10-22 19:25:44",
+    "location": "乐尔乐特价批发超市",
+    "hall": "",
+    "seat": [],
+    "price": 58.4,
+    "platform": "支付宝",
+    "note": "盒装[品名模糊]7.99/斤×0.363斤=2.90 + 小袋子0.20 + 散蟹味[品名模糊]15.98/斤×0.125斤=2.00 + 70gQQ糖(荔枝)会员价3.40 + 黄糯玉米2.5×2=5.00 + 伊利纯牛奶200ml×24会员价44.90，原价合计59.50，折让1.10，实付58.40"
+  },
+  {
     "type": "train",
     "title": "D1673",
     "date": "2026-10-18 19:55:00",
@@ -1221,18 +1360,20 @@
   },
   {
     "type": "flight",
-    "title": "CZ9431",
-    "date": "2025-12-26 12:55:00",
+    "title": "QW6099",
+    "date": "2025-12-26 13:15:00",
     "location": "威海大水泊 → 宁波栎社T1",
     "hall": "",
-    "seat": [],
+    "seat": [
+      "21A"
+    ],
     "price": null,
     "platform": "",
-    "note": "",
+    "note": "登机牌仅印登机时间12:15, 13:15-15:10按航线常规时刻估计; 票号CZ441047348697(南航出票)",
     "subjectId": "",
     "details": {
       "flight": {
-        "scheduledTime": "12:55-14:55"
+        "scheduledTime": "13:15-15:10"
       }
     }
   },
@@ -2595,7 +2736,7 @@
     ],
     "price": 189.5,
     "platform": "12306",
-    "note": "",
+    "note": "检票口: 南、北门二楼(实物票, 2026-10-24 电子票更新)",
     "subjectId": "",
     "details": {
       "train": {

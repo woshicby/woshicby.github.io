@@ -1120,6 +1120,11 @@ function createRaceItemElement(race, isPendingLottery = false) {
         }
     }
     
+    // 未参加原因(DNS)
+    if (race.status === 'dns' && race.dnsReason) {
+        extraInfoItems.push(`<span class="race-info-item acc-not-needed">原因：${race.dnsReason}</span>`);
+    }
+    
     if (extraInfoItems.length > 0) {
         extraInfoHTML = `<div class="upcoming-race-extra-info">${extraInfoItems.join('')}</div>`;
     }

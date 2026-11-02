@@ -1,0 +1,1757 @@
+{
+   "_comment": "锻刀模拟器配置数据(维护人员直接编辑本文件)。刀剑/概率/保底/限时锻刀事件全部在此, 页面 JS 只保留逻辑。修改后刷新页面生效。限锻事件含 bwiki 存档区全量导入(102 条, 2020.05-2023.01, 按时间倒序): formula=allNNN 即四资源均为 NNN 的精确公式; formula=null 为无公式事件(限锻刀并入所属刀种池, 按普通锻刀锻造, 不累计显现积分); swordNames 为群体事件(天下五剑, 出任一即算限锻刀)。",
+   "version": 1,
+   "resources": {
+      "min": 50,
+      "max": 999,
+      "initial": 500000
+   },
+   "rarity": {
+      "weights": {
+         "common": 5,
+         "rare": 1.6,
+         "veryRare": 0.3,
+         "legendary": 0.1
+      },
+      "forgeTimes": {
+         "common": 10,
+         "rare": 45,
+         "veryRare": 88,
+         "legendary": 630
+      },
+      "names": {
+         "common": "普通",
+         "rare": "稀有",
+         "veryRare": "非常稀有",
+         "legendary": "传说"
+      }
+   },
+   "swordTypes": {
+      "short": {
+         "name": "短刀",
+         "baseProbability": 0.4,
+         "swords": [
+            {
+               "name": "今剑",
+               "rarity": "common"
+            },
+            {
+               "name": "平野藤四郎",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "厚藤四郎",
+               "rarity": "rare"
+            },
+            {
+               "name": "后藤藤四郎",
+               "rarity": "rare"
+            },
+            {
+               "name": "信浓藤四郎",
+               "rarity": "rare"
+            },
+            {
+               "name": "秋田藤四郎",
+               "rarity": "common"
+            },
+            {
+               "name": "前田藤四郎",
+               "rarity": "common"
+            },
+            {
+               "name": "包丁藤四郎",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "博多藤四郎",
+               "rarity": "common"
+            },
+            {
+               "name": "乱藤四郎",
+               "rarity": "common"
+            },
+            {
+               "name": "药研藤四郎",
+               "rarity": "common"
+            },
+            {
+               "name": "爱染国俊",
+               "rarity": "common"
+            },
+            {
+               "name": "太鼓钟贞宗",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "小夜左文字",
+               "rarity": "common"
+            },
+            {
+               "name": "不动行光",
+               "rarity": "legendary"
+            },
+            {
+               "name": "毛利藤四郎",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "谦信景光",
+               "rarity": "legendary"
+            },
+            {
+               "name": "日向正宗",
+               "rarity": "common"
+            }
+         ]
+      },
+      "wakizashi": {
+         "name": "胁差",
+         "baseProbability": 0.2,
+         "swords": [
+            {
+               "name": "堀川国广",
+               "rarity": "common"
+            },
+            {
+               "name": "浦岛虎彻",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "鲶尾藤四郎",
+               "rarity": "common"
+            },
+            {
+               "name": "骨喰藤四郎",
+               "rarity": "rare"
+            },
+            {
+               "name": "笑面青江",
+               "rarity": "common"
+            },
+            {
+               "name": "物吉贞宗",
+               "rarity": "legendary"
+            }
+         ]
+      },
+      "uchigatana": {
+         "name": "打刀",
+         "baseProbability": 0.15,
+         "swords": [
+            {
+               "name": "鸣狐",
+               "rarity": "rare"
+            },
+            {
+               "name": "千子村正",
+               "rarity": "legendary"
+            },
+            {
+               "name": "龟甲贞宗",
+               "rarity": "legendary"
+            },
+            {
+               "name": "宗三左文字",
+               "rarity": "rare"
+            },
+            {
+               "name": "加州清光",
+               "rarity": "common"
+            },
+            {
+               "name": "大和守安定",
+               "rarity": "common"
+            },
+            {
+               "name": "歌仙兼定",
+               "rarity": "common"
+            },
+            {
+               "name": "和泉守兼定",
+               "rarity": "rare"
+            },
+            {
+               "name": "陆奥守吉行",
+               "rarity": "common"
+            },
+            {
+               "name": "山姥切国广",
+               "rarity": "common"
+            },
+            {
+               "name": "蜂须贺虎彻",
+               "rarity": "rare"
+            },
+            {
+               "name": "长曾祢虎彻",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "大俱利伽罗",
+               "rarity": "rare"
+            },
+            {
+               "name": "压切长谷部",
+               "rarity": "common"
+            },
+            {
+               "name": "同田贯正国",
+               "rarity": "rare"
+            }
+         ]
+      },
+      "tachi": {
+         "name": "太刀",
+         "baseProbability": 0.1,
+         "swords": [
+            {
+               "name": "三日月宗近",
+               "rarity": "legendary"
+            },
+            {
+               "name": "小狐丸",
+               "rarity": "legendary"
+            },
+            {
+               "name": "数珠丸恒次",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "一期一振",
+               "rarity": "rare"
+            },
+            {
+               "name": "莺丸",
+               "rarity": "rare"
+            },
+            {
+               "name": "明石国行",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "烛台切光忠",
+               "rarity": "common"
+            },
+            {
+               "name": "小龙景光",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "江雪左文字",
+               "rarity": "rare"
+            },
+            {
+               "name": "山伏国广",
+               "rarity": "common"
+            },
+            {
+               "name": "髭切",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "膝丸",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "狮子王",
+               "rarity": "common"
+            },
+            {
+               "name": "小乌丸",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "鹤丸国永",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "小豆长光",
+               "rarity": "legendary"
+            },
+            {
+               "name": "大典太光世",
+               "rarity": "legendary"
+            },
+            {
+               "name": "大般若长光",
+               "rarity": "veryRare"
+            }
+         ]
+      },
+      "odachi": {
+         "name": "大太刀",
+         "baseProbability": 0.05,
+         "swords": [
+            {
+               "name": "太郎太刀",
+               "rarity": "common"
+            },
+            {
+               "name": "次郎太刀",
+               "rarity": "rare"
+            },
+            {
+               "name": "萤丸",
+               "rarity": "veryRare"
+            },
+            {
+               "name": "石切丸",
+               "rarity": "rare"
+            }
+         ]
+      },
+      "naginata": {
+         "name": "薙刀",
+         "baseProbability": 0.05,
+         "swords": [
+            {
+               "name": "岩融",
+               "rarity": "common"
+            },
+            {
+               "name": "静形薙刀",
+               "rarity": "legendary"
+            },
+            {
+               "name": "巴形薙刀",
+               "rarity": "rare"
+            }
+         ]
+      },
+      "spear": {
+         "name": "枪",
+         "baseProbability": 0.05,
+         "swords": [
+            {
+               "name": "日本号",
+               "rarity": "legendary"
+            },
+            {
+               "name": "蜻蛉切",
+               "rarity": "common"
+            },
+            {
+               "name": "御手杵",
+               "rarity": "rare"
+            }
+         ]
+      },
+      "ken": {
+         "name": "剑",
+         "baseProbability": 0.01,
+         "swords": [
+            {
+               "name": "白山吉光",
+               "rarity": "legendary"
+            }
+         ]
+      }
+   },
+   "officialFormulaRules": [
+      {
+         "table": "allShort",
+         "when": {
+            "charcoal": [
+               "lt",
+               100
+            ],
+            "steel": [
+               "lt",
+               100
+            ],
+            "coolant": [
+               "lt",
+               100
+            ],
+            "whetstone": [
+               "lt",
+               100
+            ]
+         }
+      },
+      {
+         "table": "odachi",
+         "when": {
+            "charcoal": [
+               "gte",
+               500
+            ],
+            "steel": [
+               "gte",
+               600
+            ],
+            "coolant": [
+               "gte",
+               500
+            ],
+            "whetstone": [
+               "gte",
+               350
+            ]
+         }
+      },
+      {
+         "table": "naginata",
+         "when": {
+            "charcoal": [
+               "gte",
+               400
+            ],
+            "steel": [
+               "gte",
+               500
+            ],
+            "coolant": [
+               "gte",
+               700
+            ],
+            "whetstone": [
+               "gte",
+               700
+            ]
+         }
+      },
+      {
+         "table": "spear",
+         "when": {
+            "charcoal": [
+               "gte",
+               400
+            ],
+            "steel": [
+               "gte",
+               50
+            ],
+            "coolant": [
+               "gte",
+               500
+            ],
+            "whetstone": [
+               "gte",
+               500
+            ]
+         }
+      },
+      {
+         "table": "tachiNoShort",
+         "when": {
+            "charcoal": [
+               "gte",
+               300
+            ],
+            "steel": [
+               "gte",
+               400
+            ],
+            "coolant": [
+               "gte",
+               300
+            ],
+            "whetstone": [
+               "gte",
+               350
+            ]
+         }
+      },
+      {
+         "table": "tachiWithShort",
+         "when": {
+            "charcoal": [
+               "gte",
+               300
+            ],
+            "steel": [
+               "gte",
+               350
+            ],
+            "coolant": [
+               "gte",
+               300
+            ],
+            "whetstone": [
+               "gte",
+               350
+            ]
+         }
+      },
+      {
+         "table": "uchigatana",
+         "when": {
+            "charcoal": [
+               "gte",
+               100
+            ],
+            "steel": [
+               "gte",
+               200
+            ],
+            "coolant": [
+               "gte",
+               200
+            ],
+            "whetstone": [
+               "gte",
+               100
+            ]
+         }
+      }
+   ],
+   "officialFormulas": {
+      "allShort": {
+         "short": 1
+      },
+      "odachi": {
+         "uchigatana": 0.705,
+         "tachi": 0.091,
+         "odachi": 0.204,
+         "ken": 0.001
+      },
+      "naginata": {
+         "uchigatana": 0.741,
+         "tachi": 0.178,
+         "naginata": 0.081,
+         "ken": 0.001
+      },
+      "spear": {
+         "short": 0.283,
+         "wakizashi": 0.159,
+         "uchigatana": 0.384,
+         "tachi": 0.072,
+         "spear": 0.102,
+         "ken": 0.001
+      },
+      "tachiNoShort": {
+         "wakizashi": 0.237,
+         "uchigatana": 0.661,
+         "tachi": 0.102,
+         "ken": 0.001
+      },
+      "tachiWithShort": {
+         "short": 0.338,
+         "wakizashi": 0.172,
+         "uchigatana": 0.415,
+         "tachi": 0.075,
+         "ken": 0.001
+      },
+      "uchigatana": {
+         "short": 0.399,
+         "wakizashi": 0.194,
+         "uchigatana": 0.407,
+         "ken": 0.001
+      }
+   },
+   "heuristic": {
+      "tiers": [
+         {
+            "maxTotal": 100,
+            "boost": {
+               "short": 1.8,
+               "wakizashi": 1.5
+            }
+         },
+         {
+            "maxTotal": 300,
+            "boost": {
+               "uchigatana": 1.6,
+               "tachi": 1.4
+            }
+         }
+      ],
+      "highBoost": {
+         "odachi": 2,
+         "naginata": 1.8,
+         "spear": 1.8,
+         "ken": 2
+      },
+      "specialCombos": [
+         {
+            "when": {
+               "steel": [
+                  "gt",
+                  200
+               ],
+               "whetstone": [
+                  "gt",
+                  200
+               ]
+            },
+            "boost": {
+               "tachi": 2.2
+            }
+         },
+         {
+            "when": {
+               "charcoal": [
+                  "gt",
+                  150
+               ],
+               "coolant": [
+                  "gt",
+                  150
+               ]
+            },
+            "boost": {
+               "odachi": 1.8
+            }
+         }
+      ]
+   },
+   "pity": [
+      {
+         "mod": 1000,
+         "value": 13,
+         "type": "spear"
+      },
+      {
+         "mod": 1000,
+         "value": 11,
+         "type": "naginata"
+      },
+      {
+         "mod": 100,
+         "value": 7,
+         "type": "odachi"
+      },
+      {
+         "mod": 20,
+         "value": 5,
+         "type": "tachi"
+      },
+      {
+         "mod": 10,
+         "value": 3,
+         "type": "wakizashi"
+      },
+      {
+         "mod": 10,
+         "value": 2,
+         "type": "uchigatana"
+      }
+   ],
+   "timeLimit": {
+      "pointsPerForge": 50,
+      "guaranteePoints": 5000,
+      "events": [
+         {
+            "id": "onimaru-202610",
+            "title": "鬼丸国纲(示例事件)",
+            "swordName": "鬼丸国纲",
+            "formula": {
+               "charcoal": 500,
+               "steel": 600,
+               "coolant": 700,
+               "whetstone": 500
+            },
+            "specialProbability": 5
+         },
+         {
+            "id": "arch-20230108",
+            "title": "2023.01.08-01.22 治金丸 all400锻刀概率提升",
+            "dates": "2023.01.08-01.22",
+            "specialProbability": 5,
+            "swordName": "治金丸",
+            "formula": {
+               "charcoal": 400,
+               "steel": 400,
+               "coolant": 400,
+               "whetstone": 400
+            }
+         },
+         {
+            "id": "arch-20230101",
+            "title": "2023.01.01-01.08 鬼丸国纲 all500锻刀概率提升",
+            "dates": "2023.01.01-01.08",
+            "specialProbability": 5,
+            "swordName": "鬼丸国纲",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20221222",
+            "title": "2022.12.22-12.29 大般若长光 all800锻刀概率提升",
+            "dates": "2022.12.22-12.29",
+            "specialProbability": 5,
+            "swordName": "大般若长光",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20221201",
+            "title": "2022.12.01-12.08 日光一文字 all500锻刀概率提升",
+            "dates": "2022.12.01-12.08",
+            "specialProbability": 5,
+            "swordName": "日光一文字",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20221117",
+            "title": "2022.11.17-11.24 巴形薙刀 all700锻刀概率提升",
+            "dates": "2022.11.17-11.24",
+            "specialProbability": 5,
+            "swordName": "巴形薙刀",
+            "formula": {
+               "charcoal": 700,
+               "steel": 700,
+               "coolant": 700,
+               "whetstone": 700
+            }
+         },
+         {
+            "id": "arch-20221110",
+            "title": "2022.11.10-11.17 静形薙刀 all700锻刀概率提升",
+            "dates": "2022.11.10-11.17",
+            "specialProbability": 5,
+            "swordName": "静形薙刀",
+            "formula": {
+               "charcoal": 700,
+               "steel": 700,
+               "coolant": 700,
+               "whetstone": 700
+            }
+         },
+         {
+            "id": "arch-20221103",
+            "title": "2022.11.03-11.10 大千鸟十文字枪 all600锻刀概率提升",
+            "dates": "2022.11.03-11.10",
+            "specialProbability": 5,
+            "swordName": "大千鸟十文字枪",
+            "formula": {
+               "charcoal": 600,
+               "steel": 600,
+               "coolant": 600,
+               "whetstone": 600
+            }
+         },
+         {
+            "id": "arch-20221013",
+            "title": "2022.10.13-10.20 大般若长光 all800锻刀概率提升",
+            "dates": "2022.10.13-10.20",
+            "specialProbability": 5,
+            "swordName": "大般若长光",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20221001",
+            "title": "2022.10.01-10.08 姬鹤一文字 all700锻刀概率提升",
+            "dates": "2022.10.01-10.08",
+            "specialProbability": 5,
+            "swordName": "姬鹤一文字",
+            "formula": {
+               "charcoal": 700,
+               "steel": 700,
+               "coolant": 700,
+               "whetstone": 700
+            }
+         },
+         {
+            "id": "arch-20220915",
+            "title": "2022.09.15-09.22 谦信景光 all300锻刀概率提升",
+            "dates": "2022.09.15-09.22",
+            "specialProbability": 5,
+            "swordName": "谦信景光",
+            "formula": {
+               "charcoal": 300,
+               "steel": 300,
+               "coolant": 300,
+               "whetstone": 300
+            }
+         },
+         {
+            "id": "arch-20220908",
+            "title": "2022.09.08-09.15 小豆长光 all800锻刀概率提升",
+            "dates": "2022.09.08-09.15",
+            "specialProbability": 5,
+            "swordName": "小豆长光",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20220818",
+            "title": "2022.08.18-08.25 天下五剑 all777锻刀概率提升",
+            "dates": "2022.08.18-08.25",
+            "specialProbability": 5,
+            "swordNames": [
+               "三日月宗近",
+               "数珠丸恒次",
+               "大典太光世",
+               "鬼丸国纲",
+               "大包平"
+            ],
+            "formula": {
+               "charcoal": 777,
+               "steel": 777,
+               "coolant": 777,
+               "whetstone": 777
+            }
+         },
+         {
+            "id": "arch-20220804",
+            "title": "2022.08.04-08.11 小龙景光 all800锻刀概率提升",
+            "dates": "2022.08.04-08.11",
+            "specialProbability": 5,
+            "swordName": "小龙景光",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20220728",
+            "title": "2022.07.28-08.04 白山吉光 限时锻刀概率提升",
+            "dates": "2022.07.28-08.04",
+            "specialProbability": 0,
+            "swordName": "白山吉光",
+            "formula": null
+         },
+         {
+            "id": "arch-20220726",
+            "title": "2022.07.26-07.28 小狐丸 连续锻刀概率UP",
+            "dates": "2022.07.26-07.28",
+            "specialProbability": 0,
+            "swordName": "小狐丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20220724",
+            "title": "2022.07.24-07.26 萤丸 连续锻刀概率UP",
+            "dates": "2022.07.24-07.26",
+            "specialProbability": 0,
+            "swordName": "萤丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20220722",
+            "title": "2022.07.22-07.24 一期一振 连续锻刀概率UP",
+            "dates": "2022.07.22-07.24",
+            "specialProbability": 0,
+            "swordName": "一期一振",
+            "formula": null
+         },
+         {
+            "id": "arch-20220720",
+            "title": "2022.07.20-07.22 鹤丸国永 连续锻刀概率UP",
+            "dates": "2022.07.20-07.22",
+            "specialProbability": 0,
+            "swordName": "鹤丸国永",
+            "formula": null
+         },
+         {
+            "id": "arch-20220718",
+            "title": "2022.07.18-07.20 莺丸 连续锻刀概率UP",
+            "dates": "2022.07.18-07.20",
+            "specialProbability": 0,
+            "swordName": "莺丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20220716",
+            "title": "2022.07.16-07.18 江雪左文字 连续锻刀概率UP",
+            "dates": "2022.07.16-07.18",
+            "specialProbability": 0,
+            "swordName": "江雪左文字",
+            "formula": null
+         },
+         {
+            "id": "arch-20220708",
+            "title": "2022.07.08-07.14 泛尘 all500锻刀概率提升",
+            "dates": "2022.07.08-07.14",
+            "specialProbability": 5,
+            "swordName": "泛尘",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20220623",
+            "title": "2022.06.23-06.30 姬鹤一文字 all800锻刀概率提升",
+            "dates": "2022.06.23-06.30",
+            "specialProbability": 5,
+            "swordName": "姬鹤一文字",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20220616",
+            "title": "2022.06.16-06.23 村云江 all500锻刀概率提升",
+            "dates": "2022.06.16-06.23",
+            "specialProbability": 5,
+            "swordName": "村云江",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20220609",
+            "title": "2022.06.09-06.16 五月雨江 all500锻刀概率提升",
+            "dates": "2022.06.09-06.16",
+            "specialProbability": 5,
+            "swordName": "五月雨江",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20220526",
+            "title": "2022.05.26-06.02 大千鸟十文字枪 all600锻刀概率提升",
+            "dates": "2022.05.26-06.02",
+            "specialProbability": 5,
+            "swordName": "大千鸟十文字枪",
+            "formula": {
+               "charcoal": 600,
+               "steel": 600,
+               "coolant": 600,
+               "whetstone": 600
+            }
+         },
+         {
+            "id": "arch-20220519",
+            "title": "2022.05.19-05.26 巴形薙刀 限时锻刀概率提升",
+            "dates": "2022.05.19-05.26",
+            "specialProbability": 0,
+            "swordName": "巴形薙刀",
+            "formula": null
+         },
+         {
+            "id": "arch-20220512",
+            "title": "2022.05.12-05.19 静形薙刀 all700锻刀概率提升",
+            "dates": "2022.05.12-05.19",
+            "specialProbability": 5,
+            "swordName": "静形薙刀",
+            "formula": {
+               "charcoal": 700,
+               "steel": 700,
+               "coolant": 700,
+               "whetstone": 700
+            }
+         },
+         {
+            "id": "arch-20220508",
+            "title": "2022.05.08-05.15 博多藤四郎 限时锻刀概率提升",
+            "dates": "2022.05.08-05.15",
+            "specialProbability": 0,
+            "swordName": "博多藤四郎",
+            "formula": null
+         },
+         {
+            "id": "arch-20220428",
+            "title": "2022.04.28-05.05 鬼丸国纲 all500锻刀概率提升",
+            "dates": "2022.04.28-05.05",
+            "specialProbability": 5,
+            "swordName": "鬼丸国纲",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20220421",
+            "title": "2022.04.21-04.28 日向正宗 all300锻刀概率提升",
+            "dates": "2022.04.21-04.28",
+            "specialProbability": 5,
+            "swordName": "日向正宗",
+            "formula": {
+               "charcoal": 300,
+               "steel": 300,
+               "coolant": 300,
+               "whetstone": 300
+            }
+         },
+         {
+            "id": "arch-20220414",
+            "title": "2022.04.14-04.21 日本号 all800锻刀概率提升",
+            "dates": "2022.04.14-04.21",
+            "specialProbability": 5,
+            "swordName": "日本号",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20220331",
+            "title": "2022.03.31-04.07 博多藤四郎 锻刀概率提升",
+            "dates": "2022.03.31-04.07",
+            "specialProbability": 0,
+            "swordName": "博多藤四郎",
+            "formula": null
+         },
+         {
+            "id": "arch-20220310",
+            "title": "2022.03.10-03.17 村云江 all500锻刀概率提升",
+            "dates": "2022.03.10-03.17",
+            "specialProbability": 5,
+            "swordName": "村云江",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20220224",
+            "title": "2022.02.24-03.03 五月雨江 all500锻刀概率提升",
+            "dates": "2022.02.24-03.03",
+            "specialProbability": 5,
+            "swordName": "五月雨江",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20220217",
+            "title": "2022.02.17-02.24 泛尘 all500锻刀概率提升",
+            "dates": "2022.02.17-02.24",
+            "specialProbability": 5,
+            "swordName": "泛尘",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20220210",
+            "title": "2022.02.10-02.17 小龙景光 all800锻刀概率提升",
+            "dates": "2022.02.10-02.17",
+            "specialProbability": 5,
+            "swordName": "小龙景光",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20220113",
+            "title": "2022.01.13-02.01 千代金丸 all500锻刀概率提升",
+            "dates": "2022.01.13-02.01",
+            "specialProbability": 5,
+            "swordName": "千代金丸",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20211230",
+            "title": "2021.12.30-01.06 大典太光世 all800锻刀概率提升",
+            "dates": "2021.12.30-01.06",
+            "specialProbability": 5,
+            "swordName": "大典太光世",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20211209",
+            "title": "2021.12.09-12.16 日光一文字 all500锻刀概率提升",
+            "dates": "2021.12.09-12.16",
+            "specialProbability": 5,
+            "swordName": "日光一文字",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20211125",
+            "title": "2021.11.25-12.02 小乌丸 all800锻刀概率提升",
+            "dates": "2021.11.25-12.02",
+            "specialProbability": 5,
+            "swordName": "小乌丸",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20211111",
+            "title": "2021.11.11-11.18 白山吉光 限时锻刀",
+            "dates": "2021.11.11-11.18",
+            "specialProbability": 0,
+            "swordName": "白山吉光",
+            "formula": null
+         },
+         {
+            "id": "arch-20211104",
+            "title": "2021.11.04-11.11 静形薙刀 all700锻刀概率UP",
+            "dates": "2021.11.04-11.11",
+            "specialProbability": 5,
+            "swordName": "静形薙刀",
+            "formula": {
+               "charcoal": 700,
+               "steel": 700,
+               "coolant": 700,
+               "whetstone": 700
+            }
+         },
+         {
+            "id": "arch-20211021",
+            "title": "2021.10.21-10.28 谦信景光 all300锻刀概率UP",
+            "dates": "2021.10.21-10.28",
+            "specialProbability": 5,
+            "swordName": "谦信景光",
+            "formula": {
+               "charcoal": 300,
+               "steel": 300,
+               "coolant": 300,
+               "whetstone": 300
+            }
+         },
+         {
+            "id": "arch-20211014",
+            "title": "2021.10.14-10.21 日向正宗 all300锻刀概率UP",
+            "dates": "2021.10.14-10.21",
+            "specialProbability": 5,
+            "swordName": "日向正宗",
+            "formula": {
+               "charcoal": 300,
+               "steel": 300,
+               "coolant": 300,
+               "whetstone": 300
+            }
+         },
+         {
+            "id": "arch-20211001",
+            "title": "2021.10.01-10.08 泛尘 all500锻刀概率UP",
+            "dates": "2021.10.01-10.08",
+            "specialProbability": 5,
+            "swordName": "泛尘",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20210916",
+            "title": "2021.09.16-09.23 鬼丸国纲 all500锻刀概率UP",
+            "dates": "2021.09.16-09.23",
+            "specialProbability": 5,
+            "swordName": "鬼丸国纲",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20210902",
+            "title": "2021.09.02-09.16 松井江 all500锻刀概率UP",
+            "dates": "2021.09.02-09.16",
+            "specialProbability": 5,
+            "swordName": "松井江",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20210826",
+            "title": "2021.08.26-09.02 桑名江 all500锻刀概率UP",
+            "dates": "2021.08.26-09.02",
+            "specialProbability": 5,
+            "swordName": "桑名江",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20210819",
+            "title": "2021.08.19-08.26 小豆长光 all800锻刀概率UP",
+            "dates": "2021.08.19-08.26",
+            "specialProbability": 5,
+            "swordName": "小豆长光",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20210812",
+            "title": "2021.08.12-08.19 小龙景光 all800锻刀概率UP",
+            "dates": "2021.08.12-08.19",
+            "specialProbability": 5,
+            "swordName": "小龙景光",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20210805",
+            "title": "2021.08.05-08.12 大般若长光 all800锻刀概率UP",
+            "dates": "2021.08.05-08.12",
+            "specialProbability": 5,
+            "swordName": "大般若长光",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20210729",
+            "title": "2021.07.29-08.04 日光一文字 all800锻刀概率UP",
+            "dates": "2021.07.29-08.04",
+            "specialProbability": 5,
+            "swordName": "日光一文字",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20210727",
+            "title": "2021.07.27-07.29 小狐丸 连续锻刀概率UP",
+            "dates": "2021.07.27-07.29",
+            "specialProbability": 0,
+            "swordName": "小狐丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20210725",
+            "title": "2021.07.25-07.27 萤丸 连续锻刀概率UP",
+            "dates": "2021.07.25-07.27",
+            "specialProbability": 0,
+            "swordName": "萤丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20210723",
+            "title": "2021.07.23-07.25 一期一振 连续锻刀概率UP",
+            "dates": "2021.07.23-07.25",
+            "specialProbability": 0,
+            "swordName": "一期一振",
+            "formula": null
+         },
+         {
+            "id": "arch-20210721",
+            "title": "2021.07.21-07.23 鹤丸国永 连续锻刀概率UP",
+            "dates": "2021.07.21-07.23",
+            "specialProbability": 0,
+            "swordName": "鹤丸国永",
+            "formula": null
+         },
+         {
+            "id": "arch-20210719",
+            "title": "2021.07.19-07.21 莺丸 连续锻刀概率UP",
+            "dates": "2021.07.19-07.21",
+            "specialProbability": 0,
+            "swordName": "莺丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20210717",
+            "title": "2021.07.17-07.19 江雪左文字 连续锻刀概率UP",
+            "dates": "2021.07.17-07.19",
+            "specialProbability": 0,
+            "swordName": "江雪左文字",
+            "formula": null
+         },
+         {
+            "id": "arch-20210715",
+            "title": "2021.07.15-07.17 小乌丸 连续锻刀概率UP",
+            "dates": "2021.07.15-07.17",
+            "specialProbability": 0,
+            "swordName": "小乌丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20210708",
+            "title": "2021.07.08-07.15 泛尘 all500锻刀概率UP",
+            "dates": "2021.07.08-07.15",
+            "specialProbability": 5,
+            "swordName": "泛尘",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20210617",
+            "title": "2021.06.17-06.24 小乌丸 all800锻刀概率UP",
+            "dates": "2021.06.17-06.24",
+            "specialProbability": 5,
+            "swordName": "小乌丸",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20210610",
+            "title": "2021.06.10-06.17 松井江 all500锻刀概率UP",
+            "dates": "2021.06.10-06.17",
+            "specialProbability": 5,
+            "swordName": "松井江",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20210527",
+            "title": "2021.05.27-06.03 博多藤四郎 限时锻刀锻刀概率UP",
+            "dates": "2021.05.27-06.03",
+            "specialProbability": 0,
+            "swordName": "博多藤四郎",
+            "formula": null
+         },
+         {
+            "id": "arch-20210501",
+            "title": "2021.05.01-05.08 桑名江 all500锻刀概率UP",
+            "dates": "2021.05.01-05.08",
+            "specialProbability": 5,
+            "swordName": "桑名江",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20210408",
+            "title": "2021.04.08-04.15 大典太光世 all800锻刀概率UP",
+            "dates": "2021.04.08-04.15",
+            "specialProbability": 5,
+            "swordName": "大典太光世",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20210401",
+            "title": "2021.04.01-04.08 丰前江 all500锻刀概率UP",
+            "dates": "2021.04.01-04.08",
+            "specialProbability": 5,
+            "swordName": "丰前江",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20210309",
+            "title": "2021.03.09-03.11 小狐丸 连续锻刀概率UP",
+            "dates": "2021.03.09-03.11",
+            "specialProbability": 0,
+            "swordName": "小狐丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20210307",
+            "title": "2021.03.07-03.09 萤丸 连续锻刀概率UP",
+            "dates": "2021.03.07-03.09",
+            "specialProbability": 0,
+            "swordName": "萤丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20210305",
+            "title": "2021.03.05-03.07 一期一振 连续锻刀概率UP",
+            "dates": "2021.03.05-03.07",
+            "specialProbability": 0,
+            "swordName": "一期一振",
+            "formula": null
+         },
+         {
+            "id": "arch-20210303",
+            "title": "2021.03.03-03.05 鹤丸国永 连续锻刀概率UP",
+            "dates": "2021.03.03-03.05",
+            "specialProbability": 0,
+            "swordName": "鹤丸国永",
+            "formula": null
+         },
+         {
+            "id": "arch-20210301",
+            "title": "2021.03.01-03.03 莺丸 连续锻刀概率UP",
+            "dates": "2021.03.01-03.03",
+            "specialProbability": 0,
+            "swordName": "莺丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20210227",
+            "title": "2021.02.27-03.01 江雪左文字 连续锻刀概率UP",
+            "dates": "2021.02.27-03.01",
+            "specialProbability": 0,
+            "swordName": "江雪左文字",
+            "formula": null
+         },
+         {
+            "id": "arch-20210225",
+            "title": "2021.02.25-02.27 小乌丸 连续锻刀概率UP",
+            "dates": "2021.02.25-02.27",
+            "specialProbability": 0,
+            "swordName": "小乌丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20210218",
+            "title": "2021.02.18-02.25 鬼丸国纲 all400锻刀概率UP",
+            "dates": "2021.02.18-02.25",
+            "specialProbability": 5,
+            "swordName": "鬼丸国纲",
+            "formula": {
+               "charcoal": 400,
+               "steel": 400,
+               "coolant": 400,
+               "whetstone": 400
+            }
+         },
+         {
+            "id": "arch-20210211",
+            "title": "2021.02.11-02.18 日光一文字 all500锻刀概率UP",
+            "dates": "2021.02.11-02.18",
+            "specialProbability": 5,
+            "swordName": "日光一文字",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20210128",
+            "title": "2021.01.28-02.11 北谷菜切 all300锻刀概率UP",
+            "dates": "2021.01.28-02.11",
+            "specialProbability": 5,
+            "swordName": "北谷菜切",
+            "formula": {
+               "charcoal": 300,
+               "steel": 300,
+               "coolant": 300,
+               "whetstone": 300
+            }
+         },
+         {
+            "id": "arch-20210115",
+            "title": "2021.01.15-01.21 日向正宗 all300锻刀概率UP",
+            "dates": "2021.01.15-01.21",
+            "specialProbability": 5,
+            "swordName": "日向正宗",
+            "formula": {
+               "charcoal": 300,
+               "steel": 300,
+               "coolant": 300,
+               "whetstone": 300
+            }
+         },
+         {
+            "id": "arch-20210108",
+            "title": "2021.01.08-01.15 小豆长光 all800锻刀概率UP",
+            "dates": "2021.01.08-01.15",
+            "specialProbability": 5,
+            "swordName": "小豆长光",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20210101",
+            "title": "2021.01.01-01.08 白山吉光 连续锻刀概率UP",
+            "dates": "2021.01.01-01.08",
+            "specialProbability": 0,
+            "swordName": "白山吉光",
+            "formula": null
+         },
+         {
+            "id": "arch-20201217",
+            "title": "2020.12.17-12.24 大典太光世 all800锻刀概率UP",
+            "dates": "2020.12.17-12.24",
+            "specialProbability": 5,
+            "swordName": "大典太光世",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20201119",
+            "title": "2020.11.19-11.26 丰前江 all500锻刀概率UP",
+            "dates": "2020.11.19-11.26",
+            "specialProbability": 5,
+            "swordName": "丰前江",
+            "formula": {
+               "charcoal": 500,
+               "steel": 500,
+               "coolant": 500,
+               "whetstone": 500
+            }
+         },
+         {
+            "id": "arch-20201001",
+            "title": "2020.10.01-10.07 鬼丸国纲 all400锻刀概率UP",
+            "dates": "2020.10.01-10.07",
+            "specialProbability": 5,
+            "swordName": "鬼丸国纲",
+            "formula": {
+               "charcoal": 400,
+               "steel": 400,
+               "coolant": 400,
+               "whetstone": 400
+            }
+         },
+         {
+            "id": "arch-20200924",
+            "title": "2020.09.24-10.01 静形薙刀 all700锻刀概率UP",
+            "dates": "2020.09.24-10.01",
+            "specialProbability": 5,
+            "swordName": "静形薙刀",
+            "formula": {
+               "charcoal": 700,
+               "steel": 700,
+               "coolant": 700,
+               "whetstone": 700
+            }
+         },
+         {
+            "id": "arch-20200910",
+            "title": "2020.09.10-09.17 小豆长光 all800锻刀概率UP",
+            "dates": "2020.09.10-09.17",
+            "specialProbability": 5,
+            "swordName": "小豆长光",
+            "formula": {
+               "charcoal": 800,
+               "steel": 800,
+               "coolant": 800,
+               "whetstone": 800
+            }
+         },
+         {
+            "id": "arch-20200828",
+            "title": "2020.08.28-09.03 数珠丸恒次 连续锻刀概率UP",
+            "dates": "2020.08.28-09.03",
+            "specialProbability": 0,
+            "swordName": "数珠丸恒次",
+            "formula": null
+         },
+         {
+            "id": "arch-20200820",
+            "title": "2020.08.20-08.27 三日月宗近 连续锻刀概率UP",
+            "dates": "2020.08.20-08.27",
+            "specialProbability": 0,
+            "swordName": "三日月宗近",
+            "formula": null
+         },
+         {
+            "id": "arch-20200813",
+            "title": "2020.08.13-08.20 大典太光世 连续锻刀概率UP",
+            "dates": "2020.08.13-08.20",
+            "specialProbability": 0,
+            "swordName": "大典太光世",
+            "formula": null
+         },
+         {
+            "id": "arch-20200804",
+            "title": "2020.08.04-08.05 明石国行 连续锻刀概率UP",
+            "dates": "2020.08.04-08.05",
+            "specialProbability": 0,
+            "swordName": "明石国行",
+            "formula": null
+         },
+         {
+            "id": "arch-20200802",
+            "title": "2020.08.02-08.03 萤丸 连续锻刀概率UP",
+            "dates": "2020.08.02-08.03",
+            "specialProbability": 0,
+            "swordName": "萤丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20200731",
+            "title": "2020.07.31-08.01 一期一振 连续锻刀概率UP",
+            "dates": "2020.07.31-08.01",
+            "specialProbability": 0,
+            "swordName": "一期一振",
+            "formula": null
+         },
+         {
+            "id": "arch-20200729",
+            "title": "2020.07.29-07.30 鹤丸国永 连续锻刀概率UP",
+            "dates": "2020.07.29-07.30",
+            "specialProbability": 0,
+            "swordName": "鹤丸国永",
+            "formula": null
+         },
+         {
+            "id": "arch-20200727",
+            "title": "2020.07.27-07.28 莺丸 连续锻刀概率UP",
+            "dates": "2020.07.27-07.28",
+            "specialProbability": 0,
+            "swordName": "莺丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20200725",
+            "title": "2020.07.25-07.26 江雪左文字 连续锻刀概率UP",
+            "dates": "2020.07.25-07.26",
+            "specialProbability": 0,
+            "swordName": "江雪左文字",
+            "formula": null
+         },
+         {
+            "id": "arch-20200723",
+            "title": "2020.07.23-07.24 小狐丸 连续锻刀概率UP",
+            "dates": "2020.07.23-07.24",
+            "specialProbability": 0,
+            "swordName": "小狐丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20200716",
+            "title": "2020.07.16-07.23 白山吉光 限时锻刀",
+            "dates": "2020.07.16-07.23",
+            "specialProbability": 0,
+            "swordName": "白山吉光",
+            "formula": null
+         },
+         {
+            "id": "arch-20200709",
+            "title": "2020.07.09-07.16 大般若长光 限时锻刀",
+            "dates": "2020.07.09-07.16",
+            "specialProbability": 0,
+            "swordName": "大般若长光",
+            "formula": null
+         },
+         {
+            "id": "arch-20200702",
+            "title": "2020.07.02-07.09 日向正宗 限时锻刀概率提升",
+            "dates": "2020.07.02-07.09",
+            "specialProbability": 0,
+            "swordName": "日向正宗",
+            "formula": null
+         },
+         {
+            "id": "arch-20200625",
+            "title": "2020.06.25-07.02 日本号 限时锻刀概率提升",
+            "dates": "2020.06.25-07.02",
+            "specialProbability": 0,
+            "swordName": "日本号",
+            "formula": null
+         },
+         {
+            "id": "arch-20200611",
+            "title": "2020.06.11-06.18 明石国行 限时锻刀概率提升",
+            "dates": "2020.06.11-06.18",
+            "specialProbability": 0,
+            "swordName": "明石国行",
+            "formula": null
+         },
+         {
+            "id": "arch-20200601",
+            "title": "2020.06.01-06.11 萤丸 限时锻刀概率提升",
+            "dates": "2020.06.01-06.11",
+            "specialProbability": 0,
+            "swordName": "萤丸",
+            "formula": null
+         },
+         {
+            "id": "arch-20200521",
+            "title": "2020.05.21-05.28 长曾祢虎彻 限时锻刀概率提升",
+            "dates": "2020.05.21-05.28",
+            "specialProbability": 0,
+            "swordName": "长曾祢虎彻",
+            "formula": null
+         },
+         {
+            "id": "arch-20200514",
+            "title": "2020.05.14-05.21 大般若长光 限时锻刀",
+            "dates": "2020.05.14-05.21",
+            "specialProbability": 0,
+            "swordName": "大般若长光",
+            "formula": null
+         }
+      ]
+   }
+}

@@ -73,6 +73,14 @@ body.dark-theme {
    margin-bottom: var(--spacing-md);
 }
 
+/* 开始锻造 + 使用限锻公式(限锻模式) 并排 */
+.forge-button-row {
+   display: flex;
+   gap: 12px;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+
 .forge-buttons {
    display: flex;
    flex-direction: column;
@@ -97,6 +105,26 @@ body.dark-theme {
 
 .forge-button:hover {
    background-color: var(--primary-hover-color);
+}
+
+/* 次级按钮: 使用限锻公式 */
+.forge-button-secondary {
+   background-color: transparent;
+   color: var(--primary-color);
+   border: 2px solid var(--primary-color);
+   padding: calc(var(--spacing-md) - 2px) var(--spacing-xl);
+}
+
+.forge-button-secondary:hover {
+   background-color: var(--primary-hover-color);
+   color: var(--white);
+}
+
+.forge-button-secondary:disabled {
+   background-color: var(--text-muted);
+   color: var(--white);
+   border-color: var(--text-muted);
+   cursor: not-allowed;
 }
 
 .forge-button:disabled {
@@ -166,35 +194,46 @@ body.dark-theme {
    margin-bottom: var(--spacing-xs);
 }
 
-.rarity {
-   padding: var(--spacing-xs) var(--spacing-sm);
-   border-radius: var(--border-radius-md);
-   font-size: var(--font-size-14px);
-   font-weight: var(--font-weight-bold);
+/* 十连锻刀: 10 格结果格(锻造中=空图+逐把倒计时; 结算=刀图+刀名, 全部展示) */
+/* 格子图与单把 .result-image 同尺寸(150×200), 故十连模式下结果区加宽 */
+.result-section-grid {
+   max-width: 840px;
+}
+
+.result-grid {
+   display: grid;
+   grid-template-columns: repeat(5, 1fr);
+   gap: 10px 8px;
+   justify-items: center;
+   margin-top: var(--spacing-sm);
+   width: 100%;
+}
+
+.result-grid .slot-image,
+.result-grid .cell-image {
    width: 150px;
-   text-align: center;
-   box-sizing: border-box;
+   height: 200px;
+   object-fit: cover;
+   border: 3px solid var(--border-color);
+   border-radius: var(--border-radius-md);
+   background-color: var(--card-bg-color);
 }
 
-.rarity.common {
-   background-color: var(--light-accent);
+.result-grid .slot-timer,
+.result-grid .cell-name {
+   display: block;
+   margin-top: 4px;
+   font-size: 12px;
+   font-weight: var(--font-weight-normal);
    color: var(--text-color);
+   text-align: center;
+   max-width: 100%;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
 }
 
-.rarity.rare {
-   background-color: var(--rarity-rare-bg);
-   color: var(--rarity-rare-fg);
-}
-
-.rarity.veryRare {
-   background-color: var(--rarity-vr-bg);
-   color: var(--rarity-vr-fg);
-}
-
-.rarity.legendary {
-   background-color: var(--rarity-legend-bg);
-   color: var(--rarity-legend-fg);
-}
+/* 稀有度为隐藏数据(仅供内部运算), 界面不展示 */
 
 .collection-header {
    display: flex;
@@ -285,6 +324,14 @@ body.dark-theme {
    margin-bottom: var(--spacing-sm-plus);
 }
 
+.collection-item-actions {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 4px;
+   justify-content: center;
+   margin-top: auto;
+}
+
 .delete-sword-btn {
    padding: var(--spacing-2xs) var(--spacing-sm-plus);
    background: var(--color-error);
@@ -294,11 +341,42 @@ body.dark-theme {
    cursor: pointer;
    font-size: var(--font-size-12px);
    transition: var(--transition-default);
-   margin-top: auto;
 }
 
 .delete-sword-btn:hover {
    background: var(--color-error-deep);
+}
+
+/* 只留一把: 保留该刀 1 把, 其余全部刀解 */
+.keep-only-btn {
+   padding: var(--spacing-2xs) var(--spacing-sm-plus);
+   background: var(--primary-color);
+   color: var(--white);
+   border: none;
+   border-radius: var(--border-radius-sm);
+   cursor: pointer;
+   font-size: var(--font-size-12px);
+   transition: var(--transition-default);
+}
+
+.keep-only-btn:hover {
+   background: var(--primary-hover-color);
+}
+
+/* 全部刀解: 刀解当前模式刀账所有刀剑(比单把刀解色更深以示批量) */
+.delete-all-btn {
+   padding: var(--spacing-2xs) var(--spacing-sm-plus);
+   background: var(--color-error-deep);
+   color: var(--white);
+   border: none;
+   border-radius: var(--border-radius-sm);
+   cursor: pointer;
+   font-size: var(--font-size-12px);
+   transition: var(--transition-default);
+}
+
+.delete-all-btn:hover {
+   background: var(--color-error);
 }
 
 /* 数据管理按钮 - 统一配色方案 */
@@ -587,15 +665,6 @@ body.dark-theme .action-btn.secondary {
    border-width: 1.5px;
 }
 
-/* 增强稀有度标签的边框清晰度 */
-body.dark-theme .rarity.common,
-body.dark-theme .rarity.rare,
-body.dark-theme .rarity.veryRare,
-body.dark-theme .rarity.legendary {
-   border-width: 2px;
-   border-style: solid;
-}
-
 /* 使用common.css中定义的标准文本颜色变量 */
 body.dark-theme .log-entry {
    opacity: 0.95; /* 略微提高不透明度 */
@@ -639,6 +708,15 @@ body.dark-theme .forge-button {
 
 body.dark-theme .forge-button:hover {
    background-color: var(--dark-primary-hover-color); /* 与日间模式保持一致的交互效果 */
+}
+
+/* 夜间禁用态: 须盖过上面的 body.dark-theme .forge-button(特异性 0,2,1 > :disabled 的 0,2,0),
+   否则禁用与启用同色; 放 hover 规则之后保证禁用优先于 hover */
+body.dark-theme .forge-button:disabled {
+   background-color: var(--text-muted);
+   color: var(--primary-color);
+   border-color: var(--text-muted);
+   cursor: not-allowed;
 }
 
 body.dark-theme .skip-button {
@@ -717,4 +795,249 @@ body.dark-theme .rarity.legendary {
     .mainbox {
         padding: var(--spacing-lg);
     }
+}
+
+/* ==========================================
+   限时锻刀特别版(移植自 bwiki) + 锻造模式选择(日常锻刀/限锻)
+   模式框/限锻信息框/统计栏之间统一间距 15px(spacing-md)
+   ========================================== */
+
+.timelimit-section {
+   background-color: var(--white);
+   padding: var(--spacing-md);
+   border-radius: var(--border-radius-md);
+   border: 1px solid var(--border-color);
+}
+
+/* 盖过全站 [class$="-section"]{margin-bottom:20px}(ID 特异性更高), 统一为 15px */
+#timeLimitSection {
+   margin-bottom: var(--spacing-md);
+}
+
+.timelimit-header {
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-sm);
+   flex-wrap: wrap;
+}
+
+.mode-selector {
+   margin-top: var(--spacing-md);
+   margin-bottom: var(--spacing-md);
+   display: flex;
+   align-items: center;
+   gap: var(--spacing-sm);
+   background-color: var(--white);
+   padding: var(--spacing-sm) var(--spacing-md);
+   border-radius: var(--border-radius-md);
+   border: 1px solid var(--border-color);
+}
+
+.mode-selector label {
+   font-weight: var(--font-weight-semibold);
+   color: var(--text-color);
+}
+
+.mode-selector select {
+   flex: 1;
+   min-width: 200px;
+   padding: 6px 8px;
+   border: 1px solid var(--border-color);
+   border-radius: 4px;
+   background: var(--white);
+   color: var(--text-color);
+}
+
+.timelimit-status {
+   font-size: 0.9em;
+   color: var(--text-muted);
+}
+
+.timelimit-status.active {
+   color: var(--primary-color);
+   font-weight: var(--font-weight-semibold);
+}
+
+.timelimit-title {
+   font-weight: var(--font-weight-semibold);
+   color: var(--text-color);
+}
+
+.timelimit-info {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--spacing-xs) var(--spacing-lg);
+   margin-top: var(--spacing-sm);
+   padding: var(--spacing-sm) var(--spacing-md);
+   border-radius: var(--border-radius-md);
+   background: var(--white);
+   border: 1px dashed var(--border-color);
+   font-size: 0.95em;
+   color: var(--text-color);
+}
+
+.timelimit-info b {
+   color: var(--primary-color);
+}
+
+.timelimit-hint {
+   margin-top: var(--spacing-sm);
+   font-size: 0.85em;
+   color: var(--text-muted);
+   line-height: 1.6;
+}
+
+.timelimit-stats {
+   margin-top: var(--spacing-md);
+   padding-top: var(--spacing-sm);
+   border-top: 1px solid var(--border-color);
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--spacing-md);
+   font-size: 0.9em;
+   color: var(--text-color);
+}
+
+.timelimit-stats span:first-child {
+   font-weight: var(--font-weight-semibold);
+   color: var(--primary-color);
+}
+
+/* 限锻刀获得结果页(分享卡) */
+.tl-card-overlay {
+   position: fixed;
+   inset: 0;
+   z-index: 1000;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   gap: 16px;
+   padding: 24px;
+   background: rgba(10, 12, 20, 0.82);
+   backdrop-filter: blur(4px);
+}
+
+.tl-card-overlay canvas {
+   width: min(720px, 100%);
+   height: auto;
+   border-radius: 16px;
+   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+}
+
+.tl-card-actions {
+   display: flex;
+   gap: 12px;
+}
+
+.tl-card-actions button {
+   padding: 10px 28px;
+   font-size: 16px;
+   font-weight: var(--font-weight-semibold);
+   border-radius: 8px;
+   border: none;
+   cursor: pointer;
+}
+
+.tl-card-save {
+   background: var(--primary-color);
+   color: #fff;
+}
+
+.tl-card-save:hover {
+   filter: brightness(1.1);
+}
+
+.tl-card-continue {
+   background: transparent;
+   color: #e8e2d0;
+   border: 1px solid rgba(232, 226, 208, 0.5);
+}
+
+.tl-card-continue:hover {
+   background: rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================
+   夜间模式 - 模式选择/限锻面板
+   (站点变量 --white 在暗色下仍是纯白,
+    卡片底需显式用随主题切换的 --card-bg-color)
+   ========================================== */
+body.dark-theme .mode-selector,
+body.dark-theme .timelimit-section,
+body.dark-theme .timelimit-info {
+   background-color: var(--card-bg-color);
+   border-color: var(--border-color);
+}
+
+/* 夜间强调色: 日间用 --primary-color(深色) 的值/状态在暗底上近乎不可见,
+   夜间改 --secondary-color(亮蓝)。注意 span:first-child 会命中
+   "文本节点后的 span"(三个数值 span 都是各自父级的首个元素子节点) */
+body.dark-theme .timelimit-status.active,
+body.dark-theme .timelimit-info b,
+body.dark-theme .timelimit-stats span:first-child {
+   color: var(--secondary-color);
+}
+
+body.dark-theme .mode-selector select {
+   background-color: var(--card-bg-color);
+   color: var(--text-color);
+}
+
+/* ==========================================
+   自动锻刀(移植自 bwiki GodSummon: 数量 N + 速度 ms/把, 逐把出结果)
+   ========================================== */
+.auto-forge-row {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+   flex-wrap: wrap;
+   margin-top: calc(var(--spacing-sm) / 2);
+}
+
+.auto-forge-label {
+   font-weight: var(--font-weight-semibold);
+   color: var(--text-color);
+   font-size: var(--font-size-16px);
+}
+
+.auto-forge-field {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+   font-size: 14px;
+   color: var(--text-color);
+}
+
+.auto-forge-input {
+   width: 110px;
+   text-align: center;
+   padding: 4px 6px;
+   border: 1px solid var(--border-color);
+   border-radius: 4px;
+   background: var(--white);
+   color: var(--text-color);
+   font-size: 14px;
+}
+
+.auto-forge-unit {
+   font-size: 12px;
+   color: var(--text-muted);
+}
+
+/* 自动锻刀出的限锻刀(自动模式不弹分享卡, 结果格金框区分) */
+.forge-result-cell.tl-special .cell-image {
+   border-color: #c9a86a;
+}
+
+body.dark-theme .auto-forge-label,
+body.dark-theme .auto-forge-field {
+   color: var(--text-color);
+}
+
+body.dark-theme .auto-forge-input {
+   background-color: var(--card-bg-color);
+   color: var(--text-color);
+   border-color: var(--border-color);
 }

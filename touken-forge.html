@@ -84,6 +84,31 @@
                <!-- 标签按钮由JS动态生成 -->
            </div>
 
+           <!-- 锻造模式选择(日常锻刀/限锻, 各模式存档独立) -->
+           <div class="mode-selector">
+               <label for="modeSelect">锻造模式</label>
+               <select id="modeSelect"></select>
+           </div>
+
+           <!-- 限时锻刀特别版(配置见 JSON/touken-forge-config.json, 只读展示; 限锻模式存档独立) -->
+           <div class="timelimit-section" id="timeLimitSection" style="display:none;">
+               <div class="timelimit-header">
+                   <span class="timelimit-title">⏱ 限时锻刀特别版</span>
+                   <span id="timeLimitStatus" class="timelimit-status active">限锻事件生效中</span>
+               </div>
+               <div class="timelimit-info">
+                   <div>限锻刀: <b id="tlSwordName">-</b></div>
+                   <div>特殊锻刀公式: <b id="tlFormula">-</b></div>
+                   <div>特殊概率: <b id="tlSpecialProb">-</b>% / 显现积分保底: <b id="tlGuarantee">-</b></div>
+               </div>
+               <div class="timelimit-stats" id="timeLimitStats">
+                   <span>显现积分: <span id="tlPoints">0</span></span>
+                   <span>限锻刀(特殊概率): <span id="tlSpecialCount">0</span></span>
+                   <span>限锻刀(显现积分保底): <span id="tlGuaranteeCount">0</span></span>
+               </div>
+               <p class="timelimit-hint">四资源与特殊锻刀公式完全相同时, 本次计为限锻锻造: 每次 +50 显现积分, 显现积分满保底值直接获得限锻刀(显现积分清零), 未满时按特殊概率有机会获得限锻刀。限锻刀不进普通锻刀池, 本模式存档与日常锻刀相互独立。无公式的限锻事件(如连续锻刀概率UP类): 限锻刀并入所属刀种池, 按普通锻刀锻造, 不累计显现积分。限锻事件由维护人员在 <code>JSON/touken-forge-config.json</code> 中配置(含 bwiki 存档区全量导入, 2020.05-2023.01 共 102 条)。</p>
+           </div>
+
            <!-- 统计信息区域 -->
            <div class="stats-container">
                <span>锻刀次数: <span id="forgeCount">0</span></span>
@@ -117,17 +142,29 @@
 
            <!-- 锻造区域 -->
            <div class="forge-section">
-               <button id="forgeButton" class="forge-button">开始锻造</button>
+               <div class="forge-button-row">
+                   <button id="forgeButton" class="forge-button">开始锻造</button>
+                   <button id="tenFoldButton" class="forge-button forge-button-secondary" title="一次性使用 9 份资源, 启动 10 次锻刀（较单锻×10 省 1 份）">十连锻刀</button>
+                   <button id="useFormulaBtn" class="forge-button forge-button-secondary" style="display:none;">使用限锻公式</button>
+               </div>
+               <!-- 自动锻刀(移植自 bwiki MediaWiki:Building.js GodSummon: 数量 N + 速度 ms, 逐把出结果, 锻刀时间不等真实时间) -->
+               <div class="auto-forge-row">
+                   <span class="auto-forge-label">自动锻刀</span>
+                   <label class="auto-forge-field">数量 <input id="autoCountInput" class="auto-forge-input" type="number" min="1" max="1000" step="1" value="10"></label>
+                   <label class="auto-forge-field">速度 <input id="autoSpeedInput" class="auto-forge-input" type="number" min="10" max="60000" step="10" value="100"><span class="auto-forge-unit">ms/把</span></label>
+                   <button id="autoForgeButton" class="forge-button forge-button-secondary">开始自动锻刀</button>
+                   <button id="autoStopButton" class="forge-button forge-button-secondary" style="display:none;">停止自动锻刀</button>
+               </div>
                <button id="speedUpButton" class="forge-button" style="display:none;">使用加速符</button>
                <div id="forgeStatus" class="forge-status">准备就绪</div>
                <div id="forgeTimer" class="forge-timer" style="display: none;">00:00</div>
            </div>
 
-           <!-- 结果区域 -->
+           <!-- 结果区域: 单把=大图+刀名; 十连锻造中=10(空图+倒计时); 十连结算=10 把刀图+刀名 -->
            <div id="resultContainer" class="result-section">
                <img id="resultImage" class="result-image" src="./images/touken/刀账图标/no_touken.jpg" alt="锻造结果">
                <div id="resultName" class="result-name">未知刀剑</div>
-               <div id="resultRarity" class="rarity common">普通</div>
+               <div id="resultGrid" class="result-grid" style="display:none;"></div>
            </div>
 
            <!-- 已有刀剑区域 -->
