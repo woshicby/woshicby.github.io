@@ -194,7 +194,7 @@
             "pace": "",
             "season": "2024春季",
             "certification": [],
-            "eventSeries": "莆田木兰溪马拉松",
+            "eventSeries": "莆田马拉松接力赛",
             "activityLink": "sports-activity.html?id=1722696736000"
       },
       {
@@ -255,7 +255,7 @@
       },
       {
             "id": 15,
-            "name": "2024莆田木兰溪马拉松",
+            "name": "2024木兰溪杯莆田马拉松",
             "date": "2024-12-29",
             "startTime": "07:30",
             "location": "福建省莆田市荔城区木兰溪治理展览馆",
@@ -269,7 +269,7 @@
             "certification": [
                   "A1"
             ],
-            "eventSeries": "莆田木兰溪马拉松",
+            "eventSeries": "木兰溪杯莆田马拉松",
             "activityLink": "sports-activity.html?id=1735428728000"
       },
       {
@@ -487,7 +487,7 @@
       },
       {
             "id": 27,
-            "name": "2025莆田木兰溪马拉松",
+            "name": "2025木兰溪杯莆田马拉松",
             "date": "2025-12-28",
             "startTime": "07:30",
             "location": "福建省莆田市荔城区木兰溪治理展览馆",
@@ -501,7 +501,7 @@
             "certification": [
                   "A1"
             ],
-            "eventSeries": "莆田木兰溪马拉松",
+            "eventSeries": "木兰溪杯莆田马拉松",
             "activityLink": "sports-activity.html?id=1766878363000"
       },
       {
@@ -752,20 +752,22 @@
                   "A1"
             ],
             "eventSeries": "烟台马拉松",
-            "activityLink": ""
+            "activityLink": "sports-activity.html?id=1793490069000"
       },
       {
             "id": 39,
-            "name": "2026莆田木兰溪马拉松",
+            "name": "2026木兰溪杯莆田马拉松",
             "date": "2026-12-20",
             "startTime": "07:30",
             "location": "福建省莆田市荔城区木兰溪治理展览馆",
             "category": "路跑",
             "event": "马拉松",
             "distance": "42.195公里",
-            "status": "待报名",
-            "registrationOpen": "2026-09-01",
-            "registrationClose": "2026-12-01",
+            "status": "待抽签",
+            "registrationOpen": "2026-11-06 17:00",
+            "registrationClose": "2026-11-13 17:00",
+            "lotteryResultDate": "2026-11-18 17:00",
+            "paymentDeadline": "2026-11-22 17:00",
             "accommodationBooked": "not-needed",
             "result": "",
             "pace": "",
@@ -773,7 +775,7 @@
             "certification": [
                   "A1"
             ],
-            "eventSeries": "莆田木兰溪马拉松",
+            "eventSeries": "木兰溪杯莆田马拉松",
             "activityLink": ""
       },
       {

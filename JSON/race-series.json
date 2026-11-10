@@ -61,5 +61,11 @@
       "lotteryHistory": [
          {"year": 2026, "lottery": "未中签"}
       ]
+   },
+   {
+      "eventSeries": "木兰溪杯莆田马拉松",
+      "lotteryHistory": [
+         {"year": 2026, "lottery": "待抽签"}
+      ]
    }
 ]

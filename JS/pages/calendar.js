@@ -383,6 +383,13 @@ function showRaceTooltip(event, races) {
                    <span class="race-tooltip-label">状态：</span>${lotteryLabel}
                </div>
            `;
+           if (race.paymentDeadline) {
+               content += `
+                   <div class="race-tooltip-item">
+                       <span class="race-tooltip-label">缴费截止：</span>${race.paymentDeadline}
+                   </div>
+               `;
+           }
        } else if (isPastRace) {
            content += `
                <div class="race-tooltip-item">
@@ -1104,6 +1111,11 @@ function createRaceItemElement(race, isPendingLottery = false) {
             ? race.lotteryResultDate.join(' / ') 
             : race.lotteryResultDate;
         extraInfoItems.push(`<span class="race-info-item lottery-date">出签：${dateDisplay}</span>`);
+    }
+    
+    // 待抽签：显示缴费截止时间
+    if (isPendingLottery && race.paymentDeadline) {
+        extraInfoItems.push(`<span class="race-info-item lottery-date">缴费截止：${race.paymentDeadline}</span>`);
     }
     
     // 定房状态
